@@ -1,0 +1,588 @@
+<!DOCTYPE html> <html lang="ja"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>船井電機 破産手続きと民事再生法の攻防</title> <style> @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Yomogi&family=Zen+Kurenaido&display=swap'); @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+:root {
+  --color-1: #2E578C;
+  --color-2: #182D40;
+  --color-3: #BF807A;
+  --color-4: #592A2A;
+  --color-5: #F2F2F2;
+}
+
+body {
+  font-family: 'Zen Kurenaido', sans-serif;
+  background-color: var(--color-5);
+  margin: 0;
+  padding: 20px;
+  color: var(--color-2);
+  line-height: 1.4;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 15px;
+  border-bottom: 3px solid var(--color-1);
+  background-color: rgba(46, 87, 140, 0.1);
+  border-radius: 12px;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-family: 'Kaisei Decol', serif;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+  background: linear-gradient(45deg, var(--color-1), var(--color-4));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.title-icon {
+  font-size: 3rem;
+  color: var(--color-1);
+  margin: 0 15px;
+}
+
+.date-source {
+  font-family: 'Yomogi', cursive;
+  font-size: 14px;
+  color: var(--color-4);
+  text-align: right;
+}
+
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.column {
+  flex: 1;
+  min-width: calc(33% - 20px);
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  color: var(--color-1);
+  opacity: 0.2;
+}
+
+.section-title {
+  font-size: 18px;
+  color: var(--color-1);
+  margin-top: 0;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.section-title i {
+  margin-right: 10px;
+  font-size: 1.5rem;
+}
+
+.content-text {
+  font-size: 14px;
+  color: var(--color-2);
+}
+
+.keyword {
+  font-weight: bold;
+  color: var(--color-4);
+  border-bottom: 2px solid var(--color-3);
+  display: inline-flex;
+  align-items: center;
+}
+
+.keyword i {
+  margin-left: 5px;
+  color: var(--color-3);
+}
+
+.highlight {
+  background-color: rgba(191, 128, 122, 0.2);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.timeline {
+  position: relative;
+  margin: 20px 0;
+  padding-left: 30px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: var(--color-1);
+  border-radius: 5px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--color-3);
+}
+
+.timeline-date {
+  font-family: 'Yomogi', cursive;
+  font-size: 12px;
+  color: var(--color-1);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.timeline-date i {
+  margin-right: 5px;
+}
+
+.note {
+  background-color: rgba(46, 87, 140, 0.1);
+  border-left: 3px solid var(--color-1);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.note-title {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.note-title i {
+  margin-right: 8px;
+  color: var(--color-4);
+}
+
+.connection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+  color: var(--color-1);
+}
+
+.connection i {
+  margin: 0 10px;
+}
+
+.connection-line {
+  flex-grow: 1;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--color-1), var(--color-1) 5px, transparent 5px, transparent 10px);
+}
+
+.verdict {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin: 15px 0;
+  padding: 10px;
+  background: rgba(89, 42, 42, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verdict i {
+  margin-right: 10px;
+  color: var(--color-4);
+}
+
+.future-plan {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.future-plan i {
+  margin-right: 10px;
+  color: var(--color-1);
+}
+
+.background-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  z-index: -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.background-pattern i {
+  font-size: 3rem;
+  margin: 30px;
+  color: var(--color-2);
+}
+
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px;
+  border-top: 1px solid var(--color-1);
+  font-size: 12px;
+  color: var(--color-2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer i {
+  margin: 0 5px;
+  color: var(--color-3);
+}
+
+/* アニメーション効果 */
+@keyframes flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.flow-animation {
+  background: linear-gradient(90deg, var(--color-5), rgba(46, 87, 140, 0.2), var(--color-5));
+  background-size: 200% 100%;
+  animation: flow 5s infinite;
+}
+
+/* ホバーエフェクト */
+.keyword:hover i, .timeline-item:hover i, .note:hover i, .section-title:hover i {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+}
+
+/* グラスモーフィズム効果 */
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+  
+  .column {
+    min-width: 100%;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
+  .title-icon {
+    font-size: 2rem;
+  }
+}
+</style> </head> <body> <div class="container"> <div class="background-pattern"> <i class="fa-solid fa-building"></i> <i class="fa-solid fa-gavel"></i> <i class="fa-solid fa-scale-balanced"></i> <i class="fa-solid fa-file-contract"></i> <i class="fa-solid fa-money-bill-trend-up"></i> <i class="fa-solid fa-user-tie"></i> <i class="fa-solid fa-clock"></i> </div>
+text
+<header class="header">
+  <div class="title-container">
+    <i class="fa-solid fa-building-columns title-icon fa-beat" style="--fa-beat-scale: 1.1;"></i>
+    <h1 class="title">船井電機 破産手続きと民事再生法の攻防</h1>
+    <i class="fa-solid fa-scale-balanced title-icon fa-flip" style="--fa-flip-x: 0; --fa-flip-y: 1; --fa-animation-duration: 3s;"></i>
+  </div>
+  <div class="date-source">
+    <div><i class="fa-regular fa-calendar"></i> 2025年3月18日</div>
+    <div><i class="fa-solid fa-newspaper"></i> 最新報道より</div>
+  </div>
+</header>
+
+<div class="main-content">
+  <!-- 左カラム -->
+  <div class="column">
+    <div class="card">
+      <i class="fa-solid fa-bolt-lightning card-icon"></i>
+      <h2 class="section-title">
+        <i class="fa-solid fa-info-circle fa-bounce" style="--fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;"></i>
+        経緯の概要
+      </h2>
+      <div class="content-text">
+        <span class="keyword">船井電機<i class="fa-solid fa-tv fa-sm"></i></span>は家電メーカーで、経営をめぐり紛糾していました。現在、破産手続きが進行中ですが、<span class="keyword">原田義昭会長<i class="fa-solid fa-user-tie fa-sm"></i></span>（元環境大臣）が<span class="highlight">民事再生法の適用</span>を求めていました。
+      </div>
+      
+      <div class="note">
+        <div class="note-title">
+          <i class="fa-solid fa-lightbulb fa-fade"></i>
+          破産と民事再生の違い
+        </div>
+        <div class="content-text">
+          <span class="keyword">破産手続き<i class="fa-solid fa-ban fa-sm"></i></span>：会社財産を換価して債権者に分配し、会社は解散
+          <br>
+          <span class="keyword">民事再生法<i class="fa-solid fa-seedling fa-sm"></i></span>：債務を整理しつつ事業を継続、再建を目指す
+        </div>
+      </div>
+    </div>
+    
+    <div class="card glassmorphism">
+      <i class="fa-solid fa-timeline card-icon"></i>
+      <h2 class="section-title">
+        <i class="fa-solid fa-clock-rotate-left fa-spin" style="--fa-animation-duration: 15s;"></i>
+        時系列で見る経緯
+      </h2>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">
+            <i class="fa-regular fa-calendar-days"></i> 2024年10月
+          </div>
+          <div class="content-text">
+            <span class="keyword">取締役<i class="fa-solid fa-user-gear fa-sm"></i></span>が<span class="highlight">破産を申立て</span>、裁判所が<span class="keyword">破産手続き開始を決定<i class="fa-solid fa-gavel fa-sm"></i></span>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">
+            <i class="fa-regular fa-calendar-days"></i> 2024年10月（直後）
+          </div>
+          <div class="content-text">
+            <span class="keyword">原田会長<i class="fa-solid fa-user-tie fa-sm"></i></span>が<span class="highlight">破産開始決定の取り消し</span>を求めて<span class="keyword">即時抗告<i class="fa-solid fa-scale-balanced fa-sm"></i></span>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">
+            <i class="fa-regular fa-calendar-days"></i> 2024年12月
+          </div>
+          <div class="content-text">
+            原田会長が<span class="keyword">民事再生法<i class="fa-solid fa-seedling fa-sm"></i></span>の適用を<span class="highlight">東京地裁</span>に申請
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">
+            <i class="fa-regular fa-calendar-days"></i> 2025年3月6日
+          </div>
+          <div class="content-text">
+            原田会長が都内で<span class="keyword">記者会見<i class="fa-solid fa-microphone fa-sm"></i></span>し、<span class="highlight">再生計画</span>を発表
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">
+            <i class="fa-regular fa-calendar-days"></i> 2025年3月14日
+          </div>
+          <div class="content-text">
+            <span class="keyword">東京地裁<i class="fa-solid fa-building-columns fa-sm"></i></span>が民事再生法適用申請を<span class="highlight">棄却</span>する決定
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 中央カラム -->
+  <div class="column">
+    <div class="card">
+      <i class="fa-solid fa-scale-balanced card-icon"></i>
+      <h2 class="section-title">
+        <i class="fa-solid fa-gavel fa-shake"></i>
+        裁判所の判断
+      </h2>
+      
+      <div class="content-text">
+        原田会長による<span class="keyword">破産開始決定取り消し<i class="fa-solid fa-rotate-left fa-sm"></i></span>の即時抗告は<span class="highlight">認められませんでした</span>。
+      </div>
+      
+      <div class="connection">
+        <div class="connection-line"></div>
+        <i class="fa-solid fa-arrow-down fa-fade"></i>
+        <div class="connection-line"></div>
+      </div>
+      
+      <div class="verdict">
+        <i class="fa-solid fa-thumbs-down fa-2x fa-bounce"></i>
+        民事再生法適用申請も棄却
+      </div>
+      
+      <div class="note">
+        <div class="note-title">
+          <i class="fa-solid fa-quote-left"></i>
+          棄却理由
+        </div>
+        <div class="content-text">
+          <ul>
+            <li><span class="keyword">破産手続き<i class="fa-solid fa-check-circle fa-sm"></i></span>は<span class="highlight">債権者の一般の利益に適合</span>する</li>
+            <li><span class="keyword">再生計画案<i class="fa-solid fa-file-contract fa-sm"></i></span>が<span class="highlight">債権者に認められる見込みがない</span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="connection">
+        <div class="connection-line"></div>
+        <i class="fa-solid fa-arrow-down fa-fade"></i>
+        <div class="connection-line"></div>
+      </div>
+      
+      <div class="content-text">
+        この決定により、<span class="keyword">船井電機<i class="fa-solid fa-building fa-sm"></i></span>の<span class="highlight">破産手続きは今後も進行</span>していくことになります。
+      </div>
+    </div>
+    
+    <div class="card">
+      <i class="fa-solid fa-calendar-day card-icon"></i>
+      <h2 class="section-title">
+        <i class="fa-solid fa-calendar fa-flip" style="--fa-flip-x: 0; --fa-flip-y: 1;"></i>
+        今後の予定
+      </h2>
+      
+      <div class="future-plan">
+        <i class="fa-solid fa-users fa-2x fa-beat" style="--fa-beat-scale: 1.1;"></i>
+        <div class="content-text">
+          <span class="keyword">債権者集会<i class="fa-solid fa-people-group fa-sm"></i></span>が<span class="highlight">2025年7月</span>に開かれる予定
+        </div>
+      </div>
+      
+      <div class="note">
+        <div class="note-title">
+          <i class="fa-solid fa-lightbulb"></i>
+          債権者集会とは
+        </div>
+        <div class="content-text">
+          <span class="keyword">債権者<i class="fa-solid fa-handshake fa-sm"></i></span>が集まり、<span class="highlight">破産管財人</span>から破産手続きの状況報告を受け、今後の手続きについて協議する場です。
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 右カラム -->
+  <div class="column">
+    <div class="card flow-animation">
+      <i class="fa-solid fa-lightbulb card-icon"></i>
+      <h2 class="section-title">
+        <i class="fa-solid fa-diagram-project fa-fade"></i>
+        原田会長の再生計画案
+      </h2>
+      
+      <div class="content-text">
+        <span class="keyword">原田義昭会長<i class="fa-solid fa-user-tie fa-sm"></i></span>は3月6日の記者会見で、以下の<span class="highlight">再生計画</span>を発表しました：
+      </div>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="content-text">
+            <i class="fa-solid fa-battery-full fa-lg" style="color: var(--color-1);"></i>
+            <span class="keyword">蓄電池<i class="fa-solid fa-plug-circle-bolt fa-sm"></i></span>事業を主力に
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="content-text">
+            <i class="fa-solid fa-server fa-lg" style="color: var(--color-1);"></i>
+            <span class="keyword">AI向けデータセンター<i class="fa-solid fa-robot fa-sm"></i></span>事業の展開
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="content-text">
+            <i class="fa-solid fa-chart-line fa-lg" style="color: var(--color-1);"></i>
+            初年度の売り上げ<span class="keyword">500億円以上<i class="fa-solid fa-yen-sign fa-sm"></i></span>を目指す
+          </div>
+        </div>
+      </div>
+      
+      <div class="verdict">
+        <i class="fa-solid fa-triangle-exclamation fa-2x fa-beat" style="--fa-beat-scale: 1.2;"></i>
+        しかし計画は実現せず
+      </div>
+    </div>
+    
+    <div class="card glassmorphism">
+      <i class="fa-solid fa-feather card-icon"></i>
+      <h2 class="section-title">
+        <i class="fa-solid fa-magnifying-glass-chart fa-spin" style="--fa-animation-duration: 8s;"></i>
+        事態の本質
+      </h2>
+      
+      <div class="content-text">
+        この事案の核心は、<span class="keyword">経営陣内の対立<i class="fa-solid fa-users-slash fa-sm"></i></span>が表面化したことにあります。
+      </div>
+      
+      <div class="connection">
+        <div class="connection-line"></div>
+        <i class="fa-solid fa-arrow-down fa-fade"></i>
+        <div class="connection-line"></div>
+      </div>
+      
+      <div class="content-text">
+        <span class="keyword">取締役<i class="fa-solid fa-user-gear fa-sm"></i></span>が<span class="highlight">破産申立て</span>を行う一方、<span class="keyword">原田会長<i class="fa-solid fa-user-tie fa-sm"></i></span>は<span class="highlight">事業継続</span>を望み、<span class="keyword">民事再生<i class="fa-solid fa-seedling fa-sm"></i></span>を申請するという対立構造でした。
+      </div>
+      
+      <div class="connection">
+        <div class="connection-line"></div>
+        <i class="fa-solid fa-arrow-down fa-fade"></i>
+        <div class="connection-line"></div>
+      </div>
+      
+      <div class="note">
+        <div class="note-title">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          裁判所の判断
+        </div>
+        <div class="content-text">
+          裁判所は<span class="keyword">債権者の利益<i class="fa-solid fa-money-bill-1 fa-sm"></i></span>を重視し、<span class="highlight">破産手続きを進める</span>べきと判断しました。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <i class="fa-solid fa-book"></i>
+  情報源：報道資料より作成
+  <i class="fa-solid fa-newspaper"></i>
+  最終更新：2025年3月18日
+</footer>
+</div> </body> </html>
