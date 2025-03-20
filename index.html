@@ -5,339 +5,340 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>シミュレーションラボ | インタラクティブ体験</title>
     <style>
-        :root {
-            --primary: #00f7ff;
-            --secondary: #ff00e5;
-            --accent: #ffef00;
-            --dark: #080812;
-            --darker: #050508;
-            --light: #ffffff;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--dark);
-            color: var(--light);
-            overflow-x: hidden;
-            cursor: none;
-        }
-        
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            transition: width 0.3s, height 0.3s, border-color 0.3s;
-            z-index: 9999;
-        }
-        
-        .cursor-follower {
-            width: 8px;
-            height: 8px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            transition: 0.1s;
-            z-index: 9999;
-        }
-        
-        .header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-content {
-            z-index: 2;
-            text-align: center;
-            padding: 0 20px;
-        }
-        
-        .title {
-            font-size: 5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .title::before {
-            content: "シミュレーションラボ";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            color: var(--secondary);
-            animation: glitch 1s infinite;
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-            transform: translate(-5px, 0);
-        }
-        
-        .title::after {
-            content: "シミュレーションラボ";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            color: var(--accent);
-            animation: glitch 0.7s infinite;
-            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-            transform: translate(5px, 0);
-        }
-        
-        @keyframes glitch {
-            0% {
-                transform: translate(0);
-            }
-            20% {
-                transform: translate(-2px, 2px);
-            }
-            40% {
-                transform: translate(-2px, -2px);
-            }
-            60% {
-                transform: translate(2px, 2px);
-            }
-            80% {
-                transform: translate(2px, -2px);
-            }
-            100% {
-                transform: translate(0);
-            }
-        }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-        
-        .bg-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                linear-gradient(to right, rgba(8, 8, 18, 0.9) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(8, 8, 18, 0.9) 1px, transparent 1px);
-            background-size: 30px 30px;
-            background-position: center;
-            transform: perspective(500px) rotateX(60deg);
-            transform-origin: center top;
-            animation: grid-move 15s linear infinite;
-        }
-        
-        @keyframes grid-move {
-            0% {
-                background-position: center 0;
-            }
-            100% {
-                background-position: center 100%;
-            }
-        }
-        
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            width: 90%;
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        
-        .bento-item {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            height: 350px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .bento-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.2);
-        }
-        
-        .bento-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, var(--primary), transparent 30%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            animation: rotate 4s linear infinite;
-        }
-        
-        .bento-item:hover::before {
-            opacity: 1;
-        }
-        
-        @keyframes rotate {
-            100% {
-                transform: rotate(1turn);
-            }
-        }
-        
-        .bento-content {
-            position: relative;
-            z-index: 1;
-            background-color: var(--darker);
-            border-radius: 15px;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .bento-icon {
-            font-size: 5rem;
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s;
-        }
-        
-        .bento-item:hover .bento-icon {
-            transform: scale(1.2);
-        }
-        
-        .bento-title {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            transition: color 0.3s;
-        }
-        
-        .bento-item:nth-child(1) .bento-icon,
-        .bento-item:nth-child(1):hover .bento-title {
-            color: var(--primary);
-        }
-        
-        .bento-item:nth-child(2) .bento-icon,
-        .bento-item:nth-child(2):hover .bento-title {
-            color: var(--secondary);
-        }
-        
-        .bento-item:nth-child(3) .bento-icon,
-        .bento-item:nth-child(3):hover .bento-title {
-            color: var(--accent);
-        }
-        
-        .bento-description {
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            opacity: 0.8;
-        }
-        
-        .bento-link {
-            display: inline-block;
-            padding: 10px 30px;
-            border: 2px solid var(--primary);
-            border-radius: 30px;
-            text-decoration: none;
-            color: var(--light);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            z-index: 1;
-        }
-        
-        .bento-item:nth-child(1) .bento-link {
-            border-color: var(--primary);
-        }
-        
-        .bento-item:nth-child(2) .bento-link {
-            border-color: var(--secondary);
-        }
-        
-        .bento-item:nth-child(3) .bento-link {
-            border-color: var(--accent);
-        }
-        
-        .bento-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background-color: var(--primary);
-            transition: width 0.3s;
-            z-index: -1;
-        }
-        
-        .bento-item:nth-child(1) .bento-link::before {
-            background-color: var(--primary);
-        }
-        
-        .bento-item:nth-child(2) .bento-link::before {
-            background-color: var(--secondary);
-        }
-        
-        .bento-item:nth-child(3) .bento-link::before {
-            background-color: var(--accent);
-        }
-        
-        .bento-link:hover {
-            color: var(--dark);
-        }
-        
-        .bento-link:hover::before {
-            width: 100%;
-        }
-        
-        @media (max-width: 768px) {
-            .title {
-                font-size: 3rem;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .bento-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cursor, .cursor-follower {
-                display: none;
-            }
-        }
+:root {
+    --primary: #00f7ff;
+    --secondary: #ff00e5;
+    --accent: #ffef00;
+    --dark: #080812;
+    --darker: #050508;
+    --light: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+    overflow-x: hidden;
+    cursor: none;
+}
+
+.cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+    z-index: 9999;
+}
+
+.cursor-follower {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: 0.1s;
+    z-index: 9999;
+}
+
+.header {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content {
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.title {
+    font-size: 5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.title::before {
+    content: "シミュレーションラボ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: var(--secondary);
+    animation: glitch 1s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-5px, 0);
+}
+
+.title::after {
+    content: "シミュレーションラボ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: var(--accent);
+    animation: glitch 0.7s infinite;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    transform: translate(5px, 0);
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.bg-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(to right, rgba(8, 8, 18, 0.9) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(8, 8, 18, 0.9) 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-position: center;
+    transform: perspective(500px) rotateX(60deg);
+    transform-origin: center top;
+    animation: grid-move 15s linear infinite;
+}
+
+@keyframes grid-move {
+    0% {
+        background-position: center 0;
+    }
+    100% {
+        background-position: center 100%;
+    }
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.bento-item {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bento-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 247, 255, 0.2);
+}
+
+.bento-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, var(--primary), transparent 30%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    animation: rotate 4s linear infinite;
+}
+
+.bento-item:hover::before {
+    opacity: 1;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+.bento-content {
+    position: relative;
+    z-index: 1;
+    background-color: var(--darker);
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.bento-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.bento-item:hover .bento-icon {
+    transform: scale(1.2);
+}
+
+.bento-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+}
+
+.bento-item:nth-child(1) .bento-icon,
+.bento-item:nth-child(1):hover .bento-title {
+    color: var(--primary);
+}
+
+.bento-item:nth-child(2) .bento-icon,
+.bento-item:nth-child(2):hover .bento-title {
+    color: var(--secondary);
+}
+
+.bento-item:nth-child(3) .bento-icon,
+.bento-item:nth-child(3):hover .bento-title {
+    color: var(--accent);
+}
+
+.bento-description {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+.bento-link {
+    display: inline-block;
+    padding: 15px 40px;
+    border: 2px solid var(--primary);
+    border-radius: 30px;
+    text-decoration: none;
+    color: var(--light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    z-index: 1;
+    font-size: 1.2rem;
+}
+
+.bento-item:nth-child(1) .bento-link {
+    border-color: var(--primary);
+}
+
+.bento-item:nth-child(2) .bento-link {
+    border-color: var(--secondary);
+}
+
+.bento-item:nth-child(3) .bento-link {
+    border-color: var(--accent);
+}
+
+.bento-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: var(--primary);
+    transition: width 0.3s;
+    z-index: -1;
+}
+
+.bento-item:nth-child(1) .bento-link::before {
+    background-color: var(--primary);
+}
+
+.bento-item:nth-child(2) .bento-link::before {
+    background-color: var(--secondary);
+}
+
+.bento-item:nth-child(3) .bento-link::before {
+    background-color: var(--accent);
+}
+
+.bento-link:hover {
+    color: var(--dark);
+}
+
+.bento-link:hover::before {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 3rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cursor, .cursor-follower {
+        display: none;
+    }
+}
     </style>
 </head>
 <body>
