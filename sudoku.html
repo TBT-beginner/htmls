@@ -5,192 +5,262 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>数独ヘルパー</title>
 <style>
-    body {
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #f5f5f5;
-    }
-    
-    h1 {
-        color: #333;
-        margin-bottom: 30px;
-    }
-    
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 30px;
-        margin-top: 20px;
-    }
-    
-    .sudoku-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .controls {
-        display: flex;
-        gap: 10px;
-        margin: 15px 0;
-    }
-    
-    button {
-        padding: 10px 18px;
-        font-size: 14px;
-        cursor: pointer;
-        border: none;
-        border-radius: 4px;
-        font-weight: bold;
-        transition: background-color 0.3s;
-    }
-    
-    #start-btn {
-        background-color: #4CAF50;
-        color: white;
-    }
-    
-    #start-btn:hover {
-        background-color: #45a049;
-    }
-    
-    #submit-btn {
-        background-color: #2196F3;
-        color: white;
-    }
-    
-    #submit-btn:hover {
-        background-color: #0b7dda;
-    }
-    
-    #giveup-btn {
-        background-color: #f44336;
-        color: white;
-    }
-    
-    #giveup-btn:hover {
-        background-color: #d32f2f;
-    }
-    
-    #restart-btn {
-        background-color: #ff9800;
-        color: white;
-    }
-    
-    #restart-btn:hover {
-        background-color: #e68a00;
-    }
-    
-    button:disabled {
-        background-color: #cccccc;
-        cursor: not-allowed;
-    }
-    
-    .timer {
-        font-size: 28px;
-        margin: 15px 0;
-        font-weight: bold;
-        color: #333;
-    }
-    
-    .sudoku-grid {
-        display: grid;
-        grid-template-columns: repeat(9, 45px);
-        grid-template-rows: repeat(9, 45px);
-        gap: 1px;
-        border: 2px solid #000;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .sudoku-cell {
-        width: 45px;
-        height: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        border: 1px solid #ccc;
-        position: relative;
-    }
-    
-    .sudoku-cell input {
-        width: 100%;
-        height: 100%;
-        border: none;
-        text-align: center;
-        font-size: 20px;
-        outline: none;
-        background: transparent;
-    }
-    
-    .initial {
-        color: black;
-        font-weight: bold;
-    }
-    
-    .user-input {
-        color: blue;
-    }
-    
-    .incorrect {
-        color: orange;
-    }
-    
-    .sudoku-cell[data-col="2"],
-    .sudoku-cell[data-col="5"] {
-        border-right: 2px solid #000;
-    }
-    
-    .sudoku-cell[data-row="2"],
-    .sudoku-cell[data-row="5"] {
-        border-bottom: 2px solid #000;
-    }
-    
-    .sudoku-cell[data-row="2"][data-col="2"],
-    .sudoku-cell[data-row="2"][data-col="5"],
-    .sudoku-cell[data-row="5"][data-col="2"],
-    .sudoku-cell[data-row="5"][data-col="5"] {
-        border-right: 2px solid #000;
-        border-bottom: 2px solid #000;
-    }
-    
-	.sudoku-cell[data-block-parity="odd"] {
-	    background-color: #f0f0f0;
-	}
-    
-    .hint-container {
-        width: 300px;
-        min-height: 200px;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        background-color: white;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    
-    .hint-header {
-        font-weight: bold;
-        margin-bottom: 15px;
-        font-size: 18px;
-        color: #333;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 8px;
-    }
-    
-    .hint-content {
-        font-size: 14px;
-        line-height: 1.6;
-        color: #555;
-    }
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #2196F3;
+  --accent-color: #FF9800;
+  --error-color: #f44336;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+  --cell-size: clamp(30px, 5vw, 45px);
+  --grid-gap: 1px;
+  --border-radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+  }
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1 {
+  color: var(--text-color);
+  margin-bottom: 30px;
+  font-size: clamp(24px, 5vw, 36px);
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.sudoku-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.sudoku-container:hover {
+  transform: translateY(-5px);
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+button {
+  padding: 10px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+#start-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+#start-btn:hover {
+  background-color: color-mix(in srgb, var(--primary-color) 80%, white);
+}
+
+#submit-btn {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+#submit-btn:hover {
+  background-color: color-mix(in srgb, var(--secondary-color) 80%, white);
+}
+
+#giveup-btn {
+  background-color: var(--error-color);
+  color: white;
+}
+
+#giveup-btn:hover {
+  background-color: color-mix(in srgb, var(--error-color) 80%, white);
+}
+
+#restart-btn {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+#restart-btn:hover {
+  background-color: color-mix(in srgb, var(--accent-color) 80%, white);
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.timer {
+  font-size: 28px;
+  margin: 15px 0;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.sudoku-grid {
+  display: grid;
+  grid-template-columns: repeat(9, var(--cell-size));
+  grid-template-rows: repeat(9, var(--cell-size));
+  gap: var(--grid-gap);
+  border: 2px solid var(--text-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sudoku-cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(16px, 3vw, 20px);
+  border: 1px solid #ccc;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.sudoku-cell input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  font-size: inherit;
+  outline: none;
+  background: transparent;
+  color: var(--text-color);
+}
+
+.initial {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+.user-input {
+  color: var(--secondary-color);
+}
+
+.incorrect {
+  color: var(--error-color);
+}
+
+.sudoku-cell[data-col="2"],
+.sudoku-cell[data-col="5"] {
+  border-right: 2px solid var(--text-color);
+}
+
+.sudoku-cell[data-row="2"],
+.sudoku-cell[data-row="5"] {
+  border-bottom: 2px solid var(--text-color);
+}
+
+.sudoku-cell[data-row="2"][data-col="2"],
+.sudoku-cell[data-row="2"][data-col="5"],
+.sudoku-cell[data-row="5"][data-col="2"],
+.sudoku-cell[data-row="5"][data-col="5"] {
+  border-right: 2px solid var(--text-color);
+  border-bottom: 2px solid var(--text-color);
+}
+
+.sudoku-cell[data-block-parity="odd"] {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.hint-container {
+  width: 300px;
+  min-height: 200px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.hint-container:hover {
+  transform: translateY(-5px);
+}
+
+.hint-header {
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: var(--text-color);
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.hint-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  
+  .hint-container {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
 </style>
 
 </head>
