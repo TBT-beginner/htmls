@@ -242,7 +242,35 @@ button:disabled {
     width: 100%;
     max-width: 300px;
   }
+  
+  .sudoku-container {
+    padding: 10px;
+  }
+  
+  .controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  button {
+    margin: 5px;
+  }
 }
+
+@media (max-width: 480px) {
+  :root {
+    --cell-size: clamp(25px, 8vw, 35px);
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .timer {
+    font-size: 24px;
+  }
+}
+
 
 @keyframes pulse {
   0% {
@@ -258,6 +286,28 @@ button:disabled {
 
 .pulse {
   animation: pulse 2s infinite;
+}
+
+.number-pad {
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.number-btn {
+  padding: 15px;
+  font-size: 18px;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+@media (max-width: 768px) {
+  .number-pad {
+    display: grid;
+  }
 }
 
 </style>
@@ -280,6 +330,18 @@ button:disabled {
             
             <div class="sudoku-grid" id="sudoku-grid">
                 <!-- JavaScriptでグリッドを生成 -->
+            </div>
+            <div class="number-pad" id="number-pad">
+	        <button class="number-btn" data-number="1">1</button>
+	        <button class="number-btn" data-number="2">2</button>
+       	 	<button class="number-btn" data-number="3">3</button>
+        	<button class="number-btn" data-number="4">4</button>
+        	<button class="number-btn" data-number="5">5</button>
+        	<button class="number-btn" data-number="6">6</button>
+        	<button class="number-btn" data-number="7">7</button>
+        	<button class="number-btn" data-number="8">8</button>
+        	<button class="number-btn" data-number="9">9</button>
+        	<button class="number-btn" data-number="clear">Clear</button>
             </div>
         </div>
         
