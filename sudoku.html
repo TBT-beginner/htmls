@@ -851,6 +851,30 @@ function updateGridWithPuzzle(puzzle) {
     initialBoard = getInitialBoard();
 }
 
+// 数字入力パッドの機能
+const numberPad = document.getElementById('number-pad');
+let selectedCell = null;
+
+numberPad.addEventListener('click', (e) => {
+  if (e.target.classList.contains('number-btn')) {
+    const number = e.target.dataset.number;
+    if (selectedCell && isPlaying) {
+      if (number === 'clear') {
+        selectedCell.value = '';
+        selectedCell.classList.remove('user-input');
+      } else {
+        selectedCell.value = number;
+        selectedCell.classList.add('user-input');
+      }
+    }
+  }
+});
+
+sudokuGrid.addEventListener('click', (e) => {
+  if (e.target.tagName === 'INPUT' && !e.target.readOnly) {
+    selectedCell = e.target;
+  }
+});
     
     // ゲーム初期化
     initGame();
