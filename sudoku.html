@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUDOKU</title>
+    <title>Sudoku Helper</title>
 <style>
 :root {
   --primary-color: #4CAF50;
@@ -265,15 +265,16 @@ button:disabled {
 
 </head>
 <body>
-    <h1>SUDOKU</h1>
+    <h1>Sudoku Helper</h1>
     
     <div class="container">
         <div class="sudoku-container">
             <div class="controls">
-                <button id="start-btn">START</button>
-                <button id="submit-btn" disabled>SUBMIT</button>
-                <button id="giveup-btn" disabled>GIVEUP</button>
-                <button id="restart-btn">RESTART</button>
+                <button id="start-btn">Start</button>
+		<button id="generate-btn">Generate</button>
+                <button id="submit-btn" disabled>Submit</button>
+                <button id="giveup-btn" disabled>Give Up</button>
+                <button id="restart-btn">Restart</button>
             </div>
             
             <div class="timer" id="timer">00:00</div>
@@ -284,9 +285,10 @@ button:disabled {
         </div>
         
         <div class="hint-container">
-            <div class="hint-header">ヒント</div>
+            <div class="hint-header">Hint / ヒント</div>
             <div class="hint-content" id="hint-content">
-                初期配置を入力し、「START」ボタンを押して開始してください。
+                Enter the initial numbers and press the "Start" button to begin.
+                初期配置を入力し、「Start」ボタンを押して開始してください。
             </div>
         </div>
     </div>
@@ -361,7 +363,7 @@ button:disabled {
         timerElement.textContent = '00:00';
         
         // ヒントリセット
-        hintContent.textContent = '初期配置を入力し、「スタート」ボタンを押して開始してください。';
+        hintContent.textContent = 'Enter the initial numbers and press the "Start" button to begin.\n初期配置を入力し、「Start」ボタンを押して開始してください。';
         
         // 状態初期化
         isPlaying = false;
@@ -486,21 +488,21 @@ button:disabled {
     // ヒントを生成する関数
     function generateHints() {
         const hints = [
-            "同じ行に同じ数字は入れられません。",
-            "同じ列に同じ数字は入れられません。",
-            "同じ3x3ブロック内に同じ数字は入れられません。",
-            "「消去法」を使ってみましょう。あるマスに入る数字の候補を考えます。",
-            "各行、列、ブロックで必ず1から9までの数字が1つずつ入ります。",
-            "「候補数字の検討」: 各マスに入る可能性のある数字を書き出してみましょう。",
-            "「シングルポジション」: あるブロック内で、ある数字が入れるマスが1つしかない場合があります。",
-            "「シングルキャンディデート」: あるマスに入れる候補数字が1つしかない場合があります。",
-            "「インターセクション」: 行と列とブロックの共通部分に注目しましょう。",
-            "「ナケッドペア」: 2つのマスに同じ2つの候補数字しかない場合、その行/列/ブロックの他のマスからその数字を除外できます。",
-            "最初は簡単なマスから埋めていきましょう。",
-            "どうしても進まない場合は、仮定を置いて考えてみることも有効です。",
-            "焦らず、論理的に解いていきましょう。",
-            "ヒント: 数字がすでに多く入っている行、列、ブロックから考えると早いです。",
-            "「XWing」や「Swordfish」などの高度なテクニックもあります。"
+            "Check each row: no repeated numbers allowed. / 同じ行に同じ数字は入れられません。",
+            "Examine each column: all numbers must be unique.同じ列に同じ数字は入れられません。",
+            "In each 3x3 block, every number should appear once.同じ3x3ブロック内に同じ数字は入れられません。",
+            "Try the 'elimination method' by considering possible candidates for each cell.「消去法」を使ってみましょう。あるマスに入る数字の候補を考えます。",
+            "Remember, each row, column, and block must contain numbers 1-9 exactly once.各行、列、ブロックで必ず1から9までの数字が1つずつ入ります。",
+            "Consider 'candidate numbers' by listing all possible numbers for each cell.「候補数字の検討」: 各マスに入る可能性のある数字を書き出してみましょう。",
+            "Look for 'single position' where a number can only go in one place within a block.「シングルポジション」: あるブロック内で、ある数字が入れるマスが1つしかない場合があります。",
+            "Find 'single candidate' cells where only one number can fit.「シングルキャンディデート」: あるマスに入れる候補数字が1つしかない場合があります。",
+            "Use 'intersection' technique by focusing on common areas of rows, columns, and blocks.「インターセクション」: 行と列とブロックの共通部分に注目しましょう。",
+            "Identify 'naked pairs' to eliminate candidates in other cells of the same row/column/block.「ナケッドペア」: 2つのマスに同じ2つの候補数字しかない場合、その行/列/ブロックの他のマスからその数字を除外できます。",
+            "Start with the easiest cells to fill.最初は簡単なマスから埋めていきましょう。",
+            "If stuck, try making an educated guess and see where it leads.どうしても進まない場合は、仮定を置いて考えてみることも有効です。",
+            "Stay calm and approach the puzzle logically.焦らず、論理的に解いていきましょう。",
+            "Hint: Start with rows, columns, or blocks that already have many numbers filled.ヒント: 数字がすでに多く入っている行、列、ブロックから考えると早いです。",
+            "Advanced techniques like 'X-Wing' or 'Swordfish' can be useful for difficult puzzles.「XWing」や「Swordfish」などの高度なテクニックもあります。"
         ];
         
         const randomHint = hints[Math.floor(Math.random() * hints.length)];
@@ -517,7 +519,7 @@ button:disabled {
         const hasSolution = solveSudoku(tempBoard);
         
         if (!hasSolution) {
-            alert('この配置では解くことができません。別の初期配置を入力してください。');
+            alert('This configuration cannot be solved. Please enter a different initial setup.');
             initGame();
             return;
         }
@@ -558,7 +560,7 @@ button:disabled {
         });
         
         if (!allFilled) {
-            alert('すべてのマスを埋めてから提出してください。');
+            alert('Please fill in all cells before submitting.');
             return;
         }
         
@@ -593,16 +595,16 @@ button:disabled {
         
         // 結果表示
         if (allCorrect) {
-            alert('正解です！おめでとうございます！');
-            hintContent.textContent = '正解です！おめでとうございます！リスタートボタンで新しいゲームを始められます。';
+            alert('Congratulations! You solved the puzzle correctly!');
+            hintContent.textContent = 'Congratulations! You solved the puzzle correctly! Click the Restart button to start a new game.';
         } else {
-            alert('不正解です。オレンジ色の数字が間違っています。');
-            hintContent.textContent = '不正解です。オレンジ色の数字が間違っています。リスタートボタンで新しいゲームを始められます。';
+            alert('Incorrect solution. Orange numbers indicate mistakes.');
+            hintContent.textContent = 'Incorrect solution. Orange numbers indicate mistakes. Click the Restart button to try again.';
         }
     });
     
     giveupBtn.addEventListener('click', () => {
-        if (confirm('本当にギブアップしますか？正解が表示されます。')) {
+        if (confirm('Are you sure you want to give up? The correct solution will be displayed.')) {
             const inputs = sudokuGrid.querySelectorAll('input');
             
             // 解答を表示
@@ -639,13 +641,13 @@ button:disabled {
             submitBtn.disabled = true;
             giveupBtn.disabled = true;
             
-            hintContent.textContent = 'ギブアップしました。正解を表示しています。リスタートボタンで新しいゲームを始められます。';
+            hintContent.textContent = 'You gave up. The correct solution is displayed. Click the Restart button to start a new game.';
         }
     });
     
     restartBtn.addEventListener('click', () => {
         if (isPlaying) {
-            if (!confirm('現在のゲームを中断して最初からやり直しますか？')) {
+            if (!confirm('Are you sure you want to restart? This will end your current game.')) {
                 return;
             }
         }
@@ -683,11 +685,115 @@ button:disabled {
             nextCell.focus();
         }
     });
+const generateBtn = document.getElementById('generate-btn');
+
+// 数独パズルを生成する関数
+function generateRandomSudoku(difficulty = 'medium') {
+    const solution = generateSudokuSolution(); // 解答盤を生成
+    const puzzle = createPuzzleFromSolution(solution, difficulty); // 問題盤を生成
+    return { puzzle, solution }; // 問題と解答を返す
+}
+
+
+function generateSudokuSolution() {
+    const board = Array(9).fill().map(() => Array(9).fill(0));
+    fillBoard(board);
+    return board;
+}
+
+function fillBoard(board) {
+    for (let i = 0; i < 81; i++) {
+        const row = Math.floor(i / 9);
+        const col = i % 9;
+        if (board[row][col] === 0) {
+            for (let num = 1; num <= 9; num++) {
+                if (isValidPlacement(board, row, col, num)) {
+                    board[row][col] = num;
+                    if (fillBoard(board)) return true;
+                    board[row][col] = 0;
+                }
+            }
+            return false;
+        }
+    }
+    return true;
+}
+
+function createPuzzleFromSolution(solution, difficulty) {
+    const puzzle = JSON.parse(JSON.stringify(solution));
+    const cellsToRemove = {
+        'easy': 30,
+        'medium': 40,
+        'hard': 50
+    }[difficulty] || 40;
+
+    const indices = Array(81).fill().map((_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+
+    for (let i = 0; i < cellsToRemove; i++) {
+        const index = indices[i];
+        const row = Math.floor(index / 9);
+        const col = index % 9;
+        puzzle[row][col] = 0;
+    }
+
+    return puzzle;
+}
+
+// 問題生成ボタンのイベントリスナー
+generateBtn.addEventListener('click', () => {
+    const { puzzle, solution: generatedSolution } = generateRandomSudoku('medium');
+    
+    // グリッドに問題を反映
+    updateGridWithPuzzle(puzzle);
+    
+    // 解答データを保存し、ゲーム状態を初期化
+    solution = generatedSolution;
+    isPlaying = false;
+    startBtn.disabled = false;
+    submitBtn.disabled = true;
+    giveupBtn.disabled = true;
+
+    // ヒントメッセージを更新
+    hintContent.textContent = '問題を生成しました。「スタート」ボタンを押して開始してください。';
+});
+
+
+// パズルデータをグリッドに反映する関数
+function updateGridWithPuzzle(puzzle) {
+    const inputs = sudokuGrid.querySelectorAll('input');
+    
+    // グリッドのセルを初期化
+    inputs.forEach(input => {
+        input.value = '';
+        input.classList.remove('initial', 'user-input', 'incorrect');
+        input.readOnly = false;
+    });
+
+    // パズルデータをグリッドに反映
+    for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+            const index = row * 9 + col;
+            const value = puzzle[row][col];
+            if (value !== 0) {
+                inputs[index].value = value;
+                inputs[index].classList.add('initial');
+                inputs[index].readOnly = true;
+            }
+        }
+    }
+
+    // 初期盤面データとして保存
+    initialBoard = getInitialBoard();
+}
+
     
     // ゲーム初期化
     initGame();
 </script>
 
-</script>
 </body>
 </html>
