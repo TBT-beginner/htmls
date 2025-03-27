@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>簡易テトリス</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        font-family: sans-serif;
+        flex-direction: column; /* 縦に並べる */
+    }
+    #game-container {
+        display: flex;
+        align-items: flex-start; /* 上揃え */
+    }
+    #game-board {
+        display: grid;
+        grid-template-columns: repeat(10, 30px); /* 10列 */
+        grid-template-rows: repeat(20, 30px);    /* 20行 */
+        border: 2px solid #333;
+        background-color: #e0e0e0;
+        position: relative; /* ゲームオーバー表示用 */
+    }
+    .cell {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #d0d0d0;
+        box-sizing: border-box; /* borderを含めてサイズ計算 */
+    }
+    /* テトリミノの色 */
+    .cell.I { background-color: cyan; border-color: #00aaaa; }
+    .cell.O { background-color: yellow; border-color: #aaaa00; }
+    .cell.T { background-color: purple; border-color: #550055; }
+    .cell.S { background-color: lime; border-color: #00aa00; }
+    .cell.Z { background-color: red; border-color: #aa0000; }
+    .cell.J { background-color: blue; border-color: #0000aa; }
+    .cell.L { background-color: orange; border-color: #aa5500; }
+
+    #game-info {
+        margin-left: 20px;
+        border: 1px solid #ccc;
+        padding: 15px;
+        background-color: #fff;
+    }
+
+    #game-info h2 {
+        margin-top: 0;
+    }
+
+    #game-over-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 1.5em;
+        text-align: center;
+        display: none; /* 初期状態では非表示 */
+        z-index: 10;
+    }
+</style>
+</head>
+<body>
+
+<h1>簡易テトリス</h1>
+
+<div id="game-container">
+    <div id="game-board">
+        <!-- ゲームボードのセルはJSで生成 -->
+        <div id="game-over-message">
+            ゲームオーバー！<br>
+            <button onclick="startGame()">リトライ</button>
+        </div>
+    </div>
+    <div id="game-info">
+        <h2>スコア</h2>
+        <p id="score">0</p>
+        <h2>レベル</h2>
+        <p id="level">1</p>
+         <p style="margin-top: 20px; font-size: 0.9em;">
+            操作: <br>
+            ←: 左移動<br>
+            →: 右移動<br>
+            ↓: ソフトドロップ<br>
+            ↑ or X: 回転<br>
+            スペース: ハードドロップ<br>
+            P: ポーズ/再開
+        </p>
+        <button onclick="startGame()" style="margin-top: 10px;">開始/リセット</button>
+    </div>
+</div>
+
+
+<script>
+    const BOARD_WIDTH = 10;
+    const BOARD_HEIGHT = 20;
+    const CELL_SIZE = 30; // CSSと合わせる
+
+    const boardElement = document.getElementById('game-board');
+    const scoreElement = document.getElementById('score');
+    const levelElement = document.getElementById('level');
+    const gameOverMessage = document.getElementById('game-over-message');
+
+    // テトリミノの形状と色
+    const TETROMINOES = {
+        'I': { shape: [[1, 1, 1, 1]], color: 'I' },
+        'O': { shape: [[1, 1], [1, 1]], color: 'O' },
+        'T': { shape: [[0, 1, 0], [1, 1, 1]], color: 'T' },
+        'S': { shape: [[0, 1, 1], [1, 1, 0]], color: 'S' },
+        'Z': { shape: [[1, 1, 0], [0, 1, 1]], color: 'Z' },
+        'J': { shape: [[1, 0, 0], [1, 1, 1]], color: 'J' },
+        'L': { shape: [[0, 0, 1], [1, 1, 1]], color: 'L' }
+    };
+    const TETROMINO_KEYS = Object.keys(TETROMINOES);
+
+    let board = []; // ゲームボードの状態 (0: 空, 1以上: テトリミノの一部)
+    let currentPiece;
+    let currentX, currentY;
+    let score = 0;
+    let level = 1;
+    let linesCleared = 0;
+    let gameLoopInterval;
+    let dropSpeed = 1000; // 初期落下速度 (ms)
+    let isPaused = false;
+    let isGameOver = false;
+
+    // ゲームボードの初期化とHTML要素の生成
+    function createBoard() {
+        board = Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(0));
+        boardElement.innerHTML = ''; // ボードをクリア
+        boardElement.style.gridTemplateColumns = `repeat(${BOARD_WIDTH}, ${CELL_SIZE}px)`;
+        boardElement.style.gridTemplateRows = `repeat(${BOARD_HEIGHT}, ${CELL_SIZE}px)`;
+
+        for (let y = 0; y < BOARD_HEIGHT; y++) {
+            for (let x = 0; x < BOARD_WIDTH; x++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.y = y;
+                cell.dataset.x = x;
+                boardElement.appendChild(cell);
+            }
+        }
+        // ゲームオーバーメッセージを最初に追加（他のセルの上に表示するため）
+        boardElement.appendChild(gameOverMessage);
+    }
+
+    // 新しいテトリミノを生成
+    function spawnPiece() {
+        const randomKey = TETROMINO_KEYS[Math.floor(Math.random() * TETROMINO_KEYS.length)];
+        currentPiece = JSON.parse(JSON.stringify(TETROMINOES[randomKey])); // 深いコピー
+        currentX = Math.floor(BOARD_WIDTH / 2) - Math.ceil(currentPiece.shape[0].length / 2);
+        currentY = 0;
+
+        // ゲームオーバーチェック
+        if (checkCollision(currentX, currentY, currentPiece.shape)) {
+            gameOver();
+        }
+    }
+
+    // 衝突判定
+    function checkCollision(x, y, shape) {
+        for (let row = 0; row < shape.length; row++) {
+            for (let col = 0; col < shape[row].length; col++) {
+                if (shape[row][col]) {
+                    const boardX = x + col;
+                    const boardY = y + row;
+
+                    // 壁や床との衝突
+                    if (boardX < 0 || boardX >= BOARD_WIDTH || boardY >= BOARD_HEIGHT) {
+                        return true;
+                    }
+                    // 他のブロックとの衝突 (boardY >= 0 を確認)
+                    if (boardY >= 0 && board[boardY][boardX]) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // テトリミノをボードに固定
+    function lockPiece() {
+        currentPiece.shape.forEach((row, r) => {
+            row.forEach((cell, c) => {
+                if (cell) {
+                    const boardX = currentX + c;
+                    const boardY = currentY + r;
+                    // 画面上部にはみ出ているブロックは無視（ありえないはずだが念のため）
+                    if (boardY >= 0) {
+                         board[boardY][boardX] = currentPiece.color;
+                    }
+                }
+            });
+        });
+    }
+
+    // ライン消去処理
+    function clearLines() {
+        let linesRemoved = 0;
+        for (let y = BOARD_HEIGHT - 1; y >= 0; y--) {
+            if (board[y].every(cell => cell !== 0)) {
+                // 行が埋まっている
+                linesRemoved++;
+                // その行を削除し、上に新しい空行を追加
+                board.splice(y, 1);
+                board.unshift(Array(BOARD_WIDTH).fill(0));
+                y++; // 同じ行を再チェック
+            }
+        }
+
+        if (linesRemoved > 0) {
+            // スコア加算 (例: 1行100点, 2行300点, 3行500点, 4行800点)
+            const points = [0, 100, 300, 500, 800];
+            score += points[linesRemoved] * level;
+            linesCleared += linesRemoved;
+
+            // レベルアップ (例: 10ラインごとにレベルアップ)
+            level = Math.floor(linesCleared / 10) + 1;
+            // 落下速度を速める（最低速度を設定）
+            dropSpeed = Math.max(1000 - (level - 1) * 100, 100);
+            if (gameLoopInterval) { // インターバルが設定されていれば更新
+               clearInterval(gameLoopInterval);
+               gameLoopInterval = setInterval(gameLoop, dropSpeed);
+            }
+
+            updateScoreboard();
+        }
+    }
+
+    // スコアボード更新
+    function updateScoreboard() {
+        scoreElement.textContent = score;
+        levelElement.textContent = level;
+    }
+
+    // 盤面描画
+    function drawBoard() {
+        for (let y = 0; y < BOARD_HEIGHT; y++) {
+            for (let x = 0; x < BOARD_WIDTH; x++) {
+                const cellElement = boardElement.querySelector(`[data-y='${y}'][data-x='${x}']`);
+                if (board[y][x]) {
+                    cellElement.className = `cell ${board[y][x]}`; // 固定されたブロックの色
+                } else {
+                    cellElement.className = 'cell'; // 空セル
+                }
+            }
+        }
+    }
+
+    // 現在のテトリミノ描画
+    function drawPiece() {
+        currentPiece.shape.forEach((row, r) => {
+            row.forEach((cell, c) => {
+                if (cell) {
+                    const x = currentX + c;
+                    const y = currentY + r;
+                    // 画面上部のはみ出しは描画しない
+                    if (y >= 0) {
+                        const cellElement = boardElement.querySelector(`[data-y='${y}'][data-x='${x}']`);
+                        if(cellElement) { // 念の為nullチェック
+                            cellElement.className = `cell ${currentPiece.color}`;
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    // 画面全体を再描画
+    function redraw() {
+        if (isGameOver || isPaused) return;
+        drawBoard(); // まず固定されたボードを描画
+        drawPiece(); // 次に現在のピースを描画
+    }
+
+    // テトリミノを移動
+    function movePiece(dx, dy) {
+        if (isGameOver || isPaused) return false;
+        const newX = currentX + dx;
+        const newY = currentY + dy;
+        if (!checkCollision(newX, newY, currentPiece.shape)) {
+            currentX = newX;
+            currentY = newY;
+            redraw();
+            return true; // 移動成功
+        }
+        return false; // 移動失敗
+    }
+
+    // テトリミノを回転
+    function rotatePiece() {
+       if (isGameOver || isPaused) return;
+
+        const shape = currentPiece.shape;
+        const N = shape.length;
+        const M = shape[0].length;
+        const newShape = Array.from({ length: M }, () => Array(N).fill(0));
+
+        for (let r = 0; r < N; r++) {
+            for (let c = 0; c < M; c++) {
+                newShape[c][N - 1 - r] = shape[r][c];
+            }
+        }
+
+        // 回転後の衝突判定と「壁キック」のような単純な補正
+        let kickX = 0;
+        if (checkCollision(currentX, currentY, newShape)) {
+            // 左にずらしてみる
+            if (!checkCollision(currentX - 1, currentY, newShape)) {
+                kickX = -1;
+            }
+            // 右にずらしてみる
+            else if (!checkCollision(currentX + 1, currentY, newShape)) {
+                kickX = 1;
+            }
+             // Iミノ用：さらに左にずらす
+            else if (currentPiece.color === 'I' && !checkCollision(currentX - 2, currentY, newShape)) {
+                 kickX = -2;
+            }
+             // Iミノ用：さらに右にずらす
+            else if (currentPiece.color === 'I' && !checkCollision(currentX + 2, currentY, newShape)) {
+                 kickX = 2;
+            }
+            // 回転できない場合
+            else {
+                return;
+            }
+        }
+
+        currentX += kickX;
+        currentPiece.shape = newShape;
+        redraw();
+    }
+
+     // ハードドロップ
+    function hardDrop() {
+        if (isGameOver || isPaused) return;
+        while(movePiece(0, 1)) {
+            // 落下し続ける
+        }
+        // 落下しきったら即座に次の処理へ（ロック＆次ピース生成）
+        handleLanding();
+    }
+
+    // 着地処理
+    function handleLanding() {
+        lockPiece();
+        clearLines();
+        spawnPiece(); // 新しいピースを生成（ここでゲームオーバー判定も行われる）
+        redraw(); // 新しいピースと更新されたボードを描画
+    }
+
+    // ゲームループ
+    function gameLoop() {
+        if (isPaused || isGameOver) return;
+
+        if (!movePiece(0, 1)) {
+            // 下に移動できなかったら着地
+           handleLanding();
+        }
+    }
+
+    // ゲームオーバー処理
+    function gameOver() {
+        isGameOver = true;
+        clearInterval(gameLoopInterval);
+        gameOverMessage.style.display = 'block';
+        console.log("Game Over! Score:", score);
+    }
+
+    // ポーズ/再開
+    function togglePause() {
+        if (isGameOver) return;
+        isPaused = !isPaused;
+        if (isPaused) {
+            clearInterval(gameLoopInterval);
+            // ポーズ中表示（任意）
+            gameOverMessage.innerHTML = 'ポーズ中<br><button onclick="togglePause()">再開</button>';
+            gameOverMessage.style.display = 'block';
+        } else {
+            gameOverMessage.style.display = 'none';
+            gameLoopInterval = setInterval(gameLoop, dropSpeed);
+        }
+    }
+
+    // キーボード入力処理
+    document.addEventListener('keydown', (e) => {
+        if (isGameOver && e.key !== 'Enter') return; // ゲームオーバー時はリトライボタンのみ有効に
+
+        switch (e.key) {
+            case 'ArrowLeft':
+                movePiece(-1, 0);
+                break;
+            case 'ArrowRight':
+                movePiece(1, 0);
+                break;
+            case 'ArrowDown':
+                 if (!isPaused) {
+                    // ソフトドロップ: 落下を早める＆スコア少し加算（任意）
+                    if (movePiece(0, 1)) {
+                        // score += 1; // ソフトドロップで1点など
+                        updateScoreboard();
+                    }
+                }
+                break;
+            case 'ArrowUp':
+            case 'x': // Xキーでも回転
+                rotatePiece();
+                break;
+            case ' ': // スペースキーでハードドロップ
+                e.preventDefault(); // スペースバーでのスクロールを防止
+                hardDrop();
+                break;
+            case 'p': // Pキーでポーズ
+            case 'P':
+                togglePause();
+                break;
+            case 'Enter': // ゲームオーバー時にEnterでリトライ
+                 if(isGameOver) {
+                     startGame();
+                 }
+                 break;
+        }
+    });
+
+    // ゲーム開始/リセット処理
+    function startGame() {
+        console.log("Starting game...");
+        if (gameLoopInterval) {
+            clearInterval(gameLoopInterval);
+        }
+        createBoard();
+        score = 0;
+        level = 1;
+        linesCleared = 0;
+        dropSpeed = 1000;
+        isPaused = false;
+        isGameOver = false;
+        gameOverMessage.style.display = 'none';
+        updateScoreboard();
+        spawnPiece();
+        redraw(); // 初期描画
+        gameLoopInterval = setInterval(gameLoop, dropSpeed);
+    }
+
+    // 初期化実行
+    // startGame(); // 自動で開始する場合
+     createBoard(); // まずボードだけ表示しておく
+     updateScoreboard(); // スコア表示を初期化
+     console.log("Game ready. Press Start button or use controls.");
+
+
+</script>
+
+</body>
+</html>
