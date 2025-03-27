@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>土佐日記 冒頭解説 インフォグラフィック</title>
+    <style>
+        /* --- 全体設定 --- */
+        html {
+            margin: 0;
+            padding: 0;
+            background-color: #fff; /* 白背景 */
+            color: #333; /* 基本文字色 */
+            font-family: "游明朝", YuMincho, "Hiragino Mincho ProN", "ヒラギノ明朝 ProN W3", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif; /* 基本は明朝体 */
+            /* 縦書き用の基本設定 */
+            writing-mode: vertical-rl; /* 縦書き（右から左へ） */
+            text-orientation: mixed; /* 文字の向き（縦中横も許容） */
+            /* スクロール設定: html要素で両方向autoに */
+            overflow: auto; /* これで縦横両方のスクロールがautoになる */
+            height: 100%; /* ビューポートの高さ全体を占める */
+            width: 100%; /* ビューポートの幅全体を占める */
+            box-sizing: border-box; /* 念のため */
+            scroll-behavior: smooth; /* 目次クリック時のスムーズスクロール */
+        }
+
+        body {
+            margin: 0; /* bodyのデフォルトマージンを削除 */
+            padding: 30px 80px 30px 20px; /* 全体の余白（縦書き基準: 上下30px, 右80px(目次分考慮), 左20px） */
+            width: auto; /* 幅（縦書きの高さ）はコンテンツに合わせる */
+            height: auto; /* 高さ（縦書きの幅）はコンテンツに合わせる */
+            min-height: calc(100% - 60px); /* padding分を除いた最低限の高さを確保 */
+            display: inline-block; /* 縦書きで幅(高さ)を内容に合わせるためのキー */
+            box-sizing: border-box; /* paddingを含めて計算 */
+            position: relative; /* 目次の配置基準のため */
+        }
+
+        /* --- フロート目次メニュー --- */
+        #toc-menu {
+            position: fixed;
+            top: 30px; /* 上からの位置 */
+            left: 20px; /* 左からの位置 */
+            writing-mode: vertical-rl; /* 目次自体も縦書き */
+            text-orientation: mixed;
+            background-color: rgba(255, 255, 255, 0.95); /* 半透明の白背景 */
+            border: 1px solid #ccc;
+            padding: 20px 15px; /* 内側余白 (縦書き基準: 上下20px, 左右15px) */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000; /* 他の要素より手前に */
+            max-height: 80vh; /* 最大高さ */
+            overflow-y: auto; /* 目次項目が多い場合にスクロール */
+        }
+        #toc-menu h4 {
+            margin: 0 0 15px 0; /* 下マージン */
+            padding-bottom: 10px; /* 下線とのスペース */
+            border-bottom: 1px solid #aaa;
+            font-size: 1.1em;
+            text-align: center;
+            white-space: nowrap;
+        }
+        #toc-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #toc-menu li {
+            margin-bottom: 12px; /* 項目間のスペース */
+        }
+        #toc-menu a {
+            text-decoration: none;
+            color: #337ab7;
+            font-size: 0.9em;
+            transition: color 0.2s;
+            display: block; /* クリック範囲を広げる */
+            padding: 3px 0;
+            white-space: nowrap; /* 目次項目が折り返さないように */
+        }
+        #toc-menu a:hover {
+            color: #23527c;
+            /* text-decoration: underline; */ /* 縦書きだと下線は右線になる */
+             border-right: 2px solid #23527c; /* ホバー時に右線 */
+             padding-right: 5px; /* 線とのスペース */
+        }
+
+
+        /* コンテナ */
+        .container {
+            display: flex; /* セクションを横（縦書きでは下方向）に並べる */
+            flex-direction: column; /* 縦書きなので column が横方向 */
+            gap: 50px; /* セクション間のスペース */
+            width: auto; /* 幅は自動（コンテンツ次第） */
+            height: auto; /* 高さは自動（コンテンツ次第） */
+            margin: 0; /* bodyがinline-blockのため不要 */
+        }
+
+        /* --- 見出し --- */
+        h1 {
+            font-size: 2.6em;
+            line-height: 1.5;
+            text-align: center; /* 縦書きの中央揃え */
+            margin: 0 0 40px 0; /* 見出し下のスペース（縦書き基準）*/
+            padding-bottom: 20px; /* 下線とのスペース（縦書き基準） */
+            border-bottom: 3px solid #333; /* 下線（縦書き基準） */
+            letter-spacing: 0.1em; /* 文字間隔を少し広げる */
+            width: auto; /* 幅を内容に合わせる */
+            white-space: nowrap; /* 見出しが途中で改行しないように */
+        }
+
+        h2 {
+            font-size: 1.9em;
+            line-height: 1.6;
+            margin: 0 30px 0 0; /* 右側のスペース（縦書き基準） */
+            padding-right: 20px; /* 縦書きのパディング（右方向） */
+            border-right: 6px solid #333; /* 縦書きの右線 */
+            writing-mode: vertical-rl; /* h2内も縦書き */
+            text-orientation: upright; /* 漢字・かなを正立 */
+            height: fit-content; /* 内容に高さを合わせる */
+            width: auto; /* 幅を内容に合わせる */
+            white-space: nowrap; /* 見出しが途中で改行しないように */
+        }
+
+        /* --- セクション --- */
+        .tosa-section {
+            display: flex; /* 見出しと内容を並べる */
+            flex-direction: row; /* 縦書きの縦方向 */
+            border: 1px solid #ccc; /* セクションの枠線 */
+            padding: 30px; /* セクション内の余白 */
+            background-color: #fdfdfd; /* 少しだけ背景色 */
+            width: auto; /* 内容に合わせる */
+            height: fit-content; /* 内容に高さを合わせる */
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* 軽い影 */
+            scroll-margin-top: 40px; /* 目次クリック時のスクロール位置調整 */
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column; /* ポイントを横（縦書きの横方向）に並べる */
+            gap: 30px; /* ポイント間のスペース */
+            padding-right: 10px; /* 右側の余白 */
+            width: auto; /* 内容に合わせる */
+            height: fit-content; /* 内容に合わせる */
+        }
+
+        /* --- 各ポイント --- */
+        .point {
+            border-right: 1px dashed #aaa; /* ポイント間の区切り線 */
+            padding-right: 25px; /* 区切り線とのスペース */
+            margin-right: 15px; /* ポイント右のマージン */
+            height: fit-content; /* 内容に高さを合わせる */
+            width: auto; /* 幅（縦書きの高さ）を内容に合わせる */
+        }
+        .point:last-child {
+            border-right: none; /* 最後のポイントの線は消す */
+        }
+
+        .original, .modern {
+            margin: 0;
+            padding: 8px 0; /* 上下の余白 */
+            display: block; /* ブロック要素として扱う */
+            width: auto;
+            height: auto;
+        }
+
+        /* 原文スタイル */
+        .original {
+            font-size: 1.1em; /* 原文を少し大きく */
+            line-height: 2.1; /* 行間も少し広げる */
+            color: #333; /* 原文の色を基本文字色に */
+            font-weight: 500; /* 少し太く見えるように */
+            margin-bottom: 15px; /* 原文と現代語訳の間のスペース（縦書きの右） */
+        }
+
+        /* 現代語訳スタイル */
+        .modern {
+            font-size: 0.95em; /* 現代語訳を少し小さく */
+            line-height: 1.9; /* 行間 */
+            color: #444; /* 少し薄い色 */
+            /* ゴシック系のフォントを指定 */
+            font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", Meiryo, メイリオ, Osaka, "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
+        }
+
+        /* --- 強調キーワード --- */
+        .keyword, .date {
+            background-color: #FFF9C4; /* 明るいクリーム色 */
+            padding: 2px 5px; /* 上下2px, 左右5pxのパディング */
+            border-radius: 4px;
+            font-weight: bold;
+            color: #555; /* 少し濃い文字色 */
+            display: inline;
+            line-height: inherit; /* 親要素の行の高さを継承 */
+            box-decoration-break: clone; /* 背景色が改行時に分割される */
+            -webkit-box-decoration-break: clone;
+        }
+
+        .date {
+            background-color: #E3F2FD; /* 明るい水色 */
+            color: #444;
+        }
+
+        /* ルビ（読み仮名）のスタイル - h3内のみ適用 */
+        .lecture-point h3 ruby rt {
+            font-size: 0.6em; /* 読み仮名のサイズ */
+            color: #666;     /* 読み仮名の文字色 */
+            font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; /* ゴシック系 */
+            line-height: 1.2; /* 行高さ調整 */
+             margin-left: -0.2em; /* 右に少しずらす */
+        }
+        .lecture-point h3 ruby {
+            ruby-position: over; /* 縦書きでは右側に表示 */
+        }
+
+        /* --- まとめ & アイコン --- */
+        .summary {
+            display: flex;
+            flex-direction: row; /* アイコンとテキストを縦書きでの縦（通常横）に並べる */
+            align-items: center; /* 中央揃え */
+            margin-top: 20px; /* 上部スペース */
+            padding: 15px;
+            background-color: #eee;
+            border-radius: 5px;
+            border-right: 3px solid #bbb; /* まとめ部分の右線 */
+            width: auto; /* 幅は内容に合わせる */
+            height: fit-content; /* 高さは内容に合わせる */
+        }
+
+        .icon {
+            font-size: 2.2em;
+            margin-left: 20px; /* 縦書きでの左（通常上）のマージン */
+            writing-mode: horizontal-tb; /* アイコンだけ横書きに戻す */
+            line-height: 1; /* アイコンの行高さを調整 */
+            flex-shrink: 0; /* アイコンが縮まないように */
+        }
+
+        .summary p {
+            margin: 0;
+            font-size: 0.95em;
+            line-height: 1.8;
+            width: auto; /* 幅は成り行き */
+            height: auto; /* 高さは成り行き */
+            font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", Meiryo, メイリオ, Osaka, "MS PGothic", "ＭＳ Ｐゴシック", sans-serif; /* まとめもゴシックに */
+        }
+
+         /* 原文番号 */
+        .original-num {
+             font-size: 0.8em;
+             color: #888;
+             margin-right: 5px; /* 番号と本文の間のスペース */
+             display: inline-block;
+             width: 1.5em; /* 番号の幅を確保 */
+             text-align: center;
+             line-height: 1; /* 行高さ */
+             vertical-align: middle; /* 縦中央揃え */
+        }
+         /* 現代語訳についている原文番号も調整 */
+        .modern .original-num {
+             font-size: 0.75em;
+        }
+
+        /* --- 池上風講座セクション --- */
+        .lecture-section {
+            margin-top: 60px; /* 前のセクションとの間隔 */
+            border-top: 3px double #333; /* 上区切り線 */
+            padding-top: 40px; /* 上余白 */
+            width: auto; /* 幅は成り行き */
+            height: auto; /* 高さは成り行き */
+             scroll-margin-top: 40px; /* 目次クリック時のスクロール位置調整 */
+        }
+
+        .lecture-section h2 {
+            border-right: none; /* 通常のh2の線は消す */
+            border-bottom: 4px solid #555; /* 下線に変更 */
+            padding-bottom: 15px;
+            margin: 0 0 30px 0; /* 下マージン */
+            text-align: center;
+            width: auto; /* 幅は自動 */
+            display: flex; /* アイコンとテキストを並べる */
+            align-items: center; /* 中央揃え */
+            justify-content: center; /* 中央寄せ */
+            font-size: 2.0em;
+            white-space: normal; /* 必要なら改行許可 */
+            text-orientation: mixed; /* 見出しも mixed に */
+            font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; /* 見出しもゴシック系に */
+        }
+
+        .lecture-section h2 .icon {
+            margin-left: 15px; /* アイコンとテキストの間隔（縦書きの左） */
+            font-size: 1.2em; /* アイコンサイズ調整 */
+            writing-mode: horizontal-tb; /* アイコンは横書き */
+        }
+
+
+        .lecture-content {
+            display: flex;
+            flex-direction: column; /* 縦書きの横方向 */
+            gap: 40px; /* 各ポイント間のスペース */
+            width: auto; /* 幅は自動 */
+            height: auto; /* 高さは自動 */
+        }
+
+        .lecture-point {
+            border-right: 2px solid #eee; /* ポイント間の区切り */
+            padding-right: 30px;
+            margin-right: 20px;
+            width: auto; /* 幅は自動 */
+            height: fit-content; /* 高さは内容に合わせる */
+        }
+        .lecture-point:last-child {
+            border-right: none;
+        }
+
+        .lecture-point h3 {
+            font-size: 1.5em;
+            line-height: 1.6;
+            margin-bottom: 15px; /* 見出し下のスペース */
+            border-bottom: 1px dashed #aaa; /* 下線 */
+            padding-bottom: 10px;
+            display: flex; /* キーワードとテキストを分ける場合 */
+            align-items: center;
+            width: auto;
+            font-family: "游明朝", YuMincho, serif; /* 見出しは明朝 */
+        }
+        .lecture-point h3 .keyword,
+        .lecture-point h3 .date {
+             margin-left: 10px; /* 縦書きの左側 */
+             font-size: 0.9em; /* キーワードのサイズ調整 */
+        }
+
+
+        .lecture-point p {
+            font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", Meiryo, メイリオ, Osaka, "MS PGothic", "ＭＳ Ｐゴシック", sans-serif; /* ゴシック体 */
+            font-size: 1em;
+            line-height: 2.0;
+            color: #333;
+            margin-bottom: 10px; /* 段落間のスペース */
+            width: auto;
+            height: auto;
+        }
+
+        .lecture-point .tip {
+            background-color: #f0f0f0; /* Tipsの背景色 */
+            padding: 15px;
+            border-radius: 5px;
+            border-right: 3px solid #bbb; /* Tipsの右線 */
+            margin-top: 15px; /* 上の文章とのスペース */
+            font-size: 0.95em;
+            line-height: 1.9;
+            width: auto;
+        }
+        .lecture-point .tip span.icon-tip { /* アイコン部分 */
+            font-weight: bold;
+            margin-left: 8px; /* アイコンとテキストの間隔 */
+            display: inline-block;
+            writing-mode: horizontal-tb; /* アイコンは横書き */
+            color: #4CAF50; /* アイコンの色 */
+        }
+
+        /* 池上風強調 */
+        .lecture-point strong {
+             font-weight: bold;
+             border-bottom: 2px solid #64B5F6; /* 下線での強調 */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ===== フロート目次メニュー ===== -->
+    <nav id="toc-menu">
+        <h4>目次</h4>
+        <ul>
+            <li><a href="#section1">一、男もすなる日記</a></li>
+            <li><a href="#section2">二、ある人、県の四年五年…</a></li>
+            <li><a href="#section3">三、二十三日。八木の…</a></li>
+            <li><a href="#lecture-section">📰 深掘り解説</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>土佐日記<br>冒頭を読む</h1>
+
+        <section class="tosa-section" id="section1">
+            <h2>一、<br>男もすなる<br>日記</h2>
+            <div class="content">
+                <div class="point">
+                    <p class="original"><span class="original-num">①</span>男もすなる<span class="keyword">日記</span>といふものを、<span class="keyword">女</span>もしてみむとて、するなり。</p>
+                    <p class="modern"><span class="original-num">①</span>男が書くという<span class="keyword">日記</span>というものを、<span class="keyword">女</span>〔の私〕も書いてみようと思って、書くのである。</p>
+                </div>
+                <div class="point">
+                     <p class="original"><span class="original-num">②</span>それの年の<span class="date">十二月</span>の<span class="date">二十日余り一日</span>の日の戌の時に、<span class="keyword">門出</span>す。</p>
+                    <p class="modern"><span class="original-num">②</span>ある年の<span class="date">十二月二十一日</span>の午後八時ごろ（戌の時）に、<span class="keyword">門出</span>（出発）する。</p>
+                </div>
+                <div class="point">
+                     <p class="original"><span class="original-num">③</span>そのよし、いささかにものに書きつく。</p>
+                    <p class="modern"><span class="original-num">③</span>そのときのことを、少しばかりものに書きしるす。</p>
+                </div>
+                <div class="summary">
+                    <span class="icon">✍️</span>
+                    <p>作者（紀貫之）が<span class="keyword">女性のふり</span>をして、ひらがなで<span class="keyword">日記</span>を書き始めることを宣言。土佐からの<span class="keyword">旅の始まり</span>の日付と時刻が記される。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tosa-section" id="section2">
+            <h2>二、<br>ある人、<br>県の四年<br>五年果てて</h2>
+            <div class="content">
+                 <div class="point">
+                    <p class="original"><span class="original-num">①</span>ある人、<span class="keyword">県</span>の四年五年果てて、<span class="keyword">例のことども</span>みなし終へて、<span class="keyword">解由</span>など取りて、</p>
+                    <p class="modern"><span class="original-num">①</span>ある人（＝作者）が、国守の任期（<span class="keyword">県</span>）の四、五年が終わって、所定の事務引き継ぎ（<span class="keyword">例のことども</span>）もすっかり終わらせて、<span class="keyword">解由</span>状などを受け取って、</p>
+                 </div>
+                 <div class="point">
+                     <p class="original"><span class="original-num">②</span>住む館より出でて、船に乗るべき所へわたる。<span class="original-num">③</span>かれこれ、知る知らぬ、<span class="keyword">送り</span>す。</p>
+                    <p class="modern"><span class="original-num">②</span>住んでいる官舎から出て、船に乗ることになっている場所へ移る。<span class="original-num">③</span>あの人やこの人、知っている人も知らない人も、<span class="keyword">見送り</span>をする。</p>
+                 </div>
+                 <div class="point">
+                    <p class="original"><span class="original-num">④</span>年ごろよくくらべつる人々なむ、別れがたく思ひて、<span class="original-num">⑤</span>日しきりに、とかくしつつ、<span class="keyword">ののしる</span>うちに、夜更けぬ。</p>
+                    <p class="modern"><span class="original-num">④</span>長年たいそう親しく付き合った人々は、別れづらく思って、<span class="original-num">⑤</span>一日中、あれこれ世話をしながら、<span class="keyword">大騒ぎ</span>をするうちに、夜が更けてしまった。</p>
+                 </div>
+                 <div class="point">
+                     <p class="original"><span class="original-num">⑥</span><span class="date">二十二日</span>に、和泉の国までと、平らかに願立つ。<span class="original-num">⑦</span>藤原のときざね、船路なれど、<span class="keyword">馬のはなむけ</span>す。<span class="original-num">⑧</span><span class="keyword">上・中・下</span>、<span class="keyword">酔ひ飽き</span>て、いとあやしく、潮海のほとりにて、あざれあへり。</p>
+                    <p class="modern"><span class="original-num">⑥</span><span class="date">二十二日</span>に、和泉の国まではと、無事であるように神仏に祈願する。<span class="original-num">⑦</span>藤原のときざねが、船旅であるけれど、<span class="keyword">馬のはなむけ</span>（＝送別の宴）をする。<span class="original-num">⑧</span>〔身分の〕高い人も、中流の人も、低い人も（<span class="keyword">上・中・下</span>）、みなすっかり<span class="keyword">酔っぱらって</span>、たいそう不思議なことに、〔塩のきいている〕海のそばでふざけあっている。</p>
+                 </div>
+                 <div class="summary">
+                    <span class="icon">🚢</span>
+                    <p>任期を終えた国守（作者）が京へ帰る<span class="keyword">旅の準備</span>と実際の<span class="keyword">出発</span>（船着き場への移動）。多くの<span class="keyword">見送り</span>や最初の<span class="keyword">送別の宴</span>（<span class="keyword">馬のはなむけ</span>）の様子が描かれる。</p>
+                 </div>
+            </div>
+        </section>
+
+        <section class="tosa-section" id="section3">
+            <h2>三、<br>二十三日。<br>八木の<br>やすのり</h2>
+             <div class="content">
+                 <div class="point">
+                    <p class="original"><span class="original-num">①</span><span class="date">二十三日</span>。八木のやすのりといふ人あり。<span class="original-num">②</span>この人、国に必ずしも言ひ使ふ者にもあらざなり。<span class="original-num">③</span>これぞ、たたはしきやうにて、<span class="keyword">馬のはなむけ</span>したる。</p>
+                    <p class="modern"><span class="original-num">①</span><span class="date">二十三日</span>。八木のやすのりという人がいる。<span class="original-num">②</span>この人は、国司の役所で必ずしも召し使っている者でもないようである。<span class="original-num">③</span>〔それなのに〕この人は、いかめしく厳かな様子で、<span class="keyword">馬のはなむけ</span>（送別の宴）をした。</p>
+                 </div>
+                 <div class="point">
+                    <p class="original"><span class="original-num">④</span><span class="keyword">守柄</span>にやあらむ、国人の心の常として、「今は。」とて見えざなるを、<span class="original-num">⑤</span><span class="keyword">心ある者</span>は、恥ぢずになむ来ける。<span class="original-num">⑥</span>これは、ものによりてほむるにしもあらず。</p>
+                    <p class="modern"><span class="original-num">④</span>〔それも〕国司（＝作者）の人柄（<span class="keyword">守柄</span>）であろうか、任国の人の心の常としては、「今は〔もう用はない〕。」といって顔を見せないようだが、<span class="original-num">⑤</span><span class="keyword">心ある者</span>（道理をわきまえている者）は、〔ひと目を〕遠慮せずに来た。<span class="original-num">⑥</span>これは、（餞別の）品をもらったからほめるというわけでもない。</p>
+                 </div>
+                 <div class="point">
+                    <p class="original"><span class="original-num">⑦</span><span class="date">二十四日</span>。<span class="keyword">講師</span>、<span class="keyword">馬のはなむけ</span>しに出でませり。<span class="original-num">⑧</span><span class="keyword">ありとある上・下</span>、童まで<span class="keyword">酔ひしれ</span>て、<span class="original-num">⑨</span><span class="keyword">一文字</span>をだに知らぬ者、しが足は<span class="keyword">十文字</span>に踏みてぞ遊ぶ。</p>
+                    <p class="modern"><span class="original-num">⑦</span><span class="date">二十四日</span>。国分寺の僧侶（<span class="keyword">講師</span>）が、送別の宴をしにおいでになった。<span class="original-num">⑧</span>人はみな〔身分の〕上下を問わず（<span class="keyword">ありとある上・下</span>）、子どもまで酔っぱらって、<span class="original-num">⑨</span><span class="keyword">一文字</span>（一という文字）さえも知らない者（＝教養のない者）が、その足を<span class="keyword">十文字</span>に踏んで（＝千鳥足で）遊ぶ。</p>
+                 </div>
+                 <div class="summary">
+                    <span class="icon">🍶</span>
+                    <p>連日続く<span class="keyword">送別の宴</span>。任を去る人に対する人の態度の違い（<span class="keyword">心ある者</span>とそうでない者）への言及や、宴会の<span class="keyword">賑やか</span>で<span class="keyword">滑稽</span>な様子が、作者の観察眼を通して記される。</p>
+                 </div>
+            </div>
+        </section>
+
+        <!-- ===== 池上風講座セクション ===== -->
+        <section class="lecture-section" id="lecture-section">
+            <h2><span class="icon">📰</span> なるほど！よくわかる！<br>土佐日記 深掘り解説</h2>
+            <div class="lecture-content">
+
+                <div class="lecture-point">
+                    <h3><span class="keyword"><ruby>日記<rt>にっき</rt></ruby></span></h3>
+                    <p>さて、皆さんと一緒に『土佐日記』を見ていきましょう。まず押さえておきたいのは、この作品が<strong>日本で初めて</strong>の本格的な<span class="keyword">仮名日記文学</span>だということです。ここ、大事なポイントですね。当時、「日記」というと、普通は男性の役人が仕事の記録などを<span class="keyword">漢文</span>で書くものでした。そこに、新しい風を吹き込んだのが、この『土佐日記』なんですね。</p>
+                    <p class="tip"><span class="icon-tip">💡</span>そうだったのか！：作者の<span class="keyword">紀貫之</span>は、『<span class="keyword">古今和歌集</span>』を選んだことでも知られる有名な歌人です。漢詩や漢文にも詳しい、いわば当時のエリート知識人でした。その彼が、あえて<strong>個人的な気持ち</strong>や<strong>日常の出来事</strong>を、当時主に女性が使っていたとされる<span class="keyword">ひらがな</span>を中心に書いた。ここに大きな意味があります。これがきっかけとなって、後の『<ruby>蜻蛉日記<rt>かげろうにっき</rt></ruby>』『<ruby>和泉式部日記<rt>いずみしきぶにっき</rt></ruby>』『<ruby>紫式部日記<rt>むらさきしきぶにっき</rt></ruby>』『<ruby>更級日記<rt>さらしなにっき</rt></ruby>』といった、いわゆる<span class="keyword">女流日記文学</span>が花開く<span class="keyword">先駆け</span>となったわけです。この文学史の流れは、よく問われるところですよ。</p>
+                </div>
+
+                <div class="lecture-point">
+                    <h3><span class="keyword"><ruby>女<rt>おんな</rt></ruby></span></h3>
+                    <p>「男もすなる日記といふものを、女もしてみむ」…なぜ貫之ほどの人が、ここで<span class="keyword">女性のふり</span>をしているのでしょうか？不思議に思いませんか？これにはいくつかの理由が考えられています。</p>
+                    <p>①<strong>仮名文字を使うため</strong>：漢文では書き表しにくい、<strong>心の細やかな動き</strong>や<span class="keyword">和歌</span>を、もっと自由に表現したかったのかもしれません。<br>②<strong>自由な立場から書くため</strong>：男性の役人としての立場や体面を気にせず、<strong><ruby>本音<rt>ほんね</rt></ruby></strong>や、時には<span class="keyword">批判精神</span>（例えば、後から来る役人への不満など）を、よりストレートに書くことができた、というわけですね。<br>③<strong>身元を隠すため？</strong>：もしかすると、特定の人物への批判が含まれているので、責任を問われないように、という意図もあったのかもしれません。</p>
+                    <p class="tip"><span class="icon-tip">💡</span>なるほど！：この「<span class="keyword">女性仮託</span>」という書き方が、作品に<strong><ruby>独特の視点<rt>どくとくのしてん</rt></ruby></strong>と<strong><ruby>表現の幅<rt>ひょうげんのはば</rt></ruby></strong>をもたらしています。「女性だからこう感じる」という視点が、文章のあちこちにユーモアやペーソス（哀愁、もの悲しさ）を生み出しているんですね。</p>
+                </div>
+
+                 <div class="lecture-point">
+                    <h3><span class="date"><ruby>日付<rt>ひづけ</rt></ruby></span>と<span class="keyword"><ruby>門出<rt>かどで</rt></ruby></span></h3>
+                    <p>「<ruby>十二月<rt>じゅうにがつ</rt></ruby>の<ruby>二十日余り一日<rt>はつかあまりついたち</rt></ruby>の日の戌の時」…ずいぶん詳しい時間ですね。これは現在の暦で言うと、<span class="date"><ruby>承平四年<rt>じょうへいよねん</rt></ruby>（934年）<ruby>十二月二十一日<rt>じゅうにがつにじゅういちにち</rt></ruby>、<strong><ruby>午後八時頃<rt>ごごはちじごろ</rt></ruby></strong></span>ということになります。日記文学を読む上で、<strong>日付</strong>はとても大切です。いつ、どこで、何があったのか、という点をしっかり追っていくことが基本になります。<span class="keyword">門出</span>は、読んで字のごとく「出発」のこと。ここから、都（京都）へ帰るための、およそ55日間にわたる船旅が始まるわけですね。</p>
+                    <p class="tip"><span class="icon-tip">💡</span>そうだったのか！：当時の旅、特に船旅は、今では考えられないほど<strong><ruby>危険<rt>きけん</rt></ruby></strong>が伴いました。天候に大きく左右されますし、時には<span class="keyword">海賊</span>に襲われる心配もあったようです。だからこそ、旅の安全を祈る場面（本文中の「<span class="keyword">願立つ</span>」）があったり、旅の状況によって一喜一憂する作者の気持ちが、とてもリアルに描かれています。旅の行程と作者の心の動きを重ね合わせて読んでいくのが、<span class="keyword">読解</span>のコツと言えるでしょう。</p>
+                 </div>
+
+                 <div class="lecture-point">
+                    <h3><span class="keyword"><ruby>県<rt>あがた</rt></ruby></span>・<span class="keyword"><ruby>例<rt>れい</rt></ruby>のことども</span>・<span class="keyword"><ruby>解由<rt>げゆ</rt></ruby></span></h3>
+                    <p>本文に出てくる「<span class="keyword">県</span>」というのは、<span class="keyword">国司</span>が派遣された<strong><ruby>任国<rt>にんごく</rt></ruby></strong>（この場合は<span class="keyword">土佐国</span>）のことを指します。「県の四年五年果てて」というのは、国司としての<strong><ruby>任期<rt>にんき</rt></ruby>が終わった</strong>、ということですね。任期はだいたい4年から6年くらいだったようです。<span class="keyword">例のことども</span>というのは、任期が終わる時に行う、後任への<strong><ruby>事務引き継ぎ<rt>じむひきつぎ</rt></ruby></strong>作業全般のことです。そして<span class="keyword">解由</span>。これは後任の国司から、前任者に対して発行される「<strong><ruby>事務引継ぎ<rt>じむひきつぎ</rt></ruby>がちゃんと完了しましたよ</strong>」という証明書のことです。これがないと、都に帰っても次の役職に就けなかったりする場合もあった、<strong>とても<ruby>重要<rt>じゅうよう</rt></ruby>な<ruby>書類<rt>しょるい</rt></ruby></strong>だったんですね。</p>
+                     <p class="tip"><span class="icon-tip">💡</span>なるほど！：これらの言葉から、「ある人」というのが、実は<strong><ruby>土佐守<rt>とさのかみ</rt></ruby>（土佐国の国司）</strong>であったことがわかりますね。平安時代の<strong><ruby>地方統治<rt>ちほうとうち</rt></ruby>の<ruby>制度<rt>せいど</rt></ruby></strong>が、少し見えてくる部分です。こうした<span class="keyword">背景知識</span>があると、より深く理解できますよ。</p>
+                 </div>
+
+                 <div class="lecture-point">
+                    <h3><span class="keyword"><ruby>送り<rt>おくり</rt></ruby></span>・<span class="keyword">ののしる</span>・<span class="keyword"><ruby>馬<rt>うま</rt></ruby>のはなむけ</span></h3>
+                    <p>「<span class="keyword">送り</span>」は、現代語と同じく<span class="keyword">見送り</span>のことです。任期を終えて都へ帰る国司を、人々が見送る習慣があったことがうかがえますね。ここで注意したいのが「<span class="keyword">ののしる</span>」という言葉です。現代語だと「悪口を言う」という意味ですが、古文では<strong>意味が違います</strong>。ここでは「<strong><ruby>大声で騒ぐ<rt>おおごえでさわぐ</rt></ruby></strong>」とか「<strong><ruby>評判<rt>ひょうばん</rt></ruby>になる</strong>」といった意味で使われています。つまり、送別の宴会などで、<strong>皆がワイワイと<ruby>賑<rt>にぎ</rt></ruby>やかにしている</strong>様子を表しているんですね。</p>
+                    <p>そして、<span class="keyword">馬のはなむけ</span>。これは非常に重要な言葉です。「<ruby>餞<rt>はなむけ</rt></ruby>」とも言いますね。旅立つ人の<strong><ruby>道中<rt>どうちゅう</rt></ruby>の<ruby>安全<rt>あんぜん</rt></ruby>を祈って</strong>開かれる<strong><ruby>送別<rt>そうべつ</rt></ruby>の<ruby>宴<rt>うたげ</rt></ruby></strong>のことです。もともとは、旅立つ方向へ馬の鼻先を向けて送り出したことから「馬の鼻向け」と言ったそうですが、それが<span class="keyword">慣用句</span>として定着したんですね。船旅なのに「馬」という言葉が使われているのが、ちょっと面白いところです。</p>
+                    <p class="tip"><span class="icon-tip">💡</span>注意！：「ののしる」のように、<strong>現代語と意味が異なる古語</strong>（<span class="keyword">古今異義語</span>）は、テストでも狙われやすいポイントです。意味を正確に覚えておきましょう。「<ruby>馬<rt>うま</rt></ruby>のはなむけ」は<span class="keyword">送別</span>の場面を表すキーワードです。<ruby>語源<rt>ごげん</rt></ruby>と意味をセットで理解しておくと良いですね。</p>
+                 </div>
+
+                 <div class="lecture-point">
+                    <h3><span class="keyword"><ruby>上・中・下<rt>じょうちゅうげ</rt></ruby></span>・<span class="keyword"><ruby>酔<rt>よ</rt></ruby>ひ<ruby>飽<rt>あ</rt></ruby>き</span></h3>
+                    <p>宴会の場面では、<span class="keyword">上・中・下</span>、つまり<strong><ruby>身分<rt>みぶん</rt></ruby>の高い人から低い人まで</strong>、様々な階層の人々が参加していたことが記されています。平安時代というと<span class="keyword">身分社会</span>というイメージが強いですが、宴席のような場では、ある程度<span class="keyword">無礼講</span>というか、打ち解けた雰囲気もあったようですね。「<ruby>酔<rt>よ</rt></ruby>ひ<ruby>飽<rt>あ</rt></ruby>きて」というのは、<strong>すっかり<ruby>酔<rt>よ</rt></ruby>いが回って</strong>、もう十分満足した、という状態です。海のそばで「あざれあへり」（ふざけ合っている）様子からは、身分に関わらず、<strong><ruby>人間味<rt>にんげんみ</rt></ruby>あふれる姿</strong>が伝わってきます。</p>
+                    <p class="tip"><span class="icon-tip">💡</span>なるほど！：『土佐日記』を読むと、<span class="keyword">貴族社会</span>の様子だけでなく、こうした<strong><ruby>庶民<rt>しょみん</rt></ruby>に近い人々</strong>の姿も描かれているのが興味深い点です。<strong>リアルな人間描写</strong>にも注目して読んでみてください。</p>
+                 </div>
+
+                 <div class="lecture-point">
+                    <h3><span class="keyword"><ruby>守柄<rt>かみがら</rt></ruby></span>・<span class="keyword"><ruby>心<rt>こころ</rt></ruby>ある<ruby>者<rt>もの</rt></ruby></span></h3>
+                    <p>「<span class="keyword">守柄</span>」というのは、<strong><ruby>国守<rt>こくし</rt></ruby>（この場合は貫之）の<ruby>人柄<rt>ひとがら</rt></ruby></strong>のことですね。「<span class="keyword">心ある者</span>」というのは、<strong><ruby>道理<rt>どうり</rt></ruby>をわきまえている人</strong>、あるいは<strong><ruby>情<rt>なさ</rt></ruby>け<ruby>深<rt>ぶか</rt></ruby>い人</strong>といった意味合いです。普通なら、国守の任期が終われば「もう用はない」とばかりに、見送りにさえ来なくなるのが「国人の心の常」（地方の人々の一般的な態度）なのに、八木のやすのりのように、役所の人間でもないのにわざわざ立派な送別の宴を開いてくれる人もいる。それは貫之の「守柄」が良かったからなのだろうか…と、作者は人々の行動を通して、<strong><ruby>人間観察<rt>にんげんかんさつ</rt></ruby></strong>をしているわけですね。</p>
+                    <p class="tip"><span class="icon-tip">💡</span>ポイント！：この部分は、作者の<strong><ruby>人間観<rt>にんげんかん</rt></ruby></strong>や<strong><ruby>価値観<rt>かちかん</rt></ruby></strong>が表れているところと言えます。「今は。」と言って顔を見せなくなる人々と、「<ruby>心<rt>こころ</rt></ruby>ある<ruby>者<rt>もの</rt></ruby>」との<strong><ruby>対比<rt>たいひ</rt></ruby></strong>に注目してみましょう。作者がどちらの態度を好ましく思っているかは、読むと自然に伝わってきますね。</p>
+                 </div>
+
+                 <div class="lecture-point">
+                    <h3><span class="keyword"><ruby>講師<rt>こうじ</rt></ruby></span>・<span class="keyword"><ruby>一文字<rt>いちもんじ</rt></ruby></span>／<span class="keyword"><ruby>十文字<rt>じゅうもんじ</rt></ruby></span></h3>
+                    <p><span class="keyword">講師</span>というのは、<strong><ruby>国分寺<rt>こくぶんじ</rt></ruby>で<ruby>経典<rt>きょうてん</rt></ruby>を<ruby>講義<rt>こうぎ</rt></ruby>する<ruby>僧侶<rt>そうりょ</rt></ruby></strong>のことです。当時の国分寺は、地方における重要な施設でしたから、講師もそれなりの<span class="keyword">地位</span>にあったと考えられます。その講師までが送別の宴を開き、参加者全員が身分に関係なく（「<span class="keyword">ありとある上・下</span>」）、子どもまでもが酔っぱらっているというのですから、大変な賑わいだったのでしょう。</p>
+                    <p>そして、この部分のクライマックスとも言えるのが、「<span class="keyword">一文字</span>をだに知らぬ者、しが足は<span class="keyword">十文字</span>に踏みてぞ遊ぶ」という表現です。これはなかなか<ruby>味<rt>あじ</rt></ruby>わい<ruby>深<rt>ぶか</rt></ruby>いですね。「一という文字さえ知らないような<strong><ruby>教養<rt>きょうよう</rt></ruby>のない者</strong>が、酔っ払って<strong><ruby>千鳥足<rt>ちどりあし</rt></ruby></strong>（足元がフラフラして、まるで<ruby>十文字<rt>じゅうもんじ</rt></ruby>のように交差する様子）で歩き回って遊んでいる」という意味です。<strong>「一」と「十」という数字を使った<ruby>対比<rt>たいひ</rt></ruby></strong>が効いていて、とても<strong>ユーモラス</strong>な描写になっています。</p>
+                    <p class="tip"><span class="icon-tip">💡</span>ここが面白い！：こうした<strong><ruby>誇張<rt>こちょう</rt></ruby></strong>や<strong><ruby>対比<rt>たいひ</rt></ruby></strong>を用いた<strong>ユーモア表現</strong>は、『土佐日記』の大きな特徴の一つです。宴会の<strong>熱気</strong>と、それを少し離れたところから冷静に観察し、<strong>ウィット</strong>（気の利いた面白さ）を交えて描写する作者の<span class="keyword">筆致</span>（文章の書きぶり）を感じ取ってみてください。ちなみに、「だに」は「～さえ」という意味を表す<strong>副助詞</strong>で、<strong><ruby>類推<rt>るいすい</rt></ruby></strong>の用法です。また、最後の「遊ぶ」が連体形になっているのは、文中の係助詞「ぞ」を受けた<strong><ruby>係り結び<rt>かかりむすび</rt></ruby></strong>ですね。こうした<span class="keyword">文法</span>のポイントも、しっかり確認しておきましょう。</p>
+                 </div>
+
+                 <div class="lecture-point">
+                    <h3>まとめ：『<ruby>土佐日記<rt>とさにっき</rt></ruby>』を<ruby>深<rt>ふか</rt></ruby>く<ruby>知<rt>し</rt></ruby>るために</h3>
+                    <p>さて、ここまで『土佐日記』の冒頭部分を見てきました。この作品を理解する上で、大切な点をまとめておきましょう。</p>
+                    <p><strong>① <ruby>仮名文学<rt>かなぶんがく</rt></ruby>の<ruby>先駆<rt>さきが</rt></ruby>け</strong>：なぜ<ruby>仮名<rt>かな</rt></ruby>で書かれたのか？<ruby>女性<rt>じょせい</rt></ruby>の<ruby>振<rt>ふ</rt></ruby>りをしているのはなぜか？その意味を考えてみましょう。<br>
+                       <strong>② <ruby>日付<rt>ひづけ</rt></ruby>と<ruby>旅程<rt>りょてい</rt></ruby></strong>：いつ、どこで、何があったのか？旅が進むにつれて、作者の気持ちはどう変化していくのか？<br>
+                       <strong>③ <ruby>人間観察<rt>にんげんかんさつ</rt></ruby>の<ruby>視点<rt>してん</rt></ruby></strong>：作者は人々や出来事をどう見ているか？ユーモアや<ruby>批判精神<rt>ひはんせいしん</rt></ruby>はどこに表れているか？<br>
+                       <strong>④ <ruby>古語<rt>こご</rt></ruby>と<ruby>背景知識<rt>はいけいちしき</rt></ruby></strong>：<ruby>現代語<rt>げんだいご</rt></ruby>と<ruby>意味<rt>いみ</rt></ruby>が<ruby>違<rt>ちが</rt></ruby>う<ruby>言葉<rt>ことば</rt></ruby>、<ruby>重要<rt>じゅうよう</rt></ruby>な<ruby>語句<rt>ごく</rt></ruby>、<ruby>平安時代<rt>へいあんじだい</rt></ruby>の<ruby>制度<rt>せいど</rt></ruby>や<ruby>習慣<rt>しゅうかん</rt></ruby>などを知っておくと、より深く理解できます。<br>
+                       <strong>⑤ <span class="keyword">和歌</span>の<ruby>役割<rt>やくわり</rt></ruby></strong>：本文中には多くの<ruby>和歌<rt>わか</rt></ruby>が<ruby>挿入<rt>そうにゅう</rt></ruby>されています（今回は範囲外ですが）。それらがどのような<ruby>場面<rt>ばめん</rt></ruby>で、どんな<ruby>気持<rt>きも</rt></ruby>ちを<ruby>表<rt>あらわ</rt></ruby>すために<ruby>詠<rt>よ</rt></ruby>まれているのか、という点も重要です。</p>
+                    <p>これらの点に注目して読むことで、『土佐日記』の世界が、より生き生きと見えてくるのではないでしょうか。ぜひ、じっくりと読み進めてみてください。</p><br><br><br><br><br><br><br><br><br>
+                 </div>
+
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>

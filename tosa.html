@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>土佐日記 インフォグラフィック解説</title>
+<style>
+  body {
+    font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    line-height: 1.7;
+    background-color: #f0f8ff; /* Light Alice Blue background */
+    color: #333;
+    padding: 20px;
+  }
+
+  .infographic-container {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensures content stays within rounded corners */
+  }
+
+  header {
+    background-color: #4682b4; /* Steel Blue */
+    color: white;
+    padding: 25px 30px;
+    text-align: center;
+    border-bottom: 5px solid #315a7d;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2.2em;
+    font-weight: bold;
+  }
+    header p {
+        margin: 5px 0 0;
+        font-size: 1.1em;
+    }
+
+  .content-area {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive grid */
+    gap: 30px;
+  }
+
+  .main-content {
+    grid-column: span 1; /* Takes up one column */
+  }
+
+  .sidebar {
+    grid-column: span 1; /* Takes up one column */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #e6f3ff; /* Lighter blue tint */
+    border-radius: 10px;
+    border-left: 6px solid #6495ed; /* Cornflower Blue */
+  }
+
+    .section:last-child {
+        margin-bottom: 0;
+    }
+
+  .section h2 {
+    margin-top: 0;
+    color: #315a7d; /* Darker Steel Blue */
+    font-size: 1.6em;
+    border-bottom: 2px solid #b0c4de; /* Light Steel Blue */
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+  }
+
+    .section h3 {
+        color: #4682b4; /* Steel Blue */
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+    }
+    .section h3::before {
+        content: '▶';
+        color: #ffa500; /* Orange */
+        margin-right: 8px;
+        font-size: 0.8em;
+    }
+
+
+  .original-text, .modern-translation {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .original-text {
+    background-color: #fffacd; /* Lemon Chiffon */
+    border: 1px dashed #ccc;
+    font-family: "Yu Mincho", "Hiragino Mincho ProN", serif; /* Serif font for original */
+  }
+    .original-text strong {
+        font-weight: bold;
+        color: #8b4513; /* Saddle Brown */
+    }
+
+  .modern-translation {
+    background-color: #f5f5f5; /* White Smoke */
+    border: 1px solid #eee;
+  }
+
+  .timeline {
+    margin-top: 20px;
+    padding-left: 20px;
+    border-left: 3px solid #ffa500; /* Orange timeline */
+    position: relative;
+  }
+
+  .timeline-item {
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 25px;
+  }
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -11px; /* Adjust to center on the border */
+        top: 5px;
+        width: 15px;
+        height: 15px;
+        background-color: #ffffff;
+        border: 3px solid #ffa500; /* Orange */
+        border-radius: 50%;
+        z-index: 1;
+    }
+    .timeline-item strong {
+        color: #315a7d;
+        font-size: 1.1em;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+
+  .column {
+    padding: 20px;
+    background-color: #fff8dc; /* Cornsilk */
+    border: 1px solid #eee8aa; /* Pale Goldenrod */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+
+  .column h3 {
+    margin-top: 0;
+    color: #8b4513; /* Saddle Brown */
+    font-size: 1.3em;
+    border-bottom: 2px dotted #cd853f; /* Peru */
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  .column h3::before {
+      content: '💡'; /* Light bulb emoji */
+      margin-right: 8px;
+  }
+
+
+  .column dl {
+    margin: 0;
+    padding: 0;
+  }
+
+  .column dt {
+    font-weight: bold;
+    color: #4682b4; /* Steel Blue */
+    margin-top: 10px;
+  }
+
+  .column dd {
+    margin-left: 1em;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+      .content-area {
+          grid-template-columns: 1fr; /* Stack columns on smaller screens */
+      }
+      header h1 {
+          font-size: 1.8em;
+      }
+      .section h2 {
+          font-size: 1.4em;
+      }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="infographic-container">
+  <header>
+    <h1>土佐日記 インフォグラフィック解説</h1>
+    <p>〜 男もすなる日記といふものを 〜</p>
+  </header>
+
+  <div class="content-area">
+
+    <div class="main-content">
+      <!-- Section 1: 序文 -->
+      <div class="section">
+        <h2>序文：日記を書き始める</h2>
+        <h3>本文 (1)</h3>
+        <div class="original-text">
+          <p>①<strong>男もすなる日記といふものを、女もしてみむとて</strong>、するなり。</p>
+          <p>②それの年の<strong>十二月の二十日余り一日の日の戌の時</strong>に、<strong>門出す</strong>。③そのよし、いささかにものに書きつく。</p>
+        </div>
+        <h3>現代語訳</h3>
+        <div class="modern-translation">
+          <p>①男も書くという日記というものを、女〔の私〕も書いてみようと思って、書くのである。</p>
+          <p>②ある年の十二月二十一日、午後八時ごろに、〔京への帰途に〕出発する。③そのときのことを、少しばかり書きしるす。</p>
+        </div>
+        <p><strong>ポイント：</strong>女性である作者が、当時男性のものとされていた「日記」を、あえて書こうとする宣言から始まります。出発の日時も具体的に記されています。</p>
+      </div>
+
+      <!-- Section 2: 出発と見送り -->
+      <div class="section">
+        <h2>出発と見送り (十二月二十一日〜二十二日)</h2>
+        <h3>本文 (2)</h3>
+        <div class="original-text">
+          <p>①ある人、<strong>県の四年五年果てて</strong>、例のことどもみなし終へて、<strong>解由</strong>など取りて、②住む<strong>館</strong>より出でて、船に乗るべき所へわたる。③かれこれ、知る知らぬ、送りす。④年ごろよくくらべつる人々なむ、別れがたく思ひて、⑤日しきりに、とかくしつつ、ののしるうちに、夜更けぬ。</p>
+          <p>⑥<strong>二十二日</strong>に、和泉の国までと、平らかに願立つ。⑦藤原のときざね、船路なれど、<strong>馬のはなむけ</strong>す。⑧上・中・下、酔ひ飽きて、いとあやしく、潮海のほとりにて、あざれあへり。</p>
+        </div>
+        <h3>現代語訳</h3>
+        <div class="modern-translation">
+          <p>①ある人（＝紀貫之）が、国守の任期（四、五年）が終わって、所定の事務引き継ぎもすっかり終わらせて、解由状などを受け取って、②住んでいる官舎から出て、船に乗る港へ移る。③あの人やこの人、知っている人も知らない人も、見送りをする。④長年たいそう親しく付き合った人々は、別れづらく思って、⑤一日中、あれこれ世話をしながら、大騒ぎをするうちに、夜が更けてしまった。</p>
+          <p>⑥二十二日に、〔せめて〕和泉の国までは無事にと、神仏に祈願する。⑦藤原のときざねが、船旅なのに、送別の宴（馬のはなむけ）をする。⑧身分の高い人も中流も低い人も、みなすっかり酔っぱらって、たいそう不思議なことに、海のそばでふざけあっている。</p>
+        </div>
+         <div class="timeline">
+            <div class="timeline-item">
+                <strong>十二月二十一日</strong>
+                <p>任期終了。解由状受領。官舎から港へ移動。多くの人が見送りに来て夜更けまで騒ぐ。</p>
+            </div>
+            <div class="timeline-item">
+                <strong>十二月二十二日</strong>
+                <p>和泉までの道中の無事を祈願。藤原のときざねが送別の宴を開き、身分に関係なく皆酔って騒ぐ。</p>
+            </div>
+        </div>
+      </div>
+
+      <!-- Section 3: さらなる送別 -->
+      <div class="section">
+        <h2>さらなる送別 (十二月二十三日〜二十四日)</h2>
+        <h3>本文 (3)</h3>
+        <div class="original-text">
+            <p>①<strong>二十三日</strong>。八木のやすのりといふ人あり。②この人、国に必ずしも言ひ使ふ者にもあらざなり。③これぞ、たたはしきやうにて、馬のはなむけしたる。④守柄にやあらむ、国人の心の常として、「今は。」とて見えざなるを、⑤心ある者は、恥ぢずになむ来ける。⑥これは、ものによりてほむるにしもあらず。</p>
+            <p>⑦<strong>二十四日</strong>。<strong>講師</strong>、馬のはなむけしに出でませり。⑧ありとある上・下、童まで酔ひしれて、⑨一文字をだに知らぬ者、しが足は十文字に踏みてぞ遊ぶ。</p>
+        </div>
+        <h3>現代語訳</h3>
+        <div class="modern-translation">
+            <p>①二十三日。八木のやすのりという人がいる。②この人は、国司の役所で必ずしも召し使っている者ではないようだ。③〔それなのに〕この人は、威厳のある様子で、送別の宴をした。④〔それも〕国司（＝紀貫之）の人柄であろうか、任国の人の常として、「（任期が終われば）もう用はない」といって顔を見せないものだが、⑤道理をわきまえている者は、人目を気にせず来たのだった。⑥これは、餞別をもらったからほめるのではない。</p>
+            <p>⑦二十四日。国分寺の僧侶（講師）が、送別の宴をしにおいでになった。⑧身分の上下を問わず誰も彼も、子どもまで酔っぱらって、⑨「一」の字も知らないような者まで、自分の足を（酔ってふらつき）「十」の字のように踏んで遊んでいる。</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <strong>十二月二十三日</strong>
+                <p>八木のやすのり（国府の役人ではない）が立派な送別の宴を開く。作者は、任期が終わっても訪れる彼の「心」を評価。</p>
+            </div>
+            <div class="timeline-item">
+                <strong>十二月二十四日</strong>
+                <p>国分寺の僧侶（講師）が送別の宴を開く。ここでも皆が子どもまで酔っ払い、大騒ぎする様子が描かれる。</p>
+            </div>
+        </div>
+         <p><strong>ポイント：</strong>連日の送別の宴が描かれます。特に八木のやすのりの行動を通して、任期が終われば離れていく人々がいる中で、変わらず敬意を示す人物もいることが記され、人間観察の視点がうかがえます。宴の席での酔態もユーモラスに描写されています。</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <!-- Column: Keyword -->
+      <div class="column">
+        <h3>キーワード解説</h3>
+        <dl>
+          <dt>日記 (にき)</dt>
+          <dd>平安時代、主に男性が漢文で公的な記録などを書いたもの。女性は通常かな文字で私的なことを書いた。</dd>
+          <dt>戌の時 (いぬのとき)</dt>
+          <dd>現在の午後8時ごろ。当時の時刻表現。</dd>
+          <dt>門出す (かどです)</dt>
+          <dd>旅に出発すること。</dd>
+          <dt>県 (あがた)</dt>
+          <dd>国司として赴任した地方の国（ここでは土佐国）。</dd>
+          <dt>解由 (げゆ)</dt>
+          <dd>後任者への事務引継ぎが完了した証明書（解由状）。これがないと次の役職に就けないことも。</dd>
+          <dt>館 (たち)</dt>
+          <dd>役所兼住居である国衙（こくが）の建物、または国守の私邸。</dd>
+          <dt>馬のはなむけ (うまのはなむけ)</dt>
+          <dd>旅立つ人の乗る馬の鼻先を行き先の方向へ向けることから転じ、送別の宴や餞別を意味するようになった。</dd>
+           <dt>講師 (こうじ)</dt>
+          <dd>国分寺などで経典を講ずる僧侶の役職名。</dd>
+        </dl>
+      </div>
+
+      <!-- Column: Author -->
+      <div class="column">
+        <h3>作者と『土佐日記』について</h3>
+        <dl>
+            <dt>作者</dt>
+            <dd>紀貫之（きのつらゆき）とされる。平安時代の歌人・官僚。『古今和歌集』の撰者の一人。</dd>
+            <dt>執筆の背景</dt>
+            <dd>土佐守の任期を終え、京へ帰る船旅の記録。しかし、本文では女性が書いている体裁をとっている（仮託）。</dd>
+             <dt>文学史上の意義</dt>
+            <dd>初めて「かな文字」で書かれた本格的な日記文学とされる。後の女流日記文学（『蜻蛉日記』『和泉式部日記』『紫式部日記』など）に大きな影響を与えた。</dd>
+            <dt>文体</dt>
+            <dd>和歌を多く含み、ユーモアや風刺、亡くした娘への哀切な思いなどが、自由なかな文で綴られている。</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
