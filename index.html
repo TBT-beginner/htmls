@@ -6,422 +6,226 @@
     <title>シミュレーションラボ | インタラクティブ体験</title>
     <style>
 :root {
-    --primary: #00f7ff;
-    --secondary: #ff00e5;
-    --accent: #ffef00;
-    --dark: #080812;
-    --darker: #050508;
-    --light: #ffffff;
+    --bg-dark: #1d1d1f; /* よりAppleらしいダークグレー */
+    --bg-light: #2c2c2e; /* カード背景など少し明るいグレー */
+    --text-primary: #f5f5f7; /* オフホワイト */
+    --text-secondary: #a1a1a6; /* やや暗いグレー */
+    --accent-blue: #007aff;   /* Appleの標準的なブルー */
+    --border-color: rgba(255, 255, 255, 0.1); /* 控えめな境界線 */
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Appleフォント優先、なければ一般的なサンセリフ */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
-    background-color: var(--dark);
-    color: var(--light);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
     overflow-x: hidden;
-    cursor: none;
-}
-
-.cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--primary);
-    border-radius: 50%;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: width 0.3s, height 0.3s, border-color 0.3s;
-    z-index: 9999;
-}
-
-.cursor-follower {
-    width: 8px;
-    height: 8px;
-    background-color: var(--primary);
-    border-radius: 50%;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: 0.1s;
-    z-index: 9999;
+    line-height: 1.6; /* 行間を少し広げる */
 }
 
 .header {
-    height: 100vh;
+    min-height: 80vh; /* 少し高さを抑える */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.header-content {
-    z-index: 2;
     text-align: center;
-    padding: 0 20px;
+    padding: 40px 20px; /* パディングを追加 */
+    position: relative; /* 必要であれば残す */
 }
 
 .title {
-    font-size: 5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    position: relative;
-    display: inline-block;
-}
-
-.title::before {
-    content: "シミュレーションラボ";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    color: var(--secondary);
-    animation: glitch 1s infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-    transform: translate(-5px, 0);
-}
-
-.title::after {
-    content: "シミュレーションラボ";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    color: var(--accent);
-    animation: glitch 0.7s infinite;
-    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-    transform: translate(5px, 0);
-}
-
-@keyframes glitch {
-    0% {
-        transform: translate(0);
-    }
-    20% {
-        transform: translate(-2px, 2px);
-    }
-    40% {
-        transform: translate(-2px, -2px);
-    }
-    60% {
-        transform: translate(2px, 2px);
-    }
-    80% {
-        transform: translate(2px, -2px);
-    }
-    100% {
-        transform: translate(0);
-    }
+    font-size: clamp(2.5rem, 8vw, 4.5rem); /* レスポンシブなフォントサイズ */
+    font-weight: 600; /* やや細めのウェイト */
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
 }
 
 .subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 3rem;
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: 3px;
-}
-
-.bg-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background:
-        linear-gradient(to right, rgba(8, 8, 18, 0.9) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(8, 8, 18, 0.9) 1px, transparent 1px);
-    background-size: 30px 30px;
-    background-position: center;
-    transform: perspective(500px) rotateX(60deg);
-    transform-origin: center top;
-    animation: grid-move 15s linear infinite;
-}
-
-@keyframes grid-move {
-    0% {
-        background-position: center 0;
-    }
-    100% {
-        background-position: center 100%;
-    }
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    max-width: 600px; /* 長すぎないように */
+    margin: 0 auto 2rem auto; /* 中央揃えと下のマージン */
+    letter-spacing: normal; /* 過度な文字間隔を削除 */
+    text-transform: none; /* 大文字変換を削除 */
 }
 
 .bento-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    /* カラム数を調整し、最小幅も少し小さく */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; /* 少し広めのギャップ */
     width: 90%;
     max-width: 1200px;
     margin: 50px auto;
-    padding: 20px;
+    padding: 20px 0; /* 上下のパディング */
 }
 
 .bento-item {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    border-radius: 20px;
-    padding: 30px;
+    background-color: var(--bg-light);
+    border-radius: 20px; /* 角丸を大きく */
+    padding: 35px; /* パディングを調整 */
     text-align: center;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    height: 350px;
-    display: flex;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* 控えめなシャドウ */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* height: 350px; 固定高さを削除し、コンテンツに合わせる */
+    min-height: 300px; /* 最小高さは設定しても良い */
+    display: flex; /* Flexboxで中央揃え */
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between; /* アイコン/テキストとボタンの間隔を空ける */
     align-items: center;
+    border: 1px solid var(--border-color); /* 境界線を追加 */
 }
 
 .bento-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 247, 255, 0.2);
+    transform: translateY(-6px); /* 少し持ち上げる */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* ホバー時のシャドウを少し濃く */
 }
 
-.bento-item::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(transparent, var(--primary), transparent 30%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    animation: rotate 4s linear infinite;
-}
-
-.bento-item:hover::before {
-    opacity: 1;
-}
-
-@keyframes rotate {
-    100% {
-        transform: rotate(1turn);
-    }
-}
-
-.bento-content {
-    position: relative;
-    z-index: 1;
-    background-color: var(--darker);
-    border-radius: 15px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
+/* bento-contentラッパーは不要になったので削除（シンプル化） */
 
 .bento-icon {
-    font-size: 5rem;
+    font-size: 3.5rem; /* アイコンサイズ調整 */
     margin-bottom: 1.5rem;
-    transition: transform 0.3s;
-}
-
-.bento-item:hover .bento-icon {
-    transform: scale(1.2);
+    color: var(--accent-blue); /* アイコンの色をアクセントカラーに統一 */
+    line-height: 1; /* アイコンの余分な高さを削除 */
 }
 
 .bento-title {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    transition: color 0.3s;
-}
-
-.bento-item:nth-child(1) .bento-icon,
-.bento-item:nth-child(1):hover .bento-title {
-    color: var(--primary);
-}
-
-.bento-item:nth-child(2) .bento-icon,
-.bento-item:nth-child(2):hover .bento-title {
-    color: var(--secondary);
-}
-
-.bento-item:nth-child(3) .bento-icon,
-.bento-item:nth-child(3):hover .bento-title {
-    color: var(--accent);
+    font-size: 1.5rem; /* タイトルサイズ調整 */
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary); /* タイトルは明るい色 */
 }
 
 .bento-description {
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
+    font-size: 0.95rem; /* 説明文のサイズ調整 */
     line-height: 1.5;
-    opacity: 0.8;
+    color: var(--text-secondary); /* 説明文は少し暗い色 */
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* 説明文エリアが伸びてボタンを下に押しやる */
+    max-width: 90%; /* 幅を少し制限 */
 }
 
 .bento-link {
     display: inline-block;
-    padding: 15px 40px 15px;
-    min-height: 50px;
-    line-height: 1;
-    border: 2px solid var(--primary);
-    border-radius: 30px;
+    padding: 10px 25px; /* パディング調整 */
+    border: none; /* ボーダー削除 */
+    border-radius: 999px; /* ピル形状 */
     text-decoration: none;
-    color: var(--light);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    z-index: 1;
-    font-size: 1.2rem;
-}
-
-.bento-item:nth-child(1) .bento-link {
-    border-color: var(--primary);
-}
-
-.bento-item:nth-child(2) .bento-link {
-    border-color: var(--secondary);
-}
-
-.bento-item:nth-child(3) .bento-link {
-    border-color: var(--accent);
-}
-
-.bento-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    background-color: var(--primary);
-    transition: width 0.3s;
-    z-index: -1;
-}
-
-.bento-item:nth-child(1) .bento-link::before {
-    background-color: var(--primary);
-}
-
-.bento-item:nth-child(2) .bento-link::before {
-    background-color: var(--secondary);
-}
-
-.bento-item:nth-child(3) .bento-link::before {
-    background-color: var(--accent);
+    color: var(--accent-blue); /* デフォルトの文字色 */
+    background-color: rgba(0, 122, 255, 0.15); /* 薄い背景色 */
+    font-weight: 500; /* 少し細めに */
+    font-size: 0.9rem; /* サイズ調整 */
+    text-transform: none; /* 大文字変換削除 */
+    letter-spacing: normal; /* 文字間隔リセット */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer; /* ポインターカーソル表示 */
 }
 
 .bento-link:hover {
-    color: var(--dark);
+    background-color: var(--accent-blue); /* ホバー時に背景色を濃く */
+    color: var(--text-primary); /* ホバー時の文字色 */
 }
 
-.bento-link:hover::before {
-    width: 100%;
-}
+/* nth-childによる色分けを削除し、統一感を出す */
 
 @media (max-width: 768px) {
-    .title {
+    .header {
+        min-height: 60vh; /* スマホではヘッダー高さをさらに抑える */
+    }
+    .bento-grid {
+        gap: 16px; /* スマホではギャップを少し狭く */
+    }
+    .bento-item {
+        padding: 25px; /* スマホではパディングを少し小さく */
+        min-height: 250px;
+    }
+    .bento-icon {
         font-size: 3rem;
     }
-    
-    .subtitle {
-        font-size: 1.2rem;
+    .bento-title {
+        font-size: 1.3rem;
     }
-    
-    .bento-grid {
-        grid-template-columns: 1fr;
+    .bento-description {
+        font-size: 0.9rem;
     }
-    
-    .cursor, .cursor-follower {
-        display: none;
+    .bento-link {
+        padding: 8px 20px;
+        font-size: 0.85rem;
     }
 }
     </style>
 </head>
 <body>
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
 
     <header class="header">
-        <div class="bg-grid"></div>
-        <div class="header-content">
-            <h1 class="title">シミュレーションラボ</h1>
-            <p class="subtitle">未来的な体験の世界へようこそ</p>
-        </div>
+        <!-- シンプルになったヘッダー -->
+        <h1 class="title">シミュレーションラボ</h1>
+        <p class="subtitle">インタラクティブな体験を通じて、様々な現象を探求しましょう。</p>
     </header>
 
     <main class="bento-grid">
         <div class="bento-item">
-            <div class="bento-content">
-                <div class="bento-icon">🪙</div>
+            <!-- bento-content divを削除し、直接要素を配置 -->
+            <div class="bento-icon">🪙</div>
+            <div> <!-- タイトルと説明をグループ化 -->
                 <h2 class="bento-title">コイントス</h2>
                 <p class="bento-description">表と裏がどのくらいの確率で出るのかを実験できるコイントスシミュレーター</p>
-                <a href="https://tbt-beginner.github.io/htmls/cointoss.html" class="bento-link">体験する</a>
             </div>
+            <a href="https://tbt-beginner.github.io/htmls/cointoss.html" class="bento-link">体験する</a>
         </div>
-        
+
         <div class="bento-item">
-            <div class="bento-content">
-                <div class="bento-icon">🎲</div>
+            <div class="bento-icon">🎲</div>
+             <div>
                 <h2 class="bento-title">サイコロ</h2>
                 <p class="bento-description">各目がどのくらいの確率で出るのかを検証できるサイコロシミュレーター</p>
-                <a href="https://tbt-beginner.github.io/htmls/py.html" class="bento-link">体験する</a>
             </div>
+            <a href="https://tbt-beginner.github.io/htmls/py.html" class="bento-link">体験する</a>
         </div>
-        
+
         <div class="bento-item">
-            <div class="bento-content">
-                <div class="bento-icon">🧩</div>
+            <div class="bento-icon">🧩</div>
+             <div>
                 <h2 class="bento-title">数独</h2>
                 <p class="bento-description">論理的思考力を鍛えられる古典的なパズルゲーム「数独」</p>
-                <a href="https://tbt-beginner.github.io/htmls/sudoku.html" class="bento-link">プレイする</a>
             </div>
+            <a href="https://tbt-beginner.github.io/htmls/sudoku.html" class="bento-link">プレイする</a>
+        </div>
+
+        <!-- 追加されたアイテム 1 -->
+        <div class="bento-item">
+            <div class="bento-icon">📊</div> <!-- アイコン例 -->
+             <div>
+                <h2 class="bento-title">Tosa (横)</h2> <!-- タイトル例 -->
+                <p class="bento-description">横方向のTosaシミュレーションを体験できます。</p> <!-- 説明例 -->
+            </div>
+            <a href="https://tbt-beginner.github.io/htmls/tosa.html" class="bento-link">体験する</a>
+        </div>
+
+        <!-- 追加されたアイテム 2 -->
+        <div class="bento-item">
+            <div class="bento-icon">📈</div> <!-- アイコン例 -->
+             <div>
+                <h2 class="bento-title">Tosa (縦)</h2> <!-- タイトル例 -->
+                <p class="bento-description">縦方向のTosaシミュレーションを実行します。</p> <!-- 説明例 -->
+            </div>
+            <a href="https://tbt-beginner.github.io/htmls/tosatate.html" class="bento-link">体験する</a>
         </div>
     </main>
 
-    <script>
-        // カスタムカーソルアニメーション
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        const links = document.querySelectorAll('a');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
-        });
-        
-        links.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                cursor.style.width = '50px';
-                cursor.style.height = '50px';
-                cursor.style.borderColor = 'var(--accent)';
-                cursorFollower.style.opacity = '0';
-            });
-            
-            link.addEventListener('mouseleave', () => {
-                cursor.style.width = '20px';
-                cursor.style.height = '20px';
-                cursor.style.borderColor = 'var(--primary)';
-                cursorFollower.style.opacity = '1';
-            });
-        });
-        
-        // パララックス効果
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            const header = document.querySelector('.header');
-            header.style.transform = `translateY(${scrolled * 0.5}px)`;
-        });
-    </script>
+    <!-- カスタムカーソルとパララックスのスクリプトを削除 -->
+
 </body>
 </html>
