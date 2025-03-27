@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数学教育の課題と解決策</title>
+    <title>数学教育の課題と解決策・改善提案</title> <!-- タイトル変更 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- 手書き風フォント(Kalam)と基本フォント(Noto Sans JP)を読み込み -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* --- 元のCSS --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -50,19 +50,20 @@
 
         .columns {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* 折り返しを有効に */
             gap: 2rem;
             margin-top: 2rem;
         }
 
         .column {
             flex: 1;
-            min-width: 300px;
+            min-width: 300px; /* 最小幅指定 */
             background: white;
             border-radius: 12px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
             padding: 1.5rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1rem; /* 列間のマージン調整 (追加) */
         }
 
         .column:hover {
@@ -78,9 +79,18 @@
             border-bottom: 3px solid;
         }
 
-        .column:nth-child(1) .column-header { border-bottom-color: #e74c3c; }
-        .column:nth-child(2) .column-header { border-bottom-color: #2ecc71; }
-        .column:nth-child(3) .column-header { border-bottom-color: #3498db; }
+        /* 元のコラムのヘッダー色 */
+        .columns:first-of-type .column:nth-child(1) .column-header { border-bottom-color: #e74c3c; }
+        .columns:first-of-type .column:nth-child(2) .column-header { border-bottom-color: #2ecc71; }
+        .columns:first-of-type .column:nth-child(3) .column-header { border-bottom-color: #3498db; }
+
+        /* 改善提案セクション用のスタイル */
+        /* Note: nth-childは親要素内の順番で適用されるため、改善提案セクションのcolumns内のcolumnに適用する */
+        .improvement-section .columns .column:nth-child(1) .column-header { border-bottom-color: #1abc9c; } /* Teal */
+        .improvement-section .columns .column:nth-child(2) .column-header { border-bottom-color: #f39c12; } /* Orange */
+        .improvement-section .columns .column:nth-child(3) .column-header { border-bottom-color: #8e44ad; } /* Purple */
+        .improvement-section .columns .column:nth-child(4) .column-header { border-bottom-color: #e74c3c; } /* Red (元の色の一つを再利用) */
+
 
         .column-icon {
             font-size: 2.2rem;
@@ -88,9 +98,17 @@
             animation: bounce 2s infinite ease-in-out;
         }
 
-        .column:nth-child(1) .column-icon { color: #e74c3c; }
-        .column:nth-child(2) .column-icon { color: #2ecc71; animation-delay: 0.3s; }
-        .column:nth-child(3) .column-icon { color: #3498db; animation-delay: 0.6s; }
+        /* 元のアイコン色設定 */
+        .columns:first-of-type .column:nth-child(1) .column-icon { color: #e74c3c; }
+        .columns:first-of-type .column:nth-child(2) .column-icon { color: #2ecc71; animation-delay: 0.3s; }
+        .columns:first-of-type .column:nth-child(3) .column-icon { color: #3498db; animation-delay: 0.6s; }
+
+        /* 改善提案セクションのアイコン色 (Headerの色と合わせる) */
+        .improvement-section .columns .column:nth-child(1) .column-icon { color: #1abc9c; }
+        .improvement-section .columns .column:nth-child(2) .column-icon { color: #f39c12; }
+        .improvement-section .columns .column:nth-child(3) .column-icon { color: #8e44ad; }
+        .improvement-section .columns .column:nth-child(4) .column-icon { color: #e74c3c; }
+
 
         .column-title {
             font-size: 1.6rem;
@@ -102,12 +120,16 @@
             background-color: #f8f9fa;
             border-radius: 8px;
             padding: 1.2rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.5rem; /* カード下のマージン */
             border-left: 5px solid;
             box-shadow: 0 3px 8px rgba(0,0,0,0.05);
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.5s ease-out, transform 0.5s ease-out, background-color 0.3s ease, box-shadow 0.3s ease, scale 0.3s ease;
+        }
+        /* 最後のカードのマージンをなくす */
+        .column .card:last-child {
+             margin-bottom: 0;
         }
 
         .card.visible {
@@ -115,13 +137,20 @@
             transform: translateY(0);
         }
 
-        .column:nth-child(1) .card { border-left-color: #e74c3c; }
-        .column:nth-child(2) .card { border-left-color: #2ecc71; }
-        .column:nth-child(3) .card { border-left-color: #3498db; }
+        /* 元のカード色設定 */
+        .columns:first-of-type .column:nth-child(1) .card { border-left-color: #e74c3c; }
+        .columns:first-of-type .column:nth-child(2) .card { border-left-color: #2ecc71; }
+        .columns:first-of-type .column:nth-child(3) .card { border-left-color: #3498db; }
+
+        /* 改善提案セクションのカード色 (Headerの色と合わせる) */
+        .improvement-section .columns .column:nth-child(1) .card { border-left-color: #1abc9c; }
+        .improvement-section .columns .column:nth-child(2) .card { border-left-color: #f39c12; }
+        .improvement-section .columns .column:nth-child(3) .card { border-left-color: #8e44ad; }
+        .improvement-section .columns .column:nth-child(4) .card { border-left-color: #e74c3c; }
 
         .card:hover {
             background-color: #fff;
-            transform: scale(1.02) translateY(0);
+            transform: scale(1.02) translateY(0); /* translateY(0)を追加してホバー時のずれをなくす */
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
@@ -137,16 +166,30 @@
         .card-title i {
             margin-right: 0.8rem;
             font-size: 1.2rem;
+            /* アイコン色は各カードで指定 */
         }
 
-        .column:nth-child(1) .card-title i { color: #e74c3c; }
-        .column:nth-child(2) .card-title i { color: #2ecc71; }
-        .column:nth-child(3) .card-title i { color: #3498db; }
+        /* 元のカードタイトルアイコン色設定 */
+        .columns:first-of-type .column:nth-child(1) .card-title i { color: #e74c3c; }
+        .columns:first-of-type .column:nth-child(2) .card-title i { color: #2ecc71; }
+        .columns:first-of-type .column:nth-child(3) .card-title i { color: #3498db; }
+
+        /* 改善提案セクションのカードタイトルアイコン色 (カード左ボーダー色に合わせる) */
+        .improvement-section .columns .column:nth-child(1) .card-title i { color: #1abc9c; }
+        .improvement-section .columns .column:nth-child(2) .card-title i { color: #f39c12; }
+        .improvement-section .columns .column:nth-child(3) .card-title i { color: #8e44ad; }
+        .improvement-section .columns .column:nth-child(4) .card-title i { color: #e74c3c; }
+
 
         .card-content {
             color: #555;
             font-size: 1rem;
         }
+        .card-content p { margin-bottom: 0.6em; } /* 段落間のスペース調整 */
+        .card-content p:last-child { margin-bottom: 0; }
+        .card-content ul, .card-content ol { margin-left: 1.5rem; margin-bottom: 0.8rem;}
+        .card-content li { margin-bottom: 0.5rem; }
+
 
         .highlight {
             background-color: #fffde7;
@@ -164,14 +207,35 @@
             margin: 1rem 0;
         }
 
-        .list {
+        .list { /* 元の .list スタイル */
             margin-left: 1.5rem;
             margin-bottom: 0.8rem;
         }
-
         .list li {
             margin-bottom: 0.5rem;
         }
+
+        /* 改善提案セクションのタイトルスタイル */
+        .improvement-title {
+            text-align: center;
+            margin-top: 4rem; /* SVGとの間隔をしっかり取る */
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #8e44ad; /* 紫系の色 */
+            font-size: 2rem;
+            color: #2c3e50;
+            font-weight: 700;
+            display: flex; /* アイコンを横に並べる */
+            align-items: center;
+            justify-content: center; /* 中央揃え */
+        }
+
+        .improvement-title i {
+            color: #8e44ad; /* 紫系の色 */
+            margin-right: 0.8rem;
+            font-size: 1.8rem; /* アイコンサイズ */
+        }
+
 
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -185,22 +249,26 @@
 
         @media (max-width: 992px) {
             .columns {
-                flex-direction: column;
+                /* スマホ表示では縦積みになる (flex-wrapのおかげ) */
             }
             .column {
-                min-width: 100%;
-                margin-bottom: 2rem;
+                min-width: 100%; /* 幅を100%に */
+            }
+            .improvement-title {
+                font-size: 1.8rem; /* スマホでのタイトルサイズ調整 */
             }
         }
+        /* --- CSSここまで --- */
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1 class="title">数学教育の課題と解決策</h1>
-            <p class="subtitle">効果的な学習指導のためのポイントと実践方法</p>
+            <h1 class="title">数学教育の課題と解決策・改善提案</h1>
+            <p class="subtitle">効果的な学習指導のためのポイントとさらなる発展</p>
         </header>
 
+        <!-- 元のコンテンツ (コラム1, 2, 3) -->
         <div class="columns">
             <!-- コラム1: 学習の課題 -->
             <div class="column">
@@ -342,40 +410,32 @@
             </div>
         </div>
 
-        <!-- ここからSVG黒板 (はみ出し修正版) -->
+        <!-- SVG黒板 (元のまま) -->
         <svg width="100%" viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: 2rem auto 0; max-width: 1200px;">
             <defs>
                 <style>
                     /* SVG内のテキストスタイル */
                     .blackboard-text {
-                        font-family: 'Kalam', cursive; /* 手書き風フォント (headで読み込み) */
-                        fill: #ffffff; /* 文字色: 白 */
-                        font-size: 16px; /* 基本フォントサイズ */
-                        white-space: pre; /* 改行やスペースを保持 */
+                        font-family: 'Kalam', cursive;
+                        fill: #ffffff;
+                        font-size: 16px;
+                        white-space: pre;
                     }
-                    /* タイトル用スタイル */
                     .title-text {
                         font-size: 24px;
                         font-weight: 700;
-                        text-anchor: middle; /* 中央揃え */
+                        text-anchor: middle;
                     }
-                    /* コンテンツ用スタイル */
                     .content-text {
                         font-size: 16px;
                     }
                 </style>
             </defs>
-
-            <!-- 黒板背景 -->
-            <rect width="900" height="900" fill="#2c3e50" rx="10" ry="10"/>
-
-            <!-- 区切り線 (少し薄めに、高さを調整) -->
+            <rect width="900" height="450" fill="#2c3e50" rx="10" ry="10"/>
             <line x1="300" y1="25" x2="300" y2="425" stroke="#ffffff" stroke-width="1" stroke-opacity="0.6" />
             <line x1="600" y1="25" x2="600" y2="425" stroke="#ffffff" stroke-width="1" stroke-opacity="0.6" />
-
-            <!-- 左列: 数式 (x座標を調整) -->
             <text x="150" y="55" class="blackboard-text title-text">数式</text>
-            <text x="30" y="90" class="blackboard-text content-text"> <!-- x=40からx=30へ -->
+            <text x="30" y="90" class="blackboard-text content-text">
                 <tspan x="30" dy="1.5em">f(x) = -x² + 6x - 5</tspan>
                 <tspan x="30" dy="1.6em">f'(x) = -2x + 6</tspan>
                 <tspan x="30" dy="1.6em">↓ f'(x)=0 とする</tspan>
@@ -384,66 +444,120 @@
                 <tspan x="30" dy="1.6em">x = 3</tspan>
                 <tspan x="30" dy="1.6em">↓ f(3)を計算</tspan>
                 <tspan x="30" dy="1.6em">f(3) = -(3)² + 6(3) - 5</tspan>
-                <tspan x="60" dy="1.6em">= -9 + 18 - 5</tspan> <!-- インデントx=70からx=60へ -->
+                <tspan x="60" dy="1.6em">= -9 + 18 - 5</tspan>
                 <tspan x="60" dy="1.6em">= 4 (最大値)</tspan>
             </text>
-
-            <!-- 中央列: 解法の手順 (x座標を調整) -->
             <text x="450" y="55" class="blackboard-text title-text">解法の手順</text>
-            <text x="320" y="90" class="blackboard-text content-text"> <!-- x=330からx=320へ -->
+            <text x="320" y="90" class="blackboard-text content-text">
                 <tspan x="320" dy="1.5em">1. 与えられた関数を書く</tspan>
                 <tspan x="320" dy="1.8em">2. 微分する</tspan>
                 <tspan x="320" dy="1.8em">3. 導関数 = 0 の式を立てる</tspan>
                 <tspan x="320" dy="1.8em">4. x について解く</tspan>
                 <tspan x="320" dy="1.8em">5. 求めた x を f(x) に代入</tspan>
             </text>
-
-            <!-- 右列: 詳細な思考過程 (x座標、改行を調整) -->
             <text x="750" y="55" class="blackboard-text title-text">思考のポイント (なぜ?)</text>
-            <text x="620" y="90" class="blackboard-text content-text"> <!-- x=630からx=620へ -->
+            <text x="620" y="90" class="blackboard-text content-text">
                 <tspan x="620" dy="1.5em">Q. なぜ微分？</tspan>
                 <tspan x="640" dy="1em">A. 接線の傾きを求めるため。</tspan>
                 <tspan x="640" dy="1em">   関数の増減を知り、</tspan>
                 <tspan x="640" dy="1em">   極値(山の頂点など)</tspan>
                 <tspan x="640" dy="1em">   の候補を探す。</tspan>
-
                 <tspan x="620" dy="1.5em">Q. なぜ f'(x) = 0 ？</tspan>
                 <tspan x="640" dy="1em">A. 頂点(極値)では</tspan>
                 <tspan x="640" dy="1em">   接線の傾きが 0</tspan>
                 <tspan x="640" dy="1em">   になるから。</tspan>
-
                 <tspan x="620" dy="1.5em">Q. なぜ x=3 が最大？</tspan>
                 <tspan x="640" dy="1em">A. 元の関数が上に凸の</tspan>
                 <tspan x="640" dy="1em">   放物線 (-x²...) だから。</tspan>
-                <tspan x="640" dy="1em">   (f''(x)=-2 < 0 でも)</tspan> <!-- 短縮 -->
+                <tspan x="640" dy="1em">   (f''(x)=-2 < 0 でも)</tspan>
                  <tspan x="640" dy="1em">   (確認可)</tspan>
-
                 <tspan x="620" dy="1.5em">Q. なぜ f(3) を計算？</tspan>
                 <tspan x="640" dy="1em">A. x=3 は最大値をとる</tspan>
                 <tspan x="640" dy="1em">   「場所」。f(3)は</tspan>
                 <tspan x="640" dy="1em">   その場所での</tspan>
                 <tspan x="640" dy="1em">   「実際の値 (高さ)」。</tspan>
             </text>
-
         </svg>
         <!-- SVG黒板ここまで -->
+
+        <!-- === ここから授業改善へのさらなる提案セクション === -->
+        <div class="improvement-section">
+            <h2 class="improvement-title">
+                <i class="fas fa-rocket"></i>授業改善へのさらなる提案
+            </h2>
+            <div class="columns"> <!-- 既存のcolumnsクラスを再利用してレイアウト -->
+
+                <!-- 提案1: 「繋がり」と「マップ」の深化 -->
+                <div class="column">
+                    <!-- Headerは省略し、カードのみ表示 -->
+                    <div class="card" style="--delay: 1.2s;"> <!-- 遅延を元の続きから設定 -->
+                        <h3 class="card-title"><i class="fas fa-project-diagram"></i>「繋がり」と「マップ」の深化</h3>
+                        <div class="card-content">
+                            <p><span class="highlight">双方向のマップ構築:</span> 単元末などに、生徒自身に知識の繋がりや応用先を<span class="highlight">書き込ませる</span>活動を取り入れる。</p>
+                            <p><span class="highlight">意図的な既習事項の活用:</span> 問題解決の中で<span class="highlight">自然に過去の知識を使う</span>場面を設定し、「役立つ」実感を与える。</p>
+                            <p><span class="highlight">分野横断テーマ学習:</span> 統計×確率、図形×関数など、知識の<span class="highlight">応用と相互関連</span>を実感させるテーマを探る。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 提案2: 「数学的思考力」の育成 -->
+                <div class="column">
+                     <div class="card" style="--delay: 1.3s;">
+                        <h3 class="card-title"><i class="fas fa-lightbulb"></i>「数学的思考力」の育成</h3>
+                        <div class="card-content">
+                            <p><span class="highlight">「なぜ？」の重視と議論:</span> 解法の理由や<span class="highlight">多様な解法</span>を探求させ、生徒間で議論する場を設ける。</p>
+                            <p><span class="highlight">エラー分析文化の醸成:</span> 間違いを恐れず試行錯誤させ、原因を<span class="highlight">建設的に分析</span>する時間を持つ。</p>
+                            <p><span class="highlight">思考の言語化訓練:</span> 解法プロセスや理由を<span class="highlight">自分の言葉で説明・記述</span>させ、ペアワーク等で共有する。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 提案3: 意欲持続と個別最適化（言葉の意識向上も含む） -->
+                <div class="column">
+                    <div class="card" style="--delay: 1.4s;">
+                        <h3 class="card-title"><i class="fas fa-user-cog"></i>意欲持続と個別最適化</h3>
+                        <div class="card-content">
+                            <p><span class="highlight">多様な成功体験の評価:</span> 点数以外の「理解できた」「説明できた」「発見した」等の<span class="highlight">知的な喜び</span>も重視・評価する。</p>
+                            <p><span class="highlight">アダプティブ学習支援:</span> ICTツールを活用し、個々の進捗や理解度に合わせた<span class="highlight">課題・ヒント・解説動画</span>を提供する。</p>
+                            <p><span class="highlight">有用性と面白さの提示:</span> 身近な現象、社会、アート等と数学を結びつけ、<span class="highlight">学ぶ意義や楽しさ</span>を伝える。</p>
+                             <p><span class="highlight">言葉への意識向上:</span> 定義＋具体例/非例の提示、生徒による<span class="highlight">「マイ数学用語集」</span>作成を奨励する。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 提案4: 指導法の柔軟な工夫 -->
+                <div class="column">
+                     <div class="card" style="--delay: 1.5s;">
+                         <h3 class="card-title"><i class="fas fa-pencil-ruler"></i>指導法の柔軟な工夫</h3>
+                         <div class="card-content">
+                             <p><span class="highlight">目的に応じた板書形式:</span> 3分割法に加え、概念マップ、比較表、証明のステップ記述など、<span class="highlight">最適な表現方法</span>を選択・組み合わせる。</p>
+                             <p><span class="highlight">生徒参加型の板書/活動:</span> 板書への書き込みや、ペア/グループでの<span class="highlight">教え合い・学び合い</span>を取り入れ、能動的な参加を促す。</p>
+                             <p><span class="highlight">多様な評価方法:</span> 定期テストだけでなく、レポート、発表、ポートフォリオなど、<span class="highlight">多角的な評価</span>で学習成果を捉える。</p> <!-- 評価方法を追加 -->
+                         </div>
+                    </div>
+                </div>
+
+            </div> <!-- /.columns (improvement) -->
+        </div> <!-- /.improvement-section -->
+        <!-- 改善提案セクションここまで -->
 
     </div> <!-- /.container -->
 
     <script>
+        // 元のJavaScriptはそのまま
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Intersection Observer for Card Animations ---
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // CSSカスタムプロパティから遅延時間を取得、なければ0
                         const delay = parseFloat(getComputedStyle(entry.target).getPropertyValue('--delay') || '0') * 1000;
                         setTimeout(() => {
                             entry.target.classList.add('visible');
                         }, delay);
-                        observer.unobserve(entry.target);
+                        observer.unobserve(entry.target); // 一度表示したら監視を解除
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.1 }); // 要素が10%見えたら発火
 
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => observer.observe(card));
