@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoL 上級者への道：知識体系ガイド（インフォグラフィック風）</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Reset & Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.7;
+            background-color: #eef2f7; /* Light background */
+            color: #4a5568; /* Default text color */
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Ensure child elements respect border-radius */
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #4a90e2, #3476c2); /* Gradient background */
+            color: #ffffff;
+            padding: 30px 40px;
+            text-align: center;
+            border-bottom: 5px solid #2a5f9e;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        header .intro {
+            font-size: 1.1em;
+            max-width: 80%;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 30px 40px;
+            margin-bottom: 0; /* Remove margin between sections in this layout */
+            position: relative; /* For pseudo-elements */
+        }
+
+        /* Level Specific Backgrounds & Borders */
+        #basic-knowledge {
+            background-color: #f7fafc; /* Very light blue/gray */
+        }
+        #pro-level-core {
+            background-color: #edf2f7; /* Slightly darker */
+        }
+        #true-core-knowledge {
+            background-color: #e2e8f0; /* Even darker */
+        }
+
+        /* Section Headers */
+        h2 {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid;
+            display: flex;
+            align-items: center;
+        }
+
+        #basic-knowledge h2 { color: #3476c2; border-color: #4a90e2; }
+        #pro-level-core h2 { color: #7b3dcb; border-color: #9f7aea; } /* Purple */
+        #true-core-knowledge h2 { color: #c53030; border-color: #f56565; } /* Red */
+
+        h2 i { /* Icon before header */
+            margin-right: 12px;
+            font-size: 0.9em;
+        }
+
+        /* Definition List Styling (Infographic Cards) */
+        dl {
+            display: grid;
+            gap: 25px; /* Space between cards */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+        }
+
+        .knowledge-item {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-left: 5px solid; /* Level color indicator */
+        }
+
+        #basic-knowledge .knowledge-item { border-color: #4a90e2; }
+        #pro-level-core .knowledge-item { border-color: #9f7aea; }
+        #true-core-knowledge .knowledge-item { border-color: #f56565; }
+
+        .knowledge-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        dt {
+            font-weight: 700;
+            font-size: 1.15em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            color: #2d3748; /* Darker text for title */
+        }
+
+        dt i { /* Icon within dt */
+            margin-right: 10px;
+            font-size: 1.2em; /* Make icon slightly larger */
+            width: 25px; /* Fixed width for alignment */
+            text-align: center;
+        }
+
+        /* Assigning icons (Examples - add more as needed) */
+        dt[data-icon="cs"] i::before { content: "\f51e"; } /* coins */
+        dt[data-icon="wave"] i::before { content: "\f773"; } /* water */
+        dt[data-icon="trade"] i::before { content: "\f0ec"; } /* exchange-alt */
+        dt[data-icon="jg-predict"] i::before { content: "\f002"; } /* search */
+        dt[data-icon="recall"] i::before { content: "\f015"; } /* home */
+        dt[data-icon="plate"] i::before { content: "\e518"; } /* shield-quartered (approximation) */
+        dt[data-icon="jg-path"] i::before { content: "\f547"; } /* route */
+        dt[data-icon="gank"] i::before { content: "\f70c"; } /* user-secret */
+        dt[data-icon="objectives"] i::before { content: "\f14a"; } /* dragon/trophy/flag */
+        dt[data-icon="counter-jg"] i::before { content: "\f71b"; } /* skull-crossbones */
+        dt[data-icon="scuttle"] i::before { content: "\f70d"; } /* crab (generic bug) */
+        dt[data-icon="rotation"] i::before { content: "\f337"; } /* map-marked-alt */
+        dt[data-icon="vision"] i::before { content: "\f06e"; } /* eye */
+        dt[data-icon="power-spike"] i::before { content: "\f0e7"; } /* bolt */
+        dt[data-icon="composition"] i::before { content: "\f0c0"; } /* users */
+        dt[data-icon="side-lane"] i::before { content: "\f338"; } /* map-pin */
+        dt[data-icon="setup"] i::before { content: "\f085"; } /* cogs */
+        dt[data-icon="dead-time"] i::before { content: "\f254"; } /* hourglass-end */
+        dt[data-icon="positioning"] i::before { content: "\f140"; } /* bullseye */
+        dt[data-icon="focus"] i::before { content: "\f11e"; } /* crosshairs */
+        dt[data-icon="engage"] i::before { content: "\f56d"; } /* running */
+        dt[data-icon="cooldown"] i::before { content: "\f017"; } /* clock */
+        dt[data-icon="ping"] i::before { content: "\f0a1"; } /* bullhorn */
+        dt[data-icon="chat"] i::before { content: "\f075"; } /* comment */
+        dt[data-icon="tilt"] i::before { content: "\f5b3"; } /* frown-open */
+        dt[data-icon="learn"] i::before { content: "\f02d"; } /* book */
+        dt[data-icon="items"] i::before { content: "\f0d1"; } /* truck - needs better icon maybe f5d1 (shop) */
+        dt[data-icon="counter-pick"] i::before { content: "\f074"; } /* random */
+        dt[data-icon="meta"] i::before { content: "\f129"; } /* info-circle */
+        dt[data-icon="draft"] i::before { content: "\f0cb"; } /* clipboard-list */
+        dt[data-icon="tempo"] i::before { content: "\f2f2"; } /* tachometer-alt */
+        dt[data-icon="resources"] i::before { content: "\f0b0"; } /* filter */
+        dt[data-icon="map-control"] i::before { content: "\f279"; } /* map */
+        dt[data-icon="teamfight"] i::before { content: "\f6f2"; } /* users-cog */
+        dt[data-icon="analysis"] i::before { content: "\f080"; } /* chart-bar */
+        dt[data-icon="game-state"] i::before { content: "\f12e"; } /* puzzle-piece */
+        dt[data-icon="opportunity"] i::before { content: "\f0d6"; } /* money-bill-alt (approximation) */
+        dt[data-icon="probability"] i::before { content: "\f52f"; } /* dice */
+        dt[data-icon="psychology"] i::before { content: "\f0c8"; } /* square (mask/mind game) */
+        dt[data-icon="limit"] i::before { content: "\f192"; } /* level-up-alt */
+        dt[data-icon="adapt"] i::before { content: "\f079"; } /* retweet */
+
+        /* Apply icon colors based on level */
+        #basic-knowledge dt i { color: #4a90e2; }
+        #pro-level-core dt i { color: #9f7aea; }
+        #true-core-knowledge dt i { color: #f56565; }
+
+        dd {
+            margin-left: 0; /* Reset default dl indent */
+            font-size: 0.95em;
+            color: #5a6578;
+        }
+
+        /* Level 3 Specific Styling */
+        #true-core-knowledge .knowledge-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #true-core-knowledge dd p:first-of-type { /* Abstract Concept */
+            background-color: rgba(245, 101, 101, 0.08); /* Light red background */
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-style: italic;
+            color: #a0aec0; /* Lighter text for abstract */
+            position: relative;
+            padding-left: 35px;
+        }
+         #true-core-knowledge dd p:first-of-type::before { /* Icon for abstract */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\f0eb"; /* lightbulb */
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            color: #f56565;
+            font-style: normal;
+         }
+
+
+        #true-core-knowledge dd p + p { /* Concrete Example */
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.5); /* Slightly different background */
+            border-left: 3px solid #f56565;
+            margin-left: 0;
+            position: relative;
+            padding-left: 35px;
+            color: #4a5568; /* Normal text color */
+            font-style: normal;
+        }
+         #true-core-knowledge dd p + p::before { /* Icon for example */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\f00c"; /* check */
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            color: #48bb78; /* Green check */
+            font-style: normal;
+         }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #2d3748; /* Dark footer */
+            color: #a0aec0; /* Light text on dark */
+            font-size: 0.9em;
+            margin-top: 0; /* Remove space if directly after section */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1><i class="fas fa-trophy"></i> LoL 上級者への道</h1>
+        <p class="intro">基礎から核心へ。League of Legendsの知識と思考法を体系的に学び、高みを目指すためのガイド。</p>
+    </header>
+
+    <section id="basic-knowledge">
+        <h2><i class="fas fa-layer-group"></i>レベル1：上級者の「基礎常識」</h2>
+        <p>多くのプレイヤーが意識する基本的な知識とセオリー。確実な実践が次のレベルへの土台となります。</p>
+        <dl>
+            <div class="knowledge-item">
+                <dt data-icon="cs"><i class="fas"></i>CS精度と経験値効率</dt>
+                <dd>ラストヒットは基本収入源。ミニオン経験値によるレベル先行は序盤の戦闘力を大きく左右します。不利でも最低限を確保。</dd>
+            </div>
+            <div class="knowledge-item">
+                <dt data-icon="wave"><i class="fas"></i>基本的なウェーブコントロール</dt>
+                <dd>フリーズ、プッシュ、スロープッシュを状況に応じて使い分け、ガンク回避、安全なファーム、ローム時間、タワーへの圧力を生み出す。</dd>
+            </div>
+            <div class="knowledge-item">
+                <dt data-icon="trade"><i class="fas"></i>有利なトレードの原則</dt>
+                <dd>ミニオン差、スキルCD、レベル差（特にLv2, 3, 6）、アイテム差、サモスペ差を考慮し、ダメージ交換で有利を得る/損を避ける。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="jg-predict"><i class="fas"></i>相手JGの位置予測の習慣化</dt>
+                <dd>スタート位置、バフタイマー、視界情報から相手JGの行動を予測し、ガンクを警戒・回避。ワード設置の精度向上に繋がる。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="recall"><i class="fas"></i>最適なリコールタイミング</dt>
+                <dd>ウェーブ状況、自身のHP/マナ、購入アイテムのゴールドを考慮し、損失が最小限になるタイミングを見極める。オブジェクト前の準備も。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="plate"><i class="fas"></i>タワープレート意識</dt>
+                <dd>序盤の重要なゴールド源。獲得チャンスを逃さず、相手に取らせない守りの意識も持つ。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="jg-path"><i class="fas"></i>効率的なジャングルパス</dt>
+                <dd>経験値とゴールドを最大化し、素早くレベルアップするためのルート選択。相手JGとのレベル差を意識。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="gank"><i class="fas"></i>ガンク/カウンターガンクの判断基準</dt>
+                <dd>レーン状況（HP/ウェーブ/CC/ワード）から成功率の高いガンクを狙う。相手JGの動きを読みカウンターを狙う/警戒する。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="objectives"><i class="fas"></i>オブジェクトコントロールの基本</dt>
+                <dd>ドラゴン、ヘラルドのタイマー管理と出現前の準備（レーンプッシュ、視界確保）。チームで連携して獲得を目指す。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="counter-jg"><i class="fas"></i>カウンタージャングルの基礎</dt>
+                <dd>相手JGの位置が判明し、味方レーンが有利な場合、リスクを考慮して実行。バフスティールや深めのワード設置。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="scuttle"><i class="fas"></i>スカトル（リフトスカトル）の重要性</dt>
+                <dd>視界、移動速度バフ、ゴールド/経験値を提供。序盤の川の支配権に関わるため積極的に狙う。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="rotation"><i class="fas"></i>基本的なローテーション</dt>
+                <dd>有利を作ったレーンから他へ影響を広げる（ローム）、オブジェクトへ集まるなど、マップ全体を見て行動する。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="vision"><i class="fas"></i>視界管理の基本（ワードとスイーパー）</dt>
+                <dd>コントロールワード含むワード設置による視界確保と、スイーパーによる敵視界除去。安全確保と情報収集の基本。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="power-spike"><i class="fas"></i>パワースパイクの基本認識</dt>
+                <dd>自他のチャンピオンが強くなるレベル/アイテムを把握し、そのタイミングで有利なアクションを起こす/警戒する。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="composition"><i class="fas"></i>チーム構成の基本理解</dt>
+                <dd>自他の構成（ポーク、エンゲージ等）を理解し、大まかな勝ち筋を意識する。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="side-lane"><i class="fas"></i>中盤以降のサイドレーン管理</dt>
+                <dd>オブジェクト前にはサイドレーンを押し上げ、相手に対応を強いる。スプリットプッシュの基本。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="setup"><i class="fas"></i>オブジェクト前の基本的なセットアップ</dt>
+                <dd>出現1分前を目安に周辺視界を取り、有利なポジションを確保する。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="dead-time"><i class="fas"></i>「デッドタイム」の削減</dt>
+                <dd>目的のない移動や待機時間を減らし、常にファーム、視界管理、プレッシャーかけなど、意味のある行動を取る。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="positioning"><i class="fas"></i>役割に応じた基本的なポジショニング</dt>
+                <dd>キャリーは後方、タンクは前方、サポートは状況に応じて。集団戦での基本的な立ち位置。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="focus"><i class="fas"></i>基本的なフォーカス</dt>
+                <dd>集団戦で優先的に狙うべき敵（育ったキャリー、孤立した敵）を判断する。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="engage"><i class="fas"></i>エンゲージ/ディスエンゲージの基本判断</dt>
+                <dd>仕掛けるべきか、引くべきかを、人数差、スキル有無、地形などから判断する。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="cooldown"><i class="fas"></i>クールダウン（CD）管理の基本</dt>
+                <dd>自他の主要スキル（特にUlt）のCDを把握し、集団戦の判断材料にする。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="ping"><i class="fas"></i>効果的なピンの使用</dt>
+                <dd>各種ピンを的確に使い、味方との最低限の意思疎通を図る。スパムは避ける。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="chat"><i class="fas"></i>簡潔な情報共有（チャット）</dt>
+                <dd>「Mid mia」「Flash down」など、必要最低限の情報を簡潔に伝える。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="tilt"><i class="fas"></i>Tilt（ティルト）管理</dt>
+                <dd>不利な状況でも冷静さを保ち、味方を非難しない。メンタルの安定がパフォーマンス維持に不可欠。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="learn"><i class="fas"></i>敗北からの学習姿勢</dt>
+                <dd>試合に負けた原因を分析し、次に活かす。リプレイ視聴は有効。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="items"><i class="fas fa-shopping-bag"></i>状況に応じたアイテムビルド選択</dt> <!-- Changed Icon -->
+                <dd>コアビルドを基本としつつ、敵構成や状況に応じて防御アイテムなどを選択する柔軟性。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="counter-pick"><i class="fas"></i>カウンターピック/シナジーの考慮</dt>
+                <dd>チャンピオン選択時に有利不利や相性を考慮する（ただし、使いこなせるチャンピオンが最優先）。</dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="meta"><i class="fas"></i>メタ（流行）の把握</dt>
+                <dd>現在のパッチで強力なチャンピオン、アイテム、戦術を把握しておく。</dd>
+            </div>
+        </dl>
+    </section>
+
+    <section id="pro-level-core">
+        <h2><i class="fas fa-brain"></i>レベル2：プロレベルの「コア知識」</h2>
+        <p>プロやそれに準ずるプレイヤーが持つ、高度な戦略的思考法。ゲーム全体を支配するための知識が求められます。</p>
+        <dl>
+            <div class="knowledge-item">
+                 <dt data-icon="draft"><i class="fas"></i>ドラフト戦略（勝利条件の設計）</dt>
+                 <dd>カウンターだけでなく、構成シナジー、相手構成への対抗策、フレックスピック、戦略的バンを含め、「どう勝つか」を設計する。</dd>
+            </div>
+            <div class="knowledge-item">
+                 <dt data-icon="tempo"><i class="fas"></i>ゲームテンポとプライオリティの支配</dt>
+                 <dd>相手より早く動ける状態（テンポ）を作り維持。レーンの主導権（プライオリティ）を確保し、マップ全体への圧力に繋げる。</dd>
+            </div>
+            <div class="knowledge-item">
+                 <dt data-icon="resources"><i class="fas"></i>リソース配分の最適化</dt>
+                 <dd>チームの限られたリソース（ゴールド、経験値、時間）を、勝利条件達成に最も貢献するプレイヤー/ロールに意図的に配分する。</dd>
+            </div>
+            <div class="knowledge-item">
+                 <dt data-icon="map-control"><i class="fas"></i>高度なウェーブとマップコントロール</dt>
+                 <dd>ダイブ準備、オブジェクト前の圧力など、特定の目的のためにウェーブを形成。Cheater Recall、クロス・マップ・プレイ、目的あるローテーション。</dd>
+            </div>
+            <div class="knowledge-item">
+                 <dt data-icon="objectives"><i class="fas"></i>オブジェクトコントロールの戦略</dt>
+                 <dd>オブジェクト価値を判断し、獲得/放棄/交換（Trading Objectives）を意思決定。バロン取得後の明確なプラン（パワープレイ）。</dd>
+            </div>
+            <div class="knowledge-item">
+                 <dt data-icon="teamfight"><i class="fas"></i>チームファイトの高度な意思決定</dt>
+                 <dd>役割遂行の柔軟性（Peel/Dive判断）、最適ターゲット選択、相手の主要スキルのCDトラッキングに基づく仕掛け/引き。</dd>
+            </div>
+            <div class="knowledge-item">
+                 <dt data-icon="vision"><i class="fas"></i>情報戦と視界コントロールの深化</dt>
+                 <dd>相手JGの高精度トラッキング。戦略的ワード配置と積極的な視界拒否。情報の非対称性を利用したプレイ。</dd>
+            </div>
+            <div class="knowledge-item">
+                 <dt data-icon="analysis"><i class="fas"></i>プロとしての思考習慣と分析</dt>
+                 <dd>質の高いVODレビュー、メタ分析と適応、建設的なコミュニケーション、自己管理能力（メンタル、フィジカル）。</dd>
+            </div>
+        </dl>
+    </section>
+
+    <section id="true-core-knowledge">
+        <h2><i class="fas fa-lightbulb"></i>レベル3：トッププロの「真のコア知識」</h2>
+        <p>ゲームの根幹に関わる本質的な概念。最高レベルの思考と感覚が融合する領域です。</p>
+        <dl>
+             <div class="knowledge-item">
+                <dt data-icon="game-state"><i class="fas"></i>"Game State"の絶対的理解と未来予測</dt>
+                <dd>
+                    <p><strong>抽象的概念:</strong> 表面的な数値を超え、パワースパイク、スケーリング、視界、CD等を複合的に捉え「ゲーム状態」を定義。数手先を予測し、勝ち負けの分岐点を見極め行動する能力。</p>
+                    <p><strong>具体例:</strong> ケイルLv16を見据え時間を稼ぐ。アーリー構成でテンポを加速。バロン前の視界不利から別プランへ移行。</p>
+                </dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="opportunity"><i class="fas"></i>リソース概念の拡張と"機会費用"</dt>
+                <dd>
+                    <p><strong>抽象的概念:</strong> 「時間」や「情報」も最重要リソースと認識。行動選択に伴う「機会費用」（他の行動で得られたはずの利益）を常に意識し、期待値を最大化する。</p>
+                    <p><strong>具体例:</strong> リコール後の空き時間活用。ガンクのリターンとリスク（他エリアでの損失）比較。ワード設置コストと情報価値の衡量。</p>
+                </dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="probability"><i class="fas"></i>確率論的思考と"期待値"に基づく意思決定</dt>
+                <dd>
+                    <p><strong>抽象的概念:</strong> あらゆるプレイを確率とリスク/リターンで評価。長期的に最も利益が大きい「期待値の高いプレイ」を選択し続ける。短期的な結果（分散）に動じない。</p>
+                    <p><strong>具体例:</strong> ダイブ成功率とリスク評価。不利なファイトの勝率と敗北リスク（ソウル献上等）考慮。低確率でもリターン大なスティール試行。</p>
+                </dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="psychology"><i class="fas"></i>相手思考への介入と"条件付け"</dt>
+                <dd>
+                    <p><strong>抽象的概念:</strong> 相手の思考を深く読み、意図的な行動パターン（条件付け）や情報操作で判断を誤らせる。メタ認知の深化。</p>
+                    <p><strong>具体例:</strong> ガンクルート偏向からの奇襲。繰り返すベイトからの本命オールイン。視界情報を逆手に取ったアンブッシュ。</p>
+                </dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="limit"><i class="fas"></i>システムの限界と非対称性の活用</dt>
+                <dd>
+                    <p><strong>抽象的概念:</strong> ゲームシステムやチャンピオン性能を極限まで理解し、最大パフォーマンスを引き出す。あらゆるリソース交換で有利な「非対称な交換」を追求。ルールの境界を利用。</p>
+                    <p><strong>具体例:</strong> カリスタのAAキャンセル移動制御。CS硬直中のハラス。タワーアグロの高度管理によるダイブ成功率向上。</p>
+                </dd>
+            </div>
+             <div class="knowledge-item">
+                <dt data-icon="adapt"><i class="fas"></i>超越的な適応力とメタの創造</dt>
+                <dd>
+                    <p><strong>抽象的概念:</strong> 状況変化に応じ戦略を即座に放棄・再構築。既存メタを分析し、カウンターとなる新戦略やビルドを考案・実行し、メタゲーム自体に影響を与える。</p>
+                    <p><strong>具体例:</strong> 失敗したスプリット構成から集団戦へ即時転換。カウンターメタ構成の開発・実行。アイテム変更からの新ビルド開拓。</p>
+                </dd>
+            </div>
+        </dl>
+    </section>
+
+    <footer>
+        <p>© LoL Knowledge Guide - これらの知識を習得し、柔軟に活用することが上達への鍵です。</p>
+    </footer>
+</div>
+
+</body>
+</html>
