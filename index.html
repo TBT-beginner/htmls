@@ -2,230 +2,547 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>シミュレーションラボ | インタラクティブ体験</title>
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+    <title>シミュレーションラボ | インタラクティブ体験 (NEWFOLK風)</title>
     <style>
-:root {
-    --bg-dark: #1d1d1f; /* よりAppleらしいダークグレー */
-    --bg-light: #2c2c2e; /* カード背景など少し明るいグレー */
-    --text-primary: #f5f5f7; /* オフホワイト */
-    --text-secondary: #a1a1a6; /* やや暗いグレー */
-    --accent-blue: #007aff;   /* Appleの標準的なブルー */
-    --border-color: rgba(255, 255, 255, 0.1); /* 控えめな境界線 */
-}
+        /* --- Base Styles (Inspired by NEWFOLK) --- */
+        :root {
+            --bg-color: #EBEAE8; /* NEWFOLKの背景色 */
+            --text-color: #111111; /* NEWFOLKのテキスト色 */
+            --footer-bg-color: #111111;
+            --footer-text-color: #EBEAE8;
+            --link-color: #333;
+            --container-width: 1200px;
+            --font-primary: "Helvetica Neue", Arial, sans-serif; /* 代替フォント */
+            --font-serif: Georgia, serif; /* 代替フォント */
+            --header-height: 80px;
+            --footer-reveal-height: 150px; /* フッターが見え始める高さ */
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* Appleフォント優先、なければ一般的なサンセリフ */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    background-color: var(--bg-dark);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    line-height: 1.6; /* 行間を少し広げる */
-}
+        html {
+            scroll-behavior: smooth; /* JSでのスムーズスクロールがなければ有効 */
+        }
 
-.header {
-    min-height: 80vh; /* 少し高さを抑える */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 40px 20px; /* パディングを追加 */
-    position: relative; /* 必要であれば残す */
-}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-primary);
+            font-size: 16px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden; /* 横スクロール防止 */
+        }
 
-.title {
-    font-size: clamp(2.5rem, 8vw, 4.5rem); /* レスポンシブなフォントサイズ */
-    font-weight: 600; /* やや細めのウェイト */
-    margin-bottom: 0.75rem;
-    color: var(--text-primary);
-}
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
 
-.subtitle {
-    font-size: clamp(1rem, 4vw, 1.5rem);
-    font-weight: 400;
-    color: var(--text-secondary);
-    max-width: 600px; /* 長すぎないように */
-    margin: 0 auto 2rem auto; /* 中央揃えと下のマージン */
-    letter-spacing: normal; /* 過度な文字間隔を削除 */
-    text-transform: none; /* 大文字変換を削除 */
-}
+        a:hover {
+            opacity: 0.7;
+        }
 
-.bento-grid {
-    display: grid;
-    /* カラム数を調整し、最小幅も少し小さく */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px; /* 少し広めのギャップ */
-    width: 90%;
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 20px 0; /* 上下のパディング */
-}
+        .container {
+            width: 90%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 15px;
+        }
 
-.bento-item {
-    background-color: var(--bg-light);
-    border-radius: 20px; /* 角丸を大きく */
-    padding: 35px; /* パディングを調整 */
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* 控えめなシャドウ */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    /* height: 350px; 固定高さを削除し、コンテンツに合わせる */
-    min-height: 300px; /* 最小高さは設定しても良い */
-    display: flex; /* Flexboxで中央揃え */
-    flex-direction: column;
-    justify-content: space-between; /* アイコン/テキストとボタンの間隔を空ける */
-    align-items: center;
-    border: 1px solid var(--border-color); /* 境界線を追加 */
-}
+        /* --- Loading Animation (Simplified) --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease-in-out, visibility 0s 0.5s linear;
+            opacity: 1;
+            visibility: visible;
+        }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #loader-content {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+        #loader-counter {
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
 
-.bento-item:hover {
-    transform: translateY(-6px); /* 少し持ち上げる */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* ホバー時のシャドウを少し濃く */
-}
+        /* --- Header --- */
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            z-index: 100;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            color: var(--text-color);
+            mix-blend-mode: difference; /* NEWFOLK風の効果 */
+        }
+        #header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        #header-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: inherit; /* mix-blend-modeのため */
+        }
+        #header-nav ul {
+            list-style: none;
+            display: flex;
+        }
+        #header-nav li {
+            margin-left: 30px;
+        }
+        #header-nav a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: inherit; /* mix-blend-modeのため */
+            position: relative;
+            padding-bottom: 4px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        /* Simple hover effect */
+        #header-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: currentColor;
+            transform: translateX(-101%);
+            transition: transform 0.3s ease;
+        }
+        #header-nav a:hover::after {
+            transform: translateX(0);
+        }
 
-/* bento-contentラッパーは不要になったので削除（シンプル化） */
+        /* Hide nav on small screens (replace with burger later if needed) */
+        @media (max-width: 768px) {
+            #header-nav {
+                display: none;
+            }
+        }
 
-.bento-icon {
-    font-size: 3.5rem; /* アイコンサイズ調整 */
-    margin-bottom: 1.5rem;
-    color: var(--accent-blue); /* アイコンの色をアクセントカラーに統一 */
-    line-height: 1; /* アイコンの余分な高さを削除 */
-}
 
-.bento-title {
-    font-size: 1.5rem; /* タイトルサイズ調整 */
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--text-primary); /* タイトルは明るい色 */
-}
+        /* --- Main Content --- */
+        #app {
+            opacity: 0; /* Initially hidden, shown by JS */
+            transition: opacity 0.5s ease;
+        }
+        main {
+            padding-top: 15vh; /* Space for hero content */
+            /* padding-bottom needs to accommodate footer reveal */
+            position: relative;
+            z-index: 1;
+            background-color: var(--bg-color); /* Ensure main content covers footer initially */
+        }
 
-.bento-description {
-    font-size: 0.95rem; /* 説明文のサイズ調整 */
-    line-height: 1.5;
-    color: var(--text-secondary); /* 説明文は少し暗い色 */
-    margin-bottom: 1.5rem;
-    flex-grow: 1; /* 説明文エリアが伸びてボタンを下に押しやる */
-    max-width: 90%; /* 幅を少し制限 */
-}
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Left align */
+            text-align: left;
+            padding-bottom: 15vh;
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem); /* Responsive title */
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            opacity: 0; /* Animation */
+            transform: translateY(20px); /* Animation */
+        }
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #555;
+            max-width: 600px;
+            opacity: 0; /* Animation */
+            transform: translateY(20px); /* Animation */
+            transition-delay: 0.2s; /* Animation */
+        }
 
-.bento-link {
-    display: inline-block;
-    padding: 10px 25px; /* パディング調整 */
-    border: none; /* ボーダー削除 */
-    border-radius: 999px; /* ピル形状 */
-    text-decoration: none;
-    color: var(--accent-blue); /* デフォルトの文字色 */
-    background-color: rgba(0, 122, 255, 0.15); /* 薄い背景色 */
-    font-weight: 500; /* 少し細めに */
-    font-size: 0.9rem; /* サイズ調整 */
-    text-transform: none; /* 大文字変換削除 */
-    letter-spacing: normal; /* 文字間隔リセット */
-    transition: background-color 0.3s ease, color 0.3s ease;
-    cursor: pointer; /* ポインターカーソル表示 */
-}
+        /* --- Content List Section --- */
+        .content-list-section {
+            padding: 10vh 0;
+        }
+        .content-list-title {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 600;
+            margin-bottom: 8vh;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .content-list {
+            list-style: none;
+        }
+        .content-list-item {
+            padding: 5vh 0;
+            border-bottom: 1px solid #dcdcdc;
+            opacity: 0; /* Animation */
+            transform: translateY(30px); /* Animation */
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .content-list-item:first-child {
+            border-top: 1px solid #dcdcdc;
+        }
+        .content-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+        }
+        .card-content {
+            flex: 1;
+        }
+        .card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+            /* Optional: Style icon differently */
+        }
+        .card-title {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .card-description {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            max-width: 500px;
+        }
+        .card-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .card-link:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            opacity: 1;
+        }
 
-.bento-link:hover {
-    background-color: var(--accent-blue); /* ホバー時に背景色を濃く */
-    color: var(--text-primary); /* ホバー時の文字色 */
-}
+        @media (max-width: 768px) {
+            .content-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .card-link {
+                align-self: flex-start; /* Keep button left-aligned */
+            }
+        }
 
-/* nth-childによる色分けを削除し、統一感を出す */
 
-@media (max-width: 768px) {
-    .header {
-        min-height: 60vh; /* スマホではヘッダー高さをさらに抑える */
-    }
-    .bento-grid {
-        gap: 16px; /* スマホではギャップを少し狭く */
-    }
-    .bento-item {
-        padding: 25px; /* スマホではパディングを少し小さく */
-        min-height: 250px;
-    }
-    .bento-icon {
-        font-size: 3rem;
-    }
-    .bento-title {
-        font-size: 1.3rem;
-    }
-    .bento-description {
-        font-size: 0.9rem;
-    }
-    .bento-link {
-        padding: 8px 20px;
-        font-size: 0.85rem;
-    }
-}
+        /* --- Footer --- */
+        #footer {
+            background-color: var(--footer-bg-color);
+            color: var(--footer-text-color);
+            padding: 50px 0;
+            position: relative; /* Changed from fixed/sticky for simplicity */
+            z-index: 0;
+            /* padding-top adjusted to create space for reveal effect if using JS */
+            /* padding-top: calc(var(--footer-reveal-height) + 50px); */
+            margin-top: -1px; /* Prevent gap with main */
+        }
+        #footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 200px;
+        }
+        .footer-col h4 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+        .footer-col p, .footer-col a {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--footer-text-color);
+            opacity: 0.9;
+        }
+        .footer-col a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        #footer-copy {
+            width: 100%;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* --- Scroll Animation Trigger --- */
+        .is-visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <!-- シンプルになったヘッダー -->
-        <h1 class="title">シミュレーションラボ</h1>
-        <p class="subtitle">インタラクティブな体験を通じて、様々な現象を探求しましょう。</p>
-    </header>
-
-    <main class="bento-grid">
-        <div class="bento-item">
-            <!-- bento-content divを削除し、直接要素を配置 -->
-            <div class="bento-icon">🪙</div>
-            <div> <!-- タイトルと説明をグループ化 -->
-                <h2 class="bento-title">コイントス</h2>
-                <p class="bento-description">表と裏がどのくらいの確率で出るのかを実験できるコイントスシミュレーター</p>
-            </div>
-            <a href="https://tbt-beginner.github.io/htmls/cointoss.html" class="bento-link">体験する</a>
+    <div id="loader">
+        <div id="loader-content">
+            <span id="loader-counter">0</span>
+            Loading...
         </div>
+    </div>
 
-        <div class="bento-item">
-            <div class="bento-icon">🎲</div>
-             <div>
-                <h2 class="bento-title">サイコロ</h2>
-                <p class="bento-description">各目がどのくらいの確率で出るのかを検証できるサイコロシミュレーター</p>
+    <div id="app">
+        <header id="header">
+            <div id="header-inner" class="container">
+                <a id="header-logo" href="#">SIM LAB</a>
+                <nav id="header-nav">
+                    <ul>
+                        <li><a href="#simulations">Simulations</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <!-- Burger menu icon could go here -->
             </div>
-            <a href="https://tbt-beginner.github.io/htmls/py.html" class="bento-link">体験する</a>
-        </div>
+        </header>
 
-        <div class="bento-item">
-            <div class="bento-icon">🧩</div>
-             <div>
-                <h2 class="bento-title">数独</h2>
-                <p class="bento-description">論理的思考力を鍛えられる古典的なパズルゲーム「数独」</p>
+        <main id="main">
+            <section class="hero container">
+                <h1 class="hero-title" data-animate-on-scroll>シミュレーション ラボ</h1>
+                <p class="hero-subtitle" data-animate-on-scroll>
+                    インタラクティブな体験を通じて、確率、論理、そして古典文学の世界を探求しましょう。
+                </p>
+            </section>
+
+            <section id="simulations" class="content-list-section container">
+                <h2 class="content-list-title" data-animate-on-scroll>体験コンテンツ</h2>
+                <ul class="content-list">
+                    <li class="content-list-item" data-animate-on-scroll>
+                        <div class="content-card">
+                            <div class="card-content">
+                                <span class="card-icon">🪙</span>
+                                <h3 class="card-title">コイントス シミュレーター</h3>
+                                <p class="card-description">仮想のコインを繰り返し投げ、表と裏が出る確率の収束を視覚的に体験します。</p>
+                            </div>
+                            <a href="https://tbt-beginner.github.io/htmls/cointoss.html" class="card-link" target="_blank" rel="noopener noreferrer">試してみる</a>
+                        </div>
+                    </li>
+                    <li class="content-list-item" data-animate-on-scroll>
+                         <div class="content-card">
+                            <div class="card-content">
+                                <span class="card-icon">🎲</span>
+                                <h3 class="card-title">サイコロ シミュレーター</h3>
+                                <p class="card-description">サイコロの各目が出る確率をシミュレーション。試行回数を増やして理論値に近づく様子を観察します。</p>
+                            </div>
+                            <a href="https://tbt-beginner.github.io/htmls/py.html" class="card-link" target="_blank" rel="noopener noreferrer">試してみる</a>
+                        </div>
+                    </li>
+                     <li class="content-list-item" data-animate-on-scroll>
+                         <div class="content-card">
+                             <div class="card-content">
+                                 <span class="card-icon">🧩</span>
+                                 <h3 class="card-title">数独パズル</h3>
+                                 <p class="card-description">数字を使った論理パズル「数独」に挑戦。思考力を鍛え、達成感を味わいましょう。</p>
+                             </div>
+                            <a href="https://tbt-beginner.github.io/htmls/sudoku.html" class="card-link" target="_blank" rel="noopener noreferrer">プレイする</a>
+                        </div>
+                    </li>
+                    <li class="content-list-item" data-animate-on-scroll>
+                         <div class="content-card">
+                             <div class="card-content">
+                                 <span class="card-icon">📜</span>
+                                 <h3 class="card-title">土佐日記 解説 (横書き)</h3>
+                                 <p class="card-description">平安時代の紀行文学『土佐日記』の世界をインフォグラフィックで解説。横書きレイアウトで読み進めます。</p>
+                             </div>
+                            <a href="https://tbt-beginner.github.io/htmls/tosa.html" class="card-link" target="_blank" rel="noopener noreferrer">詳しく見る</a>
+                        </div>
+                    </li>
+                     <li class="content-list-item" data-animate-on-scroll>
+                         <div class="content-card">
+                            <div class="card-content">
+                                <span class="card-icon">✍️</span>
+                                <h3 class="card-title">土佐日記 解説 (縦書き)</h3>
+                                <p class="card-description">『土佐日記』のインフォグラフィック解説、縦書きバージョン。古典文学の雰囲気をより深く味わえます。</p>
+                            </div>
+                            <a href="https://tbt-beginner.github.io/htmls/tosatate.html" class="card-link" target="_blank" rel="noopener noreferrer">詳しく見る</a>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Placeholder for more sections if needed -->
+            <section id="about" style="height: 30vh; padding: 5vh 0;" class="container">
+                 <h2 class="content-list-title" data-animate-on-scroll>About Us</h2>
+                 <p data-animate-on-scroll>ここはシミュレーションラボです。様々なインタラクティブコンテンツを提供しています。</p>
+            </section>
+
+        </main>
+
+        <footer id="footer">
+            <div id="footer-inner" class="container">
+                 <div class="footer-col">
+                     <h4>Navigation</h4>
+                     <p><a href="#">Home</a></p>
+                     <p><a href="#simulations">Simulations</a></p>
+                     <p><a href="#about">About</a></p>
+                 </div>
+                 <div class="footer-col">
+                     <h4>Contact</h4>
+                     <p>hello@simlab.example</p>
+                     <p>Tokyo, Japan</p>
+                 </div>
+                 <div class="footer-col">
+                     <h4>Follow Us</h4>
+                     <p><a href="#">X (Twitter)</a></p>
+                     <p><a href="#">GitHub</a></p>
+                 </div>
+                 <p id="footer-copy">© 2024 シミュレーションラボ. All rights reserved.</p>
             </div>
-            <a href="https://tbt-beginner.github.io/htmls/sudoku.html" class="bento-link">プレイする</a>
-        </div>
+        </footer>
+    </div>
 
-        <!-- 追加されたアイテム 1 -->
-        <div class="bento-item">
-            <div class="bento-icon">📊</div> <!-- アイコン例 -->
-             <div>
-                <h2 class="bento-title">Tosa (横)</h2> <!-- タイトル例 -->
-                <p class="bento-description">横方向のTosaシミュレーションを体験できます。</p> <!-- 説明例 -->
-            </div>
-            <a href="https://tbt-beginner.github.io/htmls/tosa.html" class="bento-link">体験する</a>
-        </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('loader');
+            const loaderCounter = document.getElementById('loader-counter');
+            const app = document.getElementById('app');
+            let count = 0;
+            const targetCount = 100; // Target percentage
 
-        <!-- 追加されたアイテム 2 -->
-        <div class="bento-item">
-            <div class="bento-icon">📈</div> <!-- アイコン例 -->
-             <div>
-                <h2 class="bento-title">Tosa (縦)</h2> <!-- タイトル例 -->
-                <p class="bento-description">縦方向のTosaシミュレーションを実行します。</p> <!-- 説明例 -->
-            </div>
-            <a href="https://tbt-beginner.github.io/htmls/tosatate.html" class="bento-link">体験する</a>
-        </div>
-    </main>
+            // --- Simplified Loader ---
+            function updateLoader() {
+                if (count < targetCount) {
+                    count++;
+                    loaderCounter.textContent = count;
+                    requestAnimationFrame(updateLoader);
+                } else {
+                    loaderCounter.textContent = targetCount; // Ensure it hits 100
+                    // Wait a moment before hiding loader and showing content
+                    setTimeout(() => {
+                        loader.classList.add('hidden');
+                        app.style.opacity = 1;
+                        // Start entry animations after content is visible
+                        startEntryAnimations();
+                    }, 300);
+                }
+            }
+            // Start loader simulation
+            updateLoader();
 
-    <!-- カスタムカーソルとパララックスのスクリプトを削除 -->
+
+            // --- Scroll Animations ---
+            const animatedElements = document.querySelectorAll('[data-animate-on-scroll]');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Optional: Unobserve after animation
+                        // observer.unobserve(entry.target);
+                    } else {
+                        // Optional: Remove class if you want animation to repeat on scroll up
+                         entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            animatedElements.forEach(el => {
+                // Initialize styles for animation (already set in CSS)
+                 // el.style.opacity = 0;
+                 // el.style.transform = 'translateY(20px)';
+                 // el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                 observer.observe(el);
+            });
+
+            // Function to trigger entry animations manually if needed (e.g., for hero)
+            function startEntryAnimations() {
+                const heroTitle = document.querySelector('.hero-title');
+                const heroSubtitle = document.querySelector('.hero-subtitle');
+                if (heroTitle) heroTitle.classList.add('is-visible');
+                if (heroSubtitle) heroSubtitle.classList.add('is-visible');
+                // Trigger others visible on load if necessary
+                 // animatedElements.forEach(el => {
+                 //     const rect = el.getBoundingClientRect();
+                 //     if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                 //         el.classList.add('is-visible');
+                 //     }
+                 // });
+            }
+
+            // --- Optional: Header Style Change on Scroll ---
+            const header = document.getElementById('header');
+            // window.addEventListener('scroll', () => {
+            //     if (window.scrollY > 50) {
+            //         // Example: Change header style after scrolling down
+            //         // header.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            //         // header.style.color = 'var(--text-color)'; // Adjust if needed
+            //     } else {
+            //         // header.style.backgroundColor = 'transparent';
+            //         // header.style.color = 'var(--text-color)'; // Adjust if needed
+            //     }
+            // });
+
+
+             // --- Optional: Smooth Scrolling (Using a library like Lenis is recommended) ---
+             // Basic CSS smooth scroll is enabled via html { scroll-behavior: smooth; }
+             // For advanced smooth scroll like NEWFOLK, use Lenis: https://github.com/studio-freight/lenis
+             // Example with Lenis (requires including the library):
+             /*
+             const lenis = new Lenis()
+             function raf(time) {
+               lenis.raf(time)
+               requestAnimationFrame(raf)
+             }
+             requestAnimationFrame(raf)
+             */
+
+        });
+    </script>
 
 </body>
 </html>
