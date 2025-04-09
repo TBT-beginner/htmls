@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ja"> <!-- Default lang attribute -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DXコース ガイダンスまとめ</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Poppins:wght@300;600;700&display=swap');
+        /* Add fonts for other languages */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap'); /* Chinese */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap'); /* Korean */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap'); /* Indonesian, Spanish */
+
+
+        :root {
+            /* --- Dark Mode Colors (Default) --- */
+            --bg-gradient-start: #1a1a2e; --bg-gradient-mid: #16213e; --bg-gradient-end: #0f3460;
+            --card-bg: rgba(255, 255, 255, 0.05); --card-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #e0fbfc; --text-secondary: #c2dde6;
+            --accent-primary: #ff8c00; --accent-secondary: #00f5d4; --accent-tertiary: #ff4081;
+            --highlight-bg: rgba(0, 245, 212, 0.1); --shadow-light: rgba(0, 245, 212, 0.2); --shadow-dark: rgba(0, 0, 0, 0.4);
+            --header-glow: radial-gradient(circle, rgba(0, 245, 212, 0.15) 0%, rgba(0, 245, 212, 0) 70%);
+            --header-text-fill: transparent; --header-text-gradient: linear-gradient(90deg, var(--accent-secondary), var(--text-primary), var(--accent-tertiary));
+            --final-message-text: #fff;
+
+            /* --- Shared Variables --- */
+            --border-radius: 12px;
+            /* Updated font stack */
+            --font-primary: 'Poppins', 'Noto Sans JP','Noto Sans SC', 'Noto Sans KR', 'Noto Sans', sans-serif;
+            --font-secondary: 'Noto Sans JP', 'Noto Sans SC', 'Noto Sans KR', 'Noto Sans', sans-serif;
+            --transition-speed: 0.4s;
+        }
+
+        body.light-mode {
+             /* --- Light Mode Colors --- */
+            --bg-gradient-start: #f4f7f9; --bg-gradient-mid: #e9edf1; --bg-gradient-end: #dfe6ed;
+            --card-bg: rgba(255, 255, 255, 0.8); --card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #1a2b48; --text-secondary: #4a5568;
+            --accent-primary: #f57c00; --accent-secondary: #00a99d; --accent-tertiary: #e91e63;
+            --highlight-bg: rgba(0, 169, 157, 0.1); --shadow-light: rgba(0, 0, 0, 0.05); --shadow-dark: rgba(0, 0, 0, 0.1);
+            --header-glow: radial-gradient(circle, rgba(0, 169, 157, 0.1) 0%, rgba(0, 169, 157, 0) 70%);
+            --header-text-fill: unset; --header-text-gradient: none;
+            --final-message-text: #fff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-secondary);
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
+            color: var(--text-primary);
+            line-height: 1.7; overflow-x: hidden;
+            padding: 5rem 0 2rem 0;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        .infographic-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; }
+
+        /* --- Controls Area --- */
+        .controls-container {
+            position: fixed; top: 15px; right: 15px; display: flex;
+            gap: 10px; align-items: center; z-index: 1000;
+        }
+
+        /* --- Theme Toggle Button --- */
+        #theme-toggle {
+            background: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-border);
+            border-radius: 50%; width: 45px; height: 45px; font-size: 1.6rem; cursor: pointer;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 10px var(--shadow-dark);
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        #theme-toggle:hover { transform: scale(1.1) rotate(10deg); background-color: var(--highlight-bg); }
+
+        /* --- Language Selector --- */
+        #language-select {
+            padding: 8px 12px; background: var(--card-bg); color: var(--text-primary);
+            border: 1px solid var(--card-border); border-radius: var(--border-radius);
+            font-family: var(--font-secondary); font-size: 0.9rem; cursor: pointer;
+            appearance: none; -webkit-appearance: none; -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23c2dde6" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat; background-position: right 10px center;
+            padding-right: 35px;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            box-shadow: 0 2px 10px var(--shadow-dark);
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        #language-select:hover { background-color: var(--highlight-bg); }
+        #language-select:focus { outline: none; border-color: var(--accent-secondary); }
+         body.light-mode #language-select {
+              background-image: url('data:image/svg+xml;utf8,<svg fill="%234a5568" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+         }
+
+        /* --- Header --- */
+        header {
+            text-align: center; margin-bottom: 4rem; padding: 2rem 0; position: relative; overflow: hidden;
+            border-radius: var(--border-radius); background: var(--card-bg); border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px); transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+        header::before { content:''; position: absolute; top: 50%; left: 50%; width: 80%; height: 150%; background: var(--header-glow); transform: translate(-50%, -50%); z-index: 0; transition: background var(--transition-speed) ease; }
+        header h1 {
+            font-family: var(--font-primary); font-size: 3.5rem; font-weight: 700; color: var(--text-primary);
+            margin-bottom: 0.5rem; position: relative; z-index: 1;
+            background: var(--header-text-gradient); -webkit-background-clip: text; -webkit-text-fill-color: var(--header-text-fill);
+            animation: fadeInDown 1s ease-out; transition: color var(--transition-speed) ease;
+        }
+        body.light-mode header h1 { color: var(--accent-primary); background: none; -webkit-background-clip: unset; -webkit-text-fill-color: unset; }
+        header p { font-size: 1.2rem; color: var(--text-secondary); font-weight: 300; position: relative; z-index: 1; animation: fadeInUp 1s ease-out 0.3s; animation-fill-mode: backwards; transition: color var(--transition-speed) ease; }
+
+        /* --- Section Styling --- */
+        section { margin-bottom: 4rem; padding: 2.5rem; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--border-radius); backdrop-filter: blur(8px); box-shadow: 0 8px 32px var(--shadow-dark); position: relative; overflow: hidden; animation: fadeInUp 1s ease-out; transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; }
+        section h2 { font-family: var(--font-primary); font-size: 2.2rem; font-weight: 600; color: var(--accent-primary); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-secondary); display: inline-block; transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease; }
+        section h2 .icon { margin-right: 0.5rem; }
+        section h3 { font-family: var(--font-primary); font-size: 1.6rem; font-weight: 600; color: var(--accent-secondary); margin-top: 1.5rem; margin-bottom: 1rem; transition: color var(--transition-speed) ease; }
+        ul { list-style: none; padding-left: 0; }
+        li { margin-bottom: 0.8rem; padding-left: 1.8rem; position: relative; color: var(--text-secondary); transition: color var(--transition-speed) ease; }
+        li::before { content: '⚡'; position: absolute; left: 0; top: 0; color: var(--accent-primary); font-size: 1.1rem; transition: transform var(--transition-speed) ease, color var(--transition-speed) ease; }
+        li:hover::before { transform: rotate(15deg) scale(1.2); color: var(--accent-secondary); }
+        li:hover { color: var(--text-primary); }
+        strong { font-weight: 700; color: var(--accent-secondary); transition: color var(--transition-speed) ease; }
+        .highlight { background-color: var(--highlight-bg); padding: 0.2em 0.4em; border-radius: 4px; font-weight: bold; color: var(--accent-secondary); border: 1px solid rgba(0, 245, 212, 0.3); transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease; }
+        body.light-mode .highlight { border-color: rgba(0, 169, 157, 0.3); }
+
+        /* --- Specific Section Styles (Goal, Features, Future, Message) --- */
+        #goal .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .pillar-card { background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: var(--border-radius); border-left: 5px solid var(--accent-primary); transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease; box-shadow: 0 4px 15px var(--shadow-dark); }
+        .pillar-card:nth-child(2) { border-left-color: var(--accent-secondary); }
+        .pillar-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px var(--shadow-light); }
+        .pillar-card .icon { font-size: 2.5rem; margin-bottom: 1rem; display: inline-block; color: var(--accent-primary); transition: transform var(--transition-speed) ease, color var(--transition-speed) ease; }
+        .pillar-card:nth-child(2) .icon { color: var(--accent-secondary); }
+        .pillar-card:hover .icon { transform: scale(1.1) rotate(5deg); }
+        .pillar-card h4 { font-family: var(--font-primary); font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--text-primary); transition: color var(--transition-speed) ease; }
+        .pillar-card p { color: var(--text-secondary); font-size: 0.95rem; transition: color var(--transition-speed) ease; } /* Ensure p has transition */
+        .pillar-card ul { color: var(--text-secondary); font-size: 0.95rem; transition: color var(--transition-speed) ease; } /* Ensure ul has transition */
+        .pillar-card li { /* Apply lang attributes here */ }
+        .pillar-card li::before { content: '💡'; color: var(--accent-tertiary); transition: color var(--transition-speed) ease; }
+        body.light-mode .pillar-card { background: rgba(255, 255, 255, 0.6); }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .feature-item { background: rgba(0, 0, 0, 0.15); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid transparent; transition: border-color var(--transition-speed) ease, transform var(--transition-speed) ease, background var(--transition-speed) ease; position: relative; overflow: hidden; }
+        .feature-item::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent); transition: left var(--transition-speed) ease-out; }
+        body.light-mode .feature-item::before { background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent); }
+        .feature-item:hover::before { left: 150%; }
+        .feature-item:hover { transform: scale(1.03); border-color: var(--accent-secondary); background: rgba(0, 245, 212, 0.05); }
+        .feature-item .icon { font-size: 1.8rem; margin-right: 0.8rem; vertical-align: middle; color: var(--accent-primary); transition: color var(--transition-speed) ease; }
+        .feature-item h4 { display: inline-block; font-family: var(--font-primary); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--text-primary); transition: color var(--transition-speed) ease; }
+        .feature-item p { font-size: 0.9rem; color: var(--text-secondary); transition: color var(--transition-speed) ease; } /* Ensure p has transition */
+        .feature-item ul { font-size: 0.9rem; color: var(--text-secondary); transition: color var(--transition-speed) ease; } /* Ensure ul has transition */
+        .feature-item li { /* Apply lang attributes here */ }
+        .feature-item li::before { content: '▶'; font-size: 0.8rem; color: var(--accent-secondary); transition: color var(--transition-speed) ease; }
+        .byd-highlight { border: 2px dashed var(--accent-tertiary); background: rgba(255, 64, 129, 0.1); transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease; }
+        .byd-highlight h4 { color: var(--accent-tertiary); transition: color var(--transition-speed) ease; }
+        .byd-highlight .icon { color: var(--accent-tertiary); transition: color var(--transition-speed) ease; }
+        body.light-mode .feature-item { background: rgba(255, 255, 255, 0.5); }
+        body.light-mode .feature-item:hover { background: rgba(0, 169, 157, 0.05); }
+        body.light-mode .byd-highlight { background: rgba(233, 30, 99, 0.05); }
+
+        #future .future-paths { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1.5rem; }
+        .path-card { flex: 1 1 300px; background: rgba(0, 0, 0, 0.1); padding: 1.5rem; border-radius: var(--border-radius); text-align: center; border-bottom: 5px solid var(--accent-primary); transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease; }
+        .path-card:nth-child(2) { border-bottom-color: var(--accent-secondary); }
+        .path-card:nth-child(3) { border-bottom-color: var(--accent-tertiary); }
+        .path-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px var(--shadow-dark); }
+        .path-card .icon { font-size: 3rem; margin-bottom: 1rem; color: var(--accent-primary); transition: color var(--transition-speed) ease; }
+        .path-card:nth-child(2) .icon { color: var(--accent-secondary); }
+        .path-card:nth-child(3) .icon { color: var(--accent-tertiary); }
+        .path-card h4 { font-family: var(--font-primary); font-size: 1.3rem; margin-bottom: 0.8rem; color: var(--text-primary); transition: color var(--transition-speed) ease; }
+        .path-card p { font-size: 0.95rem; color: var(--text-secondary); transition: color var(--transition-speed) ease; }
+        .academic-rigor { margin-top: 2rem; padding: 1.5rem; background: var(--highlight-bg); border-radius: var(--border-radius); border: 1px solid var(--accent-secondary); transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease; }
+        .academic-rigor h4 { color: var(--accent-secondary); margin-bottom: 0.5rem; transition: color var(--transition-speed) ease; }
+        .academic-rigor p { color: var(--text-secondary); transition: color var(--transition-speed) ease; }
+        body.light-mode .path-card { background: rgba(255, 255, 255, 0.4); }
+
+        .final-pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem; text-align: center; justify-items: center; }
+        .final-pillar { background: var(--card-bg); padding: 2rem 1rem; border-radius: 50%; width: 200px; height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 3px solid var(--card-border); transition: transform var(--transition-speed) ease, border-color var(--transition-speed) ease, background-color var(--transition-speed) ease; position: relative; }
+        .final-pillar:nth-child(1) { border-color: var(--accent-primary); }
+        .final-pillar:nth-child(2) { border-color: var(--accent-secondary); }
+        .final-pillar:nth-child(3) { border-color: var(--accent-tertiary); }
+        .final-pillar:hover { transform: scale(1.1); border-width: 4px; }
+        .final-pillar .icon { font-size: 2.5rem; margin-bottom: 0.8rem; transition: color var(--transition-speed) ease; }
+        .final-pillar:nth-child(1) .icon { color: var(--accent-primary); }
+        .final-pillar:nth-child(2) .icon { color: var(--accent-secondary); }
+        .final-pillar:nth-child(3) .icon { color: var(--accent-tertiary); }
+        .final-pillar h4 { font-family: var(--font-primary); font-size: 1.2rem; color: var(--text-primary); margin-bottom: 0.3rem; transition: color var(--transition-speed) ease; }
+        .final-pillar p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; transition: color var(--transition-speed) ease; }
+        body.light-mode .final-pillar { border-color: rgba(0,0,0,0.1); }
+        body.light-mode .final-pillar:nth-child(1) { border-color: var(--accent-primary); }
+        body.light-mode .final-pillar:nth-child(2) { border-color: var(--accent-secondary); }
+        body.light-mode .final-pillar:nth-child(3) { border-color: var(--accent-tertiary); }
+
+        .final-message { margin-top: 3rem; text-align: center; font-size: 1.3rem; font-weight: 600; color: var(--final-message-text); padding: 1.5rem; background: linear-gradient(45deg, var(--accent-primary), var(--accent-tertiary)); border-radius: var(--border-radius); box-shadow: 0 5px 20px rgba(255, 140, 0, 0.4); animation: pulse 2s infinite; transition: box-shadow var(--transition-speed) ease, background var(--transition-speed) ease; }
+        body.light-mode .final-message { box-shadow: 0 5px 20px rgba(220, 100, 0, 0.3); }
+
+
+        /* --- Animations --- */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 5px 20px hsla(34, 100%, 50%, 0.4); } 50% { transform: scale(1.02); box-shadow: 0 8px 30px hsla(330, 100%, 63%, 0.5); } 100% { transform: scale(1); box-shadow: 0 5px 20px hsla(34, 100%, 50%, 0.4); } }
+        body.light-mode @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 5px 20px hsla(34, 100%, 50%, 0.3); } 50% { transform: scale(1.02); box-shadow: 0 8px 30px hsla(330, 100%, 63%, 0.4); } 100% { transform: scale(1); box-shadow: 0 5px 20px hsla(34, 100%, 50%, 0.3); } }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; } header p { font-size: 1rem; }
+            section { padding: 1.5rem; } section h2 { font-size: 1.8rem; } section h3 { font-size: 1.4rem; }
+            #goal .pillars, .feature-grid, #future .future-paths, .final-pillars { grid-template-columns: 1fr; gap: 1.5rem; }
+            .final-pillar { width: 180px; height: 180px; }
+            .final-message { font-size: 1.1rem; }
+            .infographic-container::before, .infographic-container::after { opacity: 0.4; filter: blur(80px); }
+            body.light-mode .infographic-container::before, body.light-mode .infographic-container::after { opacity: 0.2; filter: blur(100px); }
+             .controls-container { flex-direction: column; align-items: flex-end; gap: 8px; }
+             #language-select { font-size: 0.8rem; padding: 6px 10px; padding-right: 30px;}
+        }
+
+        @media (max-width: 480px) {
+             body { padding: 6rem 0 1rem 0; }
+             .infographic-container { padding: 0 1rem; }
+             header h1 { font-size: 2rem; } section h2 { font-size: 1.6rem; }
+             .pillar-card, .feature-item, .path-card { padding: 1rem; }
+             li { padding-left: 1.5rem; font-size: 0.9rem;} li::before { font-size: 1rem; }
+             .final-pillar { width: 150px; height: 150px; }
+             .final-pillar .icon { font-size: 2rem; } .final-pillar h4 { font-size: 1rem; } .final-pillar p { font-size: 0.8rem; }
+             .final-message { font-size: 1rem; padding: 1rem; }
+             #theme-toggle { width: 40px; height: 40px; font-size: 1.4rem; }
+             .controls-container { top: 10px; right: 10px; }
+        }
+
+        /* --- Decorative Elements --- */
+        .infographic-container::before,
+        .infographic-container::after { content: ''; position: absolute; border-radius: 50%; transition: background-color var(--transition-speed) ease, opacity var(--transition-speed) ease; z-index: -1; }
+        .infographic-container::before { width: 300px; height: 300px; background: var(--accent-secondary); top: 10%; left: -5%; filter: blur(100px); opacity: 0.6; }
+        .infographic-container::after { width: 250px; height: 250px; background: var(--accent-tertiary); bottom: 5%; right: -5%; filter: blur(100px); opacity: 0.6; }
+        body.light-mode .infographic-container::before { filter: blur(120px); opacity: 0.3; }
+        body.light-mode .infographic-container::after { filter: blur(120px); opacity: 0.3; }
+
+    </style>
+</head>
+<body>
+
+    <div class="controls-container">
+         <select id="language-select" aria-label="言語を選択">
+             <option value="ja">日本語</option>
+             <option value="en">English</option>
+             <option value="zh">中文 (简体)</option>
+             <option value="id">Bahasa Indonesia</option>
+             <option value="ko">한국어</option> <!-- Added Korean -->
+             <option value="es">Español</option> <!-- Added Spanish -->
+         </select>
+        <button id="theme-toggle" aria-label="テーマを切り替え">🌙</button>
+    </div>
+
+    <div class="infographic-container">
+        <header>
+            <h1 data-lang-ja="DX COURSE GUIDANCE"
+                data-lang-en="DX COURSE GUIDANCE"
+                data-lang-zh="DX 课程指南"
+                data-lang-id="PANDUAN KURSUS DX"
+                data-lang-ko="DX 코스 안내"
+                data-lang-es="GUÍA DEL CURSO DX">DX COURSE GUIDANCE</h1>
+            <p data-lang-ja="未来を創る学びがここにある - デジタルと探究の融合 -"
+               data-lang-en="Learning to Create the Future is Here - Fusion of Digital and Inquiry -"
+               data-lang-zh="创造未来的学习在此 - 数字与探究的融合 -"
+               data-lang-id="Pembelajaran Menciptakan Masa Depan Ada Di Sini - Perpaduan Digital dan Penyelidikan -"
+               data-lang-ko="미래를 창조하는 배움이 여기에 - 디지털과 탐구의 융합 -"
+               data-lang-es="El aprendizaje para crear el futuro está aquí - Fusión de Digital e Indagación -">未来を創る学びがここにある - デジタルと探究の融合 -</p>
+        </header>
+
+        <section id="goal">
+            <h2 data-lang-ja="<span class='icon'>🎯</span>DXコースのねらい：未来への羅針盤"
+                data-lang-en="<span class='icon'>🎯</span>DX Course Aim: Compass to the Future"
+                data-lang-zh="<span class='icon'>🎯</span>DX 课程目标：未来的指南针"
+                data-lang-id="<span class='icon'>🎯</span>Tujuan Kursus DX: Kompas Menuju Masa Depan"
+                data-lang-ko="<span class='icon'>🎯</span>DX 코스의 목표: 미래를 향한 나침반"
+                data-lang-es="<span class='icon'>🎯</span>Objetivo del curso DX: Brújula hacia el futuro"><span class='icon'>🎯</span>DXコースのねらい：未来への羅針盤</h2>
+            <p data-lang-ja="変化の激しいこれからの社会で活躍するために。単なる知識の習得だけではなく、「社会課題を解決する力」と「新しい価値を創造する力」を持つ人材を育成します。AI時代だからこそ求められる、人間ならではの能力を伸ばします。"
+               data-lang-en="To thrive in the rapidly changing society ahead. We cultivate individuals who possess not just knowledge, but the 'power to solve societal issues' and the 'power to create new value'. We develop uniquely human abilities demanded in the AI era."
+               data-lang-zh="为了在急剧变化的未来社会中活跃。我们培养的不仅仅是掌握知识，更是拥有“解决社会问题的能力”和“创造新价值的能力”的人才。培养AI时代所要求的人类独有的能力。"
+               data-lang-id="Untuk berkembang dalam masyarakat masa depan yang berubah cepat. Kami mengembangkan individu yang tidak hanya memiliki pengetahuan, tetapi juga 'kekuatan untuk menyelesaikan masalah sosial' dan 'kekuatan untuk menciptakan nilai baru'. Kami mengembangkan kemampuan unik manusia yang dibutuhkan di era AI."
+               data-lang-ko="급변하는 미래 사회에서 활약하기 위해. 단순한 지식 습득뿐만 아니라 '사회 문제를 해결하는 힘'과 '새로운 가치를 창조하는 힘'을 가진 인재를 육성합니다. AI 시대이기에 요구되는 인간 특유의 능력을 키웁니다."
+               data-lang-es="Para prosperar en la sociedad del futuro en rápido cambio. Cultivamos individuos que poseen no solo conocimiento, sino el 'poder para resolver problemas sociales' y el 'poder para crear nuevo valor'. Desarrollamos habilidades únicamente humanas demandadas en la era de la IA.">変化の激しいこれからの社会で活躍するために。単なる知識の習得だけではなく、「社会課題を解決する力」と「新しい価値を創造する力」を持つ人材を育成します。AI時代だからこそ求められる、人間ならではの能力を伸ばします。</p>
+
+            <div class="pillars">
+                <div class="pillar-card">
+                    <span class="icon">💻</span>
+                    <h4 data-lang-ja="① デジタル・リテラシーの獲得"
+                        data-lang-en="① Acquiring Digital Literacy"
+                        data-lang-zh="① 掌握数字素养"
+                        data-lang-id="① Memperoleh Literasi Digital"
+                        data-lang-ko="① 디지털 리터러시 습득"
+                        data-lang-es="① Adquisición de Alfabetización Digital">① デジタル・リテラシーの獲得</h4>
+                    <p data-lang-ja="デジタルツールは現代の必須スキル。単に使えるだけでなく、<strong>目的や課題に応じて最適なツールを選択し、効果的に活用できる力</strong>を養います。"
+                       data-lang-en="Digital tools are essential modern skills. We cultivate the ability not just to use them, but to <strong>select the optimal tools according to purpose and challenge, and utilize them effectively</strong>."
+                       data-lang-zh="数字工具是现代必备技能。我们培养的不仅是使用它们的能力，更是<strong>根据目的和挑战选择最佳工具，并有效利用它们的能力</strong>。"
+                       data-lang-id="Alat digital adalah keterampilan modern yang penting. Kami menumbuhkan kemampuan tidak hanya untuk menggunakannya, tetapi juga untuk <strong>memilih alat yang optimal sesuai dengan tujuan dan tantangan, dan memanfaatkannya secara efektif</strong>."
+                       data-lang-ko="디지털 도구는 현대의 필수 기술입니다. 단순히 사용할 수 있을 뿐만 아니라, <strong>목적과 과제에 따라 최적의 도구를 선택하고 효과적으로 활용할 수 있는 능력</strong>을 키웁니다."
+                       data-lang-es="Las herramientas digitales son habilidades modernas esenciales. Cultivamos la capacidad no solo de usarlas, sino de <strong>seleccionar las herramientas óptimas según el propósito y el desafío, y utilizarlas eficazmente</strong>.">デジタルツールは現代の必須スキル。単に使えるだけでなく、<strong>目的や課題に応じて最適なツールを選択し、効果的に活用できる力</strong>を養います。</p>
+                    <ul>
+                        <li data-lang-ja="デジタルツールを知る力 (AI, 3Dプリンタ, Web, 動画 etc.)"
+                            data-lang-en="Ability to know digital tools (AI, 3D printers, Web, video, etc.)"
+                            data-lang-zh="了解数字工具的能力（AI、3D打印机、Web、视频等）"
+                            data-lang-id="Kemampuan mengenal alat digital (AI, printer 3D, Web, video, dll.)"
+                            data-lang-ko="디지털 도구를 아는 능력 (AI, 3D 프린터, 웹, 동영상 등)"
+                            data-lang-es="Capacidad para conocer herramientas digitales (IA, impresoras 3D, Web, video, etc.)">デジタルツールを知る力 (AI, 3Dプリンタ, Web, 動画 etc.)</li>
+                        <li data-lang-ja="デジタルツールを選ぶ力 (問題解決のための適切な選択)"
+                            data-lang-en="Ability to choose digital tools (Appropriate selection for problem-solving)"
+                            data-lang-zh="选择数字工具的能力（针对问题解决的适当选择）"
+                            data-lang-id="Kemampuan memilih alat digital (Pemilihan yang tepat untuk pemecahan masalah)"
+                            data-lang-ko="디지털 도구를 선택하는 능력 (문제 해결을 위한 적절한 선택)"
+                            data-lang-es="Capacidad para elegir herramientas digitales (Selección apropiada para resolver problemas)">デジタルツールを選ぶ力 (問題解決のための適切な選択)</li>
+                        <li data-lang-ja="デジタルツールを使う力 (入門から実践へ)"
+                            data-lang-en="Ability to use digital tools (From introduction to practice)"
+                            data-lang-zh="使用数字工具的能力（从入门到实践）"
+                            data-lang-id="Kemampuan menggunakan alat digital (Dari pengenalan hingga praktik)"
+                            data-lang-ko="디지털 도구를 사용하는 능력 (입문에서 실천까지)"
+                            data-lang-es="Capacidad para usar herramientas digitales (De la introducción a la práctica)">デジタルツールを使う力 (入門から実践へ)</li>
+                        <li data-lang-ja="アナログの良さも理解し、使い分ける視点"
+                            data-lang-en="Understanding the merits of analog and using both appropriately"
+                            data-lang-zh="理解模拟方式的优点并恰当区分使用"
+                            data-lang-id="Memahami kelebihan analog dan menggunakan keduanya dengan tepat"
+                            data-lang-ko="아날로그의 장점도 이해하고 구분하여 사용하는 관점"
+                            data-lang-es="Comprender los méritos de lo analógico y usar ambos apropiadamente">アナログの良さも理解し、使い分ける視点</li>
+                    </ul>
+                </div>
+                <div class="pillar-card">
+                    <span class="icon">🔬</span>
+                    <h4 data-lang-ja="② 探究活動による実践力の育成"
+                        data-lang-en="② Developing Practical Skills through Inquiry Activities"
+                        data-lang-zh="② 通过探究活动培养实践能力"
+                        data-lang-id="② Mengembangkan Keterampilan Praktis melalui Kegiatan Penyelidikan"
+                        data-lang-ko="② 탐구 활동을 통한 실천력 육성"
+                        data-lang-es="② Desarrollo de Habilidades Prácticas mediante Actividades de Indagación">② 探究活動による実践力の育成</h4>
+                    <p data-lang-ja="自ら問いを立て、情報を収集・分析し、主体的に行動する。<strong>試行錯誤しながら新しい価値を生み出す力</strong>を、実践的な活動を通して育みます。"
+                       data-lang-en="Formulate questions, gather and analyze information, and act proactively. We foster the <strong>power to create new value through trial and error</strong> via practical activities."
+                       data-lang-zh="自己提出问题，收集和分析信息，并主动行动。通过实践活动，培养<strong>在反复试验中创造新价值的能力</strong>。"
+                       data-lang-id="Merumuskan pertanyaan, mengumpulkan dan menganalisis informasi, dan bertindak proaktif. Kami menumbuhkan <strong>kekuatan untuk menciptakan nilai baru melalui coba-coba</strong> melalui kegiatan praktis."
+                       data-lang-ko="스스로 질문을 던지고 정보를 수집·분석하며 주체적으로 행동합니다. <strong>시행착오를 겪으며 새로운 가치를 창출하는 힘</strong>을 실천적인 활동을 통해 키웁니다."
+                       data-lang-es="Formular preguntas, recopilar y analizar información, y actuar proactivamente. Fomentamos el <strong>poder de crear nuevo valor a través de prueba y error</strong> mediante actividades prácticas.">自ら問いを立て、情報を収集・分析し、主体的に行動する。<strong>試行錯誤しながら新しい価値を生み出す力</strong>を、実践的な活動を通して育みます。</p>
+                     <ul>
+                        <li data-lang-ja="情報収集・分析力 (真偽を見極め、正しく活用)"
+                            data-lang-en="Information gathering & analysis skills (Discerning truth, using correctly)"
+                            data-lang-zh="信息收集与分析能力（辨别真伪，正确利用）"
+                            data-lang-id="Keterampilan mengumpulkan & menganalisis informasi (Membedakan kebenaran, menggunakan dengan benar)"
+                            data-lang-ko="정보 수집·분석 능력 (진위 판별, 올바른 활용)"
+                            data-lang-es="Habilidades de recopilación y análisis de información (Discernir la verdad, usar correctamente)">情報収集・分析力 (真偽を見極め、正しく活用)</li>
+                        <li data-lang-ja="主体性・行動力 (自ら考え、動き出す)"
+                            data-lang-en="Proactiveness & ability to act (Thinking and acting independently)"
+                            data-lang-zh="主体性与行动力（独立思考与行动）"
+                            data-lang-id="Proaktivitas & kemampuan bertindak (Berpikir dan bertindak mandiri)"
+                            data-lang-ko="주체성·행동력 (스스로 생각하고 움직이기)"
+                            data-lang-es="Proactividad y capacidad de actuar (Pensar y actuar de forma independiente)">主体性・行動力 (自ら考え、動き出す)</li>
+                        <li data-lang-ja="創造力・表現力 (ゼロから価値を生み出す)"
+                            data-lang-en="Creativity & expressiveness (Creating value from scratch)"
+                            data-lang-zh="创造力与表现力（从零开始创造价值）"
+                            data-lang-id="Kreativitas & ekspresivitas (Menciptakan nilai dari awal)"
+                            data-lang-ko="창의력·표현력 (무에서 가치를 창조)"
+                            data-lang-es="Creatividad y expresividad (Crear valor desde cero)">創造力・表現力 (ゼロから価値を生み出す)</li>
+                        <li data-lang-ja="対話力・協働力 (チームで成果を最大化)"
+                            data-lang-en="Dialogue & collaboration skills (Maximizing results as a team)"
+                            data-lang-zh="对话与协作能力（团队合作以最大化成果）"
+                            data-lang-id="Keterampilan dialog & kolaborasi (Memaksimalkan hasil sebagai tim)"
+                            data-lang-ko="대화력·협동력 (팀으로 성과 극대화)"
+                            data-lang-es="Habilidades de diálogo y colaboración (Maximizar resultados en equipo)">対話力・協働力 (チームで成果を最大化)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+         <section id="features">
+            <h2 data-lang-ja="<span class='icon'>✨</span>DXコースの特徴：他にはない学び"
+                data-lang-en="<span class='icon'>✨</span>DX Course Features: Unique Learning Experience"
+                data-lang-zh="<span class='icon'>✨</span>DX 课程特色：独一无二的学习体验"
+                data-lang-id="<span class='icon'>✨</span>Fitur Kursus DX: Pengalaman Belajar Unik"
+                data-lang-ko="<span class='icon'>✨</span>DX 코스의 특징: 다른 곳에는 없는 배움"
+                data-lang-es="<span class='icon'>✨</span>Características del curso DX: Experiencia de aprendizaje única"><span class='icon'>✨</span>DXコースの特徴：他にはない学び</h2>
+            <p data-lang-ja="通常の高校教科に加え、DXコース独自のカリキュラムで未来に必要なスキルを体系的に学びます。"
+               data-lang-en="In addition to regular high school subjects, systematically learn future-ready skills with the DX course's unique curriculum."
+               data-lang-zh="除普通高中科目外，通过 DX 课程独有的课程体系系统地学习未来所需的技能。"
+               data-lang-id="Selain mata pelajaran SMA reguler, pelajari keterampilan siap masa depan secara sistematis dengan kurikulum unik kursus DX."
+               data-lang-ko="일반 고등학교 교과 외에 DX 코스만의 독자적인 커리큘럼으로 미래에 필요한 기술을 체계적으로 배웁니다."
+               data-lang-es="Además de las asignaturas regulares de secundaria, aprende sistemáticamente habilidades preparadas para el futuro con el plan de estudios único del curso DX.">通常の高校教科に加え、DXコース独自のカリキュラムで未来に必要なスキルを体系的に学びます。</p>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="icon">🤖</span><h4 data-lang-ja="デジタル探究 (週1)" data-lang-en="Digital Inquiry (1/wk)" data-lang-zh="数字探究 (每周1次)" data-lang-id="Penyelidikan Digital (1x/mgg)" data-lang-ko="디지털 탐구 (주 1회)" data-lang-es="Indagación Digital (1/sem)">デジタル探究 (週1)</h4>
+                    <p data-lang-ja="AIや最先端技術に触れるオリジナル授業。" data-lang-en="Original classes exploring AI and cutting-edge tech." data-lang-zh="接触 AI 和前沿技术的原创课程。" data-lang-id="Kelas orisinal menjelajahi AI dan teknologi mutakhir." data-lang-ko="AI 및 최첨단 기술을 접하는 독창적인 수업." data-lang-es="Clases originales explorando IA y tecnología de punta.">AIや最先端技術に触れるオリジナル授業。</p>
+                    <ul>
+                        <li data-lang-ja="<strong>AIチャレンジ:</strong> Softbank提供プログラムでAIの基礎を学ぶ。"
+                            data-lang-en="<strong>AI Challenge:</strong> Learn AI basics with a Softbank-provided program."
+                            data-lang-zh="<strong>AI挑战：</strong> 通过 Softbank 提供的程序学习 AI 基础。"
+                            data-lang-id="<strong>Tantangan AI:</strong> Pelajari dasar-dasar AI dengan program yang disediakan Softbank."
+                            data-lang-ko="<strong>AI 챌린지:</strong> Softbank 제공 프로그램으로 AI 기초 학습."
+                            data-lang-es="<strong>Desafío IA:</strong> Aprende conceptos básicos de IA con un programa proporcionado por Softbank."><strong>AIチャレンジ:</strong> Softbank提供プログラムでAIの基礎を学ぶ。</li>
+                        <li data-lang-ja="<strong>Minecraft探究:</strong> 全員参加。創造性と協働性を育む。(コンテスト最優秀賞実績あり)"
+                            data-lang-en="<strong>Minecraft Inquiry:</strong> All participate. Fosters creativity and collaboration. (Contest Grand Prize achievement)"
+                            data-lang-zh="<strong>Minecraft探究：</strong> 全体参与。培养创造力和协作能力。（有竞赛最高奖成就）"
+                            data-lang-id="<strong>Penyelidikan Minecraft:</strong> Semua berpartisipasi. Menumbuhkan kreativitas dan kolaborasi. (Prestasi Juara Utama Kontes)"
+                            data-lang-ko="<strong>Minecraft 탐구:</strong> 전원 참가. 창의성과 협동심 육성. (콘테스트 최우수상 실적 있음)"
+                            data-lang-es="<strong>Indagación Minecraft:</strong> Todos participan. Fomenta la creatividad y la colaboración. (Logro de Gran Premio en Concurso)"><strong>Minecraft探究:</strong> 全員参加。創造性と協働性を育む。(コンテスト最優秀賞実績あり)</li>
+                    </ul>
+                </div>
+                <div class="feature-item byd-highlight">
+                     <span class="icon">🚀</span><h4 data-lang-ja="総合的な探究 (週2!)" data-lang-en="Comprehensive Inquiry (2/wk!)" data-lang-zh="综合探究 (每周2次!)" data-lang-id="Penyelidikan Komprehensif (2x/mgg!)" data-lang-ko="종합적인 탐구 (주 2회!)" data-lang-es="Indagación Integral (2/sem!)">総合的な探究 (週2!)</h4>
+                     <p data-lang-ja="他コースより多い時間数で深く探究。専門企業連携も！" data-lang-en="More hours than other courses for deep inquiry. Collaboration with specialist companies!" data-lang-zh="比其他课程更多的时间进行深入探究。还有与专业公司的合作！" data-lang-id="Lebih banyak jam daripada kursus lain untuk penyelidikan mendalam. Kolaborasi dengan perusahaan spesialis!" data-lang-ko="다른 코스보다 많은 시간으로 깊이 탐구. 전문 기업 연계도!" data-lang-es="¡Más horas que otros cursos para una indagación profunda. ¡Colaboración con empresas especializadas!">他コースより多い時間数で深く探究。専門企業連携も！</p>
+                     <ul>
+                        <li data-lang-ja="<strong>プランA:</strong> 課題解決、プレゼン等の基礎力養成。"
+                            data-lang-en="<strong>Plan A:</strong> Develop basic skills like problem-solving, presentation."
+                            data-lang-zh="<strong>方案 A：</strong> 培养解决问题、演示等基本技能。"
+                            data-lang-id="<strong>Rencana A:</strong> Mengembangkan keterampilan dasar seperti pemecahan masalah, presentasi."
+                            data-lang-ko="<strong>플랜 A:</strong> 과제 해결, 프레젠테이션 등 기초 능력 양성."
+                            data-lang-es="<strong>Plan A:</strong> Desarrollar habilidades básicas como resolución de problemas, presentación."><strong>プランA:</strong> 課題解決、プレゼン等の基礎力養成。</li>
+                        <li data-lang-ja="<strong class='highlight'>プランB (BYD連携):</strong> 外部専門家(東京の企業BYD)による直接指導！ (年12回)"
+                            data-lang-en="<strong class='highlight'>Plan B (BYD Collab):</strong> Direct instruction from external experts (BYD from Tokyo)! (12 times/year)"
+                            data-lang-zh="<strong class='highlight'>方案 B（与 BYD 合作）：</strong> 来自外部专家（东京的 BYD 公司）的直接指导！（每年 12 次）"
+                            data-lang-id="<strong class='highlight'>Rencana B (Kolaborasi BYD):</strong> Instruksi langsung dari pakar eksternal (BYD dari Tokyo)! (12 kali/tahun)"
+                            data-lang-ko="<strong class='highlight'>플랜 B (BYD 연계):</strong> 외부 전문가(도쿄 기업 BYD) 직접 지도! (연 12회)"
+                            data-lang-es="<strong class='highlight'>Plan B (Colab. BYD):</strong> ¡Instrucción directa de expertos externos (BYD de Tokio)! (12 veces/año)"> <strong class='highlight'>プランB (BYD連携):</strong> 外部専門家(東京の企業BYD)による直接指導！ (年12回)
+                             <ul>
+                                <li data-lang-ja="Web制作基礎・企画・実践"
+                                    data-lang-en="Web Production Basics, Planning, Practice"
+                                    data-lang-zh="Web 制作基础、策划、实践"
+                                    data-lang-id="Dasar Produksi Web, Perencanaan, Praktik"
+                                    data-lang-ko="웹 제작 기초·기획·실습"
+                                    data-lang-es="Conceptos básicos, planificación y práctica de producción web">Web制作基礎・企画・実践</li>
+                                <li data-lang-ja="動画制作基礎・企画・実践"
+                                    data-lang-en="Video Production Basics, Planning, Practice"
+                                    data-lang-zh="视频制作基础、策划、实践"
+                                    data-lang-id="Dasar Produksi Video, Perencanaan, Praktik"
+                                    data-lang-ko="동영상 제작 기초·기획·실습"
+                                    data-lang-es="Conceptos básicos, planificación y práctica de producción de video">動画制作基礎・企画・実践</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">📊</span><h4 data-lang-ja="理数探究基礎 (週1)" data-lang-en="Basic Math & Science Inquiry (1/wk)" data-lang-zh="理科探究基础 (每周1次)" data-lang-id="Dasar Penyelidikan Matematika & Sains (1x/mgg)" data-lang-ko="이수 탐구 기초 (주 1회)" data-lang-es="Indagación Básica de Matemáticas y Ciencias (1/sem)">理数探究基礎 (週1)</h4>
+                    <p data-lang-ja="データ分析や論理的思考の基礎を固める。（テストなし）" data-lang-en="Solidify basics of data analysis and logical thinking. (No tests)" data-lang-zh="巩固数据分析和逻辑思维的基础。（无考试）" data-lang-id="Memperkuat dasar analisis data dan pemikiran logis. (Tanpa tes)" data-lang-ko="데이터 분석 및 논리적 사고의 기초를 다집니다. (테스트 없음)" data-lang-es="Solidificar conceptos básicos de análisis de datos y pensamiento lógico. (Sin exámenes)">データ分析や論理的思考の基礎を固める。（テストなし）</p>
+                     <ul>
+                        <li data-lang-ja="数値データの扱い方" data-lang-en="Handling numerical data" data-lang-zh="处理数值数据" data-lang-id="Menangani data numerik" data-lang-ko="수치 데이터 처리 방법" data-lang-es="Manejo de datos numéricos">数値データの扱い方</li>
+                        <li data-lang-ja="参考文献のルール等" data-lang-en="Rules for references, etc." data-lang-zh="参考文献规则等" data-lang-id="Aturan untuk referensi, dll." data-lang-ko="참고 문헌 규칙 등" data-lang-es="Reglas para referencias, etc.">参考文献のルール等</li>
+                    </ul>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🖥️</span><h4 data-lang-ja="情報Ⅱ" data-lang-en="Information II" data-lang-zh="信息Ⅱ" data-lang-id="Informasi II" data-lang-ko="정보Ⅱ" data-lang-es="Información II">情報Ⅱ</h4>
+                    <p data-lang-ja="情報Ⅰに加え、より高度な情報活用能力を育成。（Pepper活用も予定）" data-lang-en="Builds on Information I for advanced information utilization skills. (Pepper planned)" data-lang-zh="在信息Ⅰ的基础上，培养更高级的信息运用能力。（计划使用 Pepper）" data-lang-id="Membangun di atas Informasi I untuk keterampilan pemanfaatan informasi tingkat lanjut. (Pepper direncanakan)" data-lang-ko="정보Ⅰ에 더해, 보다 고도의 정보 활용 능력을 육성. (Pepper 활용도 예정)" data-lang-es="Se basa en Información I para habilidades avanzadas de utilización de la información. (Pepper planeado)">情報Ⅰに加え、より高度な情報活用能力を育成。（Pepper活用も予定）</p>
+                </div>
+                 <div class="feature-item">
+                     <span class="icon">📱</span><h4 data-lang-ja="AOI Portal & Chromebook" data-lang-en="AOI Portal & Chromebook" data-lang-zh="AOI Portal 和 Chromebook" data-lang-id="AOI Portal & Chromebook" data-lang-ko="AOI Portal & Chromebook" data-lang-es="AOI Portal y Chromebook">AOI Portal & Chromebook</h4>
+                     <p data-lang-ja="高スペックChromebookと<strong>独自開発アプリ「AOI Portal」</strong>で学習管理やポートフォリオ作成を効率化。" data-lang-en="Streamline study management and portfolio creation with high-spec Chromebooks and the <strong>original 'AOI Portal' app</strong>." data-lang-zh="使用高规格 Chromebook 和<strong>自主开发的“AOI Portal”应用程序</strong>，高效进行学习管理和作品集创建。" data-lang-id="Rampingkan manajemen belajar dan pembuatan portofolio dengan Chromebook spek tinggi dan <strong>aplikasi asli 'AOI Portal'</strong>." data-lang-ko="고사양 Chromebook과 <strong>자체 개발 앱 'AOI Portal'</strong>로 학습 관리 및 포트폴리오 작성을 효율화." data-lang-es="Optimiza la gestión de estudios y la creación de portafolios con Chromebooks de alta especificación y la <strong>aplicación original 'AOI Portal'</strong>.">高スペックChromebookと<strong>独自開発アプリ「AOI Portal」</strong>で学習管理やポートフォリオ作成を効率化。</p>
+                 </div>
+                 <div class="feature-item">
+                     <span class="icon">✍️</span><h4 data-lang-ja="デジタル学級日誌 他" data-lang-en="Digital Class Diary, etc." data-lang-zh="数字班级日志等" data-lang-id="Buku Harian Kelas Digital, dll." data-lang-ko="디지털 학급 일지 등" data-lang-es="Diario de Clase Digital, etc.">デジタル学級日誌 他</h4>
+                     <p data-lang-ja="日常からデジタルツールを活用。新しい評価方法<strong>「アチーブメント評価」</strong>も導入。" data-lang-en="Utilize digital tools daily. Introducing the new <strong>'Achievement Evaluation'</strong> method." data-lang-zh="日常使用数字工具。引入新的<strong>“成就评价”</strong>方法。" data-lang-id="Manfaatkan alat digital setiap hari. Memperkenalkan metode <strong>'Evaluasi Prestasi'</strong> baru." data-lang-ko="일상에서 디지털 도구를 활용. 새로운 평가 방법<strong>'어치브먼트 평가'</strong>도 도입." data-lang-es="Utiliza herramientas digitales a diario. Introduciendo el nuevo método de <strong>'Evaluación de Logros'</strong>.">日常からデジタルツールを活用。新しい評価方法<strong>「アチーブメント評価」</strong>も導入。</p>
+                 </div>
+            </div>
+        </section>
+
+         <section id="future">
+            <h2 data-lang-ja="<span class='icon'>🧭</span>卒業後の進路：多様な未来へ"
+                data-lang-en="<span class='icon'>🧭</span>Post-Graduation Paths: Towards Diverse Futures"
+                data-lang-zh="<span class='icon'>🧭</span>毕业后的道路：走向多元化的未来"
+                data-lang-id="<span class='icon'>🧭</span>Jalur Pasca Kelulusan: Menuju Masa Depan yang Beragam"
+                data-lang-ko="<span class='icon'>🧭</span>졸업 후 진로: 다양한 미래로"
+                data-lang-es="<span class='icon'>🧭</span>Caminos Post-Graduación: Hacia Futuros Diversos"><span class='icon'>🧭</span>卒業後の進路：多様な未来へ</h2>
+             <p data-lang-ja="DXコースでの学びは、特定の分野に限定されません。文系・理系を問わず、多様な進路選択が可能です。"
+                data-lang-en="Learning in the DX course is not limited to specific fields. Diverse career paths are possible, regardless of humanities or science focus."
+                data-lang-zh="DX 课程的学习不限于特定领域。无论文科还是理科，都可以选择多样化的发展道路。"
+                data-lang-id="Pembelajaran di kursus DX tidak terbatas pada bidang tertentu. Beragam jalur karir dimungkinkan, terlepas dari fokus humaniora atau sains."
+                data-lang-ko="DX 코스에서의 배움은 특정 분야에 국한되지 않습니다. 문과·이과를 불문하고 다양한 진로 선택이 가능합니다."
+                data-lang-es="El aprendizaje en el curso DX no se limita a campos específicos. Son posibles diversas trayectorias profesionales, independientemente del enfoque en humanidades o ciencias.">DXコースでの学びは、特定の分野に限定されません。文系・理系を問わず、多様な進路選択が可能です。</p>
+            <div class="future-paths">
+                <div class="path-card">
+                     <span class="icon">🎓</span>
+                    <h4 data-lang-ja="進路の選択肢" data-lang-en="Career Options" data-lang-zh="发展道路选择" data-lang-id="Pilihan Karir" data-lang-ko="진로 선택지" data-lang-es="Opciones de Carrera">進路の選択肢</h4>
+                    <p data-lang-ja="大学、専門学校、専門職大学、短期大学など。<strong>文系・理系選択可能</strong> (2年次より)。デジタルスキルはあらゆる分野で活かせます。"
+                       data-lang-en="University, vocational school, professional university, junior college, etc. <strong>Humanities/Science choice available</strong> (from 2nd year). Digital skills are useful in all fields."
+                       data-lang-zh="大学、专门学校、专业技术大学、短期大学等。<strong>文科/理科可选</strong>（从二年级开始）。数字技能适用于所有领域。"
+                       data-lang-id="Universitas, sekolah kejuruan, universitas profesi, akademi, dll. <strong>Pilihan Humaniora/Sains tersedia</strong> (mulai tahun ke-2). Keterampilan digital berguna di semua bidang."
+                       data-lang-ko="대학, 전문학교, 전문직 대학, 단기 대학 등. <strong>문과/이과 선택 가능</strong> (2학년부터). 디지털 기술은 모든 분야에서 활용 가능합니다."
+                       data-lang-es="Universidad, escuela vocacional, universidad profesional, colegio universitario, etc. <strong>Elección de Humanidades/Ciencias disponible</strong> (desde 2º año). Las habilidades digitales son útiles en todos los campos.">大学、専門学校、専門職大学、短期大学など。<strong>文系・理系選択可能</strong> (2年次より)。デジタルスキルはあらゆる分野で活かせます。</p>
+                </div>
+                <div class="path-card">
+                     <span class="icon">📈</span>
+                    <h4 data-lang-ja="学力レベル" data-lang-en="Academic Level" data-lang-zh="学业水平" data-lang-id="Tingkat Akademik" data-lang-ko="학력 수준" data-lang-es="Nivel Académico">学力レベル</h4>
+                    <p data-lang-ja="カリキュラムは<strong class='highlight'>特進iコース基準</strong>。国公立大学や難関私立大学合格を目指せる学力を養成します。(授業時間数多め)"
+                       data-lang-en="Curriculum based on <strong class='highlight'>Advanced i-Course standards</strong>. Develops academic ability aiming for national/public universities and top private universities. (More class hours)"
+                       data-lang-zh="课程基于<strong class='highlight'>特进 i 课程标准</strong>。培养旨在考取国立/公立大学和顶尖私立大学的学业能力。（课时较多）"
+                       data-lang-id="Kurikulum berdasarkan <strong class='highlight'>standar Kursus i Tingkat Lanjut</strong>. Mengembangkan kemampuan akademik yang bertujuan untuk universitas negeri/umum dan universitas swasta ternama. (Lebih banyak jam pelajaran)"
+                       data-lang-ko="커리큘럼은 <strong class='highlight'>특진 i 코스 기준</strong>. 국공립 대학 및 난관 사립 대학 합격을 목표로 하는 학력을 양성합니다. (수업 시간 많음)"
+                       data-lang-es="Plan de estudios basado en <strong class='highlight'>estándares del Curso i Avanzado</strong>. Desarrolla la capacidad académica con el objetivo de ingresar a universidades nacionales/públicas y universidades privadas de primer nivel. (Más horas de clase)">カリキュラムは<strong class='highlight'>特進iコース基準</strong>。国公立大学や難関私立大学合格を目指せる学力を養成します。(授業時間数多め)</p>
+                </div>
+                <div class="path-card">
+                     <span class="icon">💡</span>
+                    <h4 data-lang-ja="新しい入試への対応" data-lang-en="Adaptation to New Entrance Exams" data-lang-zh="适应新的入学考试" data-lang-id="Adaptasi terhadap Ujian Masuk Baru" data-lang-ko="새로운 입시에 대한 대응" data-lang-es="Adaptación a Nuevos Exámenes de Ingreso">新しい入試への対応</h4>
+                    <p data-lang-ja="学力だけでなく、探究活動の実績を活かせる<strong>「総合型選抜」</strong>にも対応。活動をアピールして合格を目指せます。"
+                       data-lang-en="Supports <strong>'Comprehensive Selection'</strong> utilizing not just academic ability but also inquiry activity achievements. Aim for acceptance by showcasing activities."
+                       data-lang-zh="支持<strong>“综合型选拔”</strong>，不仅利用学业能力，还利用探究活动的成就。通过展示活动争取录取。"
+                       data-lang-id="Mendukung <strong>'Seleksi Komprehensif'</strong> yang tidak hanya memanfaatkan kemampuan akademik tetapi juga pencapaian kegiatan penyelidikan. Bertujuan untuk diterima dengan menampilkan aktivitas."
+                       data-lang-ko="학력뿐만 아니라 탐구 활동 실적을 활용할 수 있는 <strong>'종합형 선발'</strong>에도 대응. 활동을 어필하여 합격을 목표로 할 수 있습니다."
+                       data-lang-es="Admite la <strong>'Selección Integral'</strong> que utiliza no solo la capacidad académica sino también los logros de las actividades de indagación. Apunta a la aceptación mostrando las actividades.">学力だけでなく、探究活動の実績を活かせる<strong>「総合型選抜」</strong>にも対応。活動をアピールして合格を目指せます。</p>
+                </div>
+            </div>
+             <div class="academic-rigor">
+                 <h4 data-lang-ja="📚 学びへのコミットメント" data-lang-en="📚 Commitment to Learning" data-lang-zh="📚 对学习的承诺" data-lang-id="📚 Komitmen untuk Belajar" data-lang-ko="📚 배움에 대한 약속" data-lang-es="📚 Compromiso con el Aprendizaje">📚 学びへのコミットメント</h4>
+                 <p data-lang-ja="DXコースは、決して勉強をおろそかにするコースではありません。<strong>特進iコースレベルの学習内容に「＋α」</strong>としてデジタルスキルと探究活動が加わります。高い学習意欲が求められます。"
+                    data-lang-en="The DX course does not neglect studies. Digital skills and inquiry activities are added <strong>'+α' to the Advanced i-Course level content</strong>. High motivation for learning is required."
+                    data-lang-zh="DX 课程绝不忽视学习。在<strong>特进 i 课程水平的内容上“+α”</strong>增加了数字技能和探究活动。要求有强烈的学习意愿。"
+                    data-lang-id="Kursus DX tidak mengabaikan studi. Keterampilan digital dan kegiatan penyelidikan ditambahkan <strong>'+α' pada konten tingkat Kursus i Tingkat Lanjut</strong>. Motivasi belajar yang tinggi diperlukan."
+                    data-lang-ko="DX 코스는 결코 공부를 소홀히 하는 코스가 아닙니다. <strong>특진 i 코스 수준의 학습 내용에 '+α'</strong>로 디지털 기술과 탐구 활동이 추가됩니다. 높은 학습 의욕이 요구됩니다."
+                    data-lang-es="El curso DX no descuida los estudios. Las habilidades digitales y las actividades de indagación se suman <strong>'+α' al contenido del nivel del Curso i Avanzado</strong>. Se requiere una alta motivación para el aprendizaje.">DXコースは、決して勉強をおろそかにするコースではありません。<strong>特進iコースレベルの学習内容に「＋α」</strong>としてデジタルスキルと探究活動が加わります。高い学習意欲が求められます。</p>
+            </div>
+        </section>
+
+         <section id="message">
+            <h2 data-lang-ja="<span class='icon'>🌟</span>私たちが目指す人材像：DX人材とは"
+                data-lang-en="<span class='icon'>🌟</span>Our Ideal Graduate: What is DX Talent?"
+                data-lang-zh="<span class='icon'>🌟</span>我们期望的人才形象：什么是 DX 人才？"
+                data-lang-id="<span class='icon'>🌟</span>Lulusan Ideal Kami: Apa itu Talenta DX?"
+                data-lang-ko="<span class='icon'>🌟</span>우리가 목표하는 인재상: DX 인재란?"
+                data-lang-es="<span class='icon'>🌟</span>Nuestro Graduado Ideal: ¿Qué es el Talento DX?"><span class='icon'>🌟</span>私たちが目指す人材像：DX人材とは</h2>
+             <p data-lang-ja="DXコースが育成したいのは、単なる技術者ではありません。デジタル技術を活用し、社会や人のために新しい価値を生み出せる人材です。そのために必要なのは、3つの力の融合です。"
+                data-lang-en="What the DX course aims to cultivate is not mere technicians. It's individuals who can utilize digital technology to create new value for society and people. The fusion of three powers is necessary for this."
+                data-lang-zh="DX 课程旨在培养的不仅仅是技术人员。而是能够利用数字技术为社会和人类创造新价值的人才。为此，需要融合三种力量。"
+                data-lang-id="Yang ingin dikembangkan oleh kursus DX bukanlah sekadar teknisi. Melainkan individu yang dapat memanfaatkan teknologi digital untuk menciptakan nilai baru bagi masyarakat dan orang lain. Perpaduan tiga kekuatan diperlukan untuk ini."
+                data-lang-ko="DX 코스가 육성하고자 하는 것은 단순한 기술자가 아닙니다. 디지털 기술을 활용하여 사회와 사람들을 위해 새로운 가치를 창출할 수 있는 인재입니다. 이를 위해 필요한 것은 세 가지 힘의 융합입니다."
+                data-lang-es="Lo que el curso DX pretende cultivar no son meros técnicos. Son individuos que pueden utilizar la tecnología digital para crear nuevo valor para la sociedad y las personas. La fusión de tres poderes es necesaria para esto.">DXコースが育成したいのは、単なる技術者ではありません。デジタル技術を活用し、社会や人のために新しい価値を生み出せる人材です。そのために必要なのは、3つの力の融合です。</p>
+             <div class="final-pillars">
+                <div class="final-pillar">
+                    <span class="icon">💻</span>
+                    <h4 data-lang-ja="デジタル活用力" data-lang-en="Digital Utilization" data-lang-zh="数字运用能力" data-lang-id="Pemanfaatan Digital" data-lang-ko="디지털 활용 능력" data-lang-es="Utilización Digital">デジタル活用力</h4>
+                    <p data-lang-ja="ツールを使いこなす" data-lang-en="Mastering tools" data-lang-zh="熟练使用工具" data-lang-id="Menguasai alat" data-lang-ko="도구 숙달" data-lang-es="Dominar herramientas">ツールを使いこなす</p>
+                </div>
+                 <div class="final-pillar">
+                     <span class="icon">🚀</span>
+                    <h4 data-lang-ja="探究実践力" data-lang-en="Inquiry & Practice" data-lang-zh="探究实践能力" data-lang-id="Penyelidikan & Praktik" data-lang-ko="탐구 실천력" data-lang-es="Indagación y Práctica">探究実践力</h4>
+                    <p data-lang-ja="課題を見つけ解決する" data-lang-en="Finding & solving issues" data-lang-zh="发现并解决问题" data-lang-id="Menemukan & menyelesaikan masalah" data-lang-ko="과제 발견 및 해결" data-lang-es="Encontrar y resolver problemas">課題を見つけ解決する</p>
+                </div>
+                 <div class="final-pillar">
+                    <span class="icon">💖</span>
+                    <h4 data-lang-ja="人間力" data-lang-en="Human Skills" data-lang-zh="人格力量" data-lang-id="Keterampilan Manusia" data-lang-ko="인간력" data-lang-es="Habilidades Humanas">人間力</h4>
+                    <p data-lang-ja="協働し、共感する" data-lang-en="Collaborating & empathizing" data-lang-zh="协作与共情" data-lang-id="Berkolaborasi & berempati" data-lang-ko="협력과 공감" data-lang-es="Colaborar y empatizar">協働し、共感する</p>
+                </div>
+            </div>
+             <p style="margin-top: 2rem; text-align: center; color: var(--text-secondary);"
+                data-lang-ja="これらの力をバランスよく身につけ、社会から必要とされる、信頼される人間に成長してほしいと考えています。"
+                data-lang-en="We hope you develop these powers in a balanced way and grow into reliable individuals needed by society."
+                data-lang-zh="我们希望你们能均衡地掌握这些力量，成长为社会所需、值得信赖的人。"
+                data-lang-id="Kami berharap Anda mengembangkan kekuatan ini secara seimbang dan tumbuh menjadi individu yang andal dan dibutuhkan oleh masyarakat."
+                data-lang-ko="이러한 힘을 균형 있게 갖추고 사회에서 필요로 하고 신뢰받는 인간으로 성장하기를 바랍니다."
+                data-lang-es="Esperamos que desarrolles estos poderes de manera equilibrada y crezcas hasta convertirte en individuos confiables que la sociedad necesita.">これらの力をバランスよく身につけ、社会から必要とされる、信頼される人間に成長してほしいと考えています。</p>
+
+             <div class="final-message">
+                 <strong data-lang-ja="最後に一番大切なこと：『楽しむこと！』"
+                         data-lang-en="Finally, the most important thing: 'Enjoy it!'"
+                         data-lang-zh="最后，最重要的事情：『享受它！』"
+                         data-lang-id="Terakhir, hal terpenting: 'Nikmatilah!'"
+                         data-lang-ko="마지막으로 가장 중요한 것: 『즐기는 것!』"
+                         data-lang-es="Finalmente, lo más importante: ¡'Disfrutarlo'!">最後に一番大切なこと：『楽しむこと！』</strong><br>
+                 <span data-lang-ja="みんなで協力し、刺激し合いながら、最高の3年間を創り上げていきましょう！"
+                       data-lang-en="Let's cooperate, inspire each other, and create the best three years together!"
+                       data-lang-zh="让我们互相合作，互相激励，共同创造最美好的三年！"
+                       data-lang-id="Mari bekerja sama, saling menginspirasi, dan menciptakan tiga tahun terbaik bersama!"
+                       data-lang-ko="함께 협력하고 서로 격려하며 최고의 3년을 만들어 갑시다!"
+                       data-lang-es="¡Cooperemos, inspirémonos mutuamente y creemos los mejores tres años juntos!">みんなで協力し、刺激し合いながら、最高の3年間を創り上げていきましょう！</span>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- Theme Toggle Logic ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+                themeToggle.textContent = '☀️';
+                // Consider adding language logic for aria-label
+                themeToggle.setAttribute('aria-label', 'ダークモードに切り替え');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                themeToggle.textContent = '🌙';
+                // Consider adding language logic for aria-label
+                themeToggle.setAttribute('aria-label', 'ライトモードに切り替え');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        const currentTheme = localStorage.getItem('theme');
+        let initialTheme = 'dark';
+        if (currentTheme) { initialTheme = currentTheme; }
+        else if (!prefersDarkScheme.matches) { initialTheme = 'light'; }
+        setTheme(initialTheme);
+
+        themeToggle.addEventListener('click', () => {
+            setTheme(body.classList.contains('light-mode') ? 'dark' : 'light');
+        });
+
+        // --- Language Toggle Logic ---
+        const languageSelect = document.getElementById('language-select');
+        // Get ALL elements that might have a language attribute
+        const translatableElements = document.querySelectorAll('[data-lang-ja]');
+
+        // Function to determine if innerHTML should be used based on content
+        function shouldUseInnerHTML(element, text) {
+            // Checks for tags commonly used within translated strings
+            return /<\/?(span|strong|b|i|em|br)\b/i.test(text);
+        }
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang; // Update HTML lang attribute
+
+            translatableElements.forEach(element => {
+                const attributeName = `data-lang-${lang}`; // e.g., data-lang-en
+                const translation = element.getAttribute(attributeName);
+                const fallbackText = element.getAttribute('data-lang-ja'); // Always use Japanese as fallback
+
+                // Use translation if available, otherwise use fallback
+                const textToSet = translation !== null ? translation : fallbackText;
+
+                // Only update if textToSet has a value (is not null or undefined)
+                if (textToSet !== null && typeof textToSet !== 'undefined') {
+                    // Check if the *translation text itself* contains HTML
+                    if (shouldUseInnerHTML(element, textToSet)) {
+                        element.innerHTML = textToSet;
+                    } else {
+                        // Safely set as text content
+                        element.textContent = textToSet;
+                    }
+                } else {
+                     // If both translation and fallback are missing, keep the original content
+                     // or clear it if desired (uncomment the line below to clear)
+                     // element.textContent = '';
+                     console.warn('Missing translation and fallback for:', element, 'Lang:', lang);
+                }
+            });
+
+            localStorage.setItem('language', lang);
+            // Sync dropdown value
+            if (languageSelect.value !== lang) {
+                languageSelect.value = lang;
+            }
+
+            // Update aria-label for language select based on current language (optional but good practice)
+            // You'd need translations for "言語を選択" as well
+            const langSelectAriaLabels = {
+                 ja: "言語を選択",
+                 en: "Select Language",
+                 zh: "选择语言",
+                 id: "Pilih Bahasa",
+                 ko: "언어 선택",
+                 es: "Seleccionar Idioma"
+             };
+             languageSelect.setAttribute('aria-label', langSelectAriaLabels[lang] || "Select Language");
+
+             // Update aria-label for theme toggle (optional)
+             const themeToggleAriaLabels = {
+                 light: { ja: "ダークモードに切り替え", en: "Switch to Dark Mode", zh: "切换到深色模式", id: "Beralih ke Mode Gelap", ko: "다크 모드로 전환", es: "Cambiar a Modo Oscuro" },
+                 dark: { ja: "ライトモードに切り替え", en: "Switch to Light Mode", zh: "切换到浅色模式", id: "Beralih ke Mode Terang", ko: "라이트 모드로 전환", es: "Cambiar a Modo Claro" }
+             };
+             const currentMode = body.classList.contains('light-mode') ? 'light' : 'dark';
+             themeToggle.setAttribute('aria-label', themeToggleAriaLabels[currentMode][lang] || themeToggleAriaLabels[currentMode]['en']);
+
+        }
+
+        // Initialize Language
+        const savedLanguage = localStorage.getItem('language');
+        const initialLang = savedLanguage || 'ja';
+        languageSelect.value = initialLang; // Set dropdown value first
+        setLanguage(initialLang);         // Then apply translations
+
+        // Language Change Event Listener
+        languageSelect.addEventListener('change', (event) => {
+            setLanguage(event.target.value);
+        });
+
+    </script>
+
+</body>
+</html>
