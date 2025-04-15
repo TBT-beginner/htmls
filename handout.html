@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ja"> <!-- 初期言語を ja に設定 -->
+<head>
+  <meta charset="UTF-8">
+  <!-- ページタイトルも翻訳対象にする -->
+  <title data-lang-key="pageTitle">生徒指導上の諸問題：体罰・不適切な指導・ハラスメント</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8f9fa;
+      color: #222;
+      margin: 0;
+      padding: 0 0 40px 0;
+      padding-top: 60px; /* スイッチャー分のスペース確保 */
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 40px 32px;
+    }
+    h1, h2, h3 {
+      color: #2a4d69;
+      margin-top: 1.5em;
+    }
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 0.2em;
+    }
+    h2 {
+      font-size: 1.4em;
+      border-bottom: 2px solid #b3cde0;
+      padding-bottom: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    h3 {
+      font-size: 1.1em;
+      margin-bottom: 0.4em;
+    }
+    ul, ol {
+      margin-left: 1.5em;
+      margin-bottom: 1em;
+    }
+    li {
+      margin-bottom: 0.4em;
+    }
+    .note {
+      background: #eaf6fb;
+      border-left: 4px solid #2a4d69;
+      padding: 12px 18px;
+      margin: 1em 0;
+      border-radius: 6px;
+      color: #205072;
+    }
+    .case {
+      background: #fff3cd;
+      border-left: 4px solid #ffb300;
+      padding: 12px 18px;
+      margin: 1em 0;
+      border-radius: 6px;
+      color: #856404;
+    }
+    .footer {
+      margin-top: 2em;
+      font-size: 0.95em;
+      color: #888;
+      text-align: right;
+    }
+    /* 言語切り替えボタンのスタイル */
+    .lang-switcher {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      z-index: 1000; /* 他の要素より手前に表示 */
+      border: 1px solid #ccc;
+    }
+    .lang-switcher button {
+      margin: 0 3px;
+      padding: 4px 8px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background: #eee;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    .lang-switcher button.active {
+      background: #2a4d69;
+      color: white;
+      font-weight: bold;
+      border-color: #2a4d69;
+    }
+  </style>
+</head>
+<body>
+  <!-- 言語切り替えボタン -->
+  <div class="lang-switcher">
+    <button id="lang-ja" class="active">日本語</button>
+    <button id="lang-fr">Français</button>
+    <button id="lang-uk">Українська</button>
+  </div>
+
+  <div class="container">
+    <!-- 各要素に data-lang-key を付与 -->
+    <h1 data-lang-key="mainTitle">Issues in Student Guidance</h1>
+    <h2 data-lang-key="mainSubtitle">Corporal Punishment, Inappropriate Guidance, and Harassment</h2>
+    <div class="footer">
+      <span data-lang-key="date">April 15, 2025</span><br>
+    </div>
+
+    <h2 data-lang-key="section1Title">1. About Corporal Punishment</h2>
+    <h3 data-lang-key="section1_1Title">1.1 Prohibition of Corporal Punishment</h3>
+    <div class="note">
+      <strong data-lang-key="note1Strong">School Education Act, Article 11:</strong><br>
+      <span data-lang-key="note1Text">"Principals and teachers may discipline students as deemed necessary for educational purposes, as prescribed by the Minister of Education. However, corporal punishment is strictly prohibited."</span>
+    </div>
+
+    <h3 data-lang-key="section1_2Title">1.2 Difference Between Corporal Punishment and Disciplinary Action</h3>
+    <ul>
+      <li>
+        <strong data-lang-key="list1_1Strong">Corporal Punishment:</strong>
+        <ul>
+          <li data-lang-key="list1_1_1">Acts that physically harm students</li>
+          <li data-lang-key="list1_1_2">Actions that cause physical pain</li>
+          <li data-lang-key="list1_1_3">See Ministry of Education's reference cases for specific examples</li>
+        </ul>
+      </li>
+      <li>
+        <strong data-lang-key="list1_2Strong">Acceptable Disciplinary Actions:</strong>
+        <ul>
+          <li data-lang-key="list1_2_1">Expulsion, suspension, warnings</li>
+          <li data-lang-key="list1_2_2">Reprimands, detentions, separate instruction, standing, homework, cleaning duties, classroom chores, written guidance, etc.</li>
+        </ul>
+      </li>
+      <li>
+        <strong data-lang-key="list1_3Strong">Acts Not Considered Corporal Punishment (Justifiable Defense):</strong>
+        <ul>
+          <li data-lang-key="list1_3_1">Reasonable physical intervention to defend oneself from student violence</li>
+          <li data-lang-key="list1_3_2">Reasonable physical intervention to prevent harm to other students or to avoid imminent danger</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3 data-lang-key="section1_3Title">1.3 Why Corporal Punishment Is Unacceptable</h3>
+    <ol>
+      <li data-lang-key="list2_1">It is an illegal act that violates students' human rights and can result in criminal and civil liability.</li>
+      <li data-lang-key="list2_2">It can cause serious physical and mental harm to students and erode trust in teachers and schools. In severe cases, it can even lead to student suicide, as seen in the Sakuramiya High School case.</li>
+      <li data-lang-key="list2_3">Corporal punishment does not foster proper moral values and may instead perpetuate cycles of bullying and violence, especially in club activities.</li>
+    </ol>
+
+    <h3 data-lang-key="section1_4Title">1.4 Current Situation</h3>
+    <ul>
+      <li data-lang-key="list3_1">Overall, cases are decreasing.</li>
+      <li data-lang-key="list3_2">Incidence is higher in high schools.</li>
+      <li data-lang-key="list3_3">Most cases involve teachers aged 50 and above.</li>
+      <li data-lang-key="list3_4">Most incidents occur during classes or club activities (club activities are the most common in high schools).</li>
+      <li data-lang-key="list3_5">Private schools have a higher incidence and often impose severe penalties such as dismissal or suspension.</li>
+    </ul>
+
+    <h3 data-lang-key="section1_5Title">1.5 Legal Responsibilities</h3>
+    <ul>
+      <li>
+        <strong data-lang-key="list4_1Strong">Criminal Liability:</strong>
+        <ul>
+          <li data-lang-key="list4_1_1">Assault (up to 2 years imprisonment or a fine up to 300,000 yen)</li>
+          <li data-lang-key="list4_1_2">Bodily injury (up to 15 years imprisonment or a fine up to 500,000 yen)</li>
+        </ul>
+        <div class="case">
+          <strong data-lang-key="case1Strong">Case Example:</strong> <span data-lang-key="case1Text">In the Sakuramiya High School suicide case, the teacher was sentenced to 1 year in prison (suspended for 3 years) for assault and bodily injury.</span>
+        </div>
+      </li>
+      <li>
+        <strong data-lang-key="list4_2Strong">Civil Liability:</strong>
+        <ul>
+          <li data-lang-key="list4_2_1">Liability for damages (compensation for medical expenses, emotional distress, etc.)</li>
+          <li data-lang-key="list4_2_2">The school corporation (employer) is also liable.</li>
+        </ul>
+        <div class="case">
+          <strong data-lang-key="case2Strong">Case Example:</strong> <span data-lang-key="case2Text">In the Sakuramiya case, the Tokyo District Court ordered Osaka City to pay about 75 million yen (about 87 million yen including interest) to the bereaved family. The city later sued the former teacher for half of the compensation, and the Osaka District Court ordered full payment.</span>
+        </div>
+      </li>
+      <li>
+        <strong data-lang-key="list4_3Strong">Disciplinary Actions:</strong> <span data-lang-key="list4_3Text">Dismissal, suspension, pay cuts, warnings, etc. (as stipulated in private school regulations)</span>
+      </li>
+      <li>
+        <strong data-lang-key="list4_4Strong">Other Consequences:</strong> <span data-lang-key="list4_4Text">Criticism from parents, media and online exposure, loss of teaching qualifications</span>
+      </li>
+    </ul>
+
+    <h3 data-lang-key="section1_6Title">1.6 Preventing Corporal Punishment</h3>
+    <ul>
+      <li data-lang-key="list5_1">Anger management</li>
+      <li data-lang-key="list5_2">Developing guidance skills that do not rely on corporal punishment</li>
+    </ul>
+
+    <h2 data-lang-key="section2Title">2. Inappropriate Guidance and Harassment</h2>
+    <h3 data-lang-key="section2_1Title">2.1 What Is Inappropriate Guidance?</h3>
+    <p data-lang-key="para1">
+      In recent years, even verbal abuse that does not constitute corporal punishment has led to tragic cases such as student suicides. The revised Student Guidance Manual (Dec. 2022) highlights the importance of avoiding inappropriate guidance.
+    </p>
+    <div class="note">
+      <strong data-lang-key="note2Strong">From the Student Guidance Manual (p. 105):</strong><br>
+      <span data-lang-key="note2Text">"Even if there is no physical harm or pain, repeated excessive reprimands or unnecessary warnings can increase students' stress and anxiety, undermine their confidence and motivation, and push them into a corner. What may seem like routine guidance to teachers can be perceived differently by each student. Excessive reprimands, even if directed at the whole class, can be felt as pressure. After giving guidance, it is important not to leave students alone and to observe their physical and mental state. Inappropriate guidance can trigger truancy or suicide, so any form of corporal punishment or inappropriate behavior is never acceptable in any aspect of school life, including club activities."</span>
+    </div>
+
+    <h3 data-lang-key="section2_2Title">2.2 Examples of Inappropriate Guidance</h3>
+    <ul>
+      <li data-lang-key="list6_1">Shouting, hitting objects, or throwing things in an intimidating or emotional manner</li>
+      <li data-lang-key="list6_2">Guiding students based on assumptions without listening to their side or confirming facts</li>
+      <li data-lang-key="list6_3">Acting unilaterally without considering organizational responses</li>
+      <li data-lang-key="list6_4">Reprimanding students in front of others, damaging their dignity or privacy</li>
+      <li data-lang-key="list6_5">Guiding students in places that cause significant anxiety or pressure</li>
+      <li data-lang-key="list6_6">Imposing collective responsibility, causing undue burden or guilt</li>
+      <li data-lang-key="list6_7">Failing to provide appropriate follow-up, such as leaving students alone after guidance or not contacting parents</li>
+      <li data-lang-key="list6_8">Persistently blaming students for things they cannot do, without offering proper advice or support</li>
+      <li data-lang-key="list6_9">Deliberately withholding necessary information for club activities or events</li>
+      <li data-lang-key="list6_10">Showing favoritism or bias in guidance or grading</li>
+      <li data-lang-key="list6_11">Reprimanding students in a way that denies their character or self-worth</li>
+      <li data-lang-key="list6_12">Imposing personal values or beliefs without considering students' feelings</li>
+    </ul>
+
+    <h2 data-lang-key="section3Title">3. Sexual Harassment, Power Harassment, and Other Forms of Harassment</h2>
+    <h3 data-lang-key="section3_1Title">3.1 What is Harassment?</h3>
+    <p data-lang-key="para2">
+      Harassment refers to actions that cause discomfort, disadvantage, or harm to others by taking advantage of one's position or authority. In schools, this includes sexual harassment, power harassment (abuse of authority), and other inappropriate behaviors that violate students' or colleagues' dignity and rights.
+    </p>
+
+    <h3 data-lang-key="section3_2Title">3.2 Types and Examples of Harassment</h3>
+    <ul>
+      <li>
+        <strong data-lang-key="list7_1Strong">Sexual Harassment:</strong>
+        <ul>
+          <li data-lang-key="list7_1_1">Unwanted physical contact, such as touching or hugging</li>
+          <li data-lang-key="list7_1_2">Sexual jokes or comments</li>
+          <li data-lang-key="list7_1_3">Staring in a way that makes someone uncomfortable</li>
+          <li data-lang-key="list7_1_4">Inviting students or colleagues to private meetings under the pretense of guidance</li>
+          <li data-lang-key="list7_1_5">Spreading rumors about someone's sexuality or private life</li>
+        </ul>
+      </li>
+      <li>
+        <strong data-lang-key="list7_2Strong">Power Harassment (Abuse of Authority):</strong>
+        <ul>
+          <li data-lang-key="list7_2_1">Unjustly scolding or criticizing someone in front of others</li>
+          <li data-lang-key="list7_2_2">Assigning tasks that are clearly impossible or meaningless</li>
+          <li data-lang-key="list7_2_3">Ignoring or excluding someone from group activities</li>
+          <li data-lang-key="list7_2_4">Threatening someone's position or future for non-compliance</li>
+          <li data-lang-key="list7_2_5">Forcing students or staff to do personal errands</li>
+        </ul>
+      </li>
+      <li>
+        <strong data-lang-key="list7_3Strong">Other Forms of Harassment:</strong>
+        <ul>
+          <li data-lang-key="list7_3_1">Bullying or ostracizing students or colleagues</li>
+          <li data-lang-key="list7_3_2">Discriminatory remarks based on gender, age, nationality, or disability</li>
+          <li data-lang-key="list7_3_3">Repeatedly making someone feel uncomfortable through words or actions</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3 data-lang-key="section3_3Title">3.3 Legal and Disciplinary Consequences</h3>
+    <ul>
+      <li>
+        <strong data-lang-key="list8_1Strong">Criminal Liability:</strong>
+        <ul>
+          <li data-lang-key="list8_1_1">Acts such as sexual harassment may be prosecuted as sexual assault, indecent assault, or defamation.</li>
+        </ul>
+      </li>
+      <li>
+        <strong data-lang-key="list8_2Strong">Civil Liability:</strong>
+        <ul>
+          <li data-lang-key="list8_2_1">Victims may claim compensation for damages, including emotional distress.</li>
+          <li data-lang-key="list8_2_2">Schools and school corporations may also be held responsible.</li>
+        </ul>
+      </li>
+      <li>
+        <strong data-lang-key="list8_3Strong">Disciplinary Actions:</strong>
+        <ul>
+          <li data-lang-key="list8_3_1">Dismissal, suspension, pay cuts, warnings, etc., as stipulated in school regulations.</li>
+        </ul>
+      </li>
+      <li>
+        <strong data-lang-key="list8_4Strong">Other Consequences:</strong>
+        <ul>
+          <li data-lang-key="list8_4_1">Loss of trust from students, parents, and colleagues</li>
+          <li data-lang-key="list8_4_2">Media exposure and reputational damage</li>
+          <li data-lang-key="list8_4_3">Loss of teaching qualifications</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3 data-lang-key="section3_4Title">3.4 Preventing Harassment</h3>
+    <ul>
+      <li data-lang-key="list9_1">Be aware of your words and actions, and always respect the dignity and feelings of others.</li>
+      <li data-lang-key="list9_2">Do not abuse your position or authority.</li>
+      <li data-lang-key="list9_3">Establish clear boundaries between professional and personal relationships.</li>
+      <li data-lang-key="list9_4">Participate in regular training and awareness programs on harassment prevention.</li>
+      <li data-lang-key="list9_5">If you witness or suspect harassment, consult with the appropriate department or seek legal advice promptly.</li>
+    </ul>
+
+    <div class="note">
+      <strong data-lang-key="note3Strong">Important:</strong> <span data-lang-key="note3Text">Even if there is no intent to harass, actions that make others feel uncomfortable or disadvantaged can be considered harassment. Always act with empathy and caution.</span>
+    </div>
+
+    <div class="footer">
+      <span data-lang-key="footerContact">For further information or legal consultation, please contact Owada & Yatabe Law Office.</span>
+    </div>
+  </div>
+
+  <script>
+    // 翻訳テキストの定義
+    const translations = {
+      // --- 日本語 (デフォルト) ---
+      ja: {
+        pageTitle: "生徒指導上の諸問題：体罰・不適切な指導・ハラスメント",
+        mainTitle: "生徒指導上の諸問題",
+        mainSubtitle: "体罰・不適切な指導・ハラスメントをめぐって",
+        date: "2025年4月15日",
+        officeName: "法律事務所",
+        attorneyName: "弁護士",
+        section1Title: "1. 体罰について",
+        section1_1Title: "1.1 体罰の禁止",
+        note1Strong: "学校教育法 第11条：",
+        note1Text: "「校長及び教員は、教育上必要があると認めるときは、文部科学大臣の定めるところにより、児童、生徒及び学生に懲戒を加えることができる。ただし、体罰を加えることはできない。」",
+        section1_2Title: "1.2 体罰と懲戒の違い",
+        list1_1Strong: "体罰：",
+        list1_1_1: "生徒の身体に侵害を加えるもの",
+        list1_1_2: "生徒に肉体的苦痛を与えるもの",
+        list1_1_3: "具体的な例は文部科学省の参考事例を参照",
+        list1_2Strong: "許される懲戒：",
+        list1_2_1: "退学、停学、訓告",
+        list1_2_2: "注意、説諭、居残り、別室指導、起立、宿題、清掃、教室当番、文書指導など",
+        list1_3Strong: "体罰とみなされない行為（正当防衛・正当行為）：",
+        list1_3_1: "生徒の暴力に対する自己防衛のための相当な有形力の行使",
+        list1_3_2: "他の生徒への危害防止や危険回避のための相当な有形力の行使",
+        section1_3Title: "1.3 体罰が許されない理由",
+        list2_1: "生徒の人権を侵害する違法行為であり、刑事・民事上の責任を問われる可能性がある。",
+        list2_2: "生徒に深刻な心身の苦痛を与え、教員や学校への信頼を失墜させる。桜宮高校事件のように、生徒の自殺につながるケースもある。",
+        list2_3: "体罰は正しい道徳観念を育てず、むしろ部活動などでのいじめや暴力の連鎖を生む可能性がある。",
+        section1_4Title: "1.4 現状",
+        list3_1: "全体としては減少傾向。",
+        list3_2: "高校での発生率が高い。",
+        list3_3: "50歳代以上の教員によるものが多い。",
+        list3_4: "授業中や部活動中に多い（高校では部活動が最多）。",
+        list3_5: "私立学校での発生率が高く、懲戒免職や停職などの重い処分が科される傾向。",
+        section1_5Title: "1.5 法的責任",
+        list4_1Strong: "刑事責任：",
+        list4_1_1: "暴行罪（2年以下の懲役または30万円以下の罰金）",
+        list4_1_2: "傷害罪（15年以下の懲役または50万円以下の罰金）",
+        case1Strong: "事例：",
+        case1Text: "桜宮高校自殺事件では、顧問教諭が暴行罪・傷害罪で懲役1年（執行猶予3年）の判決。",
+        list4_2Strong: "民事責任：",
+        list4_2_1: "損害賠償責任（治療費、慰謝料など）",
+        list4_2_2: "学校法人（使用者）も責任を負う。",
+        case2Strong: "事例：",
+        case2Text: "桜宮事件では、東京地裁が大阪市に約7500万円（遅延損害金含め約8700万円）の支払いを命じた。市は後に元顧問に賠償金の半額を求償し、大阪地裁は全額支払いを命じた。",
+        list4_3Strong: "懲戒処分：",
+        list4_3Text: "免職、停職、減給、戒告など（私学の就業規則による）",
+        list4_4Strong: "その他の影響：",
+        list4_4Text: "保護者からの批判、マスコミ・ネットでの炎上、教員免許失効など",
+        section1_6Title: "1.6 体罰防止のために",
+        list5_1: "アンガーマネジメント",
+        list5_2: "体罰に頼らない指導力の向上",
+        section2Title: "2. 不適切な指導とハラスメント",
+        section2_1Title: "2.1 不適切な指導とは",
+        para1: "近年、体罰にはあたらない暴言等でも生徒が自殺に至る悲劇的な事案が発生している。改訂された生徒指導提要（令和4年12月）では、不適切な指導を避けることの重要性が強調されている。",
+        note2Strong: "生徒指導提要（p.105）より：",
+        note2Text: "「身体への侵害や肉体的苦痛がない場合でも、繰り返される過剰な叱責や不必要な注意などが、生徒の精神的なストレスや不安を高め、自信や意欲を喪失させ、生徒を追い詰めることになりかねません。教員にとっては日常的な指導のつもりの言動でも、生徒一人ひとりにとっては受け止め方が異なります。学級全体に向けたものであっても、過度な叱責は圧力と感じられることがあります。指導後は生徒を放置せず、心身の状態を観察することも大切です。不適切な指導が、不登校や自殺のきっかけになることもあり、部活動を含め、学校生活のあらゆる場面において、体罰や不適切な言動は決して許されるものではありません。」",
+        section2_2Title: "2.2 不適切な指導の例",
+        list6_1: "威圧的・感情的に怒鳴る、物を叩く・投げる",
+        list6_2: "生徒の言い分を聞かず、事実確認なしに決めつけて指導する",
+        list6_3: "組織的な対応を考慮せず、一方的に指導する",
+        list6_4: "他の生徒の前で叱責するなど、生徒の尊厳やプライバシーを傷つける",
+        list6_5: "生徒に著しい不安や圧迫感を与える場所で指導する",
+        list6_6: "連帯責任を負わせ、過度の負担や罪悪感を与える",
+        list6_7: "指導後に放置したり、保護者連絡を怠るなど、適切なフォローをしない",
+        list6_8: "できないことを執拗に責め、適切な助言や支援をしない",
+        list6_9: "部活動や行事で必要な情報を意図的に伝えない",
+        list6_10: "指導や評価でえこひいきや偏見を示す",
+        list6_11: "生徒の人格や存在を否定するような叱責をする",
+        list6_12: "生徒の気持ちを考慮せず、個人的な価値観や信条を押し付ける",
+        section3Title: "3. セクシュアルハラスメント、パワーハラスメント、その他のハラスメント",
+        section3_1Title: "3.1 ハラスメントとは",
+        para2: "ハラスメントとは、地位や権限を利用して、他者に不快感、不利益、または損害を与える行為を指します。学校においては、セクシュアルハラスメント、パワーハラスメント（権力の乱用）、および生徒や同僚の尊厳と権利を侵害するその他の不適切な行動が含まれます。",
+        section3_2Title: "3.2 ハラスメントの種類と例",
+        list7_1Strong: "セクシュアルハラスメント：",
+        list7_1_1: "触る、抱きしめるなど、望まない身体的接触",
+        list7_1_2: "性的な冗談やコメント",
+        list7_1_3: "不快感を与えるようなじろじろとした視線",
+        list7_1_4: "指導を口実に生徒や同僚を個人的な会合に誘う",
+        list7_1_5: "他者の性的な事柄や私生活に関する噂を広める",
+        list7_2Strong: "パワーハラスメント（権力の乱用）：",
+        list7_2_1: "他者の前で不当に叱責したり批判したりする",
+        list7_2_2: "明らかに不可能または無意味な業務を割り当てる",
+        list7_2_3: "グループ活動から無視したり排除したりする",
+        list7_2_4: "従わない場合に地位や将来を脅かす",
+        list7_2_5: "生徒やスタッフに個人的な用事を強制する",
+        list7_3Strong: "その他のハラスメント：",
+        list7_3_1: "生徒や同僚をいじめたり、仲間外れにしたりする",
+        list7_3_2: "性別、年齢、国籍、障害などに基づく差別的な発言",
+        list7_3_3: "言葉や行動で繰り返し他者に不快感を与える",
+        section3_3Title: "3.3 法的および懲戒的結果",
+        list8_1Strong: "刑事責任：",
+        list8_1_1: "セクシュアルハラスメントなどの行為は、強制わいせつ罪、名誉毀損罪などで起訴される可能性がある。",
+        list8_2Strong: "民事責任：",
+        list8_2_1: "被害者は、精神的苦痛を含む損害賠償を請求できる。",
+        list8_2_2: "学校および学校法人も責任を問われる可能性がある。",
+        list8_3Strong: "懲戒処分：",
+        list8_3_1: "学校の規則に定められた解雇、停職、減給、戒告など。", // 日本語修正
+        list8_4Strong: "その他の結果：",
+        list8_4_1: "生徒、保護者、同僚からの信頼失墜",
+        list8_4_2: "メディア報道と評判の失墜",
+        list8_4_3: "教員免許の失効",
+        section3_4Title: "3.4 ハラスメントの防止",
+        list9_1: "自身の言動を意識し、常に他者の尊厳と感情を尊重する。",
+        list9_2: "地位や権限を乱用しない。",
+        list9_3: "職業上の関係と個人的な関係の間に明確な境界線を設ける。",
+        list9_4: "ハラスメント防止に関する定期的な研修や啓発プログラムに参加する。",
+        list9_5: "ハラスメントを目撃したり疑ったりした場合は、適切な部署に相談するか、速やかに法的助言を求める。",
+        note3Strong: "重要：",
+        note3Text: "ハラスメントの意図がなくても、他者に不快感や不利益を与える行為はハラスメントとみなされる可能性があります。常に共感と注意を持って行動してください。",
+        footerContact: "詳細情報や法律相談については、法律事務所にお問い合わせください。"
+      },
+      // --- フランス語 ---
+      fr: {
+        pageTitle: "Problèmes d'orientation des élèves : Châtiments corporels, conseils inappropriés et harcèlement",
+        mainTitle: "Problèmes d'orientation des élèves",
+        mainSubtitle: "Châtiments corporels, conseils inappropriés et harcèlement",
+        date: "15 avril 2025",
+        officeName: "Cabinet d'avocats ",
+        attorneyName: "Avocat : ",
+        section1Title: "1. À propos des châtiments corporels",
+        section1_1Title: "1.1 Interdiction des châtiments corporels",
+        note1Strong: "Loi sur l'éducation scolaire, Article 11 :",
+        note1Text: "\"Les directeurs et les enseignants peuvent discipliner les élèves lorsque cela est jugé nécessaire à des fins éducatives, conformément aux prescriptions du ministre de l'Éducation. Cependant, les châtiments corporels sont strictement interdits.\"",
+        section1_2Title: "1.2 Différence entre châtiments corporels et mesures disciplinaires",
+        list1_1Strong: "Châtiments corporels :",
+        list1_1_1: "Actes qui nuisent physiquement aux élèves",
+        list1_1_2: "Actions qui causent une douleur physique",
+        list1_1_3: "Voir les cas de référence du ministère de l'Éducation pour des exemples spécifiques",
+        list1_2Strong: "Mesures disciplinaires acceptables :",
+        list1_2_1: "Expulsion, suspension, avertissements",
+        list1_2_2: "Réprimandes, retenues, instruction séparée, mise debout, devoirs, tâches de nettoyage, corvées de classe, conseils écrits, etc.",
+        list1_3Strong: "Actes non considérés comme des châtiments corporels (légitime défense) :",
+        list1_3_1: "Intervention physique raisonnable pour se défendre contre la violence d'un élève",
+        list1_3_2: "Intervention physique raisonnable pour prévenir des dommages à d'autres élèves ou pour éviter un danger imminent",
+        section1_3Title: "1.3 Pourquoi les châtiments corporels sont inacceptables",
+        list2_1: "Il s'agit d'un acte illégal qui viole les droits de l'homme des élèves et peut entraîner une responsabilité pénale et civile.",
+        list2_2: "Cela peut causer de graves dommages physiques et mentaux aux élèves et éroder la confiance envers les enseignants et les écoles. Dans les cas graves, cela peut même conduire au suicide d'élèves, comme dans le cas du lycée Sakuramiya.",
+        list2_3: "Les châtiments corporels ne favorisent pas les valeurs morales appropriées et peuvent au contraire perpétuer les cycles d'intimidation et de violence, en particulier dans les activités de club.",
+        section1_4Title: "1.4 Situation actuelle",
+        list3_1: "Globalement, les cas diminuent.",
+        list3_2: "L'incidence est plus élevée dans les lycées.",
+        list3_3: "La plupart des cas impliquent des enseignants âgés de 50 ans et plus.",
+        list3_4: "La plupart des incidents se produisent pendant les cours ou les activités de club (les activités de club sont les plus courantes dans les lycées).",
+        list3_5: "Les écoles privées ont une incidence plus élevée et imposent souvent des sanctions sévères telles que le licenciement ou la suspension.",
+        section1_5Title: "1.5 Responsabilités légales",
+        list4_1Strong: "Responsabilité pénale :",
+        list4_1_1: "Voies de fait (jusqu'à 2 ans d'emprisonnement ou une amende jusqu'à 300 000 yens)",
+        list4_1_2: "Lésions corporelles (jusqu'à 15 ans d'emprisonnement ou une amende jusqu'à 500 000 yens)",
+        case1Strong: "Exemple de cas :",
+        case1Text: "Dans l'affaire du suicide du lycée Sakuramiya, l'enseignant a été condamné à 1 an de prison (avec sursis de 3 ans) pour voies de fait et lésions corporelles.",
+        list4_2Strong: "Responsabilité civile :",
+        list4_2_1: "Responsabilité pour dommages (indemnisation des frais médicaux, préjudice moral, etc.)",
+        list4_2_2: "La société scolaire (employeur) est également responsable.",
+        case2Strong: "Exemple de cas :",
+        case2Text: "Dans l'affaire Sakuramiya, le tribunal de district de Tokyo a ordonné à la ville d'Osaka de payer environ 75 millions de yens (environ 87 millions de yens avec les intérêts) à la famille endeuillée. La ville a ensuite poursuivi l'ancien enseignant pour la moitié de l'indemnisation, et le tribunal de district d'Osaka a ordonné le paiement intégral.",
+        list4_3Strong: "Mesures disciplinaires :",
+        list4_3Text: "Licenciement, suspension, réduction de salaire, avertissements, etc. (comme stipulé dans les règlements des écoles privées)",
+        list4_4Strong: "Autres conséquences :",
+        list4_4Text: "Critiques des parents, exposition médiatique et en ligne, perte des qualifications d'enseignement",
+        section1_6Title: "1.6 Prévention des châtiments corporels",
+        list5_1: "Gestion de la colère",
+        list5_2: "Développement de compétences d'orientation qui ne reposent pas sur les châtiments corporels",
+        section2Title: "2. Conseils inappropriés et harcèlement",
+        section2_1Title: "2.1 Qu'est-ce qu'un conseil inapproprié ?",
+        para1: "Ces dernières années, même les abus verbaux qui ne constituent pas des châtiments corporels ont conduit à des cas tragiques tels que des suicides d'élèves. Le manuel d'orientation des élèves révisé (déc. 2022) souligne l'importance d'éviter les conseils inappropriés.",
+        note2Strong: "Extrait du manuel d'orientation des élèves (p. 105) :",
+        note2Text: "\"Même s'il n'y a pas de dommage physique ou de douleur, des réprimandes excessives répétées ou des avertissements inutiles peuvent augmenter le stress et l'anxiété des élèves, saper leur confiance et leur motivation, et les pousser dans leurs retranchements. Ce qui peut sembler être des conseils de routine pour les enseignants peut être perçu différemment par chaque élève. Les réprimandes excessives, même si elles s'adressent à toute la classe, peuvent être ressenties comme une pression. Après avoir donné des conseils, il est important de ne pas laisser les élèves seuls et d'observer leur état physique et mental. Des conseils inappropriés peuvent déclencher l'absentéisme scolaire ou le suicide, de sorte que toute forme de châtiment corporel ou de comportement inapproprié n'est jamais acceptable dans aucun aspect de la vie scolaire, y compris les activités de club.\"",
+        section2_2Title: "2.2 Exemples de conseils inappropriés",
+        list6_1: "Crier, frapper des objets ou lancer des choses de manière intimidante ou émotionnelle",
+        list6_2: "Guider les élèves sur la base d'hypothèses sans écouter leur version ou confirmer les faits",
+        list6_3: "Agir unilatéralement sans tenir compte des réponses organisationnelles",
+        list6_4: "Réprimander les élèves devant les autres, portant atteinte à leur dignité ou à leur vie privée",
+        list6_5: "Guider les élèves dans des endroits qui provoquent une anxiété ou une pression importante",
+        list6_6: "Imposer une responsabilité collective, causant un fardeau ou une culpabilité excessive",
+        list6_7: "Ne pas assurer un suivi approprié, comme laisser les élèves seuls après les conseils ou ne pas contacter les parents",
+        list6_8: "Blâmer constamment les élèves pour des choses qu'ils ne peuvent pas faire, sans offrir de conseils ou de soutien appropriés",
+        list6_9: "Retenir délibérément les informations nécessaires aux activités ou événements du club",
+        list6_10: "Faire preuve de favoritisme ou de partialité dans les conseils ou la notation",
+        list6_11: "Réprimander les élèves d'une manière qui nie leur caractère ou leur valeur personnelle",
+        list6_12: "Imposer des valeurs ou des croyances personnelles sans tenir compte des sentiments des élèves",
+        section3Title: "3. Harcèlement sexuel, harcèlement moral et autres formes de harcèlement",
+        section3_1Title: "3.1 Qu'est-ce que le harcèlement ?",
+        para2: "Le harcèlement désigne des actions qui causent de l'inconfort, un désavantage ou un préjudice à autrui en profitant de sa position ou de son autorité. Dans les écoles, cela inclut le harcèlement sexuel, le harcèlement moral (abus d'autorité) et d'autres comportements inappropriés qui violent la dignité et les droits des élèves ou des collègues.",
+        section3_2Title: "3.2 Types et exemples de harcèlement",
+        list7_1Strong: "Harcèlement sexuel :",
+        list7_1_1: "Contacts physiques non désirés, tels que toucher ou étreindre",
+        list7_1_2: "Blagues ou commentaires à caractère sexuel",
+        list7_1_3: "Regarder fixement d'une manière qui met mal à l'aise",
+        list7_1_4: "Inviter des élèves ou des collègues à des réunions privées sous prétexte de conseils",
+        list7_1_5: "Répandre des rumeurs sur la sexualité ou la vie privée de quelqu'un",
+        list7_2Strong: "Harcèlement moral (abus d'autorité) :",
+        list7_2_1: "Réprimander ou critiquer injustement quelqu'un devant les autres",
+        list7_2_2: "Attribuer des tâches clairement impossibles ou dénuées de sens",
+        list7_2_3: "Ignorer ou exclure quelqu'un des activités de groupe",
+        list7_2_4: "Menacer la position ou l'avenir de quelqu'un en cas de non-conformité",
+        list7_2_5: "Forcer les élèves ou le personnel à faire des courses personnelles",
+        list7_3Strong: "Autres formes de harcèlement :",
+        list7_3_1: "Intimider ou ostraciser des élèves ou des collègues",
+        list7_3_2: "Remarques discriminatoires fondées sur le sexe, l'âge, la nationalité ou le handicap",
+        list7_3_3: "Mettre quelqu'un mal à l'aise de manière répétée par des paroles ou des actes",
+        section3_3Title: "3.3 Conséquences légales et disciplinaires",
+        list8_1Strong: "Responsabilité pénale :",
+        list8_1_1: "Des actes tels que le harcèlement sexuel peuvent être poursuivis comme agression sexuelle, attentat à la pudeur ou diffamation.",
+        list8_2Strong: "Responsabilité civile :",
+        list8_2_1: "Les victimes peuvent réclamer une indemnisation pour dommages, y compris le préjudice moral.",
+        list8_2_2: "Les écoles et les sociétés scolaires peuvent également être tenues responsables.",
+        list8_3Strong: "Mesures disciplinaires :",
+        list8_3_1: "Licenciement, suspension, réduction de salaire, avertissements, etc., comme stipulé dans les règlements scolaires.",
+        list8_4Strong: "Autres conséquences :",
+        list8_4_1: "Perte de confiance des élèves, des parents et des collègues",
+        list8_4_2: "Exposition médiatique et atteinte à la réputation",
+        list8_4_3: "Perte des qualifications d'enseignement",
+        section3_4Title: "3.4 Prévention du harcèlement",
+        list9_1: "Soyez conscient de vos paroles et de vos actes, et respectez toujours la dignité et les sentiments des autres.",
+        list9_2: "N'abusez pas de votre position ou de votre autorité.",
+        list9_3: "Établissez des limites claires entre les relations professionnelles et personnelles.",
+        list9_4: "Participez à des formations régulières et à des programmes de sensibilisation sur la prévention du harcèlement.",
+        list9_5: "Si vous êtes témoin ou soupçonnez un harcèlement, consultez le service approprié ou demandez rapidement un avis juridique.",
+        note3Strong: "Important :",
+        note3Text: "Même s'il n'y a pas d'intention de harceler, les actions qui mettent les autres mal à l'aise ou les désavantagent peuvent être considérées comme du harcèlement. Agissez toujours avec empathie et prudence.",
+        footerContact: "Pour plus d'informations ou une consultation juridique, veuillez contacter le cabinet d'avocats Owada & Yatabe."
+      },
+      // --- ウクライна語 ---
+      uk: {
+        pageTitle: "Проблеми в учнівському керівництві: Тілесні покарання, неналежне керівництво та домагання",
+        mainTitle: "Проблеми в учнівському керівництві",
+        mainSubtitle: "Тілесні покарання, неналежне керівництво та домагання",
+        date: "15 квітня 2025 р.",
+        officeName: "",
+        attorneyName: "Адвокат: ",
+        section1Title: "1. Про тілесні покарання",
+        section1_1Title: "1.1 Заборона тілесних покарань",
+        note1Strong: "Закон про шкільну освіту, стаття 11:",
+        note1Text: "\"Директори та вчителі можуть застосовувати дисциплінарні стягнення до учнів, якщо це вважається необхідним для освітніх цілей, відповідно до розпоряджень Міністра освіти. Однак тілесні покарання суворо заборонені.\"",
+        section1_2Title: "1.2 Різниця між тілесним покаранням та дисциплінарним стягненням",
+        list1_1Strong: "Тілесне покарання:",
+        list1_1_1: "Дії, що завдають фізичної шкоди учням",
+        list1_1_2: "Дії, що спричиняють фізичний біль",
+        list1_1_3: "Див. довідкові випадки Міністерства освіти для конкретних прикладів",
+        list1_2Strong: "Допустимі дисциплінарні стягнення:",
+        list1_2_1: "Виключення, тимчасове відсторонення, попередження",
+        list1_2_2: "Догани, залишення після уроків, окреме навчання, стояння, домашні завдання, прибирання, чергування в класі, письмові настанови тощо.",
+        list1_3Strong: "Дії, що не вважаються тілесним покаранням (необхідна оборона):",
+        list1_3_1: "Розумне фізичне втручання для захисту від насильства з боку учня",
+        list1_3_2: "Розумне фізичне втручання для запобігання шкоди іншим учням або для уникнення неминучої небезпеки",
+        section1_3Title: "1.3 Чому тілесні покарання неприпустимі",
+        list2_1: "Це незаконний акт, який порушує права людини учнів і може призвести до кримінальної та цивільної відповідальності.",
+        list2_2: "Це може завдати серйозної фізичної та психічної шкоди учням та підірвати довіру до вчителів та шкіл. У важких випадках це може навіть призвести до самогубства учня, як у випадку середньої школи Сакурамія.",
+        list2_3: "Тілесні покарання не виховують належних моральних цінностей і можуть натомість увічнити цикли знущань та насильства, особливо під час позакласних заходів.",
+        section1_4Title: "1.4 Поточна ситуація",
+        list3_1: "Загалом кількість випадків зменшується.",
+        list3_2: "Частота вища у старших школах.",
+        list3_3: "Більшість випадків стосуються вчителів віком 50 років і старше.",
+        list3_4: "Більшість інцидентів трапляються під час уроків або позакласних заходів (позакласні заходи найпоширеніші у старших школах).",
+        list3_5: "Приватні школи мають вищу частоту і часто застосовують суворі покарання, такі як звільнення або відсторонення.",
+        section1_5Title: "1.5 Юридична відповідальність",
+        list4_1Strong: "Кримінальна відповідальність:",
+        list4_1_1: "Напад (до 2 років позбавлення волі або штраф до 300 000 єн)",
+        list4_1_2: "Тілесні ушкодження (до 15 років позбавлення волі або штраф до 500 000 єн)",
+        case1Strong: "Приклад справи:",
+        case1Text: "У справі про самогубство в середній школі Сакурамія вчителя було засуджено до 1 року позбавлення волі (з відстрочкою на 3 роки) за напад та тілесні ушкодження.",
+        list4_2Strong: "Цивільна відповідальність:",
+        list4_2_1: "Відповідальність за збитки (компенсація медичних витрат, моральної шкоди тощо)",
+        list4_2_2: "Шкільна корпорація (роботодавець) також несе відповідальність.",
+        case2Strong: "Приклад справи:",
+        case2Text: "У справі Сакурамія Токійський окружний суд зобов'язав місто Осака виплатити близько 75 мільйонів єн (близько 87 мільйонів єн з урахуванням відсотків) родині загиблого. Згодом місто подало позов проти колишнього вчителя на половину компенсації, і Осакський окружний суд зобов'язав виплатити повну суму.",
+        list4_3Strong: "Дисциплінарні стягнення:",
+        list4_3Text: "Звільнення, відсторонення, зниження зарплати, попередження тощо (як передбачено правилами приватних шкіл)",
+        list4_4Strong: "Інші наслідки:",
+        list4_4Text: "Критика з боку батьків, висвітлення у ЗМІ та Інтернеті, втрата кваліфікації вчителя",
+        section1_6Title: "1.6 Запобігання тілесним покаранням",
+        list5_1: "Управління гнівом",
+        list5_2: "Розвиток навичок керівництва, що не покладаються на тілесні покарання",
+        section2Title: "2. Неналежне керівництво та домагання",
+        section2_1Title: "2.1 Що таке неналежне керівництво?",
+        para1: "Останніми роками навіть словесні образи, які не є тілесними покараннями, призводили до трагічних випадків, таких як самогубства учнів. Переглянутий Посібник з учнівського керівництва (грудень 2022 р.) підкреслює важливість уникнення неналежного керівництва.",
+        note2Strong: "З Посібника з учнівського керівництва (стор. 105):",
+        note2Text: "\"Навіть якщо немає фізичної шкоди чи болю, повторювані надмірні догани або непотрібні попередження можуть посилити стрес та тривогу учнів, підірвати їхню впевненість та мотивацію та загнати їх у глухий кут. Те, що може здаватися звичайним керівництвом для вчителів, може сприйматися по-різному кожним учнем. Надмірні догани, навіть якщо вони спрямовані на весь клас, можуть відчуватися як тиск. Після надання вказівок важливо не залишати учнів самих і спостерігати за їхнім фізичним та психічним станом. Неналежне керівництво може спровокувати прогули або самогубство, тому будь-яка форма тілесного покарання чи неналежної поведінки ніколи не є прийнятною в будь-якому аспекті шкільного життя, включаючи позакласні заходи.\"",
+        section2_2Title: "2.2 Приклади неналежного керівництва",
+        list6_1: "Крик, удари по предметах або кидання речей у залякуючій чи емоційній манері",
+        list6_2: "Керування учнями на основі припущень, не вислухавши їхньої сторони або не підтвердивши факти",
+        list6_3: "Діяти в односторонньому порядку, не враховуючи організаційних заходів у відповідь",
+        list6_4: "Винесення догани учням перед іншими, пошкодження їхньої гідності чи конфіденційності",
+        list6_5: "Керування учнями в місцях, що викликають значну тривогу чи тиск",
+        list6_6: "Накладення колективної відповідальності, що спричиняє надмірний тягар чи почуття провини",
+        list6_7: "Невжиття належних подальших заходів, таких як залишення учнів самих після керівництва або неповідомлення батьків",
+        list6_8: "Наполегливе звинувачення учнів у тому, чого вони не можуть зробити, без надання належних порад чи підтримки",
+        list6_9: "Навмисне приховування необхідної інформації для позакласних заходів чи подій",
+        list6_10: "Прояв фаворитизму чи упередженості в керівництві чи оцінюванні",
+        list6_11: "Винесення догани учням таким чином, що заперечує їхній характер чи самооцінку",
+        list6_12: "Нав'язування особистих цінностей чи переконань без урахування почуттів учнів",
+        section3Title: "3. Сексуальні домагання, зловживання владою та інші форми домагань",
+        section3_1Title: "3.1 Що таке домагання?",
+        para2: "Домагання - це дії, які спричиняють дискомфорт, невигідне становище або шкоду іншим особам шляхом зловживання своїм становищем або владою. У школах це включає сексуальні домагання, зловживання владою (пауер-харасмент) та іншу неналежну поведінку, яка порушує гідність та права учнів або колег.",
+        section3_2Title: "3.2 Типи та приклади домагань",
+        list7_1Strong: "Сексуальні домагання:",
+        list7_1_1: "Небажаний фізичний контакт, такий як дотики або обійми",
+        list7_1_2: "Сексуальні жарти чи коментарі",
+        list7_1_3: "Погляди, що викликають дискомфорт",
+        list7_1_4: "Запрошення учнів або колег на приватні зустрічі під приводом керівництва",
+        list7_1_5: "Поширення чуток про сексуальність або особисте життя когось",
+        list7_2Strong: "Зловживання владою (Пауер-харасмент):",
+        list7_2_1: "Несправедливе картання або критика когось перед іншими",
+        list7_2_2: "Призначення завдань, які є явно неможливими або безглуздими",
+        list7_2_3: "Ігнорування або виключення когось із групових заходів",
+        list7_2_4: "Погрози щодо посади чи майбутнього когось за невиконання вимог",
+        list7_2_5: "Примушення учнів або персоналу виконувати особисті доручення",
+        list7_3Strong: "Інші форми домагань:",
+        list7_3_1: "Знущання або остракізм учнів чи колег",
+        list7_3_2: "Дискримінаційні зауваження за ознакою статі, віку, національності чи інвалідності",
+        list7_3_3: "Неодноразове створення дискомфорту для когось словами чи діями",
+        section3_3Title: "3.3 Юридичні та дисциплінарні наслідки",
+        list8_1Strong: "Кримінальна відповідальність:",
+        list8_1_1: "Такі дії, як сексуальні домагання, можуть переслідуватися як сексуальне насильство, розпусні дії або наклеп.",
+        list8_2Strong: "Цивільна відповідальність:",
+        list8_2_1: "Потерпілі можуть вимагати компенсації за збитки, включаючи моральну шкоду.",
+        list8_2_2: "Школи та шкільні корпорації також можуть бути притягнуті до відповідальності.",
+        list8_3Strong: "Дисциплінарні стягнення:",
+        list8_3_1: "Звільнення, відсторонення, зниження зарплати, попередження тощо, як передбачено шкільними правилами.", // ウクライナ語修正
+        list8_4Strong: "Інші наслідки:",
+        list8_4_1: "Втрата довіри з боку учнів, батьків та колег",
+        list8_4_2: "Висвітлення у ЗМІ та шкода репутації",
+        list8_4_3: "Втрата кваліфікації вчителя",
+        section3_4Title: "3.4 Запобігання домаганням",
+        list9_1: "Усвідомлюйте свої слова та дії та завжди поважайте гідність та почуття інших.",
+        list9_2: "Не зловживайте своїм становищем чи владою.",
+        list9_3: "Встановіть чіткі межі між професійними та особистими стосунками.",
+        list9_4: "Беріть участь у регулярних тренінгах та програмах підвищення обізнаності щодо запобігання домаганням.",
+        list9_5: "Якщо ви стали свідком або підозрюєте домагання, проконсультуйтеся з відповідним відділом або негайно зверніться за юридичною консультацією.",
+        note3Strong: "Важливо:",
+        note3Text: "Навіть якщо немає наміру домагатися, дії, які змушують інших почуватися незручно або ставлять їх у невигідне становище, можуть вважатися домаганнями. Завжди дійте з емпатією та обережністю.",
+        footerContact: "За додатковою інформацією або юридичною консультацією звертайтесь до юридичної фірми Овада та Ятабе."
+      },
+    };
+
+    // 言語切り替え関数
+    function switchLanguage(lang) {
+      // ページタイトル更新
+      const titleElement = document.querySelector('title[data-lang-key="pageTitle"]');
+      if (titleElement) {
+          titleElement.textContent = translations[lang]?.pageTitle || translations['ja'].pageTitle;
+      }
+
+      // data-lang-keyを持つ全要素のテキストを更新
+      document.querySelectorAll('[data-lang-key]').forEach(element => {
+        const key = element.getAttribute('data-lang-key');
+        // pageTitle は上で処理したのでスキップ
+        if (key === 'pageTitle') return;
+
+        // 翻訳が存在すればそれを、なければ日本語、それもなければ元のテキストを使う
+        let translation = translations[lang]?.[key] ?? translations['ja']?.[key] ?? element.innerHTML;
+
+        // HTMLタグを含む可能性があるので innerHTML を使用
+        // 注意: 信頼できないソースからの翻訳テキストを使用する場合はXSSのリスクがあります。
+        element.innerHTML = translation;
+      });
+
+      // HTML要素のlang属性を更新
+      document.documentElement.lang = lang;
+
+      // ボタンのアクティブ状態を更新
+      document.querySelectorAll('.lang-switcher button').forEach(button => {
+        button.classList.remove('active');
+      });
+      const activeButton = document.getElementById(`lang-${lang}`);
+      if (activeButton) {
+          activeButton.classList.add('active');
+      }
+    }
+
+    // ボタンにイベントリスナーを追加
+    document.getElementById('lang-ja').addEventListener('click', () => switchLanguage('ja'));
+    document.getElementById('lang-fr').addEventListener('click', () => switchLanguage('fr'));
+    document.getElementById('lang-uk').addEventListener('click', () => switchLanguage('uk'));
+
+    // ページ読み込み時に初期言語を設定
+    document.addEventListener('DOMContentLoaded', () => {
+      const initialLang = document.documentElement.lang || 'ja'; // HTMLのlang属性またはデフォルト'ja'
+      switchLanguage(initialLang);
+      // 正しいボタンがアクティブになるように再確認
+       document.querySelectorAll('.lang-switcher button').forEach(button => {
+            button.classList.remove('active');
+        });
+       const activeButton = document.getElementById(`lang-${initialLang}`);
+       if (activeButton) {
+            activeButton.classList.add('active');
+       } else {
+            // フォールバックとして日本語ボタンをアクティブに
+            document.getElementById('lang-ja')?.classList.add('active');
+       }
+    });
+  </script>
+</body>
+</html>
