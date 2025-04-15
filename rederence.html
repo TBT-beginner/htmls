@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- 初期言語を en に設定 -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ページタイトルも翻訳対象にする -->
+    <title data-lang-key="pageTitle">MEXT Reference Materials on School Discipline</title>
+    <!-- <link rel="stylesheet" href="style.css"> スタイルはHTML内に埋め込み -->
+    <style>
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        color: #333;
+        padding-top: 60px; /* スイッチャー分のスペース確保 */
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2, h3, h4 {
+        color: #343a40;
+        margin-top: 1.5em;
+        margin-bottom: 0.8em;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 0.3em;
+    }
+
+    h1 {
+        font-size: 2em;
+        text-align: center;
+        border-bottom: 2px solid #0056b3; /* MEXT-like blue */
+    }
+
+    h2 {
+        font-size: 1.6em;
+        color: #0056b3; /* MEXT-like blue */
+    }
+
+    h3 {
+        font-size: 1.3em;
+    }
+
+    h4 {
+        font-size: 1.1em;
+        border-bottom: none;
+        margin-top: 1.2em;
+        margin-bottom: 0.5em;
+        color: #495057;
+    }
+
+    p {
+        margin-bottom: 1em;
+    }
+
+    .source-agency {
+        text-align: center;
+        font-style: italic;
+        color: #6c757d;
+        margin-bottom: 2em;
+    }
+
+    ul {
+        list-style-type: disc;
+        margin-left: 20px;
+        margin-bottom: 1em;
+    }
+
+    li {
+        margin-bottom: 0.5em;
+    }
+
+    dl {
+        margin-bottom: 1.5em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-top: 0.8em;
+        color: #495057;
+    }
+
+    dd {
+        margin-left: 20px;
+        margin-bottom: 0.5em;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2em;
+        font-size: 0.95em;
+        box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+    }
+
+    thead {
+        background-color: #e9ecef;
+    }
+
+    th, td {
+        border: 1px solid #dee2e6;
+        padding: 8px 12px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th {
+        font-weight: bold;
+        color: #495057;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+
+    tbody tr:hover {
+        background-color: #e2e6ea;
+    }
+
+    tfoot td {
+        font-style: italic;
+        color: #6c757d;
+        font-size: 0.9em;
+        border-top: 2px solid #dee2e6;
+        background-color: #f8f9fa;
+    }
+
+    /* Center align numerical data potentially */
+    td:nth-child(n+2):not(:only-child) { /* Target columns 2 onwards, but not if it's the only column */
+       text-align: right; /* 数値列を右揃えにする場合 */
+    }
+    /* Keep first column left aligned */
+    td:first-child {
+       text-align: left;
+    }
+
+
+    .note {
+        font-size: 0.9em;
+        color: #6c757d;
+        margin-bottom: 0.5em;
+        margin-top: -1.5em; /* Pull note closer to table */
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-color: #ced4da;
+        margin: 2em 0;
+    }
+
+    /* Responsive adjustments (basic) */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+        h1 { font-size: 1.8em; }
+        h2 { font-size: 1.4em; }
+        h3 { font-size: 1.2em; }
+
+        /* Allow tables to scroll horizontally on small screens */
+        table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap; /* Prevent text wrapping within cells */
+        }
+        /* Ensure table headers remain somewhat readable */
+        th, td {
+            white-space: normal; /* Allow wrapping for content */
+            word-wrap: break-word;
+        }
+        table th:first-child, table td:first-child {
+            white-space: normal; /* Allow wrapping for the first column too */
+        }
+        table {
+             white-space: normal; /* Override nowrap for the table block itself */
+        }
+    }
+
+    /* 言語切り替えボタンのスタイル */
+    .lang-switcher {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      z-index: 1000; /* 他の要素より手前に表示 */
+      border: 1px solid #ccc;
+    }
+    .lang-switcher button {
+      margin: 0 3px;
+      padding: 4px 8px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background: #eee;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    .lang-switcher button.active {
+      background: #0056b3; /* MEXT-like blue */
+      color: white;
+      font-weight: bold;
+      border-color: #0056b3;
+    }
+    </style>
+</head>
+<body>
+    <!-- 言語切り替えボタン -->
+    <div class="lang-switcher">
+      <button id="lang-en" class="active">English</button>
+      <button id="lang-ja">日本語</button>
+      <button id="lang-fr">Français</button>
+      <button id="lang-uk">Українська</button>
+    </div>
+
+    <div class="container">
+
+        <h1 data-lang-key="ref1Title">Reference Material 1.</h1>
+        <p class="source-agency" data-lang-key="ref1Source">Ministry of Education, Culture, Sports, Science and Technology (MEXT) - JAPAN</p>
+
+        <h2 data-lang-key="ref1Header">Reference Examples Concerning Disciplinary Action, Corporal Punishment, etc., for Children and Students as Stipulated in Article 11 of the School Education Act</h2>
+
+        <p data-lang-key="ref1Intro">This document provides concrete examples to serve as a reference for schools regarding how specific cases might typically be judged. It is intended purely as a reference, presenting and organizing examples concisely. When determining whether an individual case constitutes corporal punishment, it is necessary to comprehensively consider the various conditions outlined in Notification 2(1) and judge each case individually.</p>
+
+        <h3 data-lang-key="ref1Sec1Title">(1) Corporal Punishment (Actions Generally Considered Corporal Punishment)</h3>
+
+        <h4 data-lang-key="ref1Sec1Sub1Title">&#9675; Actions involving physical infringement:</h4>
+        <ul>
+            <li data-lang-key="ref1Sec1Sub1Item1">Stepping on the back of a student who performed a dangerous act during physical education class.</li>
+            <li data-lang-key="ref1Sec1Sub1Item2">Pushing over a student who was dangling their feet and kicked the student in front of them during the end-of-day meeting, causing them to fall.</li>
+            <li data-lang-key="ref1Sec1Sub1Item3">Slapping the faces of multiple students who showed rebellious behavior after being reprimanded for their attitude in class.</li>
+            <li data-lang-key="ref1Sec1Sub1Item4">Pinching the cheek of a student who frequently walks around during class and wouldn't sit down despite being told, to make them sit.</li>
+            <li data-lang-key="ref1Sec1Sub1Item5">Slapping the head of a student who, defying guidance, tried to leave school, after the student pulled their arm away when grabbed.</li>
+            <li data-lang-key="ref1Sec1Sub1Item6">Throwing a ballpoint pen at a student who was misbehaving during lunch and didn't listen to verbal warnings, hitting the student.</li>
+            <li data-lang-key="ref1Sec1Sub1Item7">Punching the cheek of a student who disobeyed the club advisor's instructions and didn't properly put away their uniform.</li>
+        </ul>
+
+        <h4 data-lang-key="ref1Sec1Sub2Title">&#9675; Actions causing physical pain to the disciplined person:</h4>
+        <ul>
+            <li data-lang-key="ref1Sec1Sub2Item1">Making a student remain in the classroom after school and refusing to let them go to the toilet despite their request.</li>
+            <li data-lang-key="ref1Sec1Sub2Item2">Keeping a student in a separate room for an extended period, including during lunchtime, for separate guidance, and refusing to let them leave the room at all.</li>
+            <li data-lang-key="ref1Sec1Sub2Item3">Telling a student who forgot their homework to receive lessons while sitting formally (seiza) at the back of the classroom, and forcing them to maintain that posture even after the student complained of pain.</li>
+        </ul>
+
+        <h3 data-lang-key="ref1Sec2Title">(2) Permissible Disciplinary Actions (Actions generally considered within the scope of disciplinary authority, provided they do not involve physical pain)</h3>
+        <p data-lang-key="ref1Sec2Note"><em>※ Examples other than expulsion, suspension, and reprimands stipulated in the Enforcement Regulations of the School Education Act:</em></p>
+        <ul>
+            <li data-lang-key="ref1Sec2Item1">Making a student remain in the classroom after school, etc.</li>
+            <li data-lang-key="ref1Sec2Item2">Making a student stand in the classroom during class.</li>
+            <li data-lang-key="ref1Sec2Item3">Assigning learning tasks or cleaning duties.</li>
+            <li data-lang-key="ref1Sec2Item4">Assigning more school duties (e.g., class monitor).</li>
+            <li data-lang-key="ref1Sec2Item5">Making a student who frequently walks around sit down after scolding them.</li>
+            <li data-lang-key="ref1Sec2Item6">Making a student who was late for practice sit out and observe the game instead of participating.</li>
+        </ul>
+
+        <h3 data-lang-key="ref1Sec3Title">(3) Justifiable Acts (Actions generally considered justifiable, such as self-defense or justifiable acts)</h3>
+
+        <h4 data-lang-key="ref1Sec3Sub1Title">&#9675; Use of tangible force necessarily employed for defense against violent acts by children/students towards teachers, etc.:</h4>
+        <ul>
+            <li data-lang-key="ref1Sec3Sub1Item1">When a student resists a teacher's guidance and kicks the teacher's leg, the teacher goes behind the student and holds their body firmly.</li>
+        </ul>
+
+        <h4 data-lang-key="ref1Sec3Sub2Title">&#9675; Use of tangible force necessarily employed to stop violent acts that inflict harm on other children/students, or to avoid imminent danger:</h4>
+        <ul>
+            <li data-lang-key="ref1Sec3Sub2Item1">Pulling apart a student by grabbing both shoulders, when they were holding down and hitting another student in the hallway during break time.</li>
+            <li data-lang-key="ref1Sec3Sub2Item2">Guiding a student who was disrupting an all-school assembly by shouting loudly to move to a different location for guidance. When the student continued to shout and resist, pulling their arm to move them.</li>
+            <li data-lang-key="ref1Sec3Sub2Item3">When attempting to guide a student who was teasing other students, the student hurled verbal abuse and spat at the teacher and tried to run away. Holding the student's shoulders with both hands against a wall for several minutes until they calmed down, thereby restraining them.</li>
+            <li data-lang-key="ref1Sec3Sub2Item4">Restraining a student who got into trouble with an opponent player during a match and was about to strike them.</li>
+        </ul>
+
+        <hr>
+        <p><strong data-lang-key="contactInfoTitle">Contact Information:</strong></p>
+        <p data-lang-key="contactDept1">Elementary and Secondary Education Bureau, Student Affairs Division</p>
+        <p data-lang-key="contactDept2">Sports and Youth Bureau, Policy Division (Sports)</p>
+        <p data-lang-key="contactDept3">(Elementary and Secondary Education Bureau, Student Affairs Division)</p>
+        <p data-lang-key="dateRegistered">-- Registered: March 2013 --</p>
+
+        <hr style="margin-top: 40px; margin-bottom: 40px;">
+
+        <h1 data-lang-key="ref2Title">Reference Material 2.</h1>
+        <h2 data-lang-key="ref2Header">Regarding the Grasping of the Actual Situation of Corporal Punishment, etc. (Reiwa 5 Fiscal Year)</h2>
+        <p data-lang-key="ref2Date">December 20, Reiwa 6 (2024)</p>
+
+        <h3 data-lang-key="ref2Sec1Title">1. Survey Outline</h3>
+        <dl>
+            <dt data-lang-key="ref2Sec1Dt1">(1) Purpose:</dt>
+            <dd data-lang-key="ref2Sec1Dd1">To grasp the actual situation of corporal punishment and inappropriate verbal statements or guidance towards children and students, and to thoroughly enforce the prohibition of these acts and promote appropriate student guidance. This survey was requested from prefectural and designated city boards of education, etc. (For public schools, the survey was conducted as part of the Personnel Administration Status Survey).</dd>
+            <dt data-lang-key="ref2Sec1Dt2">(2) Target:</dt>
+            <dd data-lang-key="ref2Sec1Dd2">National, public, and private kindergartens (including kindergarten-type certified childcare centers), elementary schools, junior high schools, compulsory education schools, high schools (including correspondence courses), secondary education schools, and special support schools (including kindergarten departments).</dd>
+            <dt data-lang-key="ref2Sec1Dt3">(3) Reporting Items:</dt>
+            <dd data-lang-key="ref2Sec1Dd3">Status of corporal punishment and inappropriate verbal statements or guidance (cases where disciplinary action, etc., was taken in Reiwa 5 FY).</dd>
+        </dl>
+
+        <h3 data-lang-key="ref2Sec1_4Title">(4) Overview of Survey Results</h3>
+
+        <h4 data-lang-key="ref2Sec1_4_1Title">① Status of Corporal Punishment in Reiwa 5 FY (National/Public/Private Total)</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th data-lang-key="table1Header1">School Type</th>
+                    <th data-lang-key="table1Header2">Number of Schools Reporting Incidents</th>
+                    <th data-lang-key="table1Header3">Number of Incidents</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-lang-key="schoolTypeK">Kindergarten</td>
+                    <td>4 schools (1 school)</td>
+                    <td>4 cases (1 case)</td>
+                </tr>
+                <tr>
+                    <td data-lang-key="schoolTypeE">Elementary School</td>
+                    <td>125 schools (149 schools)</td>
+                    <td>134 cases (157 cases)</td>
+                </tr>
+                <tr>
+                    <td data-lang-key="schoolTypeJ">Junior High School</td>
+                    <td>129 schools (147 schools)</td>
+                    <td>138 cases (160 cases)</td>
+                </tr>
+                 <tr>
+                    <td data-lang-key="schoolTypeC">Compulsory Education School</td>
+                    <td>4 schools (1 school)</td>
+                    <td>4 cases (1 case)</td>
+                </tr>
+                <tr>
+                    <td data-lang-key="schoolTypeH">High School</td>
+                    <td>158 schools (165 schools)</td>
+                    <td>171 cases (233 cases)</td>
+                </tr>
+                 <tr>
+                    <td data-lang-key="schoolTypeS">Secondary Education School</td>
+                    <td>2 schools (1 school)</td>
+                    <td>2 cases (1 case)</td>
+                </tr>
+                 <tr>
+                    <td data-lang-key="schoolTypeSp">Special Support School</td>
+                    <td>17 schools (19 schools)</td>
+                    <td>19 cases (19 cases)</td>
+                </tr>
+                <tr>
+                    <td data-lang-key="total"><strong>Total</strong></td>
+                    <td><strong>439 schools (483 schools)</strong></td>
+                    <td><strong>472 cases (572 cases)</strong></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr><td colspan="3"><em data-lang-key="tableNote1">Note: ( ) indicates data for Reiwa 4 FY.</em></td></tr>
+            </tfoot>
+        </table>
+
+        <h4 data-lang-key="ref2Sec1_4_2Title">② Status of Corporal Punishment in Reiwa 5 FY (Public)</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th data-lang-key="table2Header1">School Type</th>
+                    <th data-lang-key="table2Header2">Number of Schools Reporting Incidents</th>
+                    <th data-lang-key="table2Header3">Number of Incidents</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>1 school (0 schools)</td> <td>1 case (0 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>119 schools (146 schools)</td> <td>127 cases (151 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>114 schools (124 schools)</td> <td>120 cases (135 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>4 schools (1 school)</td> <td>4 cases (1 case)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeH">High School</td> <td>72 schools (84 schools)</td> <td>72 cases (92 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>0 schools (0 schools)</td> <td>0 cases (0 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>17 schools (18 schools)</td> <td>19 cases (18 cases)</td> </tr>
+                <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>327 schools (373 schools)</strong></td> <td><strong>343 cases (397 cases)</strong></td> </tr>
+            </tbody>
+             <tfoot>
+                <tr><td colspan="3"><em data-lang-key="tableNote1">Note: ( ) indicates data for Reiwa 4 FY.</em></td></tr>
+            </tfoot>
+        </table>
+
+        <h4 data-lang-key="ref2Sec1_4_3Title">③ Status of Corporal Punishment in Reiwa 5 FY (National)</h4>
+         <table>
+             <thead>
+                 <tr>
+                     <th data-lang-key="table3Header1">School Type</th>
+                     <th data-lang-key="table3Header2">Number of Schools Reporting Incidents</th>
+                     <th data-lang-key="table3Header3">Number of Incidents</th>
+                 </tr>
+             </thead>
+            <tbody>
+                <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>0 schools (0 schools)</td> <td>0 cases (0 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>1 school (0 schools)</td> <td>2 cases (0 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>1 school (2 schools)</td> <td>1 case (2 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>0 schools (0 schools)</td> <td>0 cases (0 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeH">High School</td> <td>0 schools (0 schools)</td> <td>0 cases (0 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>0 schools (0 schools)</td> <td>0 cases (0 cases)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>0 schools (0 schools)</td> <td>0 cases (0 cases)</td> </tr>
+                <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>2 schools (2 schools)</strong></td> <td><strong>3 cases (2 cases)</strong></td> </tr>
+            </tbody>
+            <tfoot>
+                <tr><td colspan="3"><em data-lang-key="tableNote1">Note: ( ) indicates data for Reiwa 4 FY.</em></td></tr>
+            </tfoot>
+        </table>
+
+        <h4 data-lang-key="ref2Sec1_4_4Title">④ Status of Corporal Punishment in Reiwa 5 FY (Private)</h4>
+        <table>
+            <thead>
+                 <tr>
+                     <th data-lang-key="table4Header1">School Type</th>
+                     <th data-lang-key="table4Header2">Number of Schools Reporting Incidents</th>
+                     <th data-lang-key="table4Header3">Number of Incidents</th>
+                 </tr>
+             </thead>
+            <tbody>
+                 <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>3 schools (1 school)</td> <td>3 cases (1 case)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>5 schools (3 schools)</td> <td>5 cases (6 cases)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>14 schools (21 schools)</td> <td>17 cases (23 cases)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>0 schools (0 schools)</td> <td>0 cases (0 cases)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeH">High School</td> <td>86 schools (81 schools)</td> <td>99 cases (141 cases)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>2 schools (1 school)</td> <td>2 cases (1 case)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>0 schools (1 school)</td> <td>0 cases (1 case)</td> </tr>
+                 <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>110 schools (108 schools)</strong></td> <td><strong>126 cases (173 cases)</strong></td> </tr>
+            </tbody>
+             <tfoot>
+                <tr><td colspan="3"><em data-lang-key="tableNote1">Note: ( ) indicates data for Reiwa 4 FY.</em></td></tr>
+            </tfoot>
+        </table>
+
+        <h4 data-lang-key="ref2Sec1_4_5Title">⑤ Status of Inappropriate Guidance, etc. in Reiwa 5 FY (National/Public/Private Total)</h4>
+         <table>
+             <thead>
+                 <tr>
+                     <th data-lang-key="table5Header1">School Type</th>
+                     <th data-lang-key="table5Header2">Number of Schools Reporting Incidents</th>
+                     <th data-lang-key="table5Header3">Number of Incidents</th>
+                 </tr>
+             </thead>
+            <tbody>
+                 <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>8 schools</td> <td>9 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>182 schools</td> <td>191 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>181 schools</td> <td>202 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>4 schools</td> <td>4 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeH">High School</td> <td>227 schools</td> <td>269 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>18 schools</td> <td>21 cases</td> </tr>
+                 <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>620 schools</strong></td> <td><strong>696 cases (551 cases)</strong></td> </tr>
+            </tbody>
+             <tfoot>
+                 <tr><td colspan="3"><em data-lang-key="tableNote2">Note: ( ) indicates data for Reiwa 4 FY. Items without Reiwa 4 data were newly established in the Reiwa 5 survey.</em></td></tr>
+             </tfoot>
+        </table>
+
+        <h4 data-lang-key="ref2Sec1_4_6Title">⑥ Status of Inappropriate Guidance, etc. in Reiwa 5 FY (Public)</h4>
+         <table>
+            <thead>
+                 <tr>
+                     <th data-lang-key="table6Header1">School Type</th>
+                     <th data-lang-key="table6Header2">Number of Schools Reporting Incidents</th>
+                     <th data-lang-key="table6Header3">Number of Incidents</th>
+                 </tr>
+             </thead>
+            <tbody>
+                 <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>1 school</td> <td>2 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>175 schools</td> <td>184 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>154 schools</td> <td>165 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>3 schools</td> <td>3 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeH">High School</td> <td>127 schools</td> <td>134 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>18 schools</td> <td>21 cases</td> </tr>
+                 <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>478 schools</strong></td> <td><strong>509 cases (418 cases)</strong></td> </tr>
+            </tbody>
+             <tfoot>
+                 <tr><td colspan="3"><em data-lang-key="tableNote2">Note: ( ) indicates data for Reiwa 4 FY. Items without Reiwa 4 data were newly established in the Reiwa 5 survey.</em></td></tr>
+             </tfoot>
+        </table>
+
+        <h4 data-lang-key="ref2Sec1_4_7Title">⑦ Status of Inappropriate Guidance, etc. in Reiwa 5 FY (National)</h4>
+         <table>
+             <thead>
+                 <tr>
+                     <th data-lang-key="table7Header1">School Type</th>
+                     <th data-lang-key="table7Header2">Number of Schools Reporting Incidents</th>
+                     <th data-lang-key="table7Header3">Number of Incidents</th>
+                 </tr>
+             </thead>
+            <tbody>
+                 <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>1 school</td> <td>1 case</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>1 school</td> <td>1 case</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeH">High School</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>2 schools</strong></td> <td><strong>2 cases (5 cases)</strong></td> </tr>
+            </tbody>
+             <tfoot>
+                 <tr><td colspan="3"><em data-lang-key="tableNote2">Note: ( ) indicates data for Reiwa 4 FY. Items without Reiwa 4 data were newly established in the Reiwa 5 survey.</em></td></tr>
+             </tfoot>
+        </table>
+
+         <h4 data-lang-key="ref2Sec1_4_8Title">⑧ Status of Inappropriate Guidance, etc. in Reiwa 5 FY (Private)</h4>
+         <table>
+            <thead>
+                 <tr>
+                     <th data-lang-key="table8Header1">School Type</th>
+                     <th data-lang-key="table8Header2">Number of Schools Reporting Incidents</th>
+                     <th data-lang-key="table8Header3">Number of Incidents</th>
+                 </tr>
+             </thead>
+            <tbody>
+                 <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>7 schools</td> <td>7 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>7 schools</td> <td>7 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>26 schools</td> <td>36 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeH">High School</td> <td>100 schools</td> <td>135 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>0 schools</td> <td>0 cases</td> </tr>
+                 <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>140 schools</strong></td> <td><strong>185 cases (128 cases)</strong></td> </tr>
+            </tbody>
+             <tfoot>
+                 <tr><td colspan="3"><em data-lang-key="tableNote3">Note: ( ) indicates data for Reiwa 4 FY. Items without Reiwa 4 data were newly established in the Reiwa 5 survey (⑤-⑧).</em></td></tr>
+             </tfoot>
+        </table>
+
+        <h2 style="margin-top: 30px;" data-lang-key="ref2Sec2Title">2. Status of Corporal Punishment</h2>
+        <h3 data-lang-key="ref2Sec2_1Title">(1) Status of Corporal Punishment in Reiwa 5 FY (National/Public/Private)</h3>
+
+        <h4 data-lang-key="ref2Sec2_1_1Title">① Number of Schools Reporting Incidents</h4>
+        <p class="note" data-lang-key="noteT9">Note: Occurrence rate is the number of schools reporting incidents (A) divided by the total number of schools (B). School numbers are based on the Basic School Survey. ( ) indicates data for Reiwa 4 FY.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th data-lang-key="table9Header1">School Type</th>
+                    <th data-lang-key="table9Header2">Schools Reporting Incidents (A)</th>
+                    <th data-lang-key="table9Header3">Total Schools (B)</th>
+                    <th data-lang-key="table9Header4">Occurrence Rate (A/B)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>4 (1)</td> <td>8,837 (9,111)</td> <td>0.05% (0.01%)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>125 (149)</td> <td>18,980 (19,161)</td> <td>0.66% (0.78%)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>129 (147)</td> <td>9,944 (10,012)</td> <td>1.30% (1.47%)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>4 (1)</td> <td>207 (178)</td> <td>1.93% (0.56%)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeH">High School</td> <td>158 (165)</td> <td>4,922 (4,950)</td> <td>3.21% (3.33%)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>2 (1)</td> <td>57 (57)</td> <td>3.51% (1.75%)</td> </tr>
+                <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>17 (19)</td> <td>1,178 (1,171)</td> <td>1.44% (1.62%)</td> </tr>
+                <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>439 (483)</strong></td> <td><strong>44,125 (44,640)</strong></td> <td><strong>0.99% (1.08%)</strong></td> </tr>
+            </tbody>
+        </table>
+
+        <h4 data-lang-key="ref2Sec2_1_2Title">② Age of Perpetrators</h4>
+         <p class="note" data-lang-key="noteT10">Note: ( ) indicates data for Reiwa 4 FY.</p>
+         <table>
+             <thead>
+                 <tr>
+                     <th data-lang-key="table10Header1">School Type</th>
+                     <th data-lang-key="table10Header2">20s</th>
+                     <th data-lang-key="table10Header3">30s</th>
+                     <th data-lang-key="table10Header4">40s</th>
+                     <th data-lang-key="table10Header5">50s and over</th>
+                     <th data-lang-key="table10Header6">Total</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>0 (0)</td> <td>1 (0)</td> <td>0 (0)</td> <td>3 (1)</td> <td>4 (1)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>17 (20)</td> <td>28 (38)</td> <td>24 (31)</td> <td>65 (68)</td> <td>134 (157)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>13 (24)</td> <td>39 (45)</td> <td>26 (28)</td> <td>60 (63)</td> <td>138 (160)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>0 (0)</td> <td>1 (0)</td> <td>1 (1)</td> <td>2 (0)</td> <td>4 (1)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeH">High School</td> <td>27 (16)</td> <td>29 (62)</td> <td>39 (66)</td> <td>76 (89)</td> <td>171 (233)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>0 (0)</td> <td>0 (0)</td> <td>0 (0)</td> <td>2 (1)</td> <td>2 (1)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>0 (1)</td> <td>2 (2)</td> <td>4 (3)</td> <td>13 (13)</td> <td>19 (19)</td> </tr>
+                 <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>57 (61)</strong></td> <td><strong>100 (147)</strong></td> <td><strong>94 (129)</strong></td> <td><strong>221 (235)</strong></td> <td><strong>472 (572)</strong></td> </tr>
+             </tbody>
+         </table>
+
+        <h4 data-lang-key="ref2Sec2_1_3Title">③ Gender of Perpetrators</h4>
+         <p class="note" data-lang-key="noteT11">Note: ( ) indicates data for Reiwa 4 FY.</p>
+         <table>
+             <thead>
+                 <tr>
+                     <th data-lang-key="table11Header1">School Type</th>
+                     <th data-lang-key="table11Header2">Male</th>
+                     <th data-lang-key="table11Header3">Female</th>
+                     <th data-lang-key="table11Header4">Total</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>0 (0)</td> <td>4 (1)</td> <td>4 (1)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>102 (121)</td> <td>32 (36)</td> <td>134 (157)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>122 (147)</td> <td>16 (13)</td> <td>138 (160)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>3 (1)</td> <td>1 (0)</td> <td>4 (1)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeH">High School</td> <td>161 (218)</td> <td>10 (15)</td> <td>171 (233)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>2 (1)</td> <td>0 (0)</td> <td>2 (1)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>11 (12)</td> <td>8 (7)</td> <td>19 (19)</td> </tr>
+                 <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>401 (500)</strong></td> <td><strong>71 (72)</strong></td> <td><strong>472 (572)</strong></td> </tr>
+             </tbody>
+         </table>
+
+        <h4 data-lang-key="ref2Sec2_1_4Title">④ Number of Incidents</h4>
+         <p class="note" data-lang-key="noteT12">Note: Occurrence rate is the number of incidents (A) divided by the number of full-time teachers (B). Teacher numbers are based on the Basic School Survey. ( ) indicates data for Reiwa 4 FY.</p>
+         <table>
+            <thead>
+                 <tr>
+                     <th data-lang-key="table12Header1">School Type</th>
+                     <th data-lang-key="table12Header2">Number of Incidents (A)</th>
+                     <th data-lang-key="table12Header3">Number of Full-time Teachers (B)</th>
+                     <th data-lang-key="table12Header4">Occurrence Rate (A/B)</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>4 (1)</td> <td>85,432 (87,752)</td> <td>0.00% (0.00%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>134 (157)</td> <td>424,297 (423,440)</td> <td>0.03% (0.04%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>138 (160)</td> <td>247,485 (247,348)</td> <td>0.06% (0.06%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>4 (1)</td> <td>7,448 (6,368)</td> <td>0.05% (0.02%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeH">High School</td> <td>171 (233)</td> <td>240,819 (241,849)</td> <td>0.07% (0.10%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>2 (1)</td> <td>2,863 (2,781)</td> <td>0.07% (0.04%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>19 (19)</td> <td>93,848 (92,913)</td> <td>0.02% (0.02%)</td> </tr>
+                 <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>472 (572)</strong></td> <td><strong>1,102,192 (1,102,451)</strong></td> <td><strong>0.04% (0.05%)</strong></td> </tr>
+             </tbody>
+         </table>
+
+        <h4 data-lang-key="ref2Sec2_1_5Title">⑤ Number of Students Subjected to Corporal Punishment</h4>
+         <p class="note" data-lang-key="noteT13">Note: Occurrence rate is the number of affected students (A) divided by the total number of students (B). ( ) indicates data for Reiwa 4 FY.</p>
+         <table>
+             <thead>
+                 <tr>
+                     <th data-lang-key="table13Header1">School Type</th>
+                     <th data-lang-key="table13Header2">Number of Affected Students (A)</th>
+                     <th data-lang-key="table13Header3">Total Number of Students (B)</th>
+                     <th data-lang-key="table13Header4">Occurrence Rate (A/B)</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr> <td data-lang-key="schoolTypeK">Kindergarten</td> <td>4 (1)</td> <td>855,279 (935,684)</td> <td>0.000% (0.000%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeE">Elementary School</td> <td>247 (244)</td> <td>6,049,685 (6,151,305)</td> <td>0.004% (0.004%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeJ">Junior High School</td> <td>201 (261)</td> <td>3,177,508 (3,205,220)</td> <td>0.006% (0.008%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeC">Compulsory Education School</td> <td>4 (1)</td> <td>76,045 (67,799)</td> <td>0.005% (0.001%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeH">High School</td> <td>347 (460)</td> <td>3,183,475 (3,195,167)</td> <td>0.011% (0.014%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeS">Secondary Education School</td> <td>2 (1)</td> <td>33,817 (33,367)</td> <td>0.006% (0.003%)</td> </tr>
+                 <tr> <td data-lang-key="schoolTypeSp">Special Support School</td> <td>29 (23)</td> <td>151,362 (148,635)</td> <td>0.019% (0.015%)</td> </tr>
+                 <tr> <td data-lang-key="total"><strong>Total</strong></td> <td><strong>834 (991)</strong></td> <td><strong>13,527,171 (13,737,177)</strong></td> <td><strong>0.006% (0.007%)</strong></td> </tr>
+             </tbody>
+         </table>
+
+         <h4 data-lang-key="ref2Sec2_1_6Title">⑥ Details of Disciplinary Actions Taken (Breakdown)</h4>
+         <p class="note" data-lang-key="noteT14">Note: ( ) indicates the number of individuals who received disciplinary action, etc., due to supervisory responsibility for misconduct by staff under their jurisdiction (counted separately). Newly established in Reiwa 5 survey.</p>
+         <table>
+             <thead>
+                 <tr>
+                     <th data-lang-key="table14Header1">Type of Action</th>
+                     <th data-lang-key="table14Header2">Number of Cases</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr><td data-lang-key="actionDismissal">Dismissal or equivalent</td><td>8 (0)</td></tr>
+                 <tr><td data-lang-key="actionDemotion">Demotion or equivalent</td><td>1 (0)</td></tr>
+                 <tr><td data-lang-key="actionSuspension">Suspension or equivalent</td><td>30 (1)</td></tr>
+                 <tr><td data-lang-key="actionSalaryCut">Salary Reduction or equivalent</td><td>52 (7)</td></tr>
+                 <tr><td data-lang-key="actionReprimandK">Reprimand (Kaiko) or equivalent</td><td>42 (8)</td></tr>
+                 <tr><td data-lang-key="actionAdmonition">Admonition (Kunkoku) or other actions not listed above</td><td>339 (147)</td></tr>
+                 <tr><td data-lang-key="total"><strong>Total</strong></td><td><strong>472 (163)</strong></td></tr>
+             </tbody>
+         </table>
+
+        <!-- NOTE: The remaining detailed tables (⑦ to ⑪ for Corporal Punishment and all tables for Inappropriate Guidance)
+                   from the original document (pages 5-10) are omitted here for brevity, but the structure
+                   for adding them with data-lang-key attributes would follow the same pattern. -->
+        <h3 style="margin-top: 30px;" data-lang-key="ref2Sec2_4Title">(4) Status of Corporal Punishment in Reiwa 5 FY (Private)</h3>
+        <p><em data-lang-key="omittedTablesNote1">[Detailed tables ① to ⑪ specific to Private Schools, similar to the National/Public/Private section above, would be inserted here.]</em></p>
+
+        <h2 style="margin-top: 30px;" data-lang-key="ref2Sec3Title">3. Status of Inappropriate Guidance, etc.</h2>
+         <h3 data-lang-key="ref2Sec3_1Title">(1) Status of Inappropriate Guidance, etc. in Reiwa 5 FY (National/Public/Private)</h3>
+        <p><em data-lang-key="omittedTablesNote2">[Detailed tables ① to ⑩ specific to Inappropriate Guidance (National/Public/Private) would be inserted here.]</em></p>
+
+        <h3 style="margin-top: 30px;" data-lang-key="ref2Sec3_4Title">(4) Status of Inappropriate Guidance, etc. in Reiwa 5 FY (Private)</h3>
+         <p><em data-lang-key="omittedTablesNote3">[Detailed tables ① to ⑩ specific to Inappropriate Guidance (Private Schools) would be inserted here.]</em></p>
+
+    </div><!-- /.container -->
+
+    <script>
+      // 翻訳テキストの定義
+      const translations = {
+        // --- English (Default) ---
+        en: {
+          pageTitle: "MEXT Reference Materials on School Discipline",
+          ref1Title: "Reference Material 1.",
+          ref1Source: "Ministry of Education, Culture, Sports, Science and Technology (MEXT) - JAPAN",
+          ref1Header: "Reference Examples Concerning Disciplinary Action, Corporal Punishment, etc., for Children and Students as Stipulated in Article 11 of the School Education Act",
+          ref1Intro: "This document provides concrete examples to serve as a reference for schools regarding how specific cases might typically be judged. It is intended purely as a reference, presenting and organizing examples concisely. When determining whether an individual case constitutes corporal punishment, it is necessary to comprehensively consider the various conditions outlined in Notification 2(1) and judge each case individually.",
+          ref1Sec1Title: "(1) Corporal Punishment (Actions Generally Considered Corporal Punishment)",
+          ref1Sec1Sub1Title: "&#9675; Actions involving physical infringement:",
+          ref1Sec1Sub1Item1: "Stepping on the back of a student who performed a dangerous act during physical education class.",
+          ref1Sec1Sub1Item2: "Pushing over a student who was dangling their feet and kicked the student in front of them during the end-of-day meeting, causing them to fall.",
+          ref1Sec1Sub1Item3: "Slapping the faces of multiple students who showed rebellious behavior after being reprimanded for their attitude in class.",
+          ref1Sec1Sub1Item4: "Pinching the cheek of a student who frequently walks around during class and wouldn't sit down despite being told, to make them sit.",
+          ref1Sec1Sub1Item5: "Slapping the head of a student who, defying guidance, tried to leave school, after the student pulled their arm away when grabbed.",
+          ref1Sec1Sub1Item6: "Throwing a ballpoint pen at a student who was misbehaving during lunch and didn't listen to verbal warnings, hitting the student.",
+          ref1Sec1Sub1Item7: "Punching the cheek of a student who disobeyed the club advisor's instructions and didn't properly put away their uniform.",
+          ref1Sec1Sub2Title: "&#9675; Actions causing physical pain to the disciplined person:",
+          ref1Sec1Sub2Item1: "Making a student remain in the classroom after school and refusing to let them go to the toilet despite their request.",
+          ref1Sec1Sub2Item2: "Keeping a student in a separate room for an extended period, including during lunchtime, for separate guidance, and refusing to let them leave the room at all.",
+          ref1Sec1Sub2Item3: "Telling a student who forgot their homework to receive lessons while sitting formally (seiza) at the back of the classroom, and forcing them to maintain that posture even after the student complained of pain.",
+          ref1Sec2Title: "(2) Permissible Disciplinary Actions (Actions generally considered within the scope of disciplinary authority, provided they do not involve physical pain)",
+          ref1Sec2Note: "<em>※ Examples other than expulsion, suspension, and reprimands stipulated in the Enforcement Regulations of the School Education Act:</em>",
+          ref1Sec2Item1: "Making a student remain in the classroom after school, etc.",
+          ref1Sec2Item2: "Making a student stand in the classroom during class.",
+          ref1Sec2Item3: "Assigning learning tasks or cleaning duties.",
+          ref1Sec2Item4: "Assigning more school duties (e.g., class monitor).",
+          ref1Sec2Item5: "Making a student who frequently walks around sit down after scolding them.",
+          ref1Sec2Item6: "Making a student who was late for practice sit out and observe the game instead of participating.",
+          ref1Sec3Title: "(3) Justifiable Acts (Actions generally considered justifiable, such as self-defense or justifiable acts)",
+          ref1Sec3Sub1Title: "&#9675; Use of tangible force necessarily employed for defense against violent acts by children/students towards teachers, etc.:",
+          ref1Sec3Sub1Item1: "When a student resists a teacher's guidance and kicks the teacher's leg, the teacher goes behind the student and holds their body firmly.",
+          ref1Sec3Sub2Title: "&#9675; Use of tangible force necessarily employed to stop violent acts that inflict harm on other children/students, or to avoid imminent danger:",
+          ref1Sec3Sub2Item1: "Pulling apart a student by grabbing both shoulders, when they were holding down and hitting another student in the hallway during break time.",
+          ref1Sec3Sub2Item2: "Guiding a student who was disrupting an all-school assembly by shouting loudly to move to a different location for guidance. When the student continued to shout and resist, pulling their arm to move them.",
+          ref1Sec3Sub2Item3: "When attempting to guide a student who was teasing other students, the student hurled verbal abuse and spat at the teacher and tried to run away. Holding the student's shoulders with both hands against a wall for several minutes until they calmed down, thereby restraining them.",
+          ref1Sec3Sub2Item4: "Restraining a student who got into trouble with an opponent player during a match and was about to strike them.",
+          contactInfoTitle: "<strong>Contact Information:</strong>",
+          contactDept1: "Elementary and Secondary Education Bureau, Student Affairs Division",
+          contactDept2: "Sports and Youth Bureau, Policy Division (Sports)",
+          contactDept3: "(Elementary and Secondary Education Bureau, Student Affairs Division)",
+          dateRegistered: "-- Registered: March 2013 --",
+          ref2Title: "Reference Material 2.",
+          ref2Header: "Regarding the Grasping of the Actual Situation of Corporal Punishment, etc. (Reiwa 5 Fiscal Year)",
+          ref2Date: "December 20, Reiwa 6 (2024)",
+          ref2Sec1Title: "1. Survey Outline",
+          ref2Sec1Dt1: "(1) Purpose:",
+          ref2Sec1Dd1: "To grasp the actual situation of corporal punishment and inappropriate verbal statements or guidance towards children and students, and to thoroughly enforce the prohibition of these acts and promote appropriate student guidance. This survey was requested from prefectural and designated city boards of education, etc. (For public schools, the survey was conducted as part of the Personnel Administration Status Survey).",
+          ref2Sec1Dt2: "(2) Target:",
+          ref2Sec1Dd2: "National, public, and private kindergartens (including kindergarten-type certified childcare centers), elementary schools, junior high schools, compulsory education schools, high schools (including correspondence courses), secondary education schools, and special support schools (including kindergarten departments).",
+          ref2Sec1Dt3: "(3) Reporting Items:",
+          ref2Sec1Dd3: "Status of corporal punishment and inappropriate verbal statements or guidance (cases where disciplinary action, etc., was taken in Reiwa 5 FY).",
+          ref2Sec1_4Title: "(4) Overview of Survey Results",
+          ref2Sec1_4_1Title: "① Status of Corporal Punishment in Reiwa 5 FY (National/Public/Private Total)",
+          table1Header1: "School Type", table1Header2: "Number of Schools Reporting Incidents", table1Header3: "Number of Incidents",
+          schoolTypeK: "Kindergarten", schoolTypeE: "Elementary School", schoolTypeJ: "Junior High School", schoolTypeC: "Compulsory Education School", schoolTypeH: "High School", schoolTypeS: "Secondary Education School", schoolTypeSp: "Special Support School",
+          total: "<strong>Total</strong>",
+          tableNote1: "<em>Note: ( ) indicates data for Reiwa 4 FY.</em>",
+          ref2Sec1_4_2Title: "② Status of Corporal Punishment in Reiwa 5 FY (Public)",
+          table2Header1: "School Type", table2Header2: "Number of Schools Reporting Incidents", table2Header3: "Number of Incidents",
+          ref2Sec1_4_3Title: "③ Status of Corporal Punishment in Reiwa 5 FY (National)",
+          table3Header1: "School Type", table3Header2: "Number of Schools Reporting Incidents", table3Header3: "Number of Incidents",
+          ref2Sec1_4_4Title: "④ Status of Corporal Punishment in Reiwa 5 FY (Private)",
+          table4Header1: "School Type", table4Header2: "Number of Schools Reporting Incidents", table4Header3: "Number of Incidents",
+          ref2Sec1_4_5Title: "⑤ Status of Inappropriate Guidance, etc. in Reiwa 5 FY (National/Public/Private Total)",
+          table5Header1: "School Type", table5Header2: "Number of Schools Reporting Incidents", table5Header3: "Number of Incidents",
+          tableNote2: "<em>Note: ( ) indicates data for Reiwa 4 FY. Items without Reiwa 4 data were newly established in the Reiwa 5 survey.</em>",
+          ref2Sec1_4_6Title: "⑥ Status of Inappropriate Guidance, etc. in Reiwa 5 FY (Public)",
+          table6Header1: "School Type", table6Header2: "Number of Schools Reporting Incidents", table6Header3: "Number of Incidents",
+          ref2Sec1_4_7Title: "⑦ Status of Inappropriate Guidance, etc. in Reiwa 5 FY (National)",
+          table7Header1: "School Type", table7Header2: "Number of Schools Reporting Incidents", table7Header3: "Number of Incidents",
+          ref2Sec1_4_8Title: "⑧ Status of Inappropriate Guidance, etc. in Reiwa 5 FY (Private)",
+          table8Header1: "School Type", table8Header2: "Number of Schools Reporting Incidents", table8Header3: "Number of Incidents",
+          tableNote3: "<em>Note: ( ) indicates data for Reiwa 4 FY. Items without Reiwa 4 data were newly established in the Reiwa 5 survey (⑤-⑧).</em>",
+          ref2Sec2Title: "2. Status of Corporal Punishment",
+          ref2Sec2_1Title: "(1) Status of Corporal Punishment in Reiwa 5 FY (National/Public/Private)",
+          ref2Sec2_1_1Title: "① Number of Schools Reporting Incidents",
+          noteT9: "Note: Occurrence rate is the number of schools reporting incidents (A) divided by the total number of schools (B). School numbers are based on the Basic School Survey. ( ) indicates data for Reiwa 4 FY.",
+          table9Header1: "School Type", table9Header2: "Schools Reporting Incidents (A)", table9Header3: "Total Schools (B)", table9Header4: "Occurrence Rate (A/B)",
+          ref2Sec2_1_2Title: "② Age of Perpetrators",
+          noteT10: "Note: ( ) indicates data for Reiwa 4 FY.",
+          table10Header1: "School Type", table10Header2: "20s", table10Header3: "30s", table10Header4: "40s", table10Header5: "50s and over", table10Header6: "Total",
+          ref2Sec2_1_3Title: "③ Gender of Perpetrators",
+          noteT11: "Note: ( ) indicates data for Reiwa 4 FY.",
+          table11Header1: "School Type", table11Header2: "Male", table11Header3: "Female", table11Header4: "Total",
+          ref2Sec2_1_4Title: "④ Number of Incidents",
+          noteT12: "Note: Occurrence rate is the number of incidents (A) divided by the number of full-time teachers (B). Teacher numbers are based on the Basic School Survey. ( ) indicates data for Reiwa 4 FY.",
+          table12Header1: "School Type", table12Header2: "Number of Incidents (A)", table12Header3: "Number of Full-time Teachers (B)", table12Header4: "Occurrence Rate (A/B)",
+          ref2Sec2_1_5Title: "⑤ Number of Students Subjected to Corporal Punishment",
+          noteT13: "Note: Occurrence rate is the number of affected students (A) divided by the total number of students (B). ( ) indicates data for Reiwa 4 FY.",
+          table13Header1: "School Type", table13Header2: "Number of Affected Students (A)", table13Header3: "Total Number of Students (B)", table13Header4: "Occurrence Rate (A/B)",
+          ref2Sec2_1_6Title: "⑥ Details of Disciplinary Actions Taken (Breakdown)",
+          noteT14: "Note: ( ) indicates the number of individuals who received disciplinary action, etc., due to supervisory responsibility for misconduct by staff under their jurisdiction (counted separately). Newly established in Reiwa 5 survey.",
+          table14Header1: "Type of Action", table14Header2: "Number of Cases",
+          actionDismissal: "Dismissal or equivalent", actionDemotion: "Demotion or equivalent", actionSuspension: "Suspension or equivalent", actionSalaryCut: "Salary Reduction or equivalent", actionReprimandK: "Reprimand (Kaiko) or equivalent", actionAdmonition: "Admonition (Kunkoku) or other actions not listed above",
+          ref2Sec2_4Title: "(4) Status of Corporal Punishment in Reiwa 5 FY (Private)",
+          omittedTablesNote1: "<em>[Detailed tables ① to ⑪ specific to Private Schools, similar to the National/Public/Private section above, would be inserted here.]</em>",
+          ref2Sec3Title: "3. Status of Inappropriate Guidance, etc.",
+          ref2Sec3_1Title: "(1) Status of Inappropriate Guidance, etc. in Reiwa 5 FY (National/Public/Private)",
+          omittedTablesNote2: "<em>[Detailed tables ① to ⑩ specific to Inappropriate Guidance (National/Public/Private) would be inserted here.]</em>",
+          ref2Sec3_4Title: "(4) Status of Inappropriate Guidance, etc. in Reiwa 5 FY (Private)",
+          omittedTablesNote3: "<em>[Detailed tables ① to ⑩ specific to Inappropriate Guidance (Private Schools) would be inserted here.]</em>"
+        },
+        // --- 日本語 ---
+        ja: {
+          pageTitle: "文部科学省 学校懲戒に関する参考資料",
+          ref1Title: "参考資料１.",
+          ref1Source: "文部科学省（MEXT）- 日本",
+          ref1Header: "学校教育法第11条に規定する児童生徒の懲戒、体罰等に関する参考事例",
+          ref1Intro: "本資料は、個別の事案がどのように判断されるかについて、学校等が参考とすることができるよう、具体的な事例を示したものである。あくまで参考として、簡潔に事例を示し整理したものであり、個別の事案が体罰に該当するか否かの判断に当たっては、通知２（１）に示された諸条件を総合的に考慮し、各事案ごとに個別具体的に判断する必要がある。",
+          ref1Sec1Title: "（１）体罰（通常、体罰と判断されると考えられる行為）",
+          ref1Sec1Sub1Title: "●身体に対する侵害を内容とするもの",
+          ref1Sec1Sub1Item1: "体育の授業中、危険な行為をした児童の背中を足で踏みつける。",
+          ref1Sec1Sub1Item2: "帰りの会で足をぶらぶらさせて前の席の児童を蹴った児童生徒を、突き飛ばして転倒させる。",
+          ref1Sec1Sub1Item3: "授業態度について指導したが反抗的な言動をした複数の児童生徒の頬を平手打ちする。",
+          ref1Sec1Sub1Item4: "授業中に何度も席を離れる児童生徒を叱ったが聞かず、席につかないため、頬をつねって席につかせる。",
+          ref1Sec1Sub1Item5: "指導に反抗して帰ろうとした生徒の腕を掴んだところ、生徒が腕を振り払ったため、当該生徒の頭部を平手で叩く。",
+          ref1Sec1Sub1Item6: "給食の時間、ふざけていた生徒に対し、口頭で注意したが聞かないため、ボールペンを投げつけ、生徒に当てる。",
+          ref1Sec1Sub1Item7: "部活動顧問の指示に従わず、ユニフォームを片付けなかった生徒の頬を殴打する。",
+          ref1Sec1Sub2Title: "●被懲戒者に肉体的苦痛を与えるようなもの",
+          ref1Sec1Sub2Item1: "放課後に児童を教室に残留させ、児童がトイレに行きたいと訴えたが、一切、室外に出ることを許さない。",
+          ref1Sec1Sub2Item2: "別室指導のため、児童を別室に長時間にわたって留め置き、昼食時間中も一切室外に出ることを許さない。",
+          ref1Sec1Sub2Item3: "宿題を忘れた児童に対して、教室の後方で正座で授業を受けるよう言い、児童が苦痛を訴えたにもかかわらず、そのままの姿勢を保持させる。",
+          ref1Sec2Title: "（２）懲戒として許容される行為（通常、懲戒権の範囲内と判断されると考えられる行為（肉体的苦痛を伴わないものに限る。））",
+          ref1Sec2Note: "<em>※学校教育法施行規則に定める退学・停学・訓告以外のもの</em>",
+          ref1Sec2Item1: "放課後等に教室に残留させる。",
+          ref1Sec2Item2: "授業中、教室内に立たせる。",
+          ref1Sec2Item3: "学習課題や清掃活動を課す。",
+          ref1Sec2Item4: "学校当番を多く割り当てる。",
+          ref1Sec2Item5: "立ち歩きの多い児童生徒を叱って席につかせる。",
+          ref1Sec2Item6: "練習に遅刻した生徒を試合に出さずに見学させる。",
+          ref1Sec3Title: "（３）正当な行為（通常、正当防衛、正当行為等と判断されると考えられる行為）",
+          ref1Sec3Sub1Title: "●児童生徒による教員等に対する暴力行為に対して、教員等が防衛のためにやむを得ずした行為",
+          ref1Sec3Sub1Item1: "児童が教員の指導に抵抗し、教員の足を蹴ったため、児童の後方から児童の身体をしっかり抱きかかえる。",
+          ref1Sec3Sub2Title: "●他の児童生徒に被害を及ぼすような暴力行為に対して、これを制止したり、避けさせたりするためにやむを得ずした行為",
+          ref1Sec3Sub2Item1: "休み時間に廊下で、他の児童を押さえつけて殴っている児童がいたため、この児童の両肩をつかんで引き離す。",
+          ref1Sec3Sub2Item2: "全校集会中に、大声を出して集会を妨げる行為があった生徒を、別の場所で指導するため、別の場所に移るよう指導したが、なおも大声を出し続けて抵抗したため、生徒の腕を引いて移動させる。",
+          ref1Sec3Sub2Item3: "他の児童生徒をからかっていた生徒を指導しようとしたところ、当該生徒が教員に暴言を吐き、つばを吐きかける等したため、生徒指導上、当該生徒の肩を両手で掴んで壁へ押さえつけ、制止させる。",
+          ref1Sec3Sub2Item4: "試合中に相手選手ともめ事を起こし、殴りかかろうとする生徒を、押さえつけて制止させる。",
+          contactInfoTitle: "<strong>問い合わせ先：</strong>",
+          contactDept1: "初等中等教育局児童生徒課",
+          contactDept2: "スポーツ・青少年局企画・体育課（体育）",
+          contactDept3: "（初等中等教育局児童生徒課）",
+          dateRegistered: "-- 平成25年3月登録 --",
+          ref2Title: "参考資料２.",
+          ref2Header: "体罰等の実態把握について（令和５年度）",
+          ref2Date: "令和６年１２月２０日",
+          ref2Sec1Title: "１．調査概要",
+          ref2Sec1Dt1: "（１）目的：",
+          ref2Sec1Dd1: "児童生徒に対する体罰や不適切な言動・指導の実態を把握し、これらの禁止の徹底及び適切な生徒指導の推進を図るため、都道府県・指定都市教育委員会等に依頼（公立学校については、人事行政状況調査の一環として調査を実施）。",
+          ref2Sec1Dt2: "（２）対象：",
+          ref2Sec1Dd2: "国公私立の幼稚園（幼保連携型認定こども園を含む）、小学校、中学校、義務教育学校、高等学校（通信制課程を含む）、中等教育学校、特別支援学校（幼稚部を含む）。",
+          ref2Sec1Dt3: "（３）報告事項：",
+          ref2Sec1Dd3: "体罰及び不適切な言動・指導の状況（令和５年度中に懲戒処分等が行われた事案）。",
+          ref2Sec1_4Title: "（４）調査結果概要",
+          ref2Sec1_4_1Title: "① 体罰の状況（令和５年度）（国公私立計）",
+          table1Header1: "学校種", table1Header2: "発生校数", table1Header3: "発生件数",
+          schoolTypeK: "幼稚園", schoolTypeE: "小学校", schoolTypeJ: "中学校", schoolTypeC: "義務教育学校", schoolTypeH: "高等学校", schoolTypeS: "中等教育学校", schoolTypeSp: "特別支援学校",
+          total: "<strong>計</strong>",
+          tableNote1: "<em>注：（ ）内は令和４年度の数値。</em>",
+          ref2Sec1_4_2Title: "② 体罰の状況（令和５年度）（公立）",
+          table2Header1: "学校種", table2Header2: "発生校数", table2Header3: "発生件数",
+          ref2Sec1_4_3Title: "③ 体罰の状況（令和５年度）（国立）",
+          table3Header1: "学校種", table3Header2: "発生校数", table3Header3: "発生件数",
+          ref2Sec1_4_4Title: "④ 体罰の状況（令和５年度）（私立）",
+          table4Header1: "学校種", table4Header2: "発生校数", table4Header3: "発生件数",
+          ref2Sec1_4_5Title: "⑤ 不適切な指導等の状況（令和５年度）（国公私立計）",
+          table5Header1: "学校種", table5Header2: "発生校数", table5Header3: "発生件数",
+          tableNote2: "<em>注：（ ）内は令和４年度の数値。令和４年度の数値がない項目は令和５年度調査で新設。</em>",
+          ref2Sec1_4_6Title: "⑥ 不適切な指導等の状況（令和５年度）（公立）",
+          table6Header1: "学校種", table6Header2: "発生校数", table6Header3: "発生件数",
+          ref2Sec1_4_7Title: "⑦ 不適切な指導等の状況（令和５年度）（国立）",
+          table7Header1: "学校種", table7Header2: "発生校数", table7Header3: "発生件数",
+          ref2Sec1_4_8Title: "⑧ 不適切な指導等の状況（令和５年度）（私立）",
+          table8Header1: "学校種", table8Header2: "発生校数", table8Header3: "発生件数",
+          tableNote3: "<em>注：（ ）内は令和４年度の数値。令和４年度の数値がない項目は令和５年度調査で新設（⑤～⑧）。</em>",
+          ref2Sec2Title: "２．体罰の状況",
+          ref2Sec2_1Title: "（１）体罰の状況（令和５年度）（国公私立）",
+          ref2Sec2_1_1Title: "① 発生校数",
+          noteT9: "注：発生率は、発生校数（Ａ）を総学校数（Ｂ）で除した値。学校数は学校基本調査による。（ ）内は令和４年度の数値。",
+          table9Header1: "学校種", table9Header2: "発生校数(A)", table9Header3: "総学校数(B)", table9Header4: "発生率(A/B)",
+          ref2Sec2_1_2Title: "② 加害教員の年齢",
+          noteT10: "注：（ ）内は令和４年度の数値。",
+          table10Header1: "学校種", table10Header2: "20代", table10Header3: "30代", table10Header4: "40代", table10Header5: "50代以上", table10Header6: "計",
+          ref2Sec2_1_3Title: "③ 加害教員の性別",
+          noteT11: "注：（ ）内は令和４年度の数値。",
+          table11Header1: "学校種", table11Header2: "男性", table11Header3: "女性", table11Header4: "計",
+          ref2Sec2_1_4Title: "④ 発生件数",
+          noteT12: "注：発生率は、発生件数（Ａ）を本務教員数（Ｂ）で除した値。教員数は学校基本調査による。（ ）内は令和４年度の数値。",
+          table12Header1: "学校種", table12Header2: "発生件数(A)", table12Header3: "本務教員数(B)", table12Header4: "発生率(A/B)",
+          ref2Sec2_1_5Title: "⑤ 体罰を受けた児童生徒数",
+          noteT13: "注：発生率は、体罰を受けた児童生徒数（Ａ）を総児童生徒数（Ｂ）で除した値。（ ）内は令和４年度の数値。",
+          table13Header1: "学校種", table13Header2: "体罰を受けた児童生徒数(A)", table13Header3: "総児童生徒数(B)", table13Header4: "発生率(A/B)",
+          ref2Sec2_1_6Title: "⑥ 懲戒処分等の状況（内訳）",
+          noteT14: "注：（ ）内は、所管の職員の非違行為に対する監督責任により、懲戒処分等を受けた者の内数。令和５年度調査で新設。",
+          table14Header1: "処分の種類", table14Header2: "件数",
+          actionDismissal: "免職又はこれに相当する処分", actionDemotion: "降任又はこれに相当する処分", actionSuspension: "停職又はこれに相当する処分", actionSalaryCut: "減給又はこれに相当する処分", actionReprimandK: "戒告又はこれに相当する処分", actionAdmonition: "訓告その他上記以外の措置",
+          ref2Sec2_4Title: "（４）体罰の状況（令和５年度）（私立）",
+          omittedTablesNote1: "<em>[私立学校に特化した詳細な表①～⑪（上記国公私立のセクションと同様）がここに入ります。]</em>",
+          ref2Sec3Title: "３．不適切な指導等の状況",
+          ref2Sec3_1Title: "（１）不適切な指導等の状況（令和５年度）（国公私立）",
+          omittedTablesNote2: "<em>[不適切な指導等に特化した詳細な表①～⑩（国公私立）がここに入ります。]</em>",
+          ref2Sec3_4Title: "（４）不適切な指導等の状況（令和５年度）（私立）",
+          omittedTablesNote3: "<em>[不適切な指導等に特化した詳細な表①～⑩（私立学校）がここに入ります。]</em>"
+        },
+        // --- フランス語 ---
+        fr: {
+          pageTitle: "Documents de référence du MEXT sur la discipline scolaire",
+          ref1Title: "Document de référence 1.",
+          ref1Source: "Ministère de l'Éducation, de la Culture, des Sports, des Sciences et de la Technologie (MEXT) - JAPON",
+          ref1Header: "Exemples de référence concernant les mesures disciplinaires, les châtiments corporels, etc., pour les enfants et les élèves, tels que stipulés à l'article 11 de la loi sur l'éducation scolaire",
+          ref1Intro: "Ce document fournit des exemples concrets pour servir de référence aux écoles concernant la manière dont des cas spécifiques pourraient généralement être jugés. Il est destiné uniquement à titre de référence, présentant et organisant les exemples de manière concise. Pour déterminer si un cas individuel constitue un châtiment corporel, il est nécessaire d'examiner de manière approfondie les différentes conditions décrites dans la Notification 2(1) et de juger chaque cas individuellement.",
+          ref1Sec1Title: "(1) Châtiments corporels (Actions généralement considérées comme des châtiments corporels)",
+          ref1Sec1Sub1Title: "● Actions impliquant une atteinte physique :",
+          ref1Sec1Sub1Item1: "Marcher sur le dos d'un élève qui a commis un acte dangereux pendant le cours d'éducation physique.",
+          ref1Sec1Sub1Item2: "Pousser un élève qui balançait ses pieds et a donné un coup de pied à l'élève devant lui lors de la réunion de fin de journée, le faisant tomber.",
+          ref1Sec1Sub1Item3: "Gifler plusieurs élèves qui ont montré un comportement rebelle après avoir été réprimandés pour leur attitude en classe.",
+          ref1Sec1Sub1Item4: "Pincer la joue d'un élève qui se promenait fréquemment pendant le cours et ne voulait pas s'asseoir malgré les instructions, pour le faire asseoir.",
+          ref1Sec1Sub1Item5: "Frapper la tête d'un élève qui, défiant les conseils, tentait de quitter l'école, après que l'élève ait retiré son bras lorsqu'il était saisi.",
+          ref1Sec1Sub1Item6: "Lancer un stylo à bille sur un élève qui se comportait mal pendant le déjeuner et n'écoutait pas les avertissements verbaux, le frappant.",
+          ref1Sec1Sub1Item7: "Donner un coup de poing à la joue d'un élève qui a désobéi aux instructions du conseiller de club et n'a pas rangé correctement son uniforme.",
+          ref1Sec1Sub2Title: "● Actions causant une douleur physique à la personne sanctionnée :",
+          ref1Sec1Sub2Item1: "Faire rester un élève dans la salle de classe après l'école et refuser de le laisser aller aux toilettes malgré sa demande.",
+          ref1Sec1Sub2Item2: "Garder un élève dans une pièce séparée pendant une période prolongée, y compris pendant l'heure du déjeuner, pour un accompagnement séparé, et refuser de le laisser quitter la pièce.",
+          ref1Sec1Sub2Item3: "Dire à un élève qui a oublié ses devoirs de suivre les cours assis formellement (seiza) au fond de la classe, et le forcer à maintenir cette posture même après que l'élève se soit plaint de douleur.",
+          ref1Sec2Title: "(2) Mesures disciplinaires admissibles (Actions généralement considérées comme relevant du pouvoir disciplinaire, à condition qu'elles n'impliquent pas de douleur physique)",
+          ref1Sec2Note: "<em>※ Exemples autres que l'expulsion, la suspension et les réprimandes stipulées dans le règlement d'application de la loi sur l'éducation scolaire :</em>",
+          ref1Sec2Item1: "Faire rester un élève dans la salle de classe après l'école, etc.",
+          ref1Sec2Item2: "Faire tenir un élève debout dans la salle de classe pendant le cours.",
+          ref1Sec2Item3: "Assigner des tâches d'apprentissage ou de nettoyage.",
+          ref1Sec2Item4: "Assigner davantage de tâches scolaires (par exemple, délégué de classe).",
+          ref1Sec2Item5: "Faire asseoir un élève qui se promène fréquemment après l'avoir grondé.",
+          ref1Sec2Item6: "Faire qu'un élève arrivé en retard à l'entraînement reste assis et observe le match au lieu d'y participer.",
+          ref1Sec3Title: "(3) Actes justifiables (Actions généralement considérées comme justifiables, telles que la légitime défense ou les actes justifiables)",
+          ref1Sec3Sub1Title: "● Usage de la force matérielle nécessaire pour se défendre contre des actes de violence commis par des enfants/élèves envers des enseignants, etc. :",
+          ref1Sec3Sub1Item1: "Lorsqu'un élève résiste aux conseils d'un enseignant et lui donne un coup de pied à la jambe, l'enseignant se place derrière l'élève et maintient fermement son corps.",
+          ref1Sec3Sub2Title: "● Usage de la force matérielle nécessaire pour mettre fin à des actes de violence qui infligent des dommages à d'autres enfants/élèves, ou pour éviter un danger imminent :",
+          ref1Sec3Sub2Item1: "Séparer un élève en le saisissant par les deux épaules, alors qu'il maintenait au sol et frappait un autre élève dans le couloir pendant la récréation.",
+          ref1Sec3Sub2Item2: "Guider un élève qui perturbait une assemblée générale de l'école en criant fort vers un autre endroit pour un accompagnement. Lorsque l'élève a continué à crier et à résister, tirer son bras pour le déplacer.",
+          ref1Sec3Sub2Item3: "En tentant de guider un élève qui taquinait d'autres élèves, l'élève a proféré des insultes verbales, a craché sur l'enseignant et a tenté de s'enfuir. Maintenir les épaules de l'élève avec les deux mains contre un mur pendant plusieurs minutes jusqu'à ce qu'il se calme, le retenant ainsi.",
+          ref1Sec3Sub2Item4: "Retenir un élève qui s'est disputé avec un joueur adverse pendant un match et était sur le point de le frapper.",
+          contactInfoTitle: "<strong>Coordonnées :</strong>",
+          contactDept1: "Bureau de l'éducation primaire et secondaire, Division des affaires étudiantes",
+          contactDept2: "Bureau des sports et de la jeunesse, Division des politiques (Sports)",
+          contactDept3: "(Bureau de l'éducation primaire et secondaire, Division des affaires étudiantes)",
+          dateRegistered: "-- Enregistré : Mars 2013 --",
+          ref2Title: "Document de référence 2.",
+          ref2Header: "Concernant la saisie de la situation réelle des châtiments corporels, etc. (Année fiscale Reiwa 5)",
+          ref2Date: "20 décembre, Reiwa 6 (2024)",
+          ref2Sec1Title: "1. Aperçu de l'enquête",
+          ref2Sec1Dt1: "(1) Objectif :",
+          ref2Sec1Dd1: "Saisir la situation réelle des châtiments corporels et des déclarations verbales ou conseils inappropriés envers les enfants et les élèves, et appliquer rigoureusement l'interdiction de ces actes et promouvoir un encadrement approprié des élèves. Cette enquête a été demandée aux conseils d'éducation préfectoraux et des villes désignées, etc. (Pour les écoles publiques, l'enquête a été menée dans le cadre de l'enquête sur la situation de l'administration du personnel).",
+          ref2Sec1Dt2: "(2) Cible :",
+          ref2Sec1Dd2: "Jardins d'enfants nationaux, publics et privés (y compris les centres de garde d'enfants certifiés de type jardin d'enfants), écoles élémentaires, collèges, écoles d'enseignement obligatoire, lycées (y compris les cours par correspondance), écoles secondaires d'enseignement général, et écoles de soutien spécialisé (y compris les départements de jardin d'enfants).",
+          ref2Sec1Dt3: "(3) Éléments de rapport :",
+          ref2Sec1Dd3: "Statut des châtiments corporels et des déclarations verbales ou conseils inappropriés (cas où des mesures disciplinaires, etc., ont été prises au cours de l'année fiscale Reiwa 5).",
+          ref2Sec1_4Title: "(4) Aperçu des résultats de l'enquête",
+          ref2Sec1_4_1Title: "① Situation des châtiments corporels en Reiwa 5 (Total National/Public/Privé)",
+          table1Header1: "Type d'école", table1Header2: "Nombre d'écoles signalant des incidents", table1Header3: "Nombre d'incidents",
+          schoolTypeK: "Jardin d'enfants", schoolTypeE: "École élémentaire", schoolTypeJ: "Collège", schoolTypeC: "École d'ens. obligatoire", schoolTypeH: "Lycée", schoolTypeS: "École secondaire", schoolTypeSp: "École de soutien spécialisé",
+          total: "<strong>Total</strong>",
+          tableNote1: "<em>Note : ( ) indique les données pour l'année fiscale Reiwa 4.</em>",
+          ref2Sec1_4_2Title: "② Situation des châtiments corporels en Reiwa 5 (Public)",
+          table2Header1: "Type d'école", table2Header2: "Nombre d'écoles signalant des incidents", table2Header3: "Nombre d'incidents",
+          ref2Sec1_4_3Title: "③ Situation des châtiments corporels en Reiwa 5 (National)",
+          table3Header1: "Type d'école", table3Header2: "Nombre d'écoles signalant des incidents", table3Header3: "Nombre d'incidents",
+          ref2Sec1_4_4Title: "④ Situation des châtiments corporels en Reiwa 5 (Privé)",
+          table4Header1: "Type d'école", table4Header2: "Nombre d'écoles signalant des incidents", table4Header3: "Nombre d'incidents",
+          ref2Sec1_4_5Title: "⑤ Situation des conseils inappropriés, etc. en Reiwa 5 (Total National/Public/Privé)",
+          table5Header1: "Type d'école", table5Header2: "Nombre d'écoles signalant des incidents", table5Header3: "Nombre d'incidents",
+          tableNote2: "<em>Note : ( ) indique les données pour l'AF Reiwa 4. Les éléments sans données Reiwa 4 ont été nouvellement établis dans l'enquête Reiwa 5.</em>",
+          ref2Sec1_4_6Title: "⑥ Situation des conseils inappropriés, etc. en Reiwa 5 (Public)",
+          table6Header1: "Type d'école", table6Header2: "Nombre d'écoles signalant des incidents", table6Header3: "Nombre d'incidents",
+          ref2Sec1_4_7Title: "⑦ Situation des conseils inappropriés, etc. en Reiwa 5 (National)",
+          table7Header1: "Type d'école", table7Header2: "Nombre d'écoles signalant des incidents", table7Header3: "Nombre d'incidents",
+          ref2Sec1_4_8Title: "⑧ Situation des conseils inappropriés, etc. en Reiwa 5 (Privé)",
+          table8Header1: "Type d'école", table8Header2: "Nombre d'écoles signalant des incidents", table8Header3: "Nombre d'incidents",
+          tableNote3: "<em>Note : ( ) indique les données pour l'AF Reiwa 4. Les éléments sans données Reiwa 4 ont été nouvellement établis dans l'enquête Reiwa 5 (⑤-⑧).</em>",
+          ref2Sec2Title: "2. Situation des châtiments corporels",
+          ref2Sec2_1Title: "(1) Situation des châtiments corporels en Reiwa 5 (National/Public/Privé)",
+          ref2Sec2_1_1Title: "① Nombre d'écoles signalant des incidents",
+          noteT9: "Note : Le taux d'occurrence est le nombre d'écoles signalant des incidents (A) divisé par le nombre total d'écoles (B). Les nombres d'écoles sont basés sur l'enquête scolaire de base. ( ) indique les données pour l'AF Reiwa 4.",
+          table9Header1: "Type d'école", table9Header2: "Écoles signalant des incidents (A)", table9Header3: "Total écoles (B)", table9Header4: "Taux d'occurrence (A/B)",
+          ref2Sec2_1_2Title: "② Âge des auteurs",
+          noteT10: "Note : ( ) indique les données pour l'AF Reiwa 4.",
+          table10Header1: "Type d'école", table10Header2: "20-29 ans", table10Header3: "30-39 ans", table10Header4: "40-49 ans", table10Header5: "50 ans et +", table10Header6: "Total",
+          ref2Sec2_1_3Title: "③ Genre des auteurs",
+          noteT11: "Note : ( ) indique les données pour l'AF Reiwa 4.",
+          table11Header1: "Type d'école", table11Header2: "Homme", table11Header3: "Femme", table11Header4: "Total",
+          ref2Sec2_1_4Title: "④ Nombre d'incidents",
+          noteT12: "Note : Le taux d'occurrence est le nombre d'incidents (A) divisé par le nombre d'enseignants à temps plein (B). Les nombres d'enseignants sont basés sur l'enquête scolaire de base. ( ) indique les données pour l'AF Reiwa 4.",
+          table12Header1: "Type d'école", table12Header2: "Nombre d'incidents (A)", table12Header3: "Nombre d'enseignants à temps plein (B)", table12Header4: "Taux d'occurrence (A/B)",
+          ref2Sec2_1_5Title: "⑤ Nombre d'élèves soumis à des châtiments corporels",
+          noteT13: "Note : Le taux d'occurrence est le nombre d'élèves affectés (A) divisé par le nombre total d'élèves (B). ( ) indique les données pour l'AF Reiwa 4.",
+          table13Header1: "Type d'école", table13Header2: "Nombre d'élèves affectés (A)", table13Header3: "Nombre total d'élèves (B)", table13Header4: "Taux d'occurrence (A/B)",
+          ref2Sec2_1_6Title: "⑥ Détails des mesures disciplinaires prises (Répartition)",
+          noteT14: "Note : ( ) indique le nombre de personnes ayant fait l'objet de mesures disciplinaires, etc., en raison de leur responsabilité de surveillance pour faute de personnel sous leur juridiction (compté séparément). Nouvellement établi dans l'enquête Reiwa 5.",
+          table14Header1: "Type de mesure", table14Header2: "Nombre de cas",
+          actionDismissal: "Révocation ou équivalent", actionDemotion: "Rétrogradation ou équivalent", actionSuspension: "Suspension ou équivalent", actionSalaryCut: "Réduction de salaire ou équivalent", actionReprimandK: "Blâme (Kaiko) ou équivalent", actionAdmonition: "Avertissement (Kunkoku) ou autres mesures non listées ci-dessus",
+          ref2Sec2_4Title: "(4) Situation des châtiments corporels en Reiwa 5 (Privé)",
+          omittedTablesNote1: "<em>[Les tableaux détaillés ① à ⑪ spécifiques aux écoles privées, similaires à la section National/Public/Privé ci-dessus, seraient insérés ici.]</em>",
+          ref2Sec3Title: "3. Situation des conseils inappropriés, etc.",
+          ref2Sec3_1Title: "(1) Situation des conseils inappropriés, etc. en Reiwa 5 (National/Public/Privé)",
+          omittedTablesNote2: "<em>[Les tableaux détaillés ① à ⑩ spécifiques aux conseils inappropriés (National/Public/Privé) seraient insérés ici.]</em>",
+          ref2Sec3_4Title: "(4) Situation des conseils inappropriés, etc. en Reiwa 5 (Privé)",
+          omittedTablesNote3: "<em>[Les tableaux détaillés ① à ⑩ spécifiques aux conseils inappropriés (Écoles privées) seraient insérés ici.]</em>"
+        },
+        // --- ウクライна語 ---
+        uk: {
+          pageTitle: "Довідкові матеріали МОНМС щодо шкільної дисципліни",
+          ref1Title: "Довідковий матеріал 1.",
+          ref1Source: "Міністерство освіти, культури, спорту, науки і технологій (MEXT) - ЯПОНІЯ",
+          ref1Header: "Довідкові приклади щодо дисциплінарних стягнень, тілесних покарань тощо для дітей та учнів, передбачені статтею 11 Закону про шкільну освіту",
+          ref1Intro: "Цей документ містить конкретні приклади, які можуть слугувати довідковим матеріалом для шкіл щодо того, як зазвичай можуть оцінюватися конкретні випадки. Він призначений виключно як довідковий матеріал, що стисло представляє та впорядковує приклади. При визначенні, чи є окремий випадок тілесним покаранням, необхідно всебічно розглянути різні умови, викладені в Повідомленні 2(1), та оцінювати кожен випадок індивідуально.",
+          ref1Sec1Title: "(1) Тілесні покарання (Дії, що зазвичай вважаються тілесними покараннями)",
+          ref1Sec1Sub1Title: "● Дії, що передбачають фізичне посягання:",
+          ref1Sec1Sub1Item1: "Наступання на спину учня, який вчинив небезпечну дію під час уроку фізкультури.",
+          ref1Sec1Sub1Item2: "Штовхання учня, який бовтав ногами і вдарив учня попереду під час зборів наприкінці дня, спричинивши його падіння.",
+          ref1Sec1Sub1Item3: "Нанесення ляпасів кільком учням, які виявили бунтівну поведінку після зауваження щодо їхньої поведінки в класі.",
+          ref1Sec1Sub1Item4: "Щипання за щоку учня, який часто ходить під час уроку і не сідає на місце, незважаючи на зауваження, щоб змусити його сісти.",
+          ref1Sec1Sub1Item5: "Нанесення ляпаса по голові учня, який, нехтуючи вказівками, намагався покинути школу, після того, як учень вирвав свою руку, коли його схопили.",
+          ref1Sec1Sub1Item6: "Кидання кульковою ручкою в учня, який погано поводився під час обіду і не слухав усних попереджень, влучивши в учня.",
+          ref1Sec1Sub1Item7: "Удар кулаком по щоці учня, який не послухався вказівок тренера клубу і не прибрав належним чином свою форму.",
+          ref1Sec1Sub2Title: "● Дії, що спричиняють фізичний біль покараній особі:",
+          ref1Sec1Sub2Item1: "Залишення учня в класі після уроків і відмова дозволити йому піти в туалет, незважаючи на його прохання.",
+          ref1Sec1Sub2Item2: "Утримання учня в окремій кімнаті протягом тривалого періоду, включаючи обідню перерву, для окремого виховання, і відмова дозволити йому взагалі виходити з кімнати.",
+          ref1Sec1Sub2Item3: "Наказ учню, який забув домашнє завдання, сидіти на уроці формально (сейдза) в кінці класу, і примушення його зберігати цю позу навіть після того, як учень поскаржився на біль.",
+          ref1Sec2Title: "(2) Допустимі дисциплінарні стягнення (Дії, що зазвичай вважаються такими, що входять до сфери дисциплінарних повноважень, за умови, що вони не супроводжуються фізичним болем)",
+          ref1Sec2Note: "<em>※ Приклади, крім виключення, тимчасового відсторонення та догани, передбачених Правилами застосування Закону про шкільну освіту:</em>",
+          ref1Sec2Item1: "Залишення учня в класі після уроків тощо.",
+          ref1Sec2Item2: "Примушення учня стояти в класі під час уроку.",
+          ref1Sec2Item3: "Призначення навчальних завдань або обов'язків з прибирання.",
+          ref1Sec2Item4: "Призначення більшої кількості шкільних обов'язків (наприклад, черговий по класу).",
+          ref1Sec2Item5: "Примушення учня, який часто ходить, сісти на місце після зауваження.",
+          ref1Sec2Item6: "Примушення учня, який запізнився на тренування, сидіти і спостерігати за грою замість участі.",
+          ref1Sec3Title: "(3) Виправдані дії (Дії, що зазвичай вважаються виправданими, такі як самооборона або виправдані дії)",
+          ref1Sec3Sub1Title: "● Застосування матеріальної сили, необхідної для захисту від насильницьких дій дітей/учнів щодо вчителів тощо:",
+          ref1Sec3Sub1Item1: "Коли учень чинить опір вказівкам вчителя і б'є вчителя ногою, вчитель заходить за спину учня і міцно тримає його тіло.",
+          ref1Sec3Sub2Title: "● Застосування матеріальної сили, необхідної для припинення насильницьких дій, що завдають шкоди іншим дітям/учням, або для уникнення неминучої небезпеки:",
+          ref1Sec3Sub2Item1: "Розборонення учня, схопивши його за обидва плеча, коли він тримав і бив іншого учня в коридорі під час перерви.",
+          ref1Sec3Sub2Item2: "Супровід учня, який зривав загальношкільні збори, голосно кричачи, до іншого місця для виховної роботи. Коли учень продовжував кричати і чинити опір, потягнути його за руку, щоб перемістити.",
+          ref1Sec3Sub2Item3: "При спробі провести виховну роботу з учнем, який дражнив інших учнів, учень вигукував образи, плюнув у вчителя і спробував втекти. Утримання плечей учня обома руками біля стіни протягом кількох хвилин, доки він не заспокоїться, тим самим стримуючи його.",
+          ref1Sec3Sub2Item4: "Стримування учня, який посварився з гравцем суперника під час матчу і збирався його вдарити.",
+          contactInfoTitle: "<strong>Контактна інформація:</strong>",
+          contactDept1: "Бюро початкової та середньої освіти, Відділ у справах учнів",
+          contactDept2: "Бюро спорту та молоді, Відділ політики (Спорт)",
+          contactDept3: "(Бюро початкової та середньої освіти, Відділ у справах учнів)",
+          dateRegistered: "-- Зареєстровано: березень 2013 р. --",
+          ref2Title: "Довідковий матеріал 2.",
+          ref2Header: "Щодо вивчення фактичної ситуації з тілесними покараннями тощо (Рейва 5 фінансовий рік)",
+          ref2Date: "20 грудня, Рейва 6 (2024)",
+          ref2Sec1Title: "1. Огляд опитування",
+          ref2Sec1Dt1: "(1) Мета:",
+          ref2Sec1Dd1: "Вивчити фактичну ситуацію з тілесними покараннями та неналежними словесними заявами чи настановами щодо дітей та учнів, а також ретельно забезпечити заборону цих дій та сприяти належному керівництву учнями. Це опитування було запитано у префектурних та визначених міських рад освіти тощо (Для державних шкіл опитування проводилося як частина Опитування стану кадрового адміністрування).",
+          ref2Sec1Dt2: "(2) Цільова аудиторія:",
+          ref2Sec1Dd2: "Національні, державні та приватні дитячі садки (включаючи сертифіковані центри догляду за дітьми типу дитячого садка), початкові школи, молодші середні школи, школи обов'язкової освіти, старші школи (включаючи заочні курси), середні школи та школи спеціальної підтримки (включаючи відділення дитячих садків).",
+          ref2Sec1Dt3: "(3) Звітні показники:",
+          ref2Sec1Dd3: "Стан тілесних покарань та неналежних словесних заяв чи настанов (випадки, коли дисциплінарні стягнення тощо були застосовані у Рейва 5 ФР).",
+          ref2Sec1_4Title: "(4) Огляд результатів опитування",
+          ref2Sec1_4_1Title: "① Стан тілесних покарань у Рейва 5 ФР (Загальнодержавний/Державний/Приватний)",
+          table1Header1: "Тип школи", table1Header2: "Кількість шкіл, що повідомили про інциденти", table1Header3: "Кількість інцидентів",
+          schoolTypeK: "Дитячий садок", schoolTypeE: "Початкова школа", schoolTypeJ: "Молодша середня школа", schoolTypeC: "Школа обов'язкової освіти", schoolTypeH: "Старша школа", schoolTypeS: "Середня школа", schoolTypeSp: "Школа спец. підтримки",
+          total: "<strong>Всього</strong>",
+          tableNote1: "<em>Примітка: ( ) вказує дані за Рейва 4 ФР.</em>",
+          ref2Sec1_4_2Title: "② Стан тілесних покарань у Рейва 5 ФР (Державні)",
+          table2Header1: "Тип школи", table2Header2: "Кількість шкіл, що повідомили про інциденти", table2Header3: "Кількість інцидентів",
+          ref2Sec1_4_3Title: "③ Стан тілесних покарань у Рейва 5 ФР (Національні)",
+          table3Header1: "Тип школи", table3Header2: "Кількість шкіл, що повідомили про інциденти", table3Header3: "Кількість інцидентів",
+          ref2Sec1_4_4Title: "④ Стан тілесних покарань у Рейва 5 ФР (Приватні)",
+          table4Header1: "Тип школи", table4Header2: "Кількість шкіл, що повідомили про інциденти", table4Header3: "Кількість інцидентів",
+          ref2Sec1_4_5Title: "⑤ Стан неналежного керівництва тощо у Рейва 5 ФР (Загальнодержавний/Державний/Приватний)",
+          table5Header1: "Тип школи", table5Header2: "Кількість шкіл, що повідомили про інциденти", table5Header3: "Кількість інцидентів",
+          tableNote2: "<em>Примітка: ( ) вказує дані за Рейва 4 ФР. Пункти без даних за Рейва 4 були новостворені в опитуванні Рейва 5.</em>",
+          ref2Sec1_4_6Title: "⑥ Стан неналежного керівництва тощо у Рейва 5 ФР (Державні)",
+          table6Header1: "Тип школи", table6Header2: "Кількість шкіл, що повідомили про інциденти", table6Header3: "Кількість інцидентів",
+          ref2Sec1_4_7Title: "⑦ Стан неналежного керівництва тощо у Рейва 5 ФР (Національні)",
+          table7Header1: "Тип школи", table7Header2: "Кількість шкіл, що повідомили про інциденти", table7Header3: "Кількість інцидентів",
+          ref2Sec1_4_8Title: "⑧ Стан неналежного керівництва тощо у Рейва 5 ФР (Приватні)",
+          table8Header1: "Тип школи", table8Header2: "Кількість шкіл, що повідомили про інциденти", table8Header3: "Кількість інцидентів",
+          tableNote3: "<em>Примітка: ( ) вказує дані за Рейва 4 ФР. Пункти без даних за Рейва 4 були новостворені в опитуванні Рейва 5 (⑤-⑧).</em>",
+          ref2Sec2Title: "2. Стан тілесних покарань",
+          ref2Sec2_1Title: "(1) Стан тілесних покарань у Рейва 5 ФР (Національні/Державні/Приватні)",
+          ref2Sec2_1_1Title: "① Кількість шкіл, що повідомили про інциденти",
+          noteT9: "Примітка: Рівень поширеності - це кількість шкіл, що повідомили про інциденти (А), поділена на загальну кількість шкіл (В). Кількість шкіл базується на Базовому шкільному опитуванні. ( ) вказує дані за Рейва 4 ФР.",
+          table9Header1: "Тип школи", table9Header2: "Школи, що повідомили про інциденти (А)", table9Header3: "Загальна кількість шкіл (В)", table9Header4: "Рівень поширеності (А/В)",
+          ref2Sec2_1_2Title: "② Вік правопорушників",
+          noteT10: "Примітка: ( ) вказує дані за Рейва 4 ФР.",
+          table10Header1: "Тип школи", table10Header2: "20-ті", table10Header3: "30-ті", table10Header4: "40-ві", table10Header5: "50 і старше", table10Header6: "Всього",
+          ref2Sec2_1_3Title: "③ Стать правопорушників",
+          noteT11: "Примітка: ( ) вказує дані за Рейва 4 ФР.",
+          table11Header1: "Тип школи", table11Header2: "Чоловіки", table11Header3: "Жінки", table11Header4: "Всього",
+          ref2Sec2_1_4Title: "④ Кількість інцидентів",
+          noteT12: "Примітка: Рівень поширеності - це кількість інцидентів (А), поділена на кількість штатних вчителів (В). Кількість вчителів базується на Базовому шкільному опитуванні. ( ) вказує дані за Рейва 4 ФР.",
+          table12Header1: "Тип школи", table12Header2: "Кількість інцидентів (А)", table12Header3: "Кількість штатних вчителів (В)", table12Header4: "Рівень поширеності (А/В)",
+          ref2Sec2_1_5Title: "⑤ Кількість учнів, що зазнали тілесних покарань",
+          noteT13: "Примітка: Рівень поширеності - це кількість постраждалих учнів (А), поділена на загальну кількість учнів (В). ( ) вказує дані за Рейва 4 ФР.",
+          table13Header1: "Тип школи", table13Header2: "Кількість постраждалих учнів (А)", table13Header3: "Загальна кількість учнів (В)", table13Header4: "Рівень поширеності (А/В)",
+          ref2Sec2_1_6Title: "⑥ Деталі застосованих дисциплінарних стягнень (Розподіл)",
+          noteT14: "Примітка: ( ) вказує кількість осіб, які отримали дисциплінарне стягнення тощо через відповідальність за нагляд за неправомірними діями підпорядкованих співробітників (враховуються окремо). Новостворено в опитуванні Рейва 5.",
+          table14Header1: "Тип стягнення", table14Header2: "Кількість випадків",
+          actionDismissal: "Звільнення або еквівалент", actionDemotion: "Пониження в посаді або еквівалент", actionSuspension: "Відсторонення або еквівалент", actionSalaryCut: "Зменшення зарплати або еквівалент", actionReprimandK: "Догана (Кайкоку) або еквівалент", actionAdmonition: "Зауваження (Кункоку) або інші заходи, не перелічені вище",
+          ref2Sec2_4Title: "(4) Стан тілесних покарань у Рейва 5 ФР (Приватні)",
+          omittedTablesNote1: "<em>[Детальні таблиці ①-⑪, специфічні для приватних шкіл, подібні до розділу Національні/Державні/Приватні вище, будуть вставлені тут.]</em>",
+          ref2Sec3Title: "3. Стан неналежного керівництва тощо",
+          ref2Sec3_1Title: "(1) Стан неналежного керівництва тощо у Рейва 5 ФР (Національні/Державні/Приватні)",
+          omittedTablesNote2: "<em>[Детальні таблиці ①-⑩, специфічні для неналежного керівництва (Національні/Державні/Приватні), будуть вставлені тут.]</em>",
+          ref2Sec3_4Title: "(4) Стан неналежного керівництва тощо у Рейва 5 ФР (Приватні)",
+          omittedTablesNote3: "<em>[Детальні таблиці ①-⑩, специфічні для неналежного керівництва (Приватні школи), будуть вставлені тут.]</em>"
+        }
+      };
+
+      // 言語切り替え関数
+      function switchLanguage(lang) {
+        // ページタイトル更新
+        const titleElement = document.querySelector('title[data-lang-key="pageTitle"]');
+        if (titleElement) {
+            titleElement.textContent = translations[lang]?.pageTitle || translations['en'].pageTitle;
+        }
+
+        // data-lang-keyを持つ全要素のテキストを更新
+        document.querySelectorAll('[data-lang-key]').forEach(element => {
+          const key = element.getAttribute('data-lang-key');
+          // pageTitle は上で処理したのでスキップ
+          if (key === 'pageTitle') return;
+
+          // 翻訳が存在すればそれを、なければ英語、それもなければ元のテキストを使う
+          let translation = translations[lang]?.[key] ?? translations['en']?.[key] ?? element.innerHTML;
+
+          // HTMLタグを含む可能性があるので innerHTML を使用
+          // 注意: 信頼できないソースからの翻訳テキストを使用する場合はXSSのリスクがあります。
+          element.innerHTML = translation;
+        });
+
+        // HTML要素のlang属性を更新
+        document.documentElement.lang = lang;
+
+        // ボタンのアクティブ状態を更新
+        document.querySelectorAll('.lang-switcher button').forEach(button => {
+          button.classList.remove('active');
+        });
+        const activeButton = document.getElementById(`lang-${lang}`);
+        if (activeButton) {
+            activeButton.classList.add('active');
+        }
+      }
+
+      // ボタンにイベントリスナーを追加
+      document.getElementById('lang-en').addEventListener('click', () => switchLanguage('en'));
+      document.getElementById('lang-ja').addEventListener('click', () => switchLanguage('ja'));
+      document.getElementById('lang-fr').addEventListener('click', () => switchLanguage('fr'));
+      document.getElementById('lang-uk').addEventListener('click', () => switchLanguage('uk'));
+
+      // ページ読み込み時に初期言語を設定
+      document.addEventListener('DOMContentLoaded', () => {
+        const initialLang = document.documentElement.lang || 'en'; // HTMLのlang属性またはデフォルト'en'
+        switchLanguage(initialLang);
+        // 正しいボタンがアクティブになるように再確認
+         document.querySelectorAll('.lang-switcher button').forEach(button => {
+              button.classList.remove('active');
+          });
+         const activeButton = document.getElementById(`lang-${initialLang}`);
+         if (activeButton) {
+              activeButton.classList.add('active');
+         } else {
+              // フォールバックとして英語ボタンをアクティブに
+              document.getElementById('lang-en')?.classList.add('active');
+         }
+      });
+    </script>
+</body>
+</html>
