@@ -253,6 +253,7 @@
 
         <h2>📋 定型プロンプト（コピーして使ってください）</h2>
         <p>以下のコードブロックの内容全体をコピーして、Google AI Studioに貼り付けてください。</p>
+        <!-- 定型プロンプトのコードブロック。内部の < と > はエスケープが必要 -->
         <div class="prompt-block" id="prompt-template">
             <button class="copy-button" onclick="copyToClipboard('prompt-template')">Copy</button>
 <pre><code># 指示 (Instruction)
@@ -342,19 +343,17 @@
             <li><strong>記憶への定着:</strong> 重要なポイントが強調され、最後にまとめがあることで、何を覚えればよいかが明確になります。確認問題で自分の理解度をチェックすることもできます。</li>
         </ul>
 
-        <!-- <<< ここにサンプルリンクを追加 >>> -->
+        <!-- サンプルリンクのセクション。ここのタグはエスケープしない -->
         <div class="sample-links">
             <h2>📄 生成サンプル</h2>
             <p>このプロンプトを使って実際にAIが生成したWebページの例です。どのようなものが出来上がるかの参考にしてください。</p>
             <ul>
-                <li><a href="https://tbt-beginner.github.io/htmls/samplemath.html" target="_blank" rel="noopener noreferrer">数学II 指数・対数関数の復習ページ サンプル</a></li>
-                <li><a href="https://tbt-beginner.github.io/htmls/samplemath2.html" target="_blank" rel="noopener noreferrer">数学B ベクトルの復習ページ サンプル</a></li>
-                <li><a href="https://tbt-beginner.github.io/htmls/physicssample.html" target="_blank" rel="noopener noreferrer">物理 力学（運動方程式とエネルギー保存則）の復習ページ サンプル</a></li>
+                <li><a href="https://tbt-beginner.github.io/htmls/samplemath.html" target="_blank" rel="noopener noreferrer">数学Iの復習ページ サンプル</a></li>
+                <li><a href="https://tbt-beginner.github.io/htmls/samplemath2.html" target="_blank" rel="noopener noreferrer">数学Iの復習ページ サンプル2</a></li>
+                <li><a href="https://tbt-beginner.github.io/htmls/physicssample.html" target="_blank" rel="noopener noreferrer">物理の復習ページ サンプル</a></li>
             </ul>
             <p>※これらのサンプルは、特定の授業内容に基づいてAIが生成したものです。あなたの入力内容によって、生成されるページは異なります。</p>
         </div>
-        <!-- <<< サンプルリンク ここまで >>> -->
-
 
         <h2>💡 活用のアドバイス</h2>
         <ul>
