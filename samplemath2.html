@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学A - 計算の工夫 | 高校数学復習</title>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          },
+          chtml: {
+            matchFontHeight: false // フォントサイズ調整を無効化し、CSSに委ねる
+          }
+        };
+        </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        /* 基本スタイル */
+        body {
+            font-family: 'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.8;
+            background-color: #ffffff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        /* 見出し */
+        h1, h2, h3, h4 {
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            color: #333; /* 黒に近い色 */
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.2em;
+            text-align: center;
+            border-bottom: 2px solid #4a90e2; /* 青系のアクセント */
+            padding-bottom: 0.3em;
+            margin-bottom: 1em;
+            color: #4a90e2;
+        }
+        h2 {
+            font-size: 1.8em;
+            border-left: 5px solid #4a90e2;
+            padding-left: 10px;
+            color: #333;
+        }
+        h3 {
+            font-size: 1.5em;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.2em;
+            color: #444;
+        }
+        h4 {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* 段落・強調 */
+        p {
+            margin-bottom: 1em;
+        }
+        strong {
+            color: #d9534f; /* 赤系の強調 */
+            font-weight: bold;
+        }
+        em {
+            font-style: italic;
+            color: #5cb85c; /* 緑系の強調 */
+        }
+
+        /* 箇条書き */
+        ul, ol {
+            margin-bottom: 1em;
+            padding-left: 2em;
+        }
+        li {
+            margin-bottom: 0.5em;
+        }
+
+        /* 特殊ブロック */
+        .point, .caution, .supplement, .example, .summary, .exercise {
+            padding: 1.2em;
+            margin: 1.5em 0;
+            border-radius: 6px;
+            border-left-width: 5px;
+            border-left-style: solid;
+        }
+
+        .point {
+            background-color: #fffbe6;
+            border-color: #ffe58f;
+        }
+        .point::before {
+            content: '💡 ポイント';
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5em;
+            color: #ffa726;
+        }
+
+        .caution {
+            background-color: #fff0f0;
+            border-color: #ffcccc;
+        }
+        .caution::before {
+            content: '⚠️ 注意点';
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5em;
+            color: #d9534f;
+        }
+
+        .supplement {
+            background-color: #e6f7f7;
+            border-color: #b3eaea;
+        }
+        .supplement::before {
+            content: '📚 補足・発展';
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5em;
+            color: #00796b;
+        }
+
+        .example {
+            background-color: #f9f9f9;
+            border-color: #ddd;
+        }
+        .example h4 {
+            margin-top: 0;
+            margin-bottom: 0.8em;
+            color: #555;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 0.3em;
+        }
+        .example h4::before {
+           content: '✍️ 例題 ';
+           font-weight: bold;
+        }
+        .example .solution {
+            margin-top: 1em;
+            padding-top: 1em;
+            border-top: 1px solid #eee;
+        }
+        .example .solution p:first-child {
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+
+        .summary {
+            background-color: #f8f9fa;
+            border-color: #e0e0e0;
+        }
+        .summary h3::before {
+            content: '📝 まとめ';
+            font-weight: bold;
+            display: inline-block; /* インラインで表示 */
+            margin-right: 0.3em;
+            color: #4a90e2;
+        }
+        .summary h3 {
+             border-bottom: none; /* まとめ内の見出しは下線なし */
+             margin-bottom: 0.5em;
+        }
+
+        .exercise {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #5cb85c; /* 緑系のアクセント */
+        }
+         .exercise h4 {
+            margin-top: 0;
+            margin-bottom: 0.8em;
+            color: #388e3c; /* 緑系の色 */
+        }
+        .exercise h4::before {
+           content: '✏️ 確認問題';
+           font-weight: bold;
+        }
+        .exercise .question {
+            margin-bottom: 0.5em;
+        }
+        .exercise .answer {
+            margin-top: 1em;
+            font-size: 0.9em;
+            color: #777;
+            display: none; /* 初期状態では非表示 */
+            padding: 0.5em;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        .exercise button {
+            margin-top: 0.5em;
+            padding: 0.3em 0.8em;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .exercise button:hover {
+            background-color: #4cae4c;
+        }
+
+
+        /* 数式スタイル */
+        .math-display {
+            display: block;
+            text-align: center;
+            padding: 1em;
+            margin: 1.5em auto;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            overflow-x: auto; /* 横長の数式対応 */
+            font-size: 1.1em; /* 少し大きく */
+        }
+        mjx-container[jax="CHTML"][display="true"] {
+             display: block;
+             text-align: center;
+             margin: 1.5em auto;
+             padding: 1em;
+             background-color: #f8f9fa;
+             border: 1px solid #e9ecef;
+             border-radius: 4px;
+             overflow-x: auto;
+             font-size: 1.1em;
+        }
+        mjx-container[jax="CHTML"][display="false"] {
+            /* インライン数式 */
+            padding: 0.1em 0.2em;
+            background-color: #f8f9fa; /* 背景を少しだけつける */
+            border-radius: 3px;
+        }
+
+
+        /* インラインコード */
+        code {
+            background-color: #eee;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-size: 0.95em;
+        }
+
+        /* 引用 */
+        blockquote {
+            border-left: 3px solid #ccc;
+            padding-left: 1em;
+            margin-left: 0;
+            color: #666;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 10px;
+            }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.5em; }
+            h3 { font-size: 1.3em; }
+            h4 { font-size: 1.1em; }
+            body { line-height: 1.7; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>数学A 計算の工夫</h1>
+        <h2>ちょっとした工夫で計算を楽にしよう！</h2>
+
+        <p>こんにちは！今日のテーマは「計算の工夫」です。一見すると面倒くさそうな計算でも、ちょっとした<strong>発想の転換</strong>や<strong>公式の活用</strong>で、驚くほど簡単に解けることがあるんです。</p>
+        <p>そのまま計算すると時間がかかったり、計算ミスをしやすかったりする問題も、工夫次第で暗算レベルになることも。そんな「計算の技」を身につけて、数学をもっと楽しく、効率的に進めていきましょう！ (教科書 P.18-20 も参考にしてくださいね)</p>
+
+        <h3>展開公式を利用した計算</h3>
+        <p>まずは、みんなが数学Iで習った「展開公式」を思い出してみましょう。これらを使うと、特定の形の数の計算がとても楽になります。</p>
+
+        <div class="point">
+            <p><strong>活用する展開公式</strong></p>
+            <ul>
+                <li>平方の公式: $(a+b)^2 = a^2 + 2ab + b^2$</li>
+                <li>平方の公式: $(a-b)^2 = a^2 - 2ab + b^2$</li>
+                <li>和と差の積: $(a+b)(a-b) = a^2 - b^2$</li>
+            </ul>
+            <p>ポイントは、計算したい数を <strong>キリの良い数 (10, 100, 1000 など)</strong> を使って $a+b$ や $a-b$ の形に変形することです。</p>
+        </div>
+
+        <div class="example">
+            <h4>例題1: $99^2$ を計算してみよう</h4>
+            <p>そのまま筆算しても良いけれど、ちょっと待って！ $99$ は $100$ に近いよね？</p>
+            <div class="solution">
+                <p>考え方</p>
+                <p>$99 = 100 - 1$ と考えます。すると、$(a-b)^2$ の公式が使えそうですね！ここで $a=100, b=1$ とします。</p>
+                <p>計算</p>
+                $$
+                \begin{aligned}
+                99^2 &= (100 - 1)^2 \\
+                     &= 100^2 - 2 \times 100 \times 1 + 1^2 \\
+                     &= 10000 - 200 + 1 \\
+                     &= 9801
+                \end{aligned}
+                $$
+                <p>ほら、筆算よりもずっと簡単になったでしょう？ 暗算でもできそうですね！</p>
+            </div>
+        </div>
+
+        <div class="example">
+            <h4>例題2: $102 \times 98$ を計算してみよう</h4>
+            <p>これも工夫できそうかな？ $102$ と $98$ は、ある数を基準にして考えると...？</p>
+             <div class="solution">
+                <p>考え方</p>
+                <p>$102 = 100 + 2$、$98 = 100 - 2$ と見ることができますね。これは $(a+b)(a-b)$ の形です！ $a=100, b=2$ として、和と差の積の公式を使います。</p>
+                <p>計算</p>
+                $$
+                \begin{aligned}
+                102 \times 98 &= (100 + 2)(100 - 2) \\
+                              &= 100^2 - 2^2 \\
+                              &= 10000 - 4 \\
+                              &= 9996
+                \end{aligned}
+                $$
+                <p>これも、2桁×2桁の掛け算をするより、ずっと速くて間違いにくいですね。</p>
+            </div>
+        </div>
+
+        <div class="caution">
+            <p><strong>符号ミスに注意！</strong></p>
+            <p>特に $(a-b)^2 = a^2 - 2ab + b^2$ の展開では、真ん中の項の符号がマイナスになることを忘れずに！ $100^2 - 1^2$ のように勘違いしないようにしましょう。</p>
+        </div>
+
+        <h3>因数分解を利用した計算</h3>
+        <p>今度は逆に、式の形を見て「因数分解」を利用するパターンです。展開の逆操作ですね。</p>
+
+        <div class="point">
+             <p><strong>活用する因数分解の公式</strong></p>
+            <ul>
+                <li>平方の差: $a^2 - b^2 = (a+b)(a-b)$</li>
+                <li>平方完成形: $a^2 + 2ab + b^2 = (a+b)^2$</li>
+                <li>平方完成形: $a^2 - 2ab + b^2 = (a-b)^2$</li>
+            </ul>
+            <p>複雑に見える式が、因数分解によって<em>掛け算や簡単な足し算・引き算の形</em>になり、計算が楽になります。</p>
+        </div>
+
+        <div class="example">
+            <h4>例題3: $75^2 - 25^2$ を計算してみよう</h4>
+            <p>$75^2$ と $25^2$ をそれぞれ計算するのは少し大変そうです...</p>
+             <div class="solution">
+                <p>考え方</p>
+                <p>この式は $a^2 - b^2$ の形をしていますね。 $a=75, b=25$ と見れば、因数分解の公式 $a^2 - b^2 = (a+b)(a-b)$ が使えます。</p>
+                <p>計算</p>
+                $$
+                \begin{aligned}
+                75^2 - 25^2 &= (75 + 25)(75 - 25) \\
+                            &= 100 \times 50 \\
+                            &= 5000
+                \end{aligned}
+                $$
+                <p>大きな数の2乗を計算することなく、簡単な掛け算だけで答えが出ました！</p>
+            </div>
+        </div>
+
+        <div class="example">
+            <h4>例題4: $55^2 + 2 \times 55 \times 45 + 45^2$ を計算してみよう</h4>
+            <p>項が3つありますね。どの公式が使えそうか、式の形をよく観察しましょう。</p>
+             <div class="solution">
+                <p>考え方</p>
+                <p>この式は、$a^2 + 2ab + b^2$ の形によく似ています。$a=55, b=45$ としてみると、$2ab = 2 \times 55 \times 45$ となり、式の形とぴったり一致しますね！ よって、$(a+b)^2$ の公式が使えます。</p>
+                <p>計算</p>
+                $$
+                \begin{aligned}
+                55^2 + 2 \times 55 \times 45 + 45^2 &= (55 + 45)^2 \\
+                                                &= 100^2 \\
+                                                &= 10000
+                \end{aligned}
+                $$
+                <p>これも、見事に簡単な計算になりました。</p>
+            </div>
+        </div>
+
+         <div class="supplement">
+            <p><strong>なぜこの工夫が有効なのか？</strong></p>
+            <p>これらの工夫は、本質的には「計算の手間を減らす」ことを目的としています。例えば、$99^2$ を筆算すると、$9 \times 9$ の掛け算が複数回出てきます。一方、$(100-1)^2$ の展開では、$100^2$、$2 \times 100 \times 1$、$1^2$ といった、より計算しやすい項の足し引きで済みます。特に、$100$ のようなキリの良い数の累乗や掛け算は非常に簡単ですよね。</p>
+            <p>同様に、$75^2 - 25^2$ では、2回の2乗計算と1回の引き算が必要ですが、$(75+25)(75-25)$ では、足し算・引き算・掛け算が各1回で済み、しかも $100 \times 50$ という簡単な計算になります。計算の「ステップ数」や「複雑さ」を減らすことが、計算ミスを防ぎ、時間を節約する鍵なのです。</p>
+            <p>これは、将来学ぶより複雑な計算や、物理など他の分野での計算にも役立つ考え方ですよ。</p>
+        </div>
+
+        <h3>計算の工夫のコツ</h3>
+        <p>計算の工夫を上手に行うためには、いくつかのコツがあります。</p>
+
+        <div class="point">
+            <p><strong>式の「形」を見抜く練習</strong></p>
+            <p>最も重要なのは、与えられた式が<strong>どの展開公式や因数分解の公式に当てはまるか</strong>を見抜く力、つまり「式の形を見る眼」を養うことです。</p>
+            <ul>
+                <li>$99^2 \rightarrow (100-1)^2 \rightarrow (a-b)^2$</li>
+                <li>$102 \times 98 \rightarrow (100+2)(100-2) \rightarrow (a+b)(a-b)$</li>
+                <li>$75^2 - 25^2 \rightarrow a^2 - b^2$</li>
+                <li>$55^2 + 2 \times 55 \times 45 + 45^2 \rightarrow a^2 + 2ab + b^2$</li>
+            </ul>
+            <p>たくさんの問題に触れて、「この形はあの公式が使えそうだ！」と気づけるように練習しましょう。</p>
+        </div>
+
+        <div class="caution">
+             <p><strong>焦って計算しないこと！</strong></p>
+            <p>問題を見てすぐに筆算を始めるのではなく、<strong>「何か工夫できないかな？」</strong>と一呼吸置いて考える習慣をつけましょう。特に、キリの良い数に近い数字 (99, 102, 48 など) や、同じ数字が複数回現れる式 (例題4のような形) は、工夫できる可能性が高いサインです。</p>
+            <p>また、どの公式を使うか決めたら、落ち着いて計算を進めましょう。せっかく工夫しても、途中の計算でミスしては元も子もありません。</p>
+        </div>
+
+        <div class="summary">
+            <h3>今回のまとめ</h3>
+            <ul>
+                <li>面倒な計算も、<strong>展開公式</strong>や<strong>因数分解</strong>を利用することで楽にできる場合がある。</li>
+                <li>計算したい数を<strong>キリの良い数 ($100$ など) を基準</strong>に $a \pm b$ の形に変形するのが基本戦略。
+                    <ul>
+                        <li>例: $99 = 100-1$, $102 = 100+2$</li>
+                    </ul>
+                </li>
+                 <li>$a^2 - b^2$, $a^2 \pm 2ab + b^2$ の形を見つけたら、因数分解を試す。</li>
+                <li>最も重要なのは、式の<strong>「形」</strong>をよく観察し、どの公式が使えるかを見抜く力。</li>
+                <li>焦らず、工夫できないか考える習慣をつける。</li>
+            </ul>
+        </div>
+
+        <div class="exercise">
+            <h4>確認問題</h4>
+            <p>今日の授業内容を理解できたか、いくつか問題を解いてみましょう！ 答えだけでなく、どんな工夫をしたか（どの公式を使ったか）も意識してくださいね。</p>
+
+            <div class="question"><strong>問1:</strong> $103^2$ を工夫して計算しなさい。</div>
+            <button onclick="toggleAnswer('ans1')">解答を表示/非表示</button>
+            <div class="answer" id="ans1">
+                <p><strong>解答:</strong></p>
+                <p>$103 = 100 + 3$ と考える。 $(a+b)^2 = a^2 + 2ab + b^2$ を利用 ($a=100, b=3$)。</p>
+                $$
+                \begin{aligned}
+                103^2 &= (100+3)^2 \\
+                      &= 100^2 + 2 \times 100 \times 3 + 3^2 \\
+                      &= 10000 + 600 + 9 \\
+                      &= 10609
+                \end{aligned}
+                $$
+            </div>
+
+            <div class="question" style="margin-top: 1.5em;"><strong>問2:</strong> $52 \times 48$ を工夫して計算しなさい。</div>
+            <button onclick="toggleAnswer('ans2')">解答を表示/非表示</button>
+            <div class="answer" id="ans2">
+                <p><strong>解答:</strong></p>
+                <p>$52 = 50 + 2$, $48 = 50 - 2$ と考える。 $(a+b)(a-b) = a^2 - b^2$ を利用 ($a=50, b=2$)。</p>
+                $$
+                \begin{aligned}
+                52 \times 48 &= (50+2)(50-2) \\
+                            &= 50^2 - 2^2 \\
+                            &= 2500 - 4 \\
+                            &= 2496
+                \end{aligned}
+                $$
+            </div>
+
+             <div class="question" style="margin-top: 1.5em;"><strong>問3:</strong> $85^2 - 15^2$ を工夫して計算しなさい。</div>
+            <button onclick="toggleAnswer('ans3')">解答を表示/非表示</button>
+            <div class="answer" id="ans3">
+                <p><strong>解答:</strong></p>
+                <p>$a^2 - b^2 = (a+b)(a-b)$ を利用 ($a=85, b=15$)。</p>
+                $$
+                \begin{aligned}
+                85^2 - 15^2 &= (85+15)(85-15) \\
+                            &= 100 \times 70 \\
+                            &= 7000
+                \end{aligned}
+                $$
+            </div>
+
+            <div class="question" style="margin-top: 1.5em;"><strong>問4:</strong> $27^2 + 2 \times 27 \times 23 + 23^2$ を工夫して計算しなさい。</div>
+            <button onclick="toggleAnswer('ans4')">解答を表示/非表示</button>
+             <div class="answer" id="ans4">
+                <p><strong>解答:</strong></p>
+                <p>$a^2 + 2ab + b^2 = (a+b)^2$ の形をしている。$a=27, b=23$ と見る。</p>
+                $$
+                \begin{aligned}
+                27^2 + 2 \times 27 \times 23 + 23^2 &= (27 + 23)^2 \\
+                                                    &= 50^2 \\
+                                                    &= 2500
+                \end{aligned}
+                $$
+            </div>
+        </div>
+
+        <p style="margin-top: 2em; text-align: center; font-size: 0.9em; color: #888;">これで今日の復習は終わりです。計算の工夫は、練習すればするほど得意になります。色々な問題で試してみてくださいね！</p>
+
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            if (answer.style.display === 'none' || answer.style.display === '') {
+                answer.style.display = 'block';
+            } else {
+                answer.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
