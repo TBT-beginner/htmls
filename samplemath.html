@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学I 復習: 数式の整理 - 降べきの順</title>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+        };
+      </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+    <style>
+        :root {
+            --main-bg-color: #ffffff;
+            --text-color: #333;
+            --heading-color: #005a9c;
+            --accent-color: #007bff;
+            --point-bg: #fffbe6;
+            --point-border: #ffeeba;
+            --caution-bg: #fff0f0;
+            --caution-border: #ffdddd;
+            --supplement-bg: #e6f7f7;
+            --supplement-border: #c3e6cb;
+            --example-bg: #f8f9fa;
+            --example-border: #dee2e6;
+            --summary-bg: #e9ecef;
+            --summary-border: #ced4da;
+            --exercise-bg: #f1f3f5;
+            --exercise-border: #adb5bd;
+            --math-display-bg: #f8f9fa;
+            --code-bg: #e9ecef;
+            --font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+            --line-height: 1.8;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: var(--line-height);
+            color: var(--text-color);
+            background-color: var(--main-bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--heading-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+        }
+
+        h1 {
+            font-size: 2em;
+            text-align: center;
+            border-bottom: 3px solid var(--heading-color);
+        }
+
+        h2 {
+            font-size: 1.6em;
+            border-bottom-width: 2px;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            border-bottom: 1px dashed var(--accent-color);
+        }
+
+        h4 {
+            font-size: 1.1em;
+            border-bottom: none;
+            color: #555;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        strong {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+            color: #d63384; /* 強調用 */
+        }
+
+        ul, ol {
+            margin-bottom: 1em;
+            padding-left: 2em;
+        }
+
+        li {
+            margin-bottom: 0.5em;
+        }
+
+        .point, .caution, .supplement, .example, .summary, .exercise {
+            margin: 1.5em 0;
+            padding: 1.5em;
+            border: 1px solid;
+            border-radius: 8px;
+            position: relative; /* For icon positioning */
+        }
+
+        .point::before, .caution::before, .supplement::before {
+            content: '';
+            font-size: 1.2em;
+            font-weight: bold;
+            position: absolute;
+            left: 15px;
+            top: 15px;
+        }
+
+        .point {
+            background-color: var(--point-bg);
+            border-color: var(--point-border);
+        }
+        .point::before { content: '💡'; }
+
+        .caution {
+            background-color: var(--caution-bg);
+            border-color: var(--caution-border);
+        }
+        .caution::before { content: '⚠️'; }
+
+        .supplement {
+            background-color: var(--supplement-bg);
+            border-color: var(--supplement-border);
+        }
+        .supplement::before { content: '📚'; }
+
+        .example {
+            background-color: var(--example-bg);
+            border: 1px solid var(--example-border);
+            padding: 1.5em;
+            border-radius: 8px;
+        }
+        .example h4 {
+            margin-top: 0;
+            margin-bottom: 0.8em;
+            border-bottom: 1px solid var(--example-border);
+            padding-bottom: 0.4em;
+        }
+
+        .summary {
+            background-color: var(--summary-bg);
+            border-color: var(--summary-border);
+        }
+
+        .exercise {
+            background-color: var(--exercise-bg);
+            border-color: var(--exercise-border);
+        }
+        .exercise h4 {
+             margin-top: 0;
+             margin-bottom: 0.8em;
+        }
+
+        .math-display {
+            display: block;
+            text-align: center;
+            padding: 1em;
+            margin: 1em auto;
+            background-color: var(--math-display-bg);
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow-x: auto; /* 長い数式用 */
+        }
+
+        /* インライン数式用 (特に調整不要な場合が多い) */
+        /* mjx-container[jax="CHTML"][display="false"] { ... } */
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        }
+
+        blockquote {
+            margin: 1em 0 1em 2em;
+            padding-left: 1em;
+            border-left: 4px solid #ccc;
+            color: #666;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.4em; }
+            h3 { font-size: 1.2em; }
+            .point::before, .caution::before, .supplement::before {
+                position: static; /* スマホではアイコンをインラインに */
+                margin-right: 5px;
+            }
+            .point, .caution, .supplement, .example, .summary, .exercise {
+                padding: 1em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>数学I 復習: 数式の整理 - 降べきの順</h1>
+
+        <p>今日の授業では、「降べきの順」についてたくさんの問題を解きましたね！お疲れ様でした。多項式の計算や因数分解など、今後の数学の学習でとても<strong>基本的かつ重要な考え方</strong>なので、ここでしっかり復習してマスターしましょう！</p>
+
+        <h2>1. 「降べきの順」ってなんだっけ？</h2>
+
+        <p>たくさんの項がある多項式は、そのままではちょっと見にくいですよね。どの項が一番「強い」（次数が高い）のか、同じ仲間（同類項）はどれか、パッと見て分かるように整理する方法が「降べきの順」です。</p>
+
+        <div class="point">
+            <h4>💡 降べきの順 (こうべきのじゅん) とは？</h4>
+            <p>多項式を、<strong>特定の文字について</strong>、その<strong>次数が高い項から低い項へ</strong>順番に並べる整理方法のこと。</p>
+            <ul>
+                <li><strong>特定の文字</strong>: 式の中に $x$ や $y$ など複数の文字がある場合、「どの文字に着目して整理するか」を決める必要があります。</li>
+                <li><strong>次数</strong>: その文字が何回かけられているかを示す数。例えば $3x^2y$ の $x$ についての次数は 2、$y$ についての次数は 1 です。</li>
+                <li><strong>定数項</strong>: 特定の文字を含まない項のこと。降べきの順では最後にまとめます。</li>
+            </ul>
+        </div>
+
+        <h2>2. なぜ降べきの順に整理するの？</h2>
+
+        <p>降べきの順に整理すると、いくつかのメリットがあります。</p>
+        <ul>
+            <li><strong>式の構造が分かりやすくなる</strong>: 最も次数の高い項（最高次の項）や、定数項がすぐに分かります。</li>
+            <li><strong>同類項を見つけやすく、まとめやすい</strong>: 同じ次数の項が隣り合うので、計算ミスを防ぎやすくなります。</li>
+            <li><strong>今後の学習の基礎になる</strong>: 多項式の加法・減法・乗法、因数分解、方程式・不等式、微分・積分など、多くの場面で降べきの順に整理することが基本となります。</li>
+        </ul>
+
+        <div class="supplement">
+            <h4>📚 補足: 「昇べきの順」もあるよ</h4>
+            <p>逆に、次数が<strong>低い項から高い項へ</strong>並べる方法を「昇べきの順（しょうべきのじゅん）」と言います。特定の状況（無限級数など）で使われることもありますが、高校数学の多項式の整理では、基本的に<strong>降べきの順</strong>を使います。</p>
+        </div>
+
+        <h2>3. 降べきの順に整理する手順</h2>
+
+        <p>具体的な整理の手順を見ていきましょう！</p>
+
+        <ol>
+            <li><strong>着目する文字を決める</strong>: 問題で指示されている場合や、自分で決める場合があります。</li>
+            <li><strong>各項の、着目した文字についての次数を調べる</strong>: それぞれの項が、着目した文字を何個含んでいるか確認します。</li>
+            <li><strong>次数の高い順に項を並べ替える</strong>: 次数が大きいものから順に左から並べます。</li>
+            <li><strong>同類項をまとめる</strong>: 同じ次数の項が複数ある場合は、係数を計算して一つの項にまとめます。（係数が文字式になる場合は、カッコでくくります）</li>
+            <li><strong>定数項をまとめる</strong>: 着目した文字を含まない項（定数項）をすべてまとめて、式の最後に書きます。（定数項が複数ある場合も、まとめてカッコでくくることがあります）</li>
+        </ol>
+
+        <h2>4. 例題で確認しよう！</h2>
+
+        <p>授業で解いたような問題を例に、手順を確認してみましょう。</p>
+
+        <div class="example">
+            <h4>例題1: 1つの文字についての整理</h4>
+            <p>次の多項式を $x$ について降べきの順に整理しなさい。</p>
+            <p class="math-display">$$ 5x + 3x^3 - 2 - 4x^2 + x^3 - 7x $$</p>
+            <h4>考え方と解答</h4>
+            <ol>
+                <li><strong>着目する文字</strong>: $x$ ですね。</li>
+                <li><strong>各項の次数 ($x$ について)</strong>:
+                    <ul>
+                        <li>$3x^3$: 次数 3</li>
+                        <li>$+x^3$: 次数 3</li>
+                        <li>$-4x^2$: 次数 2</li>
+                        <li>$+5x$: 次数 1</li>
+                        <li>$-7x$: 次数 1</li>
+                        <li>$-2$: 次数 0 (定数項)</li>
+                    </ul>
+                </li>
+                <li><strong>次数の高い順に並べる</strong>:
+                    $$ 3x^3 + x^3 - 4x^2 + 5x - 7x - 2 $$
+                </li>
+                <li><strong>同類項をまとめる</strong>:
+                    <ul>
+                        <li>$x^3$ の項: $(3+1)x^3 = 4x^3$</li>
+                        <li>$x^2$ の項: $-4x^2$ (1つだけ)</li>
+                        <li>$x$ の項: $(5-7)x = -2x$</li>
+                        <li>定数項: $-2$ (1つだけ)</li>
+                    </ul>
+                    まとめた結果:
+                    <span class="math-display">$$ 4x^3 - 4x^2 - 2x - 2 $$</span>
+                </li>
+            </ol>
+            <p>これが $x$ について降べきの順に整理された形です。</p>
+        </div>
+
+        <div class="example">
+            <h4>例題2: 複数の文字を含む場合の整理</h4>
+            <p>次の多項式を $x$ について降べきの順に整理しなさい。</p>
+            <p class="math-display">$$ 2x^2 + 5xy - 3y^2 + 4x - y + 1 $$</p>
+            <h4>考え方と解答</h4>
+            <ol>
+                <li><strong>着目する文字</strong>: $x$ です。$y$ は $x$ にとっては「定数」のように扱います。</li>
+                <li><strong>各項の次数 ($x$ について)</strong>:
+                    <ul>
+                        <li>$2x^2$: 次数 2</li>
+                        <li>$+5xy$: 次数 1 ($y$ は係数の一部と考えます)</li>
+                        <li>$+4x$: 次数 1</li>
+                        <li>$-3y^2$: 次数 0 ($x$ を含まない)</li>
+                        <li>$-y$: 次数 0 ($x$ を含まない)</li>
+                        <li>$+1$: 次数 0 ($x$ を含まない)</li>
+                    </ul>
+                </li>
+                <li><strong>次数の高い順に並べる</strong>: $x$ の次数で並べます。
+                    $$ 2x^2 + 5xy + 4x - 3y^2 - y + 1 $$
+                </li>
+                <li><strong>同類項をまとめる</strong>: $x$ の次数が同じ項をまとめます。
+                    <ul>
+                        <li>$x^2$ の項: $2x^2$</li>
+                        <li>$x$ の項 (次数 1): $5xy$ と $4x$。係数を $x$ でくくると $(5y + 4)x$ となります。</li>
+                        <li>$x$ を含まない項 (定数項): $-3y^2, -y, +1$。これらは $x$ にとっては定数なので、まとめてカッコでくくります: $(-3y^2 - y + 1)$。</li>
+                    </ul>
+                     まとめた結果:
+                    <span class="math-display">$$ 2x^2 + (5y+4)x + (-3y^2 - y + 1) $$</span>
+                    <p>または、最後のカッコを展開して $2x^2 + (5y+4)x - 3y^2 - y + 1$ と書くこともあります。どちらでもOKです。</p>
+                </li>
+            </ol>
+        </div>
+
+        <div class="caution">
+            <h4>⚠️ ここで注意！</h4>
+            <ul>
+                <li><strong>どの文字に着目するか</strong> を常に意識しましょう！ 例題2を $y$ について整理すると、全く違う結果になりますよ。（ぜひ試してみてください！）</li>
+                <li><strong>同類項のまとめ忘れ</strong>に注意！ 特に係数が文字式になる場合（例題2の $x$ の項など）は、慎重に計算しましょう。</li>
+                <li><strong>定数項</strong>は、着目した文字を含まない<em>すべての項</em>を指します。例題2では $-3y^2, -y, +1$ の3つが $x$ にとっての定数項です。これらをまとめて書くことを忘れずに。</li>
+                <li>符号（プラス・マイナス）の扱いに気をつけましょう。</li>
+            </ul>
+        </div>
+
+        <div class="supplement">
+            <h4>🎓 発展: なぜ降べきの順が「標準」なのか？</h4>
+            <p>多項式 $P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0$ のように、降べきの順に書くと、</p>
+            <ul>
+                <li>一番次数の高い項 $a_n x^n$ (最高次の項) が先頭に来るので、この多項式が「$n$ 次式」であることが一目でわかります。</li>
+                <li>$x$ に非常に大きな値や非常に小さな値を入れたときの多項式の振る舞い（極限）を考える際、最高次の項が最も影響力が大きいため、この形が便利です。</li>
+                <li>多項式の割り算（筆算）を行う際も、降べきの順に整理されていることが前提となります。</li>
+            </ul>
+            <p>このように、式の「主役」となる項を先頭に持ってくることで、式の性質を捉えやすくなるため、降べきの順が広く使われているのです。</p>
+        </div>
+
+
+        <h2>5. まとめ: 降べきの順マスターへの道</h2>
+
+        <div class="summary">
+            <h4>今日のポイント</h4>
+            <ul>
+                <li><strong>降べきの順</strong>とは、多項式を<strong>特定の文字</strong>について、<strong>次数が高い順</strong>に整理すること。</li>
+                <li>整理する手順: ①着目文字決定 → ②次数確認 → ③並べ替え → ④同類項まとめ → ⑤定数項まとめ。</li>
+                <li><strong>どの文字に着目するか</strong>が非常に重要！</li>
+                <li>同類項をまとめるときは、<strong>係数をカッコでくくる</strong>ことがある。</li>
+                <li>着目文字を含まない項は<strong>すべて定数項</strong>として最後にまとめる。</li>
+                <li>降べきの順は、今後の数学（特に代数分野）で必須の<strong>基本スキル</strong>！</li>
+            </ul>
+        </div>
+
+        <p>最初は少し面倒に感じるかもしれませんが、練習すれば必ずスムーズにできるようになります。焦らず、一つ一つの手順を確認しながら取り組んでみてくださいね。</p>
+
+        <h2>6. 理解度チェック！ 演習問題</h2>
+
+        <p>今日の復習として、いくつか問題を解いてみましょう！</p>
+
+        <div class="exercise">
+            <h4>💪 確認問題</h4>
+            <ol>
+                <li>次の多項式を $x$ について降べきの順に整理しなさい。
+                    <p class="math-display">$$ 3x^2 - 5 + 6x - x^2 + 2x - 8 $$</p>
+                </li>
+                <li>次の多項式を $y$ について降べきの順に整理しなさい。
+                    <p class="math-display">$$ 4a^2 + 3ab - 2b^2 + 5a - 6b + 1 $$</p>
+                    (ヒント: この問題では $a$ は定数扱いになります)
+                </li>
+                <li>次の多項式 $A = 2x^3 - x^2y + 5xy^2 + 3y^3$, $B = x^3 + 2x^2y - xy^2 - 4y^3$ について、$A+B$ と $A-B$ を計算し、それぞれ $x$ について降べきの順に整理しなさい。</li>
+            </ol>
+            <details>
+                <summary>解答はこちら</summary>
+                <ol>
+                    <li>$3x^2 - x^2 + 6x + 2x - 5 - 8 = (3-1)x^2 + (6+2)x + (-5-8) = \boldsymbol{2x^2 + 8x - 13}$</li>
+                    <li>$y$ についての次数で見る: $-2b^2$ (次数2), $+3ab$ (次数1), $-6b$ (次数1), $4a^2, +5a, +1$ (次数0, 定数項)。
+                        <br>整理すると: $-2b^2 + (3a-6)b + (4a^2 + 5a + 1)$</li>
+                    <li>$A+B = (2x^3 - x^2y + 5xy^2 + 3y^3) + (x^3 + 2x^2y - xy^2 - 4y^3)$
+                        <br>$= (2+1)x^3 + (-1+2)x^2y + (5-1)xy^2 + (3-4)y^3$
+                        <br>$= \boldsymbol{3x^3 + x^2y + 4xy^2 - y^3}$
+                        <br><br>
+                        $A-B = (2x^3 - x^2y + 5xy^2 + 3y^3) - (x^3 + 2x^2y - xy^2 - 4y^3)$
+                        <br>$= 2x^3 - x^2y + 5xy^2 + 3y^3 - x^3 - 2x^2y + xy^2 + 4y^3$
+                        <br>$= (2-1)x^3 + (-1-2)x^2y + (5+1)xy^2 + (3+4)y^3$
+                        <br>$= \boldsymbol{x^3 - 3x^2y + 6xy^2 + 7y^3}$
+                        <br>(どちらも $x$ について降べきの順になっていますね！)</li>
+                </ol>
+            </details>
+        </div>
+
+        <p>どうでしたか？ もし分からないところがあれば、遠慮なく質問してくださいね。繰り返し練習することが、理解と定着への一番の近道です。頑張りましょう！</p>
+
+    </div>
+</body>
+</html>
