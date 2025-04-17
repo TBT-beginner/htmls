@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【大学入試物理 解説】斜面と衝突・分裂の複合問題（力学）</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Noto Sans JP', sans-serif; /* 日本語フォント追加 */
+    line-height: 1.7; /* 行間少し広め */
+    margin: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px 40px; /* パディング調整 */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 影を少し強調 */
+  }
+  h1 {
+    color: #2c3e50;
+    text-align: center;
+    border-bottom: 3px solid #3498db; /* 線を太く */
+    padding-bottom: 15px;
+    margin-bottom: 40px; /* マージン調整 */
+    font-size: 1.8em; /* フォントサイズ調整 */
+  }
+  h2 {
+    color: #3498db;
+    border-left: 6px solid #3498db; /* 左ボーダー太く */
+    padding-left: 12px;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    font-size: 1.5em;
+  }
+  h3 {
+    color: #e67e22;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    border-bottom: 1px dashed #e67e22; /* 下線追加 */
+    padding-bottom: 5px;
+  }
+    h4 { /* 小見出し追加 */
+    color: #34495e;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 1.15em;
+  }
+  p {
+    margin-bottom: 15px;
+  }
+  ul {
+    list-style-type: disc;
+    margin-left: 25px; /* インデント調整 */
+    margin-bottom: 15px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  strong {
+    color: #c0392b;
+    font-weight: bold; /* 太字を確実に */
+  }
+  em {
+    font-style: italic;
+    color: #2980b9;
+  }
+  hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    margin: 40px 0;
+  }
+  .problem-statement, .explanation-section {
+    margin-bottom: 30px;
+  }
+  .problem-statement {
+    background-color: #eaf2f8;
+    padding: 20px;
+    border-left: 5px solid #5dade2;
+    border-radius: 5px;
+  }
+  .math-display { /* ディスプレイ数式用コンテナスタイル */
+    display: block;
+    padding: 5px 0; /* 上下の余白調整 */
+    margin: 15px 0;
+    text-align: center;
+  }
+  .math-inline { /* インライン数式用コンテナスタイル (デリミタで囲むのでスタイルは不要かも) */
+     /* 必要ならスタイル追加 */
+  }
+  .point, .caution {
+    background-color: #fef9e7;
+    border: 1px solid #f1c40f;
+    padding: 15px 20px;
+    margin: 25px 0;
+    border-radius: 5px;
+    border-left: 5px solid #f1c40f; /* 左ボーダー強調 */
+  }
+  .point strong, .caution strong {
+    color: #d35400; /* ポイント内の強調色 */
+    display: block; /* 見出しのように */
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+  .point ul, .caution ul {
+      margin-top: 10px;
+  }
+  .question-item { /* 問いの項目用 */
+      margin-bottom: 15px;
+  }
+
+</style>
+
+<!-- MathJaxの読み込み設定 -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']], // インライン数式のデリミタ
+    displayMath: [['$$', '$$'], ['\\[', '\\]']], // ディスプレイ数式のデリミタ
+    processEscapes: true, // \$ をエスケープ文字として扱う
+    tags: 'ams' // 式番号 (AMS)
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+</head>
+<body>
+
+<div class="container">
+
+  <h1>【大学入試物理 解説】斜面と衝突・分裂の複合問題（力学）</h1>
+
+  <div class="problem-statement">
+    <h2>問題設定</h2>
+    <p>図のように、水平でなめらかな床の上に、質量 <span class="math-inline">$M$</span> のくさび形の台が置かれている。台の斜面は角度 <span class="math-inline">$\theta$</span> で、なめらかである。最初、台は床の上で静止していた。</p>
+    <p>次に、質量 <span class="math-inline">$m$</span> の小物体 P を台の斜面の高さ <span class="math-inline">$h$</span> の点 A から静かに放した。小物体 P は斜面を滑り降り、最下点 B に達した。重力加速度の大きさを <span class="math-inline">$g$</span> とする。</p>
+    <p><strong>（図は省略：高さ <span class="math-inline">$h$</span> の斜面を持つ台の上を小物体 P が滑り降りる状況を想像してください）</strong></p>
+    <hr style="margin: 20px 0; background-image: none; border-top: 1px solid #ccc;">
+    <div class="question-item">
+      <p><strong>問 (1)</strong> 小物体 P が斜面の最下点 B に達した瞬間の、床に対する小物体 P の速度の水平成分 <span class="math-inline">$v_x$</span>、鉛直成分 <span class="math-inline">$v_y$</span>、および床に対する台の速度 <span class="math-inline">$V$</span> を求めよ。</p>
+    </div>
+    <div class="question-item">
+      <p><strong>問 (2)</strong> 小物体 P が最下点 B に達した直後、小物体 P は水平方向に 2 つの部分に分裂した。分裂後の質量はそれぞれ <span class="math-inline">$m_1$</span> と <span class="math-inline">$m_2$</span> (<span class="math-inline">$m_1 + m_2 = m$</span>) である。分裂直後の質量 <span class="math-inline">$m_1$</span> の部分の床に対する速度は、水平右向きに <span class="math-inline">$v_1$</span> であった。このとき、分裂直後の質量 <span class="math-inline">$m_2$</span> の部分の床に対する速度 <span class="math-inline">$v_2$</span> と、台の速度 <span class="math-inline">$V'$</span> を求めよ。分裂は瞬間的に起こり、分裂によって失われた力学的エネルギーはないものとする。</p>
+    </div>
+    <div class="question-item">
+      <p><strong>問 (3)</strong> (2)の分裂において、失われた力学的エネルギーが <span class="math-inline">$\Delta E$</span> であった場合、分裂直後の質量 <span class="math-inline">$m_2$</span> の部分の床に対する速度 <span class="math-inline">$v_2$</span> と台の速度 <span class="math-inline">$V'$</span> を求めよ。</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>解説</h2>
+
+  <div class="explanation-section">
+    <h3>(1) 小物体 P が最下点 B に達するまで</h3>
+    <p>この過程では、小物体 P と台を<strong>一つの系</strong>として考えます。<br>
+    注目すべき保存則は以下の２つです。</p>
+    <ul>
+      <li><strong>水平方向の運動量保存則</strong>:
+        系全体に水平方向の外力が働かないため、水平方向の運動量は保存されます。
+        （鉛直方向には重力や垂直抗力が働くので、鉛直方向の運動量は保存されません）</li>
+      <li><strong>力学的エネルギー保存則</strong>:
+        保存力（重力）以外の外力（床からの垂直抗力）は仕事をしない、かつ斜面はなめらかなので摩擦力による仕事もないため、系全体の力学的エネルギーは保存されます。</li>
+    </ul>
+
+    <h4>1. 運動量保存則（水平方向）</h4>
+    <ul>
+        <li>初期状態: P も台も静止しているので、全運動量は <span class="math-inline">$0$</span>。</li>
+        <li>B点到達時: P の速度を <span class="math-inline">$(v_x, v_y)$</span>、台の速度を <span class="math-inline">$(V, 0)$</span> とします。（右向きを正、鉛直下向きを正とすると <span class="math-inline">$v_x > 0, v_y > 0, V < 0$</span> となるはずです）</li>
+        <li>運動量保存則より:</li>
+    </ul>
+    <div class="math-display">
+      $$ m v_x + M V = 0 \quad \cdots (1) $$
+    </div>
+
+    <h4>2. 力学的エネルギー保存則</h4>
+    <ul>
+        <li>初期状態 (A点): 位置エネルギー <span class="math-inline">$mgh$</span> （運動エネルギーは <span class="math-inline">$0$</span>）</li>
+        <li>B点到達時: P の運動エネルギー <span class="math-inline">$\frac{1}{2} m (v_x^2 + v_y^2)$</span>、台の運動エネルギー <span class="math-inline">$\frac{1}{2} M V^2$</span> （位置エネルギー基準点を B点とする）</li>
+        <li>エネルギー保存則より:</li>
+    </ul>
+    <div class="math-display">
+      $$ mgh = \frac{1}{2} m (v_x^2 + v_y^2) + \frac{1}{2} M V^2 \quad \cdots (2) $$
+    </div>
+
+    <h4>3. 拘束条件（速度の関係）</h4>
+    <p>小物体 P は常に台の斜面上を動くため、<strong>台から見た P の相対速度</strong>は斜面に沿っていなければなりません。</p>
+    <ul>
+        <li>床から見た P の速度: <span class="math-inline">$(v_x, v_y)$</span></li>
+        <li>床から見た台の速度: <span class="math-inline">$(V, 0)$</span></li>
+        <li>台から見た P の相対速度: <span class="math-inline">$(v_x - V, v_y)$</span></li>
+    </ul>
+    <p>この相対速度ベクトルが、角度 <span class="math-inline">$\theta$</span> の斜面に沿う（右下方向き）ので、成分の比は <span class="math-inline">$\tan\theta$</span> になります。（ここでは鉛直下向きを正）</p>
+    <div class="math-display">
+      $$ \frac{v_y}{v_x - V} = \tan\theta $$
+    </div>
+    <div class="math-display">
+      $$ v_y = (v_x - V) \tan\theta \quad \cdots (3) $$
+    </div>
+
+    <h4>4. 連立方程式を解く</h4>
+    <p>式(1), (2), (3) を連立して、<span class="math-inline">$v_x, v_y, V$</span> を求めます。</p>
+    <ul>
+        <li>式(1) より: <span class="math-inline">$V = -\frac{m}{M} v_x$</span></li>
+        <li>これを式(3) に代入:</li>
+    </ul>
+    <div class="math-display">
+      $$ v_y = \left(v_x - \left(-\frac{m}{M}v_x\right)\right) \tan\theta = \left(1 + \frac{m}{M}\right) v_x \tan\theta = \frac{M+m}{M} v_x \tan\theta \quad \cdots (4) $$
+    </div>
+    <ul>
+        <li><span class="math-inline">$V$</span> と <span class="math-inline">$v_y$</span> を式(2) に代入:</li>
+    </ul>
+    <div class="math-display">
+      $$ mgh = \frac{1}{2} m \left[ v_x^2 + \left( \frac{M+m}{M} v_x \tan\theta \right)^2 \right] + \frac{1}{2} M \left( -\frac{m}{M} v_x \right)^2 $$
+    </div>
+    <div class="math-display">
+      $$ mgh = \frac{1}{2} m v_x^2 \left[ 1 + \left(\frac{M+m}{M}\right)^2 \tan^2\theta \right] + \frac{1}{2} M \frac{m^2}{M^2} v_x^2 $$
+    </div>
+    <div class="math-display">
+      $$ mgh = \frac{1}{2} m v_x^2 \left[ 1 + \frac{(M+m)^2}{M^2} \tan^2\theta + \frac{m}{M} \right] $$
+    </div>
+    <p>これを <span class="math-inline">$v_x$</span> について解くと（計算過程略）:</p>
+    <div class="math-display">
+      $$ v_x = M \sqrt{ \frac{2gh}{m \left[ M + \frac{(M+m)^2}{M} \tan^2\theta + m \right]} } = M \sqrt{ \frac{2gh M}{m (M^2 + (M+m)^2 \tan^2\theta + mM)} } $$
+    </div>
+    <p>（右向きなので正）</p>
+    <p>この <span class="math-inline">$v_x$</span> を使って <span class="math-inline">$v_y$</span> と <span class="math-inline">$V$</span> も求められます。</p>
+    <div class="math-display">
+      $$ v_y = (M+m) \tan\theta \sqrt{ \frac{2gh}{m (M^2 + (M+m)^2 \tan^2\theta + mM)} } $$
+    </div>
+    <p>（下向きなので正）</p>
+    <div class="math-display">
+      $$ V = -m \sqrt{ \frac{2gh M}{m (M^2 + (M+m)^2 \tan^2\theta + mM)} } $$
+    </div>
+    <p>（左向きなので負）</p>
+
+    <div class="point">
+      <strong>Point (1)</strong>
+      <ul>
+        <li>複数の物体が絡む問題では、まず「系全体」で保存則が使えないか考える。</li>
+        <li>どの方向の運動量が保存されるか？ 外力が働かない方向を見抜く。</li>
+        <li>エネルギー保存則が使えるか？ 非保存力（摩擦など）や外力の仕事がないか確認。</li>
+        <li>速度の関係（束縛条件）が重要なカギになることが多い。落ち着いて立式する。</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="explanation-section">
+    <h3>(2) 分裂（エネルギー損失なし）</h3>
+    <p>分裂は<strong>瞬間的</strong>に起こる現象です。この間、 P 内部の力（内力）が主役であり、外力（重力など）の力積は無視できるほど小さいと考えます。</p>
+
+    <h4>1. 運動量保存則（水平方向）</h4>
+    <p>分裂の前後で、<strong>小物体 P 全体と台からなる系の水平方向の運動量</strong>は保存されます。</p>
+    <ul>
+      <li>分裂直前の水平運動量: <span class="math-inline">$m v_x + M V = 0$</span> （(1)より）</li>
+      <li>分裂直後: <span class="math-inline">$m_1$</span> の速度 <span class="math-inline">$v_1$</span> (右向き)、<span class="math-inline">$m_2$</span> の水平速度 <span class="math-inline">$v_2$</span>、台の速度 <span class="math-inline">$V'$</span></li>
+      <li>水平方向の運動量保存則より:</li>
+    </ul>
+    <div class="math-display">
+      $$ m_1 v_1 + m_2 v_2 + M V' = 0 \quad \cdots (5) $$
+    </div>
+
+    <h4>2. 台の速度 <span class="math-inline">$V'$</span></h4>
+    <p>分裂は小物体 P 内部の現象であり、瞬間的に起こります。この短い時間では、分裂によって P から台に働く水平方向の力積は無視できる、あるいは働かないと考えるのが自然です。
+    よって、<strong>台の速度は分裂の前後で変化しない</strong>と仮定します。</p>
+    <div class="math-display">
+      $$ V' = V \quad (\text{V は(1)で求めた値}) $$
+    </div>
+
+    <h4>3. <span class="math-inline">$m_2$</span> の速度 <span class="math-inline">$v_2$</span></h4>
+    <p><span class="math-inline">$V' = V$</span> を式(5)に代入します。</p>
+    <div class="math-display">
+      $$ m_1 v_1 + m_2 v_2 + M V = 0 $$
+    </div>
+    <p>ここで、(1) の <span class="math-inline">$m v_x + M V = 0$</span> より <span class="math-inline">$M V = -m v_x$</span> なので、</p>
+    <div class="math-display">
+      $$ m_1 v_1 + m_2 v_2 - m v_x = 0 $$
+    </div>
+    <p>これを <span class="math-inline">$v_2$</span> について解くと、</p>
+    <div class="math-display">
+      $$ m_2 v_2 = m v_x - m_1 v_1 $$
+    </div>
+    <div class="math-display">
+      $$ v_2 = \frac{m v_x - m_1 v_1}{m_2} $$
+    </div>
+    <p>この結果は、<strong>小物体 P 単独で見て、分裂の前後で水平方向の運動量が保存される</strong> (<span class="math-inline">$m v_x = m_1 v_1 + m_2 v_2$</span>) と考えても同じになります。</p>
+
+    <h4>4. エネルギーについて</h4>
+    <p>問題文より「分裂によって失われた力学的エネルギーはない」とあります。これは、分裂前の系の運動エネルギー <span class="math-inline">$K_{\text{before}} = \frac{1}{2} m (v_x^2 + v_y^2) + \frac{1}{2} M V^2 = mgh$</span> と、分裂後の系の運動エネルギー <span class="math-inline">$K_{\text{after}} = \frac{1}{2} m_1 v_1^2 + \frac{1}{2} m_2 (v_2^2 + (v'_y)^2) + \frac{1}{2} M (V')^2$</span> が等しいことを意味します（ここで <span class="math-inline">$v'_y$</span> は分裂後の <span class="math-inline">$m_2$</span> の鉛直速度）。<span class="math-inline">$v'_y$</span> は、P の鉛直方向の運動量保存 <span class="math-inline">$m v_y = m_2 v'_y$</span> から <span class="math-inline">$v'_y = \frac{m}{m_2} v_y$</span> となります。このエネルギー保存の式は、速度を求める上では直接使いませんでしたが、検算や、もし <span class="math-inline">$v_1$</span> が未知の場合などに使えます。</p>
+
+    <div class="caution">
+      <strong>Caution (2)</strong>
+      <ul>
+        <li>分裂・合体では、まず<strong>運動量保存則</strong>を最優先で考えましょう。</li>
+        <li>「瞬間的」という言葉から、相互作用時間が短く、外力の力積が無視できること、分裂に関与しない物体の速度変化がない (<span class="math-inline">$V'=V$</span>) と考えるのが定石です。</li>
+        <li>エネルギー保存は条件によります。「失われたエネルギーがない」場合でも、それは分裂の内部エネルギーが運動エネルギーに変換されたことを含めての保存です。</li>
+      </ul>
+    </div>
+
+    <p><strong>答え (2):</strong></p>
+    <div class="math-display">
+      $$ v_2 = \frac{m v_x - m_1 v_1}{m_2} \quad (v_x \text{ は(1)で求めた値}) $$
+    </div>
+    <div class="math-display">
+      $$ V' = V \quad (V \text{ は(1)で求めた値}) $$
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="explanation-section">
+    <h3>(3) 分裂（エネルギー損失あり <span class="math-inline">$\Delta E$</span>）</h3>
+    <p>分裂によって力学的エネルギーが <span class="math-inline">$\Delta E$</span> 失われる場合、エネルギーの関係式は以下のようになります。</p>
+    <div class="math-display">
+      $$ K_{\text{before}} = K_{\text{after}} + \Delta E $$
+    </div>
+    <div class="math-display">
+      $$ mgh = \frac{1}{2} m_1 v_1^2 + \frac{1}{2} m_2 (v_2^2 + (v'_y)^2) + \frac{1}{2} M (V')^2 + \Delta E $$
+    </div>
+    <p>しかし、<strong>運動量保存則</strong>はエネルギー損失の有無には関係なく成り立ちます。<br>
+    また、分裂が瞬間的であることから<strong>台の速度が変化しない (<span class="math-inline">$V'=V$</span>)</strong> という仮定も同様に適用できます。</p>
+    <p>したがって、(2) と同じく、</p>
+    <ul>
+      <li><span class="math-inline">$V' = V$</span></li>
+      <li><span class="math-inline">$m v_x = m_1 v_1 + m_2 v_2$</span> （P の水平運動量保存）</li>
+    </ul>
+    <p>が成り立ちます。<br>
+    分裂後の速度 <span class="math-inline">$v_1$</span> が与えられているため、これらの式から <span class="math-inline">$v_2$</span> と <span class="math-inline">$V'$</span> は一意に決まります。これはエネルギー損失がない (2) の場合と全く同じ結果です。</p>
+
+    <div class="point">
+      <strong>Point (3)</strong>
+      <ul>
+        <li>運動量保存則は、非弾性衝突やエネルギー損失を伴う分裂でも、外力がなければ成立します。非常に強力な法則です。</li>
+        <li>この問題のように分裂後の速度の一部 (<span class="math-inline">$v_1$</span>) が与えられている場合、残りの速度 (<span class="math-inline">$v_2, V'$</span>) は運動量保存から決まってしまい、エネルギー損失 <span class="math-inline">$\Delta E$</span> の値には依存しません。</li>
+        <li>もし <span class="math-inline">$v_1$</span> が未知で、分裂で放出されるエネルギー（例えば爆発エネルギー <span class="math-inline">$E_{\text{exp}}$</span>）が与えられているような問題であれば、エネルギーの式も使って速度を求めることになります。その場合、<span class="math-inline">$E_{\text{exp}} = \Delta K + \Delta E$</span> のような関係を考える必要があります（<span class="math-inline">$\Delta K$</span> は分裂による運動エネルギー増加分）。</li>
+      </ul>
+    </div>
+
+    <p><strong>答え (3):</strong></p>
+    <p>(2) と同じ結果になります。</p>
+    <div class="math-display">
+      $$ v_2 = \frac{m v_x - m_1 v_1}{m_2} $$
+    </div>
+    <div class="math-display">
+      $$ V' = V $$
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
