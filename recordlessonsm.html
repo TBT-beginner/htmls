@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>授業の記録を音声でとる手順 (多言語対応)</title>
+<title>授業の記録を音声でとる手順</title>
 <style>
   body {
     font-family: 'Arial', 'Hiragino Sans', 'Meiryo', sans-serif;
@@ -46,17 +47,19 @@
     font-size: 1em;
     margin-bottom: 10px;
   }
+
+  /* 親リスト (1., 2., 3. ...) */
   ol {
     padding-left: 20px;
     list-style-type: none; /* デフォルトの数字を消す */
-    counter-reset: step-counter; /* カウンターをリセット */
+    counter-reset: step-counter; /* 親リスト用のカウンター */
   }
   ol > li {
     counter-increment: step-counter; /* カウンターを増やす */
-    margin-bottom: 25px; /* 各ステップの間隔 */
+    margin-bottom: 25px;
     position: relative;
     padding: 15px 15px 15px 30px; /* 左側に番号スペース確保 */
-    background-color: #f0f8ff; /* 各ステップの背景色 */
+    background-color: #f0f8ff;
     border-radius: 5px;
     border: 1px solid #b0e0e6;
   }
@@ -73,36 +76,52 @@
     text-align: center;
     margin-right: 15px;
     position: absolute;
-    left: -15px; /* 少し左にずらす */
+    left: -15px; /* リストの外側に配置 */
     top: 15px;
   }
-  ol > li > ol { /* 入れ子のリスト */
-     list-style-type: lower-alpha; /* a, b, c... */
-     margin-top: 10px;
-     padding-left: 30px; /* 入れ子リストのインデント */
-     background-color: #fff; /* 背景色を白に戻す */
-     border: none; /* 枠線なし */
-     padding: 10px;
-     border-radius: 3px;
+
+  /* 入れ子の ol (ol の中の ol) - ★修正箇所 */
+  ol > li > ol {
+    list-style-type: none; /* デフォルトのマーカー(a, b, c)を消す */
+    padding-left: 15px; /* 入れ子のリスト全体の左の余白を少し調整 */
+    margin-top: 10px;
+    background-color: #fff; /* 背景色を白に戻す */
+    border: none; /* 枠線なし */
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    border-radius: 3px;
+    counter-reset: inner-counter; /* 入れ子リスト用のカウンター名を定義し、0にリセット */
   }
-   ol > li > ol > li {
-      margin-bottom: 5px;
-      padding: 5px;
-      background-color: transparent; /* 背景色なし */
-      border: none; /* 枠線なし */
-      counter-increment: none; /* 入れ子のカウンターは使わない */
-      position: relative; /* ::before の基準位置 */
-      padding-left: 25px; /* アルファベット用にスペース確保 */
-   }
-   ol > li > ol > li::before {
-       content: lower-alpha(counter(ol > li > ol > li)); /* a, b, c... を表示 */
-       display: inline-block;
-       font-weight: bold;
-       color: #0078d4;
-       position: absolute;
-       left: 5px;
-       top: 5px;
-   }
+
+  /* 入れ子の li (ol の中の ol の中の li) - ★修正箇所 */
+  ol > li > ol > li {
+    margin-bottom: 8px; /* li間のスペース */
+    padding: 3px 0; /* 上下の余白を少し調整 */
+    background-color: transparent; /* 背景色なし */
+    border: none; /* 枠線なし */
+    position: relative; /* ::before の位置を決める基準にする */
+    padding-left: 25px; /* マーカーを表示するスペースを左に確保 */
+    counter-increment: inner-counter; /* li が現れるたびに inner-counter を1増やす */
+    line-height: 1.7; /* 行間を少し広げて見やすく */
+    /* counter-increment: none; は削除 */
+  }
+
+  /* 入れ子の li のマーカー (a., b., c. ...) - ★修正箇所 */
+  ol > li > ol > li::before {
+    content: counter(inner-counter, lower-alpha) "."; /* inner-counterの値を小文字アルファベットで表示し、後ろにドット(.)を付ける */
+    display: inline-block;
+    font-weight: bold;
+    color: #0078d4; /* マーカーの色 */
+    position: absolute; /* 位置を親要素(li)基準で絶対指定 */
+    left: 0; /* 親要素(li)の左端(paddingの内側)に配置 */
+    top: 3px; /* 親要素(li)の上端からの位置を微調整（テキストと高さを合わせる） */
+    width: 20px; /* マーカーが表示される幅を確保 */
+    text-align: right; /* 幅の中で右寄せにする (例: 'a.', 'b.' のドットの位置が揃う) */
+    /* 以前の left: 5px; top: 5px; などを調整 */
+    /* display: none; を削除 */
+  }
+
 
   .icon-placeholder {
     display: inline-block;
@@ -177,70 +196,62 @@
   }
 
   /* デフォルト非表示 (日本語以外) */
-  .lang-en, .lang-fr, .lang-uk {
-    display: none;
-  }
-
-  /* JavaScriptで制御するクラス */
-  /* body.show-en .lang-en,
-  body.show-fr .lang-fr,
-  body.show-uk .lang-uk,
-  body.show-ja .lang-ja {
-      display: inline; /* or block, initial, depending on the element */
-  /* } */
-  /* よりシンプルに: data属性で制御 */
+  /* bodyのdata-lang属性に基づいて表示を切り替える */
   [lang="en"], [lang="fr"], [lang="uk"] {
       display: none;
   }
+  /* display: revert だとうまくいかない場合があるので、個別に指定 */
   body[data-lang="ja"] [lang="ja"],
   body[data-lang="en"] [lang="en"],
   body[data-lang="fr"] [lang="fr"],
   body[data-lang="uk"] [lang="uk"] {
-      display: revert; /* 元の表示形式に戻す (inline, blockなど) */
+    display: inline; /* 基本はインラインで表示 */
   }
-   /* display: revert だとうまくいかない場合があるので、個別に指定 */
-   body[data-lang="ja"] h1 [lang="ja"],
-   body[data-lang="en"] h1 [lang="en"],
-   body[data-lang="fr"] h1 [lang="fr"],
-   body[data-lang="uk"] h1 [lang="uk"],
-   body[data-lang="ja"] h2 [lang="ja"],
-   body[data-lang="en"] h2 [lang="en"],
-   body[data-lang="fr"] h2 [lang="fr"],
-   body[data-lang="uk"] h2 [lang="uk"],
-   body[data-lang="ja"] h3 [lang="ja"],
-   body[data-lang="en"] h3 [lang="en"],
-   body[data-lang="fr"] h3 [lang="fr"],
-   body[data-lang="uk"] h3 [lang="uk"] {
-     display: inline;
-   }
-   body[data-lang="ja"] p [lang="ja"],
-   body[data-lang="en"] p [lang="en"],
-   body[data-lang="fr"] p [lang="fr"],
-   body[data-lang="uk"] p [lang="uk"],
-   body[data-lang="ja"] li [lang="ja"], /* li 直下のテキスト用 */
-   body[data-lang="en"] li [lang="en"],
-   body[data-lang="fr"] li [lang="fr"],
-   body[data-lang="uk"] li [lang="uk"],
-   body[data-lang="ja"] .prompt-box [lang="ja"], /* プロンプトボックス内 */
-   body[data-lang="en"] .prompt-box [lang="en"],
-   body[data-lang="fr"] .prompt-box [lang="fr"],
-   body[data-lang="uk"] .prompt-box [lang="uk"] {
+  /* ブロックレベル要素内のspanはblock表示になるように調整 */
+  body[data-lang="ja"] h1 span[lang="ja"],
+  body[data-lang="en"] h1 span[lang="en"],
+  body[data-lang="fr"] h1 span[lang="fr"],
+  body[data-lang="uk"] h1 span[lang="uk"],
+  body[data-lang="ja"] h2 span[lang="ja"],
+  body[data-lang="en"] h2 span[lang="en"],
+  body[data-lang="fr"] h2 span[lang="fr"],
+  body[data-lang="uk"] h2 span[lang="uk"],
+  body[data-lang="ja"] h3 span[lang="ja"],
+  body[data-lang="en"] h3 span[lang="en"],
+  body[data-lang="fr"] h3 span[lang="fr"],
+  body[data-lang="uk"] h3 span[lang="uk"],
+  body[data-lang="ja"] p span[lang="ja"],
+  body[data-lang="en"] p span[lang="en"],
+  body[data-lang="fr"] p span[lang="fr"],
+  body[data-lang="uk"] p span[lang="uk"],
+  body[data-lang="ja"] .prompt-box span[lang="ja"],
+  body[data-lang="en"] .prompt-box span[lang="en"],
+  body[data-lang="fr"] .prompt-box span[lang="fr"],
+  body[data-lang="uk"] .prompt-box span[lang="uk"] {
+      display: inline;
+  }
+  /* li直下のspanタグもインライン表示 */
+  body[data-lang="ja"] li > span[lang="ja"],
+  body[data-lang="en"] li > span[lang="en"],
+  body[data-lang="fr"] li > span[lang="fr"],
+  body[data-lang="uk"] li > span[lang="uk"] {
        display: inline;
    }
-   /* ol > li > ol > li 内のテキスト */
-   body[data-lang="ja"] ol > li > ol > li [lang="ja"],
-   body[data-lang="en"] ol > li > ol > li [lang="en"],
-   body[data-lang="fr"] ol > li > ol > li [lang="fr"],
-   body[data-lang="uk"] ol > li > ol > li [lang="uk"] {
+  /* 入れ子のliの中のspanも同様 */
+   body[data-lang="ja"] ol > li > ol > li span[lang="ja"],
+   body[data-lang="en"] ol > li > ol > li span[lang="en"],
+   body[data-lang="fr"] ol > li > ol > li span[lang="fr"],
+   body[data-lang="uk"] ol > li > ol > li span[lang="uk"] {
        display: inline;
    }
-   /* ボタン内のテキスト用 */
-   body[data-lang="ja"] .button-style [lang="ja"],
-   body[data-lang="en"] .button-style [lang="en"],
-   body[data-lang="fr"] .button-style [lang="fr"],
-   body[data-lang="uk"] .button-style [lang="uk"] {
+   /* ボタン内のテキスト用span */
+   body[data-lang="ja"] .button-style span[lang="ja"],
+   body[data-lang="en"] .button-style span[lang="en"],
+   body[data-lang="fr"] .button-style span[lang="fr"],
+   body[data-lang="uk"] .button-style span[lang="uk"] {
        display: inline;
    }
+
 
 </style>
 </head>
@@ -648,7 +659,7 @@
           <span lang="fr">Ouvrez un éditeur de texte simple fourni avec votre ordinateur.</span>
           <span lang="uk">Відкрийте просту програму текстового редактора, що постачається з вашим комп’ютером.</span>
             <ul>
-                <li>
+                <li><!-- li要素はdisplay:list-itemがデフォルトなので、中のspanはinlineでOK -->
                   <span lang="ja">Windowsなら「<span class="app-name">メモ帳</span> (Notepad)」</span>
                   <span lang="en">On Windows: "<span class="app-name">Notepad</span>"</span>
                   <span lang="fr">Sous Windows : "<span class="app-name">Bloc-notes</span>"</span>
@@ -744,19 +755,15 @@
   // ページ読み込み時にローカルストレージから言語設定を読み込む
   document.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('preferredLanguage');
+    let langToSet = 'ja'; // デフォルトは日本語
     if (savedLang) {
       const savedRadio = document.getElementById(`lang-${savedLang}`);
       if (savedRadio) {
         savedRadio.checked = true;
-        setLanguage(savedLang);
-      } else {
-        // 保存された言語が無効な場合、デフォルト(日本語)に設定
-        setLanguage('ja');
+        langToSet = savedLang;
       }
-    } else {
-      // 保存された言語がない場合、デフォルト(日本語)に設定
-      setLanguage('ja');
     }
+    setLanguage(langToSet); // 初期言語を設定
   });
 </script>
 
