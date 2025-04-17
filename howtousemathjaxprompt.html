@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google AI Studio活用ガイド: 高校数学・物理 復習ページ生成プロンプト</title>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', '游ゴシック Medium', YuGothic, 'メイリオ', Meiryo, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 1.8em;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.5em;
+        }
+        h3 {
+            font-size: 1.2em;
+            border-bottom: 1px dashed #3498db;
+        }
+        p, li {
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        strong {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        /* コードブロック全体のスタイル */
+        .prompt-block {
+            background-color: #2d3748; /* ダークな背景 */
+            color: #f7fafc; /* 明るいテキスト */
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden; /* 横スクロールバーを基本隠す */
+            font-family: 'Menlo', 'Monaco', 'Consolas', "Courier New", monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        /* preタグのスタイル調整（折り返しのため） */
+        .prompt-block pre {
+            margin: 0; /* pre要素のデフォルトマージンを削除 */
+            white-space: pre-wrap;    /* 改行とスペースを維持し、必要に応じて折り返す */
+            overflow-wrap: break-word; /* 長い単語も折り返す */
+            word-break: break-all;   /* 必要であれば単語の途中でも強制的に改行（長いURLや連続文字列対策） */
+            overflow-x: auto; /* 内容がはみ出す場合のみ横スクロールバーを表示 */
+        }
+        /* codeタグのスタイル（任意） */
+        .prompt-block code {
+           display: block; /* code要素をブロックレベルに */
+           /* HTMLエンティティが正しく表示されることを確認 */
+           font-variant-ligatures: none; /* 合字を無効にして < や > が特殊文字にならないように */
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4a5568; /* やや明るいグレー */
+            color: #f7fafc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background-color 0.2s;
+            z-index: 10; /* ボタンがテキストより手前に来るように */
+        }
+        .copy-button:hover {
+            background-color: #718096; /* ホバー時さらに明るく */
+        }
+        .copy-button:active {
+            background-color: #2d3748; /* クリック時 */
+        }
+        .info-box {
+            background-color: #e6f7ff;
+            border-left: 5px solid #1890ff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #1890ff;
+            border-bottom: none;
+        }
+        .warning-box {
+            background-color: #fffbe6;
+            border-left: 5px solid #faad14;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning-box h3 {
+            margin-top: 0;
+            color: #faad14;
+            border-bottom: none;
+        }
+    </style>
+    <script>
+        // コピーボタンの機能を実装
+        function copyToClipboard(elementId) {
+            const codeElement = document.getElementById(elementId).querySelector('pre code');
+            if (!codeElement) {
+                console.error('Copy target code element not found.');
+                alert('コピー対象が見つかりませんでした。');
+                return;
+            }
+            // textContent を使うことで、HTMLエンティティ(&lt; など)は
+            // 自動的に元の文字(< など)にデコードされてコピーされる
+            const text = codeElement.textContent;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('プロンプトがクリップボードにコピーされました！');
+                }).catch(err => {
+                    console.error('Async: Could not copy text: ', err);
+                    alert('コピーに失敗しました。');
+                    fallbackCopyTextToClipboard(text);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.width = "2em";
+            textArea.style.height = "2em";
+            textArea.style.padding = "0";
+            textArea.style.border = "none";
+            textArea.style.outline = "none";
+            textArea.style.boxShadow = "none";
+            textArea.style.background = "transparent";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert('プロンプトがクリップボードにコピーされました！ (Fallback)');
+                } else {
+                    alert('コピーに失敗しました。手動でコピーしてください。');
+                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+                alert('コピーに失敗しました。手動でコピーしてください。: ' + err);
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Google AI Studio活用ガイド</h1>
+        <p>このページでは、高校の数学や物理の授業内容を効果的に復習するためのWebページを、Google AI Studioを使って生成するためのプロンプトとその使い方を、初心者の方にも分かりやすく解説します。</p>
+
+        <h2>🚀 このプロンプトでできること</h2>
+        <p>このプロンプトを使うと、AIが以下のような特徴を持つ、学習効果の高いWebページ（HTML形式）を生成してくれます。</p>
+        <ul>
+            <li>授業の文字起こしやメモを、論理的で分かりやすい構成に整理</li>
+            <li>MathJaxを使って、数式をきれいに表示</li>
+            <li>重要なポイント、注意点、補足情報などを視覚的に区別（CSSによる装飾）</li>
+            <li>公式の導出や背景、解法のコツなどの補足説明を追加</li>
+            <li>要点のまとめや、理解度を確認するための簡単な問題を提供</li>
+            <li>生徒に語りかけるような、丁寧で励ます口調</li>
+        </ul>
+        <p>まるで優秀な先生が、あなた専用の復習ノートを作ってくれるようなイメージです！</p>
+
+        <h2>🛠️ Google AI Studioでの使い方</h2>
+        <ol>
+            <li><strong>Google AI Studioにアクセス:</strong> <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a> にアクセスし、Googleアカウントでログインします。（もし初めて使う場合は、簡単なセットアップが必要かもしれません。）</li>
+            <li><strong>プロンプト入力欄を見つける:</strong> AI Studioのインターフェースには、AIに指示を出すためのテキスト入力エリアがあります。「Create new」から「Freeform prompt」などを選択すると良いでしょう。</li>
+            <li><strong>プロンプトをコピー＆ペースト:</strong> 下にある「定型プロンプト」を、右上の「Copy」ボタンを使ってコピーし、AI Studioのプロンプト入力欄に貼り付けます。</li>
+            <li><strong>ユーザー入力部分を編集:</strong> 貼り付けたプロンプトの中の <code># ユーザー入力 (User Input)</code> セクションにある <code>[...]</code> の部分を、あなたの学習内容に合わせて書き換えます。<strong>特に「授業の主な内容 (文字起こし)」は、できるだけ詳しく具体的に入力することが重要です。</strong></li>
+            <li><strong>AIに生成させる:</strong> 入力が完了したら、AI Studioの「Run」や「Submit」といったボタンをクリックして、AIにHTMLコードを生成させます。</li>
+            <li><strong>HTMLコードを保存:</strong> AIが生成したHTMLコード（<code>&lt;!DOCTYPE html&gt;</code> から <code>&lt;/html&gt;</code> まで）をすべてコピーします。</li>
+            <li><strong>ファイルに保存:</strong> テキストエディタ（メモ帳、VSCodeなど）を開き、コピーしたコードを貼り付けて、ファイル名を例えば <code>study_page.html</code> のように、拡張子を <code>.html</code> にして保存します。文字コードは「UTF-8」で保存するのが一般的です。</li>
+            <li><strong>ブラウザで確認:</strong> 保存したHTMLファイルをダブルクリックするなどして、Webブラウザ（Chrome, Edge, Firefoxなど）で開きます。すると、AIが生成した復習ページが表示されます！</li>
+        </ol>
+
+        <h2>📝 プロンプトの構成要素</h2>
+        <p>提供するプロンプトは、主に以下の3つの部分から成り立っています。</p>
+        <div class="info-box">
+            <h3># 指示 (Instruction)</h3>
+            <p>AIに対する役割（優秀な高校数学・物理の指導者）と、最終的に何を作ってほしいか（学習効果の高いWebページ）を伝えています。<strong>この部分は基本的に変更する必要はありません。</strong></p>
+        </div>
+        <div class="warning-box">
+            <h3># ユーザー入力 (User Input)</h3>
+            <p>ここが、あなたがAIに具体的な情報を与える部分です。</p>
+            <ul>
+                <li><strong>科目:</strong> 授業の科目名（例: 数学II, 物理(力学)）を入力します。</li>
+                <li><strong>単元/テーマ:</strong> 授業で扱った単元やテーマ（例: 指数・対数関数, 運動方程式）を入力します。これがページのタイトルにも使われます。</li>
+                <li><strong>授業の主な内容 (文字起こし):</strong> <strong>ここが最も重要です。</strong>授業の録音から文字起こししたテキスト、あるいは自分で取った詳細なメモを貼り付けます。内容が具体的で詳しいほど、AIは質の高いページを生成できます。</li>
+                <li><strong>使用教材 (任意):</strong> 教科書のページ番号や問題集の例題番号など、関連する教材情報を書くと、AIが「(教科書 P.XX 参照)」のように参照情報を含めてくれます。</li>
+                <li><strong>特に強調したい点/質問 (任意):</strong> 自分が特に苦手な部分や、もっと詳しく知りたい点などを書くと、AIがその点を重点的に解説してくれます。</li>
+            </ul>
+            <p><code>[...]</code> の部分を、実際の情報で置き換えてください。</p>
+        </div>
+        <div class="info-box">
+            <h3># 出力要件 (Output Requirements)</h3>
+            <p>AIが生成するHTMLコードが満たすべき技術的な仕様（HTMLの形式、CSSのクラス、MathJaxの使い方、内容の構成要素、口調など）を細かく指定しています。<strong>この部分も基本的に変更する必要はありません。</strong></p>
+        </div>
+
+        <h2>📋 定型プロンプト（コピーして使ってください）</h2>
+        <p>以下のコードブロックの内容全体をコピーして、Google AI Studioに貼り付けてください。</p>
+        <div class="prompt-block" id="prompt-template">
+            <button class="copy-button" onclick="copyToClipboard('prompt-template')">Copy</button>
+<pre><code># 指示 (Instruction)
+あなたは優秀な高校数学・物理の指導者であり、教育効果の高いWebコンテンツを作成する専門家です。
+以下のユーザー入力に基づき、高校生が授業内容を**復習しやすく、深く理解でき、記憶に定着する**ためのWebページを生成してください。
+出力は、MathJaxによる数式表示とCSSによる装飾を含んだ、**単一のHTMLコードブロック**としてください。最高の学習効果と効率を目指し、視覚的にも分かりやすいベストフォーマットでお願いします。
+# ユーザー入力 (User Input)
+*   **科目**: [ ここに科目名を入力 例: 数学II, 物理(力学) ]
+*   **単元/テーマ**: [ ここに単元・テーマ名を入力 例: 指数・対数関数, 運動方程式とエネルギー保存則 ]
+*   **授業の主な内容 (文字起こし)**:
+    ```
+    [ ここに授業の文字起こしテキスト、あるいは詳細な授業メモを貼り付けてください。できるだけ具体的に記述してください。板書の内容や先生の口頭での説明、例題などをそのまま入力するのが理想的です。
+
+    例:
+    今日は指数関数と対数関数の関係について学びます。まず、指数関数 $y = a^x$ ($a&gt;0, a \neq 1$) のグラフを確認しましょう。これは点(0, 1)を通り、x軸を漸近線とする単調増加（$a&gt;1$ のとき）または単調減少（$0&lt;a&lt;1$ のとき）の曲線でしたね。
+    対数関数 $y = \log_a x$ は、この指数関数の逆関数です。つまり、$y = a^x \Leftrightarrow x = \log_a y$ という関係が成り立ちます。グラフは $y=x$ に関して対称になります。
+    重要な性質として、$\log_a a = 1$, $\log_a 1 = 0$ があります。また、対数の計算では以下の法則が基本です。
+    1. $\log_a M + \log_a N = \log_a (MN)$
+    2. $\log_a M - \log_a N = \log_a (\frac{M}{N})$
+    3. $\log_a M^p = p \log_a M$
+    特に底の変換公式 $\log_a b = \frac{\log_c b}{\log_c a}$ はよく使うのでマスターしましょう。
+    例題として $\log_2 8 + \log_2 4$ を計算してみます。これは $\log_2 (8 \times 4) = \log_2 32$ となります。$32 = 2^5$ なので、答えは $5$ ですね。別解として、$\log_2 8 = 3$, $\log_2 4 = 2$ なので、$3+2=5$ と計算することもできます。
+    よくある間違いは、$\log_a (M+N)$ を $\log_a M + \log_a N$ と計算してしまうことです。これは間違いなので注意してください。
+    (以下、授業内容を続ける...)
+    ]
+    ```
+*   **使用教材 (任意)**: [ 例: 教科書「新編 数学II」P.150-160の指数・対数関数, 問題集「4STEP」基本例題105, 配布プリントNo.5 など ]
+*   **特に強調したい点/質問 (任意)**: [ 例: 底の変換公式の使い所がよく分からないので、具体的な例を増やしてほしい。物理のエネルギー保存則で、非保存力が働く場合の考え方を詳しく説明してほしい。ベクトル方程式を図でイメージしやすく解説してほしい。 ]
+# 出力要件 (Output Requirements)
+1.  **形式**: 単一のHTMLコードブロック。
+    *   HTML5標準に準拠。
+    *   `&lt;head&gt;`内に`&lt;meta charset="UTF-8"&gt;`, `&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;`, `&lt;title&gt;`（単元名を含む）を含む。
+    *   `&lt;head&gt;`内にCSS (`&lt;style&gt;`タグ内) と MathJax (v3) の設定・読み込みスクリプトを含む。
+2.  **CSSによる装飾**:
+    *   **基本デザイン**: 白の背景、読みやすいフォント（ゴシック系推奨、Noto Sans JP, 游ゴシックやメイリオなど）、十分な行間。テキストは黒。コントラストはっきり。
+    *   **視覚的区別**: 見出し (h1-h4)、本文、箇条書き、数式エリア、重要ポイント、注意点、補足情報、例題、演習問題などが明確に区別できるデザイン。
+    *   **クラスセレクタ**: 以下のクラスを効果的に使用し、スタイルを適用する。
+        *   `.container`: 全体を囲むコンテナ。適切な `max-width` と中央揃え。
+        *   `.point`: 重要事項。目立つ背景色（例: 薄い黄色 `#fffbe6`）とボーダー、アイコン（例: ✨, 💡）。
+        *   `.caution`: 注意点。警告的な背景色（例: 薄い赤色 `#fff0f0`）とボーダー、アイコン（例: ⚠️, 🚨）。
+        *   `.supplement`: 補足情報・発展。落ち着いた背景色（例: 薄い青緑 `#e6f7f7`）とボーダー、アイコン（例: 📚, 🎓）。
+        *   `.example`: 例題。見出しと問題文、解説を区別する。
+        *   `.summary`: まとめ。箇条書きなどで簡潔に。
+        *   `.exercise`: 確認問題。
+    *   **数式**: ディスプレイ数式 (`.math-display`) は中央揃え、適切なパディングと背景色（例: `#f8f9fa`）。インライン数式は周囲のテキストと自然に馴染むように。
+    *   **その他**: `&lt;strong&gt;` や `&lt;em&gt;` での強調、引用 (`&lt;blockquote&gt;`) なども適宜使用。レスポンシブ対応。
+3.  **MathJaxによる数式表示**:
+    *   文字起こしや補足説明中の数式は、インライン数式 (`$...$`) またはディスプレイ数式 (`$$...$$`) を使用してLaTeX形式で記述する。添え字 (`_`)、上付き文字 (`^`)、分数 (`\frac{}{}`), 根号 (`\sqrt{}`), 総和 (`\sum`), 積分 (`\int`), ベクトル (`\vec{}`), 微分 (`\frac{d}{dx}`), 三角関数 (`\sin`, `\cos`, `\tan`) などを正しく使用する。
+    *   MathJaxが正しく動作するように `&lt;head&gt;` 内で設定・読み込みを行う。
+4.  **内容**:
+    *   **授業内容の構造化**: 文字起こしを解析し、論理的な順序（導入→定義・法則→具体例・例題→解説→応用→まとめ）で再構成する。必要に応じて小見出し (`h3`, `h4`) を使用する。
+    *   **要約と平易化**: 冗長な部分を削ぎ落とし、高校生に理解しやすい言葉で記述する。専門用語には簡単な注釈を付ける。
+    *   **教材情報の統合**: 提供された教材情報があれば、「(教科書 P.XX 例題3 参照)」のように具体的に参照箇所を示す。
+    *   **学術的/予備校的補足 (`.supplement` クラス)**:
+        *   公式や定理の**導出過程**（文字起こしにない場合、必要に応じて補う）。
+        *   その概念が**生まれた背景**や**他の分野との関連**（興味を引き、理解を深めるため）。
+        *   **効率的な計算テクニック**、**典型問題の解法パターン**、**検算の方法**。
+        *   **発展的な内容**への簡単な言及（「大学ではこのように学びます」など）。
+    *   **注意点/間違いやすいポイント (`.caution` クラス)**:
+        *   **混同しやすい概念**の比較説明。
+        *   **適用条件**がある公式や法則について、その条件を明確に記述。
+        *   **計算ミス**を起こしやすい箇所とその対策。
+    *   **要点の強調 (`.point` クラス)**:
+        *   最重要の定義・公式・法則・考え方を簡潔に記述。記憶すべき項目として明確化。
+    *   **例題と詳細な解説 (`.example` クラス)**:
+        *   文字起こし中の例題は、問題文、解答、**思考プロセス**（なぜその解法を選ぶのか）、**途中計算**、**別解**（あれば）を丁寧に記述する。
+    *   **まとめ (`.summary` クラス)**:
+        *   学習内容のキーポイントを箇条書きでリストアップ。何が重要だったか一目でわかるようにする。
+    *   **確認問題/問いかけ (`.exercise` クラス)**:
+        *   授業内容の理解度を自己チェックできるような、基本的な問題を2〜3問提示。
+        *   「なぜこうなるのだろう？」「他の場合はどうなる？」といった、思考を促す問いかけを含める。
+    *   **ユーザーの要望反映**: 「特に強調したい点/質問」があれば、その要望に沿った解説や補足を重点的に行う。
+5.  **トーン＆マナー**:
+    *   **対話的**: 生徒に語りかけるような、丁寧な口調。「ここでは〜を学びます」「〜を思い出してください」「〜という点が重要です」など。抽象的な表現の後は必ず具体性をもたせて。日本語はリズム感とテンポが大切なので、簡潔かつ音感のよいものを。池上彰を参考に。
+    *   **鼓励**: 学習意欲を高めるような、ポジティブな表現を心がける。「難しく感じるかもしれませんが、一つずつ理解していきましょう」「ここを乗り越えれば、さらに理解が深まります」など。
+    *   **文字起こしに寄せて**: 文字起こしのデータから、教員の話し方のクセをよみとって、それを最優先に。ただし、日本語として崩れすぎていないように整形して。
+</code></pre>
+        </div>
+
+        <h2>✨ 生成されるHTMLの特徴</h2>
+        <p>このプロンプトによってAIが生成するHTMLファイルには、以下のような学習を助ける工夫が凝らされています。</p>
+        <ul>
+            <li><strong>見やすいデザイン:</strong> CSSによって、見出しや重要ポイント、注意点などが色や枠線で区別され、視覚的に内容を把握しやすくなっています。</li>
+            <li><strong>きれいな数式:</strong> MathJaxという技術を使って、教科書のように美しい数式が表示されます。複雑な分数やルート、積分記号なども正しく表示されます。</li>
+            <li><strong>段階的な理解:</strong> 導入から始まり、定義、例題、解説、補足情報、まとめ、確認問題へと、自然な流れで学習を進められるように構成されています。</li>
+            <li><strong>深い学びの促進:</strong> 単に授業内容をなぞるだけでなく、「なぜそうなるのか？」という公式の導出や、「どんな時に使えるのか？」という注意点、「もっと知りたい」に応える発展的な内容などが含まれ、理解を深める手助けをします。</li>
+            <li><strong>記憶への定着:</strong> 重要なポイントが強調され、最後にまとめがあることで、何を覚えればよいかが明確になります。確認問題で自分の理解度をチェックすることもできます。</li>
+        </ul>
+
+        <h2>💡 活用のアドバイス</h2>
+        <ul>
+            <li><strong>文字起こしの質が鍵:</strong> AIは入力された情報に基づいてページを生成します。「授業の主な内容」に入力するテキストが詳細で正確であるほど、生成されるページの質も高くなります。可能であれば、授業を録音して文字起こしツールを使うのがおすすめです。</li>
+            <li><strong>試行錯誤してみよう:</strong> 最初から完璧な結果が出なくても、入力内容（特に「授業の主な内容」や「特に強調したい点」）を調整したり、AIに再度生成させたりすることで、より自分の学習スタイルに合ったページが得られることがあります。</li>
+            <li><strong>カスタマイズも可能:</strong> 生成されたHTMLコードは、基本的なHTML/CSSの知識があれば、自分でさらにデザインを調整したり、内容を追記・修正したりすることも可能です。</li>
+        </ul>
+
+        <p>このプロンプトが、あなたの高校数学・物理の学習の一助となれば幸いです。ぜひGoogle AI Studioで試してみてください！</p>
+
+    </div>
+</body>
+</html>
