@@ -1,265 +1,321 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>授業の記録を音声でとる手順</title>
+<title>授業音声の記録と活用手順</title>
 <style>
+  /* === CSS変数定義 === */
+  :root {
+    --base-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --code-font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+
+    --color-bg: #fdfdfe; /* 背景色 */
+    --color-container-bg: #ffffff; /* コンテナ背景色 */
+    --color-text: #37474f; /* 基本テキスト色 */
+    --color-text-light: #546e7a; /* 少し薄いテキスト色 */
+    --color-primary: #455a64; /* メインカラー (落ち着いたブルーグレー) */
+    --color-primary-light: #607d8b; /* 少し明るいメインカラー */
+    --color-accent: #03a9f4; /* アクセントカラー (明るいブルー) */
+    --color-accent-dark: #0288d1; /* 少し暗いアクセントカラー */
+    --color-border: #eceff1; /* 境界線 */
+    --color-highlight-bg: #e1f5fe; /* 強調背景色 */
+    --color-step-bg: #f5f7f8; /* ステップ背景色 */
+    --color-step-border: #e4e7e9; /* ステップ境界線 */
+    --color-code-bg: #f0f2f4; /* コードブロック背景色 */
+    --color-button-bg: #eeeeee; /* 通常ボタン背景色 */
+    --color-button-text: #424242; /* 通常ボタンテキスト色 */
+    --color-warning: #d9534f; /* 警告色 */
+    --color-success: #4caf50; /* 成功色 */
+
+    --border-radius: 6px; /* 角丸 */
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* ボックスシャドウ */
+    --transition-speed: 0.2s ease; /* トランジション速度 */
+  }
+
+  /* === 基本スタイル === */
   body {
-    font-family: 'Arial', 'Hiragino Sans', 'Meiryo', sans-serif;
-    line-height: 1.8;
+    font-family: var(--base-font-family);
+    line-height: 1.7; /* 行間を少し広げる */
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 16px; /* 基本フォントサイズ */
   }
   .container {
     max-width: 800px;
-    margin: 20px auto;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #eee;
+    margin: 40px auto; /* 上下のマージンを増やす */
+    background-color: var(--color-container-bg);
+    padding: 40px; /* パディングを増やす */
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--color-border);
   }
+
+  /* === 見出し === */
   h1 {
-    color: #005a9e;
+    color: var(--color-primary);
     text-align: center;
-    border-bottom: 2px solid #005a9e;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
+    border-bottom: 1px solid var(--color-border); /* ボーダーを細く */
+    padding-bottom: 20px;
+    margin-bottom: 40px; /* 下マージンを増やす */
+    font-size: 1.8em; /* 少しサイズ調整 */
+    font-weight: 600; /* 少し太めに */
   }
   h2 {
-    color: #0078d4;
-    margin-top: 40px;
-    margin-bottom: 15px;
-    padding-left: 10px;
-    border-left: 5px solid #0078d4;
+    color: var(--color-primary-light);
+    margin-top: 50px; /* セクション間のマージンを増やす */
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 4px solid var(--color-accent); /* 左ボーダーでアクセント */
+    font-size: 1.5em;
+    font-weight: 600;
   }
   h3 {
-    color: #333;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-  }
-  p, li {
-    font-size: 1em;
-    margin-bottom: 10px;
+    color: var(--color-text);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.25em; /* 少しサイズ調整 */
+    font-weight: 600;
   }
 
-  /* 親リスト (1., 2., 3. ...) */
+  /* === 段落・リスト === */
+  p, li {
+    color: var(--color-text-light); /* 少し薄い色に */
+    margin-bottom: 15px; /* マージン調整 */
+  }
+  p:last-child, li:last-child {
+      margin-bottom: 0; /* 最後の要素のマージンをなくす */
+  }
+
+  /* --- 親リスト (1., 2., 3. ...) --- */
   ol {
-    padding-left: 20px;
-    list-style-type: none; /* デフォルトの数字を消す */
-    counter-reset: step-counter; /* 親リスト用のカウンター */
+    padding-left: 0; /* デフォルトのパディングをリセット */
+    margin-left: 5px; /* 左側に少しマージン */
+    list-style-type: none;
+    counter-reset: step-counter;
   }
   ol > li {
-    counter-increment: step-counter; /* カウンターを増やす */
-    margin-bottom: 25px;
+    counter-increment: step-counter;
+    margin-bottom: 30px; /* ステップ間のマージン調整 */
     position: relative;
-    padding: 15px 15px 15px 30px; /* 左側に番号スペース確保 */
-    background-color: #f0f8ff;
-    border-radius: 5px;
-    border: 1px solid #b0e0e6;
+    padding: 20px 20px 20px 50px; /* パディング調整 (左に番号スペース) */
+    background-color: var(--color-step-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-step-border);
   }
   ol > li::before {
-    content: counter(step-counter); /* 番号を表示 */
-    display: inline-block;
-    background-color: #0078d4;
+    content: counter(step-counter);
+    display: flex; /* Flexboxで中央揃え */
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-primary);
     color: white;
-    font-weight: bold;
+    font-weight: 600;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    margin-right: 15px;
+    width: 32px;
+    height: 32px;
+    font-size: 0.9em;
     position: absolute;
-    left: -15px; /* リストの外側に配置 */
-    top: 15px;
+    left: 10px; /* 配置調整 */
+    top: 18px; /* 配置調整 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  /* 入れ子の ol (ol の中の ol) - ★修正箇所 */
+  /* --- 入れ子のリスト (a., b., c. ...) --- */
   ol > li > ol {
-    list-style-type: none; /* デフォルトのマーカー(a, b, c)を消す */
-    padding-left: 15px; /* 入れ子のリスト全体の左の余白を少し調整 */
-    margin-top: 10px;
-    background-color: #fff; /* 背景色を白に戻す */
-    border: none; /* 枠線なし */
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 10px;
-    border-radius: 3px;
-    counter-reset: inner-counter; /* 入れ子リスト用のカウンター名を定義し、0にリセット */
+    list-style-type: none;
+    padding-left: 10px; /* パディング調整 */
+    margin-top: 15px; /* 上マージン調整 */
+    background-color: var(--color-container-bg); /* 背景色を白に */
+    border: 1px solid var(--color-border); /* 境界線追加 */
+    padding: 15px 15px 15px 10px; /* パディング調整 */
+    border-radius: var(--border-radius);
+    counter-reset: inner-counter;
   }
-
-  /* 入れ子の li (ol の中の ol の中の li) - ★修正箇所 */
   ol > li > ol > li {
-    margin-bottom: 8px; /* li間のスペース */
-    padding: 3px 0; /* 上下の余白を少し調整 */
-    background-color: transparent; /* 背景色なし */
-    border: none; /* 枠線なし */
-    position: relative; /* ::before の位置を決める基準にする */
-    padding-left: 25px; /* マーカーを表示するスペースを左に確保 */
-    counter-increment: inner-counter; /* li が現れるたびに inner-counter を1増やす */
-    line-height: 1.7; /* 行間を少し広げて見やすく */
-    /* counter-increment: none; は削除 */
+    margin-bottom: 10px;
+    padding: 3px 0;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    padding-left: 28px; /* マーカー用スペース確保 */
+    counter-increment: inner-counter;
+    line-height: 1.7;
   }
-
-  /* 入れ子の li のマーカー (a., b., c. ...) - ★修正箇所 */
   ol > li > ol > li::before {
-    content: counter(inner-counter, lower-alpha) "."; /* inner-counterの値を小文字アルファベットで表示し、後ろにドット(.)を付ける */
+    content: counter(inner-counter, lower-alpha) ".";
     display: inline-block;
-    font-weight: bold;
-    color: #0078d4; /* マーカーの色 */
-    position: absolute; /* 位置を親要素(li)基準で絶対指定 */
-    left: 0; /* 親要素(li)の左端(paddingの内側)に配置 */
-    top: 3px; /* 親要素(li)の上端からの位置を微調整（テキストと高さを合わせる） */
-    width: 20px; /* マーカーが表示される幅を確保 */
-    text-align: right; /* 幅の中で右寄せにする (例: 'a.', 'b.' のドットの位置が揃う) */
-    /* 以前の left: 5px; top: 5px; などを調整 */
-    /* display: none; を削除 */
-  }
-
-
-  .icon-placeholder {
-    display: inline-block;
+    font-weight: 600; /* 少し太めに */
+    color: var(--color-accent-dark); /* マーカーの色 */
+    position: absolute;
+    left: 5px; /* 配置調整 */
+    top: 3px;
     width: 20px;
-    height: 20px;
-    background-color: #ddd;
-    border-radius: 3px;
-    text-align: center;
-    line-height: 20px;
-    font-size: 12px;
-    color: #555;
-    margin: 0 3px;
-    vertical-align: middle;
+    text-align: right;
   }
-  .button-style {
+
+  /* --- UI要素・強調 --- */
+  .icon-placeholder { /* アイコン風の文字表現 */
     display: inline-block;
+    width: 22px;
+    height: 22px;
     background-color: #e0e0e0;
-    padding: 3px 8px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 22px;
+    font-size: 13px;
+    color: #616161;
+    margin: 0 4px;
+    vertical-align: middle;
     font-weight: bold;
-    color: #333;
+    font-family: var(--code-font-family);
+  }
+  .button-style { /* ボタン風のインライン要素 */
+    display: inline-block;
+    background-color: var(--color-button-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #d1d1d1;
+    font-weight: 600;
+    color: var(--color-button-text);
     margin: 0 3px;
+    font-size: 0.95em;
   }
-  .app-name {
-    font-weight: bold;
-    color: #0078d4;
+  .app-name { /* アプリ名 */
+    font-weight: 600;
+    color: var(--color-primary-light);
   }
-  .prompt-box {
-    background-color: #f5f5f5;
-    border: 1px dashed #ccc;
-    padding: 15px;
-    margin-top: 10px;
-    border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace;
-    white-space: pre-wrap; /* 改行をそのまま表示 */
-    word-wrap: break-word; /* 長い行を折り返す */
-  }
-  .highlight {
-    background-color: #fffacd; /* 薄い黄色 */
-    padding: 2px 4px;
-    border-radius: 3px;
+  .highlight { /* 強調したいテキスト */
+    background-color: var(--color-highlight-bg);
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: var(--color-accent-dark);
+    font-weight: 600;
   }
   .warning {
-    color: #d9534f; /* 赤色 */
-    font-weight: bold;
+    color: var(--color-warning);
+    font-weight: 600;
   }
 
-  /* 言語切り替え用スタイル */
+  /* --- コードブロック & コピーボタン --- */
+  .code-block-container {
+    position: relative;
+    background-color: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    padding: 15px 20px; /* パディング調整 */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    font-family: var(--code-font-family);
+  }
+  .code-block-container pre {
+    margin: 0;
+    padding: 0;
+    padding-right: 80px; /* ボタン用スペース */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.9em; /* 少し小さく */
+    line-height: 1.6;
+    color: var(--color-text-light); /* 少し薄い色に */
+  }
+  .code-block-container code {
+    display: block;
+  }
+  .copy-button {
+    position: absolute;
+    top: 12px; /* 配置調整 */
+    right: 12px; /* 配置調整 */
+    padding: 6px 12px;
+    background-color: var(--color-primary-light);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 600;
+    opacity: 0.9;
+    transition: all var(--transition-speed);
+  }
+  .copy-button:hover {
+    opacity: 1;
+    background-color: var(--color-primary);
+  }
+  .copy-button.copied {
+    background-color: var(--color-success);
+    opacity: 1;
+  }
+  .copy-button span {
+    display: none;
+  }
+  .copy-button .copied-feedback {
+    display: none; /* 通常は非表示 */
+    font-style: italic;
+  }
+
+
+  /* --- 言語切り替えトグル --- */
   .lang-toggle {
     text-align: right;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #eee;
-    border-radius: 5px;
+    margin-bottom: 30px;
+    padding: 8px; /* 少し小さく */
+    background-color: var(--color-step-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-step-border);
   }
   .lang-toggle label {
-    margin: 0 5px;
+    margin: 0 4px;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 4px;
-    background-color: #ddd;
-    display: inline-block; /* ラベルのクリック範囲を広げる */
+    background-color: transparent; /* 通常は透明に */
+    border: 1px solid transparent; /* ボーダー領域確保 */
+    display: inline-block;
+    font-size: 0.9em;
+    color: var(--color-text-light);
+    transition: all var(--transition-speed);
   }
   .lang-toggle input[type="radio"] {
-    display: none; /* ラジオボタン自体は隠す */
+    display: none;
   }
   .lang-toggle input[type="radio"]:checked + label {
-    background-color: #0078d4;
-    color: white;
-    font-weight: bold;
+    background-color: var(--color-container-bg); /* 選択時背景 */
+    color: var(--color-primary);
+    font-weight: 600;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
+  .lang-toggle label:hover {
+     background-color: rgba(0, 0, 0, 0.03); /* ホバー時背景 */
+  }
+   .lang-toggle input[type="radio"]:checked + label:hover {
+       background-color: var(--color-container-bg); /* 選択時のホバーは色維持 */
+   }
 
-  /* デフォルト非表示 (日本語以外) */
-  /* bodyのdata-lang属性に基づいて表示を切り替える */
-  [lang="en"], [lang="fr"], [lang="uk"] {
-      display: none;
+
+  /* --- 言語表示切り替え --- */
+  [lang]:not([lang="ja"]) { /* デフォルト(ja)以外を隠す */
+      display: none !important; /* JSより優先させるため */
   }
-  /* display: revert だとうまくいかない場合があるので、個別に指定 */
   body[data-lang="ja"] [lang="ja"],
   body[data-lang="en"] [lang="en"],
   body[data-lang="fr"] [lang="fr"],
   body[data-lang="uk"] [lang="uk"] {
-    display: inline; /* 基本はインラインで表示 */
+    display: inline !important; /* 選択された言語を表示 */
   }
-  /* ブロックレベル要素内のspanはblock表示になるように調整 */
-  body[data-lang="ja"] h1 span[lang="ja"],
-  body[data-lang="en"] h1 span[lang="en"],
-  body[data-lang="fr"] h1 span[lang="fr"],
-  body[data-lang="uk"] h1 span[lang="uk"],
-  body[data-lang="ja"] h2 span[lang="ja"],
-  body[data-lang="en"] h2 span[lang="en"],
-  body[data-lang="fr"] h2 span[lang="fr"],
-  body[data-lang="uk"] h2 span[lang="uk"],
-  body[data-lang="ja"] h3 span[lang="ja"],
-  body[data-lang="en"] h3 span[lang="en"],
-  body[data-lang="fr"] h3 span[lang="fr"],
-  body[data-lang="uk"] h3 span[lang="uk"],
-  body[data-lang="ja"] p span[lang="ja"],
-  body[data-lang="en"] p span[lang="en"],
-  body[data-lang="fr"] p span[lang="fr"],
-  body[data-lang="uk"] p span[lang="uk"],
-  body[data-lang="ja"] .prompt-box span[lang="ja"],
-  body[data-lang="en"] .prompt-box span[lang="en"],
-  body[data-lang="fr"] .prompt-box span[lang="fr"],
-  body[data-lang="uk"] .prompt-box span[lang="uk"] {
-      display: inline;
-  }
-  /* li直下のspanタグもインライン表示 */
-  body[data-lang="ja"] li > span[lang="ja"],
-  body[data-lang="en"] li > span[lang="en"],
-  body[data-lang="fr"] li > span[lang="fr"],
-  body[data-lang="uk"] li > span[lang="uk"] {
-       display: inline;
-   }
-  /* 入れ子のliの中のspanも同様 */
-   body[data-lang="ja"] ol > li > ol > li span[lang="ja"],
-   body[data-lang="en"] ol > li > ol > li span[lang="en"],
-   body[data-lang="fr"] ol > li > ol > li span[lang="fr"],
-   body[data-lang="uk"] ol > li > ol > li span[lang="uk"] {
-       display: inline;
-   }
-   /* ボタン内のテキスト用span */
-   body[data-lang="ja"] .button-style span[lang="ja"],
-   body[data-lang="en"] .button-style span[lang="en"],
-   body[data-lang="fr"] .button-style span[lang="fr"],
-   body[data-lang="uk"] .button-style span[lang="uk"] {
-       display: inline;
-   }
+  /* 特定要素内のspanの調整 (必要な場合) */
+  /* 例: body[data-lang="ja"] h1 span[lang="ja"] { display: inline !important; } */
+  /* 基本的に上記でカバーできるはず */
 
 
 </style>
 </head>
-<body data-lang="ja"> <!-- デフォルト言語をbodyのdata属性で指定 -->
+<body data-lang="ja">
 
 <div class="container">
 
-  <!-- 言語切り替えトグル -->
+  <!-- 言語切り替え -->
   <div class="lang-toggle">
     <input type="radio" id="lang-ja" name="language" value="ja" checked>
     <label for="lang-ja">日本語</label>
@@ -272,465 +328,474 @@
   </div>
 
   <h1>
-    <span lang="ja">【初心者向け】授業の記録を音声でとる手順</span>
-    <span lang="en">[For Beginners] How to Record Class Audio</span>
-    <span lang="fr">[Pour débutants] Comment enregistrer l'audio d'un cours</span>
-    <span lang="uk">[Для початківців] Як записати аудіо уроку</span>
+    <span lang="ja">授業音声の記録と活用手順</span>
+    <span lang="en">Procedure for Recording and Utilizing Class Audio</span>
+    <span lang="fr">Procédure d'enregistrement et d'utilisation de l'audio des cours</span>
+    <span lang="uk">Процедура запису та використання аудіозаписів занять</span>
   </h1>
   <p>
-    <span lang="ja">この手順では、パソコンが苦手な方でも、授業の音声を録音して、後で見やすいノートを作る方法を説明します。順番にやっていきましょう！</span>
-    <span lang="en">These instructions explain how even those who are not good with computers can record class audio and create easy-to-review notes later. Let's do it step by step!</span>
-    <span lang="fr">Ces instructions expliquent comment même ceux qui ne sont pas à l'aise avec les ordinateurs peuvent enregistrer l'audio d'un cours et créer des notes faciles à consulter plus tard. Faisons-le étape par étape !</span>
-    <span lang="uk">Ця інструкція пояснює, як навіть ті, хто не дуже добре володіє комп’ютером, можуть записати аудіо уроку та створити нотатки, які легко переглядати пізніше. Зробімо це крок за кроком!</span>
+    <span lang="ja">この手順書は、パソコン操作に不慣れな方でも、授業の音声を録音し、後で内容を確認しやすいノート形式にまとめる方法を解説します。各ステップを順にご確認ください。</span>
+    <span lang="en">This guide explains how anyone, even those unfamiliar with computers, can record class audio and organize it into easy-to-review notes. Please follow each step in order.</span>
+    <span lang="fr">Ce guide explique comment toute personne, même non familiarisée avec les ordinateurs, peut enregistrer l'audio d'un cours et l'organiser en notes faciles à consulter. Veuillez suivre chaque étape dans l'ordre.</span>
+    <span lang="uk">Цей посібник пояснює, як будь-хто, навіть незнайомий з комп’ютерами, може записати аудіо заняття та впорядкувати його у зручні для перегляду нотатки. Будь ласка, виконуйте кожен крок по порядку.</span>
   </p>
 
   <h2>
-    <span lang="ja">ステップ１：準備をしよう（授業の前にやっておくこと）</span>
-    <span lang="en">Step 1: Preparation (Things to do before class)</span>
-    <span lang="fr">Étape 1 : Préparation (Choses à faire avant le cours)</span>
-    <span lang="uk">Крок 1: Підготовка (Що потрібно зробити до заняття)</span>
+    <span lang="ja">ステップ１：事前準備（授業前に行うこと）</span>
+    <span lang="en">Step 1: Preparation (Before Class)</span>
+    <span lang="fr">Étape 1 : Préparation (Avant le cours)</span>
+    <span lang="uk">Крок 1: Підготовка (Перед заняттям)</span>
   </h2>
   <p>
-    <span lang="ja">まず、授業を記録するために必要な２つのソフト（アプリ）をパソコンに入れましょう。</span>
-    <span lang="en">First, let's install the two necessary software (apps) on your computer to record the class.</span>
-    <span lang="fr">Tout d'abord, installons les deux logiciels (applications) nécessaires sur votre ordinateur pour enregistrer le cours.</span>
-    <span lang="uk">Спочатку встановимо на ваш комп’ютер два необхідні програмні забезпечення (додатки) для запису заняття.</span>
+    <span lang="ja">授業の記録に必要なソフトウェア（アプリケーション）を2つ、お使いのパソコンに導入します。</span>
+    <span lang="en">Install the two necessary software applications on your computer for class recording.</span>
+    <span lang="fr">Installez les deux applications logicielles nécessaires sur votre ordinateur pour l'enregistrement des cours.</span>
+    <span lang="uk">Встановіть два необхідні програмні додатки на ваш комп’ютер для запису занять.</span>
   </p>
   <ol>
     <li>
       <h3>
-        <span lang="ja"><span class="app-name">Microsoft Teams</span> をパソコンに入れよう</span>
-        <span lang="en">Install <span class="app-name">Microsoft Teams</span> on your computer</span>
-        <span lang="fr">Installer <span class="app-name">Microsoft Teams</span> sur votre ordinateur</span>
-        <span lang="uk">Встановіть <span class="app-name">Microsoft Teams</span> на свій комп’ютер</span>
+        <span lang="ja"><span class="app-name">Microsoft Teams</span> のインストール</span>
+        <span lang="en">Install <span class="app-name">Microsoft Teams</span></span>
+        <span lang="fr">Installer <span class="app-name">Microsoft Teams</span></span>
+        <span lang="uk">Встановити <span class="app-name">Microsoft Teams</span></span>
       </h3>
       <p>
-        <span lang="ja"><span class="app-name">Teams</span>は、オンラインで授業をしたり、会議をしたりするためのソフトです。これがないと始まりません。</span>
-        <span lang="en"><span class="app-name">Teams</span> is software for online classes and meetings. You can't start without it.</span>
-        <span lang="fr"><span class="app-name">Teams</span> est un logiciel pour les cours et les réunions en ligne. Vous ne pouvez pas commencer sans lui.</span>
-        <span lang="uk"><span class="app-name">Teams</span> – це програмне забезпечення для онлайн-занять та зустрічей. Без нього не розпочати.</span>
+        <span lang="ja"><span class="app-name">Teams</span>は、オンラインでの授業や会議に使用するプラットフォームです。この手順を進める上で必須となります。</span>
+        <span lang="en"><span class="app-name">Teams</span> is the platform used for online classes and meetings. It is essential for this procedure.</span>
+        <span lang="fr"><span class="app-name">Teams</span> est la plateforme utilisée pour les cours et réunions en ligne. Elle est essentielle pour cette procédure.</span>
+        <span lang="uk"><span class="app-name">Teams</span> – це платформа, яка використовується для онлайн-занять та зустрічей. Вона є необхідною для цієї процедури.</span>
       </p>
       <ol>
         <li>
-          <span lang="ja">インターネットを開いて、「<span class="highlight">Microsoft Teams ダウンロード</span>」と検索します。</span>
-          <span lang="en">Open the internet and search for "<span class="highlight">Microsoft Teams download</span>".</span>
-          <span lang="fr">Ouvrez Internet et recherchez "<span class="highlight">Télécharger Microsoft Teams</span>".</span>
-          <span lang="uk">Відкрийте Інтернет і знайдіть "<span class="highlight">Microsoft Teams завантажити</span>".</span>
+          <span lang="ja">Webブラウザを開き、「<span class="highlight">Microsoft Teams ダウンロード</span>」と検索します。</span>
+          <span lang="en">Open a web browser and search for "<span class="highlight">Microsoft Teams download</span>".</span>
+          <span lang="fr">Ouvrez un navigateur Web et recherchez "<span class="highlight">Télécharger Microsoft Teams</span>".</span>
+          <span lang="uk">Відкрийте веб-браузер і знайдіть "<span class="highlight">Microsoft Teams завантажити</span>".</span>
         </li>
         <li>
-          <span lang="ja">検索結果から、マイクロソフトの公式ページを探して開きます。</span>
-          <span lang="en">From the search results, find and open the official Microsoft page.</span>
-          <span lang="fr">Dans les résultats de recherche, trouvez et ouvrez la page officielle de Microsoft.</span>
-          <span lang="uk">У результатах пошуку знайдіть і відкрийте офіційну сторінку Microsoft.</span>
+          <span lang="ja">検索結果からMicrosoft社の公式ダウンロードページを開きます。</span>
+          <span lang="en">From the search results, open the official Microsoft download page.</span>
+          <span lang="fr">Dans les résultats de recherche, ouvrez la page de téléchargement officielle de Microsoft.</span>
+          <span lang="uk">З результатів пошуку відкрийте офіційну сторінку завантаження Microsoft.</span>
         </li>
         <li>
-          <span lang="ja">ページの中に「<span class="button-style">デスクトップ版をダウンロード</span>」のようなボタンがあるので、クリックします。 [<span class="icon-placeholder">↓</span> ダウンロードボタンの絵のイメージ]</span>
-          <span lang="en">Find a button like "<span class="button-style">Download for desktop</span>" on the page and click it. [<span class="icon-placeholder">↓</span> Image of a download button]</span>
-          <span lang="fr">Trouvez un bouton comme "<span class="button-style">Télécharger pour le bureau</span>" sur la page et cliquez dessus. [<span class="icon-placeholder">↓</span> Image d'un bouton de téléchargement]</span>
-          <span lang="uk">Знайдіть на сторінці кнопку типу "<span class="button-style">Завантажити для комп’ютера</span>" та натисніть її. [Зображення кнопки завантаження <span class="icon-placeholder">↓</span>]</span>
+          <span lang="ja">ページ内の「<span class="button-style">デスクトップ版をダウンロード</span>」に相当するボタンをクリックします。 [<span class="icon-placeholder">↓</span> ダウンロードアイコンのイメージ]</span>
+          <span lang="en">Click the button corresponding to "<span class="button-style">Download for desktop</span>" on the page. [<span class="icon-placeholder">↓</span> Image representing a download icon]</span>
+          <span lang="fr">Cliquez sur le bouton correspondant à "<span class="button-style">Télécharger pour le bureau</span>" sur la page. [<span class="icon-placeholder">↓</span> Image représentant une icône de téléchargement]</span>
+          <span lang="uk">Натисніть кнопку, що відповідає "<span class="button-style">Завантажити для комп’ютера</span>" на сторінці. [Зображення іконки завантаження <span class="icon-placeholder">↓</span>]</span>
         </li>
         <li>
-          <span lang="ja">ダウンロードが終わったら、ダウンロードされたファイル（アイコンがTeamsのマークのはず）をダブルクリック（素早く2回カチカチッ）します。</span>
-          <span lang="en">Once the download is complete, double-click (click twice quickly) the downloaded file (the icon should be the Teams logo).</span>
-          <span lang="fr">Une fois le téléchargement terminé, double-cliquez (cliquez deux fois rapidement) sur le fichier téléchargé (l'icône devrait être le logo Teams).</span>
-          <span lang="uk">Після завершення завантаження двічі клацніть (швидко клацніть двічі) завантажений файл (піктограма має бути логотипом Teams).</span>
+          <span lang="ja">ダウンロード完了後、ダウンロードされたファイル（Teamsのアイコンが表示されているはずです）をダブルクリックして実行します。</span>
+          <span lang="en">After the download is complete, double-click the downloaded file (it should display the Teams icon) to run it.</span>
+          <span lang="fr">Une fois le téléchargement terminé, double-cliquez sur le fichier téléchargé (il devrait afficher l'icône Teams) pour l'exécuter.</span>
+          <span lang="uk">Після завершення завантаження двічі клацніть завантажений файл (на ньому має відображатися іконка Teams), щоб запустити його.</span>
         </li>
         <li>
-          <span lang="ja">画面に指示が出てくるので、よく読んで「<span class="button-style"><span lang="ja">次へ</span><span lang="en">Next</span><span lang="fr">Suivant</span><span lang="uk">Далі</span></span>」や「<span class="button-style"><span lang="ja">同意する</span><span lang="en">Agree</span><span lang="fr">Accepter</span><span lang="uk">Погоджуюсь</span></span>」、「<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>」などをクリックして進めます。</span>
-          <span lang="en">Follow the on-screen instructions, read carefully, and click buttons like "<span class="button-style"><span lang="ja">次へ</span><span lang="en">Next</span><span lang="fr">Suivant</span><span lang="uk">Далі</span></span>", "<span class="button-style"><span lang="ja">同意する</span><span lang="en">Agree</span><span lang="fr">Accepter</span><span lang="uk">Погоджуюсь</span></span>", or "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>" to proceed.</span>
-          <span lang="fr">Suivez les instructions à l'écran, lisez attentivement et cliquez sur des boutons comme "<span class="button-style"><span lang="ja">次へ</span><span lang="en">Next</span><span lang="fr">Suivant</span><span lang="uk">Далі</span></span>", "<span class="button-style"><span lang="ja">同意する</span><span lang="en">Agree</span><span lang="fr">Accepter</span><span lang="uk">Погоджуюсь</span></span>", ou "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>" pour continuer.</span>
-          <span lang="uk">Дотримуйтесь інструкцій на екрані, уважно читайте та натискайте кнопки, такі як "<span class="button-style"><span lang="ja">次へ</span><span lang="en">Next</span><span lang="fr">Suivant</span><span lang="uk">Далі</span></span>", "<span class="button-style"><span lang="ja">同意する</span><span lang="en">Agree</span><span lang="fr">Accepter</span><span lang="uk">Погоджуюсь</span></span>" або "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>", щоб продовжити.</span>
+          <span lang="ja">画面の指示に従い、「<span class="button-style"><span lang="ja">次へ</span><span lang="en">Next</span><span lang="fr">Suivant</span><span lang="uk">Далі</span></span>」や「<span class="button-style"><span lang="ja">同意する</span><span lang="en">Agree</span><span lang="fr">Accepter</span><span lang="uk">Погоджуюсь</span></span>」、「<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>」などを選択してインストールを進めます。</span>
+          <span lang="en">Follow the on-screen instructions, selecting options like "<span class="button-style"><span lang="ja">次へ</span><span lang="en">Next</span><span lang="fr">Suivant</span><span lang="uk">Далі</span></span>", "<span class="button-style"><span lang="ja">同意する</span><span lang="en">Agree</span><span lang="fr">Accepter</span><span lang="uk">Погоджуюсь</span></span>", or "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>" to proceed with the installation.</span>
+          <span lang="fr">Suivez les instructions à l'écran, en sélectionnant des options comme "<span class="button-style"><span lang="ja">次へ</span><span lang="en">Next</span><span lang="fr">Suivant</span><span lang="uk">Далі</span></span>", "<span class="button-style"><span lang="ja">同意する</span><span lang="en">Agree</span><span lang="fr">Accepter</span><span lang="uk">Погоджуюсь</span></span>", ou "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>" pour poursuivre l'installation.</span>
+          <span lang="uk">Дотримуйтесь інструкцій на екрані, вибираючи опції, такі як "<span class="button-style"><span lang="ja">次へ</span><span lang="en">Next</span><span lang="fr">Suivant</span><span lang="uk">Далі</span></span>", "<span class="button-style"><span lang="ja">同意する</span><span lang="en">Agree</span><span lang="fr">Accepter</span><span lang="uk">Погоджуюсь</span></span>" або "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>", щоб продовжити встановлення.</span>
         </li>
         <li>
-          <span lang="ja">インストールが終わったら、学校や会社から指定されたアカウント（IDとパスワード）でログインします。これでTeamsが使えるようになりました！</span>
-          <span lang="en">After the installation is finished, log in with the account (ID and password) provided by your school or company. Now you can use Teams!</span>
-          <span lang="fr">Une fois l'installation terminée, connectez-vous avec le compte (identifiant et mot de passe) fourni par votre école ou votre entreprise. Vous pouvez maintenant utiliser Teams !</span>
-          <span lang="uk">Після завершення встановлення увійдіть за допомогою облікового запису (ID та пароля), наданого вашою школою чи компанією. Тепер ви можете використовувати Teams!</span>
+          <span lang="ja">インストール完了後、指定されたアカウント情報（IDとパスワード）を用いてログインします。これでTeamsの使用準備は完了です。</span>
+          <span lang="en">After installation, log in using the provided account information (ID and password). Teams is now ready to use.</span>
+          <span lang="fr">Après l'installation, connectez-vous en utilisant les informations de compte fournies (identifiant et mot de passe). Teams est maintenant prêt à être utilisé.</span>
+          <span lang="uk">Після встановлення увійдіть, використовуючи надану інформацію облікового запису (ID та пароль). Teams готовий до використання.</span>
         </li>
       </ol>
     </li>
     <li>
       <h3>
-          <span lang="ja"><span class="app-name">tl;dv</span> をパソコンに入れよう</span>
-          <span lang="en">Install <span class="app-name">tl;dv</span> on your computer</span>
-          <span lang="fr">Installer <span class="app-name">tl;dv</span> sur votre ordinateur</span>
-          <span lang="uk">Встановіть <span class="app-name">tl;dv</span> на свій комп’ютер</span>
+          <span lang="ja"><span class="app-name">tl;dv</span> のインストール</span>
+          <span lang="en">Install <span class="app-name">tl;dv</span></span>
+          <span lang="fr">Installer <span class="app-name">tl;dv</span></span>
+          <span lang="uk">Встановити <span class="app-name">tl;dv</span></span>
       </h3>
       <p>
-          <span lang="ja"><span class="app-name">tl;dv</span>（ティーエルディーブイ）は、Teamsでの会議（授業）を録音して、文字にしてくれる便利なロボットのようなソフトです。</span>
-          <span lang="en"><span class="app-name">tl;dv</span> (pronounced tee-el-dee-vee) is a helpful robot-like software that records Teams meetings (classes) and transcribes them into text.</span>
-          <span lang="fr"><span class="app-name">tl;dv</span> (prononcé ti-el-di-vi) est un logiciel utile, semblable à un robot, qui enregistre les réunions Teams (cours) et les transcrit en texte.</span>
-          <span lang="uk"><span class="app-name">tl;dv</span> (вимовляється ті-ел-ді-ві) – це корисне програмне забезпечення, схоже на робота, яке записує зустрічі Teams (заняття) та перетворює їх на текст.</span>
+          <span lang="ja"><span class="app-name">tl;dv</span>は、Teams会議（授業）の内容を録音し、自動でテキスト化（文字起こし）する機能を提供する便利な支援ツールです。</span>
+          <span lang="en"><span class="app-name">tl;dv</span> is a helpful support tool that records Teams meetings (classes) and automatically transcribes the content into text.</span>
+          <span lang="fr"><span class="app-name">tl;dv</span> est un outil de support utile qui enregistre les réunions Teams (cours) et transcrit automatiquement le contenu en texte.</span>
+          <span lang="uk"><span class="app-name">tl;dv</span> – це корисний допоміжний інструмент, який записує зустрічі Teams (заняття) та автоматично перетворює вміст на текст.</span>
       </p>
       <ol>
         <li>
-          <span lang="ja">またインターネットを開いて、「<span class="highlight">tldv for Teams</span>」と検索します。</span>
-          <span lang="en">Open the internet again and search for "<span class="highlight">tldv for Teams</span>".</span>
-          <span lang="fr">Ouvrez à nouveau Internet et recherchez "<span class="highlight">tldv pour Teams</span>".</span>
-          <span lang="uk">Знову відкрийте Інтернет і знайдіть "<span class="highlight">tldv для Teams</span>".</span>
+          <span lang="ja">再度Webブラウザを開き、「<span class="highlight">tldv for Teams</span>」と検索します。</span>
+          <span lang="en">Open the web browser again and search for "<span class="highlight">tldv for Teams</span>".</span>
+          <span lang="fr">Ouvrez à nouveau le navigateur Web et recherchez "<span class="highlight">tldv pour Teams</span>".</span>
+          <span lang="uk">Знову відкрийте веб-браузер і знайдіть "<span class="highlight">tldv для Teams</span>".</span>
         </li>
         <li>
-          <span lang="ja">検索結果から、<span class="app-name">tl;dv</span>の公式ページを探して開きます。</span>
-          <span lang="en">From the search results, find and open the official <span class="app-name">tl;dv</span> page.</span>
-          <span lang="fr">Dans les résultats de recherche, trouvez et ouvrez la page officielle de <span class="app-name">tl;dv</span>.</span>
-          <span lang="uk">У результатах пошуку знайдіть і відкрийте офіційну сторінку <span class="app-name">tl;dv</span>.</span>
+          <span lang="ja">検索結果から<span class="app-name">tl;dv</span>の公式サイトを開きます。</span>
+          <span lang="en">From the search results, open the official <span class="app-name">tl;dv</span> website.</span>
+          <span lang="fr">Dans les résultats de recherche, ouvrez le site officiel de <span class="app-name">tl;dv</span>.</span>
+          <span lang="uk">З результатів пошуку відкрийте офіційний веб-сайт <span class="app-name">tl;dv</span>.</span>
         </li>
         <li>
-          <span lang="ja">ページの中に「<span class="button-style"><span lang="ja">Add to Teams</span><span lang="en">Add to Teams</span><span lang="fr">Ajouter à Teams</span><span lang="uk">Додати до Teams</span></span>」や「<span class="button-style"><span lang="ja">無料で始める</span><span lang="en">Get started for free</span><span lang="fr">Commencer gratuitement</span><span lang="uk">Почати безкоштовно</span></span>」のようなボタンがあるので、クリックします。 [<span class="icon-placeholder">🤖</span> ロボットか連携の絵のイメージ]</span>
-          <span lang="en">Find a button like "<span class="button-style"><span lang="ja">Add to Teams</span><span lang="en">Add to Teams</span><span lang="fr">Ajouter à Teams</span><span lang="uk">Додати до Teams</span></span>" or "<span class="button-style"><span lang="ja">無料で始める</span><span lang="en">Get started for free</span><span lang="fr">Commencer gratuitement</span><span lang="uk">Почати безкоштовно</span></span>" on the page and click it. [<span class="icon-placeholder">🤖</span> Image of a robot or integration symbol]</span>
-          <span lang="fr">Trouvez un bouton comme "<span class="button-style"><span lang="ja">Add to Teams</span><span lang="en">Add to Teams</span><span lang="fr">Ajouter à Teams</span><span lang="uk">Додати до Teams</span></span>" ou "<span class="button-style"><span lang="ja">無料で始める</span><span lang="en">Get started for free</span><span lang="fr">Commencer gratuitement</span><span lang="uk">Почати безкоштовно</span></span>" sur la page et cliquez dessus. [<span class="icon-placeholder">🤖</span> Image d'un robot ou symbole d'intégration]</span>
-          <span lang="uk">Знайдіть на сторінці кнопку типу "<span class="button-style"><span lang="ja">Add to Teams</span><span lang="en">Add to Teams</span><span lang="fr">Ajouter à Teams</span><span lang="uk">Додати до Teams</span></span>" або "<span class="button-style"><span lang="ja">無料で始める</span><span lang="en">Get started for free</span><span lang="fr">Commencer gratuitement</span><span lang="uk">Почати безкоштовно</span></span>" та натисніть її. [Зображення робота або символу інтеграції <span class="icon-placeholder">🤖</span>]</span>
+          <span lang="ja">ページ内の「<span class="button-style"><span lang="ja">Add to Teams</span><span lang="en">Add to Teams</span><span lang="fr">Ajouter à Teams</span><span lang="uk">Додати до Teams</span></span>」や「<span class="button-style"><span lang="ja">無料で始める</span><span lang="en">Get started for free</span><span lang="fr">Commencer gratuitement</span><span lang="uk">Почати безкоштовно</span></span>」に相当するボタンをクリックします。 [<span class="icon-placeholder">🤖</span> 連携を示すアイコンのイメージ]</span>
+          <span lang="en">Click the button corresponding to "<span class="button-style"><span lang="ja">Add to Teams</span><span lang="en">Add to Teams</span><span lang="fr">Ajouter à Teams</span><span lang="uk">Додати до Teams</span></span>" or "<span class="button-style"><span lang="ja">無料で始める</span><span lang="en">Get started for free</span><span lang="fr">Commencer gratuitement</span><span lang="uk">Почати безкоштовно</span></span>" on the page. [<span class="icon-placeholder">🤖</span> Image representing an integration icon]</span>
+          <span lang="fr">Cliquez sur le bouton correspondant à "<span class="button-style"><span lang="ja">Add to Teams</span><span lang="en">Add to Teams</span><span lang="fr">Ajouter à Teams</span><span lang="uk">Додати до Teams</span></span>" ou "<span class="button-style"><span lang="ja">無料で始める</span><span lang="en">Get started for free</span><span lang="fr">Commencer gratuitement</span><span lang="uk">Почати безкоштовно</span></span>" sur la page. [<span class="icon-placeholder">🤖</span> Image représentant une icône d'intégration]</span>
+          <span lang="uk">Натисніть кнопку, що відповідає "<span class="button-style"><span lang="ja">Add to Teams</span><span lang="en">Add to Teams</span><span lang="fr">Ajouter à Teams</span><span lang="uk">Додати до Teams</span></span>" або "<span class="button-style"><span lang="ja">無料で始める</span><span lang="en">Get started for free</span><span lang="fr">Commencer gratuitement</span><span lang="uk">Почати безкоштовно</span></span>" на сторінці. [Зображення іконки інтеграції <span class="icon-placeholder">🤖</span>]</span>
         </li>
         <li>
-          <span lang="ja">画面の指示に従って、<span class="app-name">Teams</span>のアカウントと連携させます。これも「<span class="button-style"><span lang="ja">許可</span><span lang="en">Allow</span><span lang="fr">Autoriser</span><span lang="uk">Дозволити</span></span>」や「<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>」などをクリックして進めればOKです。</span>
-          <span lang="en">Follow the on-screen instructions to link it with your <span class="app-name">Teams</span> account. Clicking buttons like "<span class="button-style"><span lang="ja">許可</span><span lang="en">Allow</span><span lang="fr">Autoriser</span><span lang="uk">Дозволити</span></span>" or "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>" should be sufficient.</span>
-          <span lang="fr">Suivez les instructions à l'écran pour le lier à votre compte <span class="app-name">Teams</span>. Il suffit de cliquer sur des boutons comme "<span class="button-style"><span lang="ja">許可</span><span lang="en">Allow</span><span lang="fr">Autoriser</span><span lang="uk">Дозволити</span></span>" ou "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>".</span>
-          <span lang="uk">Дотримуйтесь інструкцій на екрані, щоб зв’язати його з вашим обліковим записом <span class="app-name">Teams</span>. Достатньо натиснути кнопки, такі як "<span class="button-style"><span lang="ja">許可</span><span lang="en">Allow</span><span lang="fr">Autoriser</span><span lang="uk">Дозволити</span></span>" або "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>".</span>
+          <span lang="ja">画面の指示に従い、<span class="app-name">Teams</span>アカウントとの連携を許可します。「<span class="button-style"><span lang="ja">許可</span><span lang="en">Allow</span><span lang="fr">Autoriser</span><span lang="uk">Дозволити</span></span>」や「<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>」などを選択して進めます。</span>
+          <span lang="en">Follow the on-screen instructions to authorize the integration with your <span class="app-name">Teams</span> account. Select options like "<span class="button-style"><span lang="ja">許可</span><span lang="en">Allow</span><span lang="fr">Autoriser</span><span lang="uk">Дозволити</span></span>" or "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>" to proceed.</span>
+          <span lang="fr">Suivez les instructions à l'écran pour autoriser l'intégration avec votre compte <span class="app-name">Teams</span>. Sélectionnez des options comme "<span class="button-style"><span lang="ja">許可</span><span lang="en">Allow</span><span lang="fr">Autoriser</span><span lang="uk">Дозволити</span></span>" ou "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>" pour continuer.</span>
+          <span lang="uk">Дотримуйтесь інструкцій на екрані, щоб авторизувати інтеграцію з вашим обліковим записом <span class="app-name">Teams</span>. Виберіть опції, такі як "<span class="button-style"><span lang="ja">許可</span><span lang="en">Allow</span><span lang="fr">Autoriser</span><span lang="uk">Дозволити</span></span>" або "<span class="button-style"><span lang="ja">インストール</span><span lang="en">Install</span><span lang="fr">Installer</span><span lang="uk">Встановити</span></span>", щоб продовжити.</span>
         </li>
         <li>
-          <span lang="ja">これで、<span class="app-name">Teams</span>の中で<span class="app-name">tl;dv</span>ロボットを呼べる準備ができました。</span>
-          <span lang="en">Now you are ready to summon the <span class="app-name">tl;dv</span> bot within <span class="app-name">Teams</span>.</span>
-          <span lang="fr">Vous êtes maintenant prêt à invoquer le bot <span class="app-name">tl;dv</span> dans <span class="app-name">Teams</span>.</span>
-          <span lang="uk">Тепер ви готові викликати бота <span class="app-name">tl;dv</span> у <span class="app-name">Teams</span>.</span>
+          <span lang="ja">これで<span class="app-name">Teams</span>内で<span class="app-name">tl;dv</span>を利用する準備が整いました。</span>
+          <span lang="en">Setup is complete. You are now ready to use <span class="app-name">tl;dv</span> within <span class="app-name">Teams</span>.</span>
+          <span lang="fr">La configuration est terminée. Vous êtes maintenant prêt à utiliser <span class="app-name">tl;dv</span> dans <span class="app-name">Teams</span>.</span>
+          <span lang="uk">Налаштування завершено. Тепер ви готові використовувати <span class="app-name">tl;dv</span> у <span class="app-name">Teams</span>.</span>
         </li>
       </ol>
     </li>
   </ol>
 
   <h2>
-    <span lang="ja">ステップ２：授業中にやること</span>
-    <span lang="en">Step 2: During the Class</span>
+    <span lang="ja">ステップ２：授業中の操作</span>
+    <span lang="en">Step 2: During Class</span>
     <span lang="fr">Étape 2 : Pendant le cours</span>
     <span lang="uk">Крок 2: Під час заняття</span>
   </h2>
   <p>
-    <span lang="ja">さあ、授業が始まります。録音を開始しましょう。</span>
-    <span lang="en">Okay, the class is starting. Let's begin recording.</span>
-    <span lang="fr">Bien, le cours commence. Commençons l'enregistrement.</span>
-    <span lang="uk">Отже, заняття починається. Почнемо запис.</span>
+    <span lang="ja">授業開始後、以下の手順で音声の記録を開始します。</span>
+    <span lang="en">After the class begins, start recording the audio following these steps.</span>
+    <span lang="fr">Après le début du cours, commencez à enregistrer l'audio en suivant ces étapes.</span>
+    <span lang="uk">Після початку заняття розпочніть запис аудіо, дотримуючись цих кроків.</span>
   </p>
-  <ol start="3"> <!-- ステップ番号を3から開始 -->
+  <ol start="3">
     <li>
       <h3>
-        <span lang="ja"><span class="app-name">Teams</span>で会議（授業）を始めよう</span>
-        <span lang="en">Start the meeting (class) in <span class="app-name">Teams</span></span>
-        <span lang="fr">Démarrer la réunion (cours) dans <span class="app-name">Teams</span></span>
-        <span lang="uk">Розпочніть зустріч (заняття) у <span class="app-name">Teams</span></span>
+        <span lang="ja"><span class="app-name">Teams</span>で会議（授業）を開始/参加する</span>
+        <span lang="en">Start/Join the Meeting (Class) in <span class="app-name">Teams</span></span>
+        <span lang="fr">Démarrer/Rejoindre la réunion (cours) dans <span class="app-name">Teams</span></span>
+        <span lang="uk">Розпочати/Приєднатися до зустрічі (заняття) в <span class="app-name">Teams</span></span>
       </h3>
       <p>
-        <span lang="ja">まず、授業が行われる<span class="app-name">Teams</span>の「会議」に参加、または自分で開始します。</span>
-        <span lang="en">First, join or start the "meeting" in <span class="app-name">Teams</span> where the class will take place.</span>
-        <span lang="fr">Tout d'abord, rejoignez ou démarrez la "réunion" dans <span class="app-name">Teams</span> où le cours aura lieu.</span>
-        <span lang="uk">Спочатку приєднайтеся до «зустрічі» в <span class="app-name">Teams</span>, де проходитиме заняття, або розпочніть її самі.</span>
+        <span lang="ja">授業が行われる<span class="app-name">Teams</span>の会議に参加、または自身で会議を開始します。</span>
+        <span lang="en">Join the <span class="app-name">Teams</span> meeting where the class is held, or start the meeting yourself.</span>
+        <span lang="fr">Rejoignez la réunion <span class="app-name">Teams</span> où se déroule le cours, ou démarrez vous-même la réunion.</span>
+        <span lang="uk">Приєднайтеся до зустрічі <span class="app-name">Teams</span>, де проводиться заняття, або розпочніть зустріч самі.</span>
       </p>
       <ol>
         <li>
-          <span lang="ja">パソコンに入れた<span class="app-name">Microsoft Teams</span>のアプリを開きます。 [<span class="icon-placeholder">T</span> Teamsアイコンの絵のイメージ]</span>
-          <span lang="en">Open the <span class="app-name">Microsoft Teams</span> app installed on your computer. [<span class="icon-placeholder">T</span> Image of the Teams icon]</span>
-          <span lang="fr">Ouvrez l'application <span class="app-name">Microsoft Teams</span> installée sur votre ordinateur. [<span class="icon-placeholder">T</span> Image de l'icône Teams]</span>
-          <span lang="uk">Відкрийте програму <span class="app-name">Microsoft Teams</span>, встановлену на вашому комп’ютері. [Зображення піктограми Teams <span class="icon-placeholder">T</span>]</span>
+          <span lang="ja">インストールした<span class="app-name">Microsoft Teams</span>アプリケーションを起動します。 [<span class="icon-placeholder">T</span> Teamsアイコンのイメージ]</span>
+          <span lang="en">Launch the installed <span class="app-name">Microsoft Teams</span> application. [<span class="icon-placeholder">T</span> Image representing the Teams icon]</span>
+          <span lang="fr">Lancez l'application <span class="app-name">Microsoft Teams</span> installée. [<span class="icon-placeholder">T</span> Image représentant l'icône Teams]</span>
+          <span lang="uk">Запустіть встановлений додаток <span class="app-name">Microsoft Teams</span>. [Зображення іконки Teams <span class="icon-placeholder">T</span>]</span>
         </li>
         <li>
-          <span lang="ja">先生が会議（授業）を始めた場合は、参加ボタンを押します。自分で始める場合は、「<span class="button-style"><span lang="ja">会議</span><span lang="en">Meet</span><span lang="fr">Réunion</span><span lang="uk">Зустріч</span></span>」メニューから「<span class="button-style"><span lang="ja">今すぐ会議</span><span lang="en">Meet now</span><span lang="fr">Démarrer une réunion</span><span lang="uk">Зустріч зараз</span></span>」などをクリックします。</span>
-          <span lang="en">If the teacher started the meeting (class), press the join button. If you are starting it yourself, click something like "<span class="button-style"><span lang="ja">今すぐ会議</span><span lang="en">Meet now</span><span lang="fr">Démarrer une réunion</span><span lang="uk">Зустріч зараз</span></span>" from the "<span class="button-style"><span lang="ja">会議</span><span lang="en">Meet</span><span lang="fr">Réunion</span><span lang="uk">Зустріч</span></span>" menu.</span>
-          <span lang="fr">Si l'enseignant a démarré la réunion (cours), appuyez sur le bouton rejoindre. Si vous la démarrez vous-même, cliquez sur quelque chose comme "<span class="button-style"><span lang="ja">今すぐ会議</span><span lang="en">Meet now</span><span lang="fr">Démarrer une réunion</span><span lang="uk">Зустріч зараз</span></span>" dans le menu "<span class="button-style"><span lang="ja">会議</span><span lang="en">Meet</span><span lang="fr">Réunion</span><span lang="uk">Зустріч</span></span>".</span>
-          <span lang="uk">Якщо викладач розпочав зустріч (заняття), натисніть кнопку приєднання. Якщо ви починаєте її самі, натисніть щось на кшталт "<span class="button-style"><span lang="ja">今すぐ会議</span><span lang="en">Meet now</span><span lang="fr">Démarrer une réunion</span><span lang="uk">Зустріч зараз</span></span>" у меню "<span class="button-style"><span lang="ja">会議</span><span lang="en">Meet</span><span lang="fr">Réunion</span><span lang="uk">Зустріч</span></span>".</span>
+          <span lang="ja">指定された会議に参加するか、「<span class="button-style"><span lang="ja">会議</span><span lang="en">Meet</span><span lang="fr">Réunion</span><span lang="uk">Зустріч</span></span>」メニューから「<span class="button-style"><span lang="ja">今すぐ会議</span><span lang="en">Meet now</span><span lang="fr">Démarrer une réunion</span><span lang="uk">Зустріч зараз</span></span>」などを選択して会議を開始します。</span>
+          <span lang="en">Join the designated meeting or start one yourself by selecting "<span class="button-style"><span lang="ja">今すぐ会議</span><span lang="en">Meet now</span><span lang="fr">Démarrer une réunion</span><span lang="uk">Зустріч зараз</span></span>" or similar from the "<span class="button-style"><span lang="ja">会議</span><span lang="en">Meet</span><span lang="fr">Réunion</span><span lang="uk">Зустріч</span></span>" menu.</span>
+          <span lang="fr">Rejoignez la réunion désignée ou démarrez-en une vous-même en sélectionnant "<span class="button-style"><span lang="ja">今すぐ会議</span><span lang="en">Meet now</span><span lang="fr">Démarrer une réunion</span><span lang="uk">Зустріч зараз</span></span>" ou similaire dans le menu "<span class="button-style"><span lang="ja">会議</span><span lang="en">Meet</span><span lang="fr">Réunion</span><span lang="uk">Зустріч</span></span>".</span>
+          <span lang="uk">Приєднайтеся до призначеної зустрічі або розпочніть власну, вибравши "<span class="button-style"><span lang="ja">今すぐ会議</span><span lang="en">Meet now</span><span lang="fr">Démarrer une réunion</span><span lang="uk">Зустріч зараз</span></span>" або подібне в меню "<span class="button-style"><span lang="ja">会議</span><span lang="en">Meet</span><span lang="fr">Réunion</span><span lang="uk">Зустріч</span></span>".</span>
         </li>
         <li>
-          <span lang="ja">カメラやマイクの設定を確認して、「<span class="button-style"><span lang="ja">今すぐ参加</span><span lang="en">Join now</span><span lang="fr">Rejoindre maintenant</span><span lang="uk">Приєднатися зараз</span></span>」ボタンをクリックします。</span>
-          <span lang="en">Check your camera and microphone settings, then click the "<span class="button-style"><span lang="ja">今すぐ参加</span><span lang="en">Join now</span><span lang="fr">Rejoindre maintenant</span><span lang="uk">Приєднатися зараз</span></span>" button.</span>
-          <span lang="fr">Vérifiez les paramètres de votre caméra et de votre microphone, puis cliquez sur le bouton "<span class="button-style"><span lang="ja">今すぐ参加</span><span lang="en">Join now</span><span lang="fr">Rejoindre maintenant</span><span lang="uk">Приєднатися зараз</span></span>".</span>
-          <span lang="uk">Перевірте налаштування камери та мікрофона, а потім натисніть кнопку "<span class="button-style"><span lang="ja">今すぐ参加</span><span lang="en">Join now</span><span lang="fr">Rejoindre maintenant</span><span lang="uk">Приєднатися зараз</span></span>".</span>
+          <span lang="ja">カメラ・マイクの設定を確認後、「<span class="button-style"><span lang="ja">今すぐ参加</span><span lang="en">Join now</span><span lang="fr">Rejoindre maintenant</span><span lang="uk">Приєднатися зараз</span></span>」ボタンをクリックします。</span>
+          <span lang="en">After confirming camera and microphone settings, click the "<span class="button-style"><span lang="ja">今すぐ参加</span><span lang="en">Join now</span><span lang="fr">Rejoindre maintenant</span><span lang="uk">Приєднатися зараз</span></span>" button.</span>
+          <span lang="fr">Après avoir confirmé les paramètres de la caméra et du microphone, cliquez sur le bouton "<span class="button-style"><span lang="ja">今すぐ参加</span><span lang="en">Join now</span><span lang="fr">Rejoindre maintenant</span><span lang="uk">Приєднатися зараз</span></span>".</span>
+          <span lang="uk">Після перевірки налаштувань камери та мікрофона натисніть кнопку "<span class="button-style"><span lang="ja">今すぐ参加</span><span lang="en">Join now</span><span lang="fr">Rejoindre maintenant</span><span lang="uk">Приєднатися зараз</span></span>".</span>
         </li>
       </ol>
     </li>
     <li>
       <h3>
-        <span lang="ja"><span class="app-name">tl;dv</span>に録音をお願いしよう</span>
-        <span lang="en">Ask <span class="app-name">tl;dv</span> to record</span>
-        <span lang="fr">Demander à <span class="app-name">tl;dv</span> d'enregistrer</span>
-        <span lang="uk">Попросіть <span class="app-name">tl;dv</span> записати</span>
+        <span lang="ja"><span class="app-name">tl;dv</span> で録音を開始する</span>
+        <span lang="en">Start Recording with <span class="app-name">tl;dv</span></span>
+        <span lang="fr">Démarrer l'enregistrement avec <span class="app-name">tl;dv</span></span>
+        <span lang="uk">Почати запис за допомогою <span class="app-name">tl;dv</span></span>
       </h3>
       <p>
-        <span lang="ja">会議（授業）が始まったら、<span class="app-name">tl;dv</span>ロボットを呼んで録音を開始してもらいます。</span>
-        <span lang="en">Once the meeting (class) has started, summon the <span class="app-name">tl;dv</span> bot to start recording.</span>
-        <span lang="fr">Une fois la réunion (cours) commencée, invoquez le bot <span class="app-name">tl;dv</span> pour démarrer l'enregistrement.</span>
-        <span lang="uk">Щойно зустріч (заняття) розпочалася, викличте бота <span class="app-name">tl;dv</span>, щоб почати запис.</span>
+        <span lang="ja">会議（授業）が始まったら、<span class="app-name">tl;dv</span>を会議に追加して録音を開始させます。</span>
+        <span lang="en">Once the meeting (class) has started, add <span class="app-name">tl;dv</span> to the meeting to begin recording.</span>
+        <span lang="fr">Une fois la réunion (cours) commencée, ajoutez <span class="app-name">tl;dv</span> à la réunion pour commencer l'enregistrement.</span>
+        <span lang="uk">Після початку зустрічі (заняття) додайте <span class="app-name">tl;dv</span> до зустрічі, щоб розпочати запис.</span>
       </p>
       <ol>
         <li>
-          <span lang="ja"><span class="app-name">Teams</span>の会議画面の上か下にあるメニューを探します。</span>
-          <span lang="en">Look for the menu at the top or bottom of the <span class="app-name">Teams</span> meeting screen.</span>
-          <span lang="fr">Recherchez le menu en haut ou en bas de l'écran de réunion <span class="app-name">Teams</span>.</span>
-          <span lang="uk">Знайдіть меню у верхній або нижній частині екрана зустрічі <span class="app-name">Teams</span>.</span>
+          <span lang="ja"><span class="app-name">Teams</span>会議画面の上部または下部にあるメニューバーを確認します。</span>
+          <span lang="en">Check the menu bar at the top or bottom of the <span class="app-name">Teams</span> meeting screen.</span>
+          <span lang="fr">Vérifiez la barre de menu en haut ou en bas de l'écran de réunion <span class="app-name">Teams</span>.</span>
+          <span lang="uk">Перевірте панель меню у верхній або нижній частині екрана зустрічі <span class="app-name">Teams</span>.</span>
         </li>
         <li>
-          <span lang="ja">「<span class="button-style">･･･</span>」（<span lang="ja">その他</span><span lang="en">More</span><span lang="fr">Plus</span><span lang="uk">Більше</span>）や「<span class="button-style"><span lang="ja">アプリ</span><span lang="en">Apps</span><span lang="fr">Applications</span><span lang="uk">Додатки</span></span>」のようなボタンを探してクリックします。</span>
-          <span lang="en">Find and click a button like "<span class="button-style">･･･</span>" (<span lang="ja">その他</span><span lang="en">More</span><span lang="fr">Plus</span><span lang="uk">Більше</span>) or "<span class="button-style"><span lang="ja">アプリ</span><span lang="en">Apps</span><span lang="fr">Applications</span><span lang="uk">Додатки</span></span>".</span>
-          <span lang="fr">Trouvez et cliquez sur un bouton comme "<span class="button-style">･･･</span>" (<span lang="ja">その他</span><span lang="en">More</span><span lang="fr">Plus</span><span lang="uk">Більше</span>) ou "<span class="button-style"><span lang="ja">アプリ</span><span lang="en">Apps</span><span lang="fr">Applications</span><span lang="uk">Додатки</span></span>".</span>
-          <span lang="uk">Знайдіть і натисніть кнопку, схожу на "<span class="button-style">･･･</span>" (<span lang="ja">その他</span><span lang="en">More</span><span lang="fr">Plus</span><span lang="uk">Більше</span>) або "<span class="button-style"><span lang="ja">アプリ</span><span lang="en">Apps</span><span lang="fr">Applications</span><span lang="uk">Додатки</span></span>".</span>
+          <span lang="ja">「<span class="button-style">･･･</span>」（<span lang="ja">その他</span><span lang="en">More</span><span lang="fr">Plus</span><span lang="uk">Більше</span>）や「<span class="button-style"><span lang="ja">アプリ</span><span lang="en">Apps</span><span lang="fr">Applications</span><span lang="uk">Додатки</span></span>」といったボタンを探してクリックします。</span>
+          <span lang="en">Find and click the button labeled "<span class="button-style">･･･</span>" (<span lang="ja">その他</span><span lang="en">More</span><span lang="fr">Plus</span><span lang="uk">Більше</span>), "<span class="button-style"><span lang="ja">アプリ</span><span lang="en">Apps</span><span lang="fr">Applications</span><span lang="uk">Додатки</span></span>", or similar.</span>
+          <span lang="fr">Trouvez et cliquez sur le bouton intitulé "<span class="button-style">･･･</span>" (<span lang="ja">その他</span><span lang="en">More</span><span lang="fr">Plus</span><span lang="uk">Більше</span>), "<span class="button-style"><span lang="ja">アプリ</span><span lang="en">Apps</span><span lang="fr">Applications</span><span lang="uk">Додатки</span></span>", ou similaire.</span>
+          <span lang="uk">Знайдіть і натисніть кнопку з позначкою "<span class="button-style">･･･</span>" (<span lang="ja">その他</span><span lang="en">More</span><span lang="fr">Plus</span><span lang="uk">Більше</span>), "<span class="button-style"><span lang="ja">アプリ</span><span lang="en">Apps</span><span lang="fr">Applications</span><span lang="uk">Додатки</span></span>" або подібну.</span>
         </li>
         <li>
-          <span lang="ja">アプリの一覧から<span class="app-name">tl;dv</span>を探してクリックします。 [<span class="icon-placeholder">🤖</span> tl;dvのアイコンの絵のイメージ]</span>
-          <span lang="en">Find and click <span class="app-name">tl;dv</span> from the list of apps. [<span class="icon-placeholder">🤖</span> Image of the tl;dv icon]</span>
-          <span lang="fr">Trouvez et cliquez sur <span class="app-name">tl;dv</span> dans la liste des applications. [<span class="icon-placeholder">🤖</span> Image de l'icône tl;dv]</span>
-          <span lang="uk">Знайдіть і натисніть <span class="app-name">tl;dv</span> у списку програм. [Зображення піктограми tl;dv <span class="icon-placeholder">🤖</span>]</span>
+          <span lang="ja">表示されるアプリ一覧から <span class="app-name">tl;dv</span> を選択します。 [<span class="icon-placeholder">🤖</span> tl;dvアイコンのイメージ]</span>
+          <span lang="en">Select <span class="app-name">tl;dv</span> from the displayed list of apps. [<span class="icon-placeholder">🤖</span> Image representing the tl;dv icon]</span>
+          <span lang="fr">Sélectionnez <span class="app-name">tl;dv</span> dans la liste des applications affichée. [<span class="icon-placeholder">🤖</span> Image représentant l'icône tl;dv]</span>
+          <span lang="uk">Виберіть <span class="app-name">tl;dv</span> зі списку програм, що відображається. [Зображення іконки tl;dv <span class="icon-placeholder">🤖</span>]</span>
         </li>
         <li>
-          <span lang="ja">「<span class="button-style"><span lang="ja">会議に追加</span><span lang="en">Add to meeting</span><span lang="fr">Ajouter à la réunion</span><span lang="uk">Додати до зустрічі</span></span>」や「<span class="button-style"><span lang="ja">Record</span><span lang="en">Record</span><span lang="fr">Enregistrer</span><span lang="uk">Запис</span></span>」（<span lang="ja">録音</span><span lang="en">Record</span><span lang="fr">Enregistrer</span><span lang="uk">Запис</span>）のようなボタンが表示されたらクリックします。</span>
-          <span lang="en">Click the button that appears, such as "<span class="button-style"><span lang="ja">会議に追加</span><span lang="en">Add to meeting</span><span lang="fr">Ajouter à la réunion</span><span lang="uk">Додати до зустрічі</span></span>" or "<span class="button-style"><span lang="ja">Record</span><span lang="en">Record</span><span lang="fr">Enregistrer</span><span lang="uk">Запис</span></span>".</span>
-          <span lang="fr">Cliquez sur le bouton qui apparaît, tel que "<span class="button-style"><span lang="ja">会議に追加</span><span lang="en">Add to meeting</span><span lang="fr">Ajouter à la réunion</span><span lang="uk">Додати до зустрічі</span></span>" ou "<span class="button-style"><span lang="ja">Record</span><span lang="en">Record</span><span lang="fr">Enregistrer</span><span lang="uk">Запис</span></span>".</span>
-          <span lang="uk">Натисніть кнопку, що з’явиться, наприклад "<span class="button-style"><span lang="ja">会議に追加</span><span lang="en">Add to meeting</span><span lang="fr">Ajouter à la réunion</span><span lang="uk">Додати до зустрічі</span></span>" або "<span class="button-style"><span lang="ja">Record</span><span lang="en">Record</span><span lang="fr">Enregistrer</span><span lang="uk">Запис</span></span>".</span>
+          <span lang="ja">「<span class="button-style"><span lang="ja">会議に追加</span><span lang="en">Add to meeting</span><span lang="fr">Ajouter à la réunion</span><span lang="uk">Додати до зустрічі</span></span>」や「<span class="button-style"><span lang="ja">Record</span><span lang="en">Record</span><span lang="fr">Enregistrer</span><span lang="uk">Запис</span></span>」といったボタンが表示されたら、クリックして録音を開始します。</span>
+          <span lang="en">If buttons like "<span class="button-style"><span lang="ja">会議に追加</span><span lang="en">Add to meeting</span><span lang="fr">Ajouter à la réunion</span><span lang="uk">Додати до зустрічі</span></span>" or "<span class="button-style"><span lang="ja">Record</span><span lang="en">Record</span><span lang="fr">Enregistrer</span><span lang="uk">Запис</span></span>" appear, click one to start recording.</span>
+          <span lang="fr">Si des boutons comme "<span class="button-style"><span lang="ja">会議に追加</span><span lang="en">Add to meeting</span><span lang="fr">Ajouter à la réunion</span><span lang="uk">Додати до зустрічі</span></span>" ou "<span class="button-style"><span lang="ja">Record</span><span lang="en">Record</span><span lang="fr">Enregistrer</span><span lang="uk">Запис</span></span>" apparaissent, cliquez sur l'un d'eux pour démarrer l'enregistrement.</span>
+          <span lang="uk">Якщо з’являться кнопки на кшталт "<span class="button-style"><span lang="ja">会議に追加</span><span lang="en">Add to meeting</span><span lang="fr">Ajouter à la réunion</span><span lang="uk">Додати до зустрічі</span></span>" або "<span class="button-style"><span lang="ja">Record</span><span lang="en">Record</span><span lang="fr">Enregistrer</span><span lang="uk">Запис</span></span>", натисніть одну з них, щоб почати запис.</span>
         </li>
         <li>
-          <span lang="ja">画面に「<span class="app-name">tl;dv Bot</span>が会議に参加しました」のようなメッセージが出れば成功です。自動的に録音と文字起こしが始まります。 [<span class="icon-placeholder">●</span> RECランプのイメージ]</span>
-          <span lang="en">Success! A message like "<span class="app-name">tl;dv Bot</span> has joined the meeting" should appear. Recording and transcription will start automatically. [<span class="icon-placeholder">●</span> Image of a REC light]</span>
-          <span lang="fr">Succès ! Un message comme "<span class="app-name">tl;dv Bot</span> a rejoint la réunion" devrait apparaître. L'enregistrement et la transcription commenceront automatiquement. [<span class="icon-placeholder">●</span> Image d'un voyant REC]</span>
-          <span lang="uk">Успіх! Має з’явитися повідомлення на кшталт "<span class="app-name">tl;dv Bot</span> приєднався до зустрічі". Запис і транскрипція розпочнуться автоматично. [Зображення індикатора запису <span class="icon-placeholder">●</span>]</span>
+          <span lang="ja">「<span class="app-name">tl;dv Bot</span> が会議に参加しました」のような通知が表示されれば、録音と文字起こしが自動的に開始されています。 [<span class="icon-placeholder">●</span> 録音中を示すインジケータのイメージ]</span>
+          <span lang="en">A notification like "<span class="app-name">tl;dv Bot</span> has joined the meeting" indicates that recording and transcription have started automatically. [<span class="icon-placeholder">●</span> Image representing a recording indicator]</span>
+          <span lang="fr">Une notification comme "<span class="app-name">tl;dv Bot</span> a rejoint la réunion" indique que l'enregistrement et la transcription ont démarré automatiquement. [<span class="icon-placeholder">●</span> Image représentant un indicateur d'enregistrement]</span>
+          <span lang="uk">Сповіщення на кшталт "<span class="app-name">tl;dv Bot</span> приєднався до зустрічі" вказує на те, що запис і транскрипція розпочалися автоматично. [Зображення індикатора запису <span class="icon-placeholder">●</span>]</span>
         </li>
         <li>
-          <span lang="ja"><span class="warning">注意：</span> 初めて使うときや設定によっては、参加者全員に録音していることが通知される場合があります。</span>
-          <span lang="en"><span class="warning">Note:</span> Depending on settings or first-time use, all participants may be notified that the meeting is being recorded.</span>
-          <span lang="fr"><span class="warning">Remarque :</span> Selon les paramètres ou la première utilisation, tous les participants peuvent être informés que la réunion est enregistrée.</span>
-          <span lang="uk"><span class="warning">Примітка:</span> Залежно від налаштувань або першого використання, усі учасники можуть бути сповіщені про запис зустрічі.</span>
+          <span lang="ja"><span class="warning">注意：</span> 設定や初回利用時には、会議の参加者全員に録音中であることが通知される場合があります。</span>
+          <span lang="en"><span class="warning">Note:</span> Depending on settings or initial use, all meeting participants may be notified that the session is being recorded.</span>
+          <span lang="fr"><span class="warning">Remarque :</span> Selon les paramètres ou la première utilisation, tous les participants à la réunion peuvent être informés que la session est enregistrée.</span>
+          <span lang="uk"><span class="warning">Примітка:</span> Залежно від налаштувань або першого використання, усі учасники зустрічі можуть бути сповіщені про запис сесії.</span>
         </li>
       </ol>
     </li>
   </ol>
 
    <h2>
-    <span lang="ja">ステップ３：授業の後にやること</span>
-    <span lang="en">Step 3: After the Class</span>
+    <span lang="ja">ステップ３：授業後の作業</span>
+    <span lang="en">Step 3: After Class</span>
     <span lang="fr">Étape 3 : Après le cours</span>
     <span lang="uk">Крок 3: Після заняття</span>
   </h2>
   <p>
-    <span lang="ja">授業が終わったら、録音された内容を確認して、見やすいノートにまとめましょう。</span>
-    <span lang="en">After the class is over, let's review the recorded content and organize it into easy-to-read notes.</span>
-    <span lang="fr">Une fois le cours terminé, examinons le contenu enregistré et organisons-le en notes faciles à lire.</span>
-    <span lang="uk">Після завершення заняття переглянемо записаний вміст та впорядкуємо його в нотатки, які легко читати.</span>
+    <span lang="ja">授業終了後、記録された内容を確認し、ノートとして整形・保存します。</span>
+    <span lang="en">After the class, review the recorded content, format it as notes, and save it.</span>
+    <span lang="fr">Après le cours, examinez le contenu enregistré, mettez-le en forme comme des notes et enregistrez-le.</span>
+    <span lang="uk">Після заняття перегляньте записаний вміст, відформатуйте його як нотатки та збережіть.</span>
   </p>
-  <ol start="5"> <!-- ステップ番号を5から開始 -->
+  <ol start="5">
     <li>
       <h3>
-        <span lang="ja"><span class="app-name">tl;dv</span>で文字起こしを確認しよう</span>
-        <span lang="en">Check the transcription in <span class="app-name">tl;dv</span></span>
+        <span lang="ja"><span class="app-name">tl;dv</span>で文字起こし内容を確認する</span>
+        <span lang="en">Review the Transcription in <span class="app-name">tl;dv</span></span>
         <span lang="fr">Vérifier la transcription dans <span class="app-name">tl;dv</span></span>
-        <span lang="uk">Перевірте транскрипцію в <span class="app-name">tl;dv</span></span>
+        <span lang="uk">Переглянути транскрипцію в <span class="app-name">tl;dv</span></span>
       </h3>
       <p>
-        <span lang="ja">録音が終わると、<span class="app-name">tl;dv</span>が自動で文字起こしを作ってくれます。それを確認しに行きましょう。</span>
-        <span lang="en">When the recording finishes, <span class="app-name">tl;dv</span> automatically creates a transcript. Let's go check it.</span>
-        <span lang="fr">Lorsque l'enregistrement est terminé, <span class="app-name">tl;dv</span> crée automatiquement une transcription. Allons la vérifier.</span>
-        <span lang="uk">Коли запис завершиться, <span class="app-name">tl;dv</span> автоматично створить транскрипцію. Ходімо її перевіримо.</span>
+        <span lang="ja">録音完了後、<span class="app-name">tl;dv</span>によって自動生成された文字起こしを確認します。</span>
+        <span lang="en">After the recording is complete, review the automatically generated transcript provided by <span class="app-name">tl;dv</span>.</span>
+        <span lang="fr">Une fois l'enregistrement terminé, vérifiez la transcription générée automatiquement par <span class="app-name">tl;dv</span>.</span>
+        <span lang="uk">Після завершення запису перегляньте автоматично згенеровану транскрипцію, надану <span class="app-name">tl;dv</span>.</span>
       </p>
       <ol>
         <li>
-          <span lang="ja">インターネットを開いて、「<span class="highlight">tldv login</span>」などで検索し、<span class="app-name">tl;dv</span>のサイトを開きます。</span>
-          <span lang="en">Open the internet, search for "<span class="highlight">tldv login</span>" or similar, and open the <span class="app-name">tl;dv</span> website.</span>
-          <span lang="fr">Ouvrez Internet, recherchez "<span class="highlight">tldv login</span>" ou similaire, et ouvrez le site web de <span class="app-name">tl;dv</span>.</span>
-          <span lang="uk">Відкрийте Інтернет, знайдіть "<span class="highlight">tldv login</span>" або подібне, і відкрийте веб-сайт <span class="app-name">tl;dv</span>.</span>
+          <span lang="ja">Webブラウザで「<span class="highlight">tldv login</span>」などを検索し、<span class="app-name">tl;dv</span>のWebサイトにアクセスします。</span>
+          <span lang="en">Using a web browser, search for "<span class="highlight">tldv login</span>" or similar and access the <span class="app-name">tl;dv</span> website.</span>
+          <span lang="fr">À l'aide d'un navigateur Web, recherchez "<span class="highlight">tldv login</span>" ou similaire et accédez au site Web de <span class="app-name">tl;dv</span>.</span>
+          <span lang="uk">За допомогою веб-браузера знайдіть "<span class="highlight">tldv login</span>" або подібне та перейдіть на веб-сайт <span class="app-name">tl;dv</span>.</span>
         </li>
         <li>
-          <span lang="ja">準備の時と同じアカウントでログインします。</span>
-          <span lang="en">Log in with the same account you used during preparation.</span>
-          <span lang="fr">Connectez-vous avec le même compte que celui utilisé lors de la préparation.</span>
-          <span lang="uk">Увійдіть за допомогою того ж облікового запису, який ви використовували під час підготовки.</span>
+          <span lang="ja">事前準備で使用したアカウントでログインします。</span>
+          <span lang="en">Log in using the account used during preparation.</span>
+          <span lang="fr">Connectez-vous en utilisant le compte utilisé lors de la préparation.</span>
+          <span lang="uk">Увійдіть, використовуючи обліковий запис, використаний під час підготовки.</span>
         </li>
         <li>
-          <span lang="ja">マイページ（「<span class="button-style"><span lang="ja">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="uk">Панель</span></span>」や「<span class="button-style"><span lang="ja">My Recordings</span><span lang="en">My Recordings</span><span lang="fr">Mes enregistrements</span><span lang="uk">Мої записи</span></span>」のような名前の場所）を開きます。</span>
-          <span lang="en">Open your personal page (usually named something like "<span class="button-style"><span lang="ja">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="uk">Панель</span></span>" or "<span class="button-style"><span lang="ja">My Recordings</span><span lang="en">My Recordings</span><span lang="fr">Mes enregistrements</span><span lang="uk">Мої записи</span></span>").</span>
-          <span lang="fr">Ouvrez votre page personnelle (généralement nommée quelque chose comme "<span class="button-style"><span lang="ja">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="uk">Панель</span></span>" ou "<span class="button-style"><span lang="ja">My Recordings</span><span lang="en">My Recordings</span><span lang="fr">Mes enregistrements</span><span lang="uk">Мої записи</span></span>").</span>
-          <span lang="uk">Відкрийте свою особисту сторінку (зазвичай називається щось на кшталт "<span class="button-style"><span lang="ja">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="uk">Панель</span></span>" або "<span class="button-style"><span lang="ja">My Recordings</span><span lang="en">My Recordings</span><span lang="fr">Mes enregistrements</span><span lang="uk">Мої записи</span></span>").</span>
+          <span lang="ja">マイページ（「<span class="button-style"><span lang="ja">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="uk">Панель</span></span>」や「<span class="button-style"><span lang="ja">My Recordings</span><span lang="en">My Recordings</span><span lang="fr">Mes enregistrements</span><span lang="uk">Мої записи</span></span>」などの名称）を開きます。</span>
+          <span lang="en">Open your personal page (often named "<span class="button-style"><span lang="ja">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="uk">Панель</span></span>", "<span class="button-style"><span lang="ja">My Recordings</span><span lang="en">My Recordings</span><span lang="fr">Mes enregistrements</span><span lang="uk">Мої записи</span></span>", or similar).</span>
+          <span lang="fr">Ouvrez votre page personnelle (souvent nommée "<span class="button-style"><span lang="ja">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="uk">Панель</span></span>", "<span class="button-style"><span lang="ja">My Recordings</span><span lang="en">My Recordings</span><span lang="fr">Mes enregistrements</span><span lang="uk">Мої записи</span></span>", ou similaire).</span>
+          <span lang="uk">Відкрийте свою особисту сторінку (часто називається "<span class="button-style"><span lang="ja">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="uk">Панель</span></span>", "<span class="button-style"><span lang="ja">My Recordings</span><span lang="en">My Recordings</span><span lang="fr">Mes enregistrements</span><span lang="uk">Мої записи</span></span>" або подібне).</span>
         </li>
         <li>
-          <span lang="ja">録画した授業の一覧が表示されるので、該当する授業をクリックします。</span>
-          <span lang="en">A list of recorded classes will be displayed. Click on the relevant class.</span>
-          <span lang="fr">Une liste des cours enregistrés s'affichera. Cliquez sur le cours concerné.</span>
-          <span lang="uk">Відобразиться список записаних занять. Клацніть на відповідне заняття.</span>
+          <span lang="ja">記録された授業の一覧から、該当するものを選択します。</span>
+          <span lang="en">Select the relevant class from the list of recorded sessions.</span>
+          <span lang="fr">Sélectionnez le cours pertinent dans la liste des sessions enregistrées.</span>
+          <span lang="uk">Виберіть відповідне заняття зі списку записаних сесій.</span>
         </li>
         <li>
-          <span lang="ja">画面の右側などに、授業内容が文字になったもの（文字起こし）が表示されます。 [<span class="icon-placeholder">📄</span> 文字起こし原稿のイメージ]</span>
-          <span lang="en">The transcript (text version of the class content) will be displayed, often on the right side of the screen. [<span class="icon-placeholder">📄</span> Image of a transcript document]</span>
-          <span lang="fr">La transcription (version texte du contenu du cours) s'affichera, souvent sur le côté droit de l'écran. [<span class="icon-placeholder">📄</span> Image d'un document de transcription]</span>
-          <span lang="uk">Транскрипція (текстова версія змісту заняття) буде відображена, часто праворуч на екрані. [Зображення документа з транскрипцією <span class="icon-placeholder">📄</span>]</span>
+          <span lang="ja">画面上に表示される文字起こし内容を確認します。 [<span class="icon-placeholder">📄</span> テキストドキュメントのイメージ]</span>
+          <span lang="en">Review the transcript content displayed on the screen. [<span class="icon-placeholder">📄</span> Image representing a text document]</span>
+          <span lang="fr">Vérifiez le contenu de la transcription affiché à l'écran. [<span class="icon-placeholder">📄</span> Image représentant un document texte]</span>
+          <span lang="uk">Перегляньте вміст транскрипції, що відображається на екрані. [Зображення текстового документа <span class="icon-placeholder">📄</span>]</span>
         </li>
         <li>
-          <span lang="ja">間違いがないか、ざっと目を通してみましょう。（完璧でなくても大丈夫です）</span>
-          <span lang="en">Quickly scan it for any major errors. (It doesn't have to be perfect.)</span>
-          <span lang="fr">Parcourez-la rapidement pour repérer les erreurs majeures. (Elle n'a pas besoin d'être parfaite.)</span>
-          <span lang="uk">Швидко перегляньте її на наявність серйозних помилок. (Вона не обов’язково має бути ідеальною.)</span>
+          <span lang="ja">誤字脱字など、大きな誤りがないかを確認します（完璧である必要はありません）。</span>
+          <span lang="en">Check for significant errors such as typos (it doesn't need to be perfect).</span>
+          <span lang="fr">Vérifiez les erreurs importantes telles que les fautes de frappe (il n'est pas nécessaire qu'elle soit parfaite).</span>
+          <span lang="uk">Перевірте наявність значних помилок, таких як друкарські помилки (не обов’язково, щоб текст був ідеальним).</span>
         </li>
       </ol>
     </li>
     <li>
       <h3>
-        <span lang="ja">文字起こしをAIできれいにしてもらおう</span>
-        <span lang="en">Use AI to clean up the transcription</span>
-        <span lang="fr">Utiliser l'IA pour nettoyer la transcription</span>
-        <span lang="uk">Використовуйте ШІ для очищення транскрипції</span>
+        <span lang="ja">AIを用いて文字起こしをノート形式に整形する</span>
+        <span lang="en">Format the Transcript into Notes using AI</span>
+        <span lang="fr">Mettre en forme la transcription en notes à l'aide de l'IA</span>
+        <span lang="uk">Відформатувати транскрипцію в нотатки за допомогою ШІ</span>
       </h3>
       <p>
-        <span lang="ja">文字起こしは、そのままでは読みにくいことがあります。そこで、AI（人工知能）の力を借りて、見やすいノート形式に整えてもらいましょう。ここでは<span class="app-name"><a href="https://aistudio.google.com/u/1/prompts/new_chat">Google AI Studio</a></span>というツールを使います。</span>
-        <span lang="en">Raw transcripts can sometimes be hard to read. Let's use the power of AI (Artificial Intelligence) to format it into an easy-to-read note style. We'll use a tool called <span class="app-name">Google AI Studio</span> here.</span>
-        <span lang="fr">Les transcriptions brutes peuvent parfois être difficiles à lire. Utilisons la puissance de l'IA (Intelligence Artificielle) pour la mettre en forme dans un style de note facile à lire. Nous utiliserons ici un outil appelé <span class="app-name">Google AI Studio</span>.</span>
-        <span lang="uk">Необроблені транскрипції іноді важко читати. Давайте використаємо силу ШІ (штучного інтелекту), щоб відформатувати їх у зручний для читання стиль нотаток. Тут ми будемо використовувати інструмент під назвою <span class="app-name">Google AI Studio</span>.</span>
+        <span lang="ja">文字起こしだけでは読みにくい場合があるため、AI（人工知能）を活用して、構造化された見やすいノート形式に変換します。ここでは<span class="app-name">Google AI Studio</span>を利用します。</span>
+        <span lang="en">Since raw transcripts can be hard to read, use AI (Artificial Intelligence) to convert them into a structured, easy-to-read note format. We will use <span class="app-name">Google AI Studio</span> for this.</span>
+        <span lang="fr">Comme les transcriptions brutes peuvent être difficiles à lire, utilisez l'IA (Intelligence Artificielle) pour les convertir en un format de note structuré et facile à lire. Nous utiliserons <span class="app-name">Google AI Studio</span> pour cela.</span>
+        <span lang="uk">Оскільки необроблені транскрипції можуть бути важкими для читання, використовуйте ШІ (штучний інтелект), щоб перетворити їх на структурований, зручний для читання формат нотаток. Для цього ми будемо використовувати <span class="app-name">Google AI Studio</span>.</span>
       </p>
       <ol>
         <li>
-          <span lang="ja">インターネットで「<span class="highlight">Google AI Studio</span>」と検索して、サイトを開きます。（Googleアカウントでのログインが必要な場合があります）</span>
-          <span lang="en">Search for "<span class="highlight">Google AI Studio</span>" on the internet and open the site. (You might need to log in with a Google account.)</span>
-          <span lang="fr">Recherchez "<span class="highlight">Google AI Studio</span>" sur Internet et ouvrez le site. (Vous devrez peut-être vous connecter avec un compte Google.)</span>
-          <span lang="uk">Знайдіть "<span class="highlight">Google AI Studio</span>" в Інтернеті та відкрийте сайт. (Можливо, вам знадобиться увійти за допомогою облікового запису Google.)</span>
+          <span lang="ja">Webブラウザで「<span class="highlight">Google AI Studio</span>」を検索し、該当サイトを開きます（Googleアカウントでのログインが必要になる場合があります）。</span>
+          <span lang="en">Search for "<span class="highlight">Google AI Studio</span>" in your web browser and open the site (logging in with a Google account may be required).</span>
+          <span lang="fr">Recherchez "<span class="highlight">Google AI Studio</span>" dans votre navigateur Web et ouvrez le site (une connexion avec un compte Google peut être requise).</span>
+          <span lang="uk">Знайдіть "<span class="highlight">Google AI Studio</span>" у вашому веб-браузері та відкрийте сайт (може знадобитися вхід за допомогою облікового запису Google).</span>
         </li>
         <li>
-          <span lang="ja"><span class="app-name">tl;dv</span>の画面で、確認した文字起こしを<span class="highlight">全部選択してコピー</span>します。（マウスでドラッグして選択し、右クリック→コピー、または Ctrl+C / Command+C ）</span>
-          <span lang="en">On the <span class="app-name">tl;dv</span> screen, <span class="highlight">select and copy the entire</span> checked transcript. (Drag the mouse to select, then right-click -> Copy, or use Ctrl+C / Command+C).</span>
-          <span lang="fr">Sur l'écran <span class="app-name">tl;dv</span>, <span class="highlight">sélectionnez et copiez l'intégralité</span> de la transcription vérifiée. (Faites glisser la souris pour sélectionner, puis clic droit -> Copier, ou utilisez Ctrl+C / Command+C).</span>
-          <span lang="uk">На екрані <span class="app-name">tl;dv</span> <span class="highlight">виділіть і скопіюйте всю</span> перевірену транскрипцію. (Перетягніть мишу, щоб виділити, потім клацніть правою кнопкою миші -> Копіювати або використовуйте Ctrl+C / Command+C).</span>
+          <span lang="ja"><span class="app-name">tl;dv</span>の画面で確認した文字起こしテキスト<span class="highlight">全体を選択し、コピー</span>します（マウス操作またはキーボードショートカット Ctrl+C / Command+C を使用）。</span>
+          <span lang="en">On the <span class="app-name">tl;dv</span> screen, <span class="highlight">select and copy the entire</span> reviewed transcript text (using mouse actions or the keyboard shortcut Ctrl+C / Command+C).</span>
+          <span lang="fr">Sur l'écran <span class="app-name">tl;dv</span>, <span class="highlight">sélectionnez et copiez l'intégralité</span> du texte de la transcription vérifiée (en utilisant la souris ou le raccourci clavier Ctrl+C / Command+C).</span>
+          <span lang="uk">На екрані <span class="app-name">tl;dv</span> <span class="highlight">виділіть і скопіюйте весь</span> переглянутий текст транскрипції (за допомогою миші або комбінації клавіш Ctrl+C / Command+C).</span>
         </li>
         <li>
-          <span lang="ja"><span class="app-name">Google AI Studio</span>の画面にある、テキストを入力する大きな箱（プロンプト入力欄）に、<span class="warning">まず以下の「お願いの言葉（プロンプト）」を貼り付け</span>ます。</span>
-          <span lang="en">In the large text input box (prompt input field) on the <span class="app-name">Google AI Studio</span> screen, <span class="warning">first paste the following "request text (prompt)"</span>:</span>
-          <span lang="fr">Dans la grande zone de saisie de texte (champ de saisie de l'invite) sur l'écran de <span class="app-name">Google AI Studio</span>, <span class="warning">collez d'abord le "texte de demande (invite)" suivant</span> :</span>
-          <span lang="uk">У велике поле для введення тексту (поле введення запиту) на екрані <span class="app-name">Google AI Studio</span> <span class="warning">спочатку вставте наступний «текст запиту (промпт)»</span>:</span>
-          <div class="prompt-box">
-            <span lang="ja">以下の文字起こしは、授業の記録音声です。生徒が見返してわかりやすいように、情報を整理し、リンク付きの目次を作り、適宜説明が足りない部分は補いながらhtml/cssで見やすくまとめ、ひとつのコードブロックで出力してください。以下文字起こし：</span>
-            <span lang="en">The following transcript is from a recorded class lecture. Please organize the information so that it is easy for students to review, create a table of contents with links, supplement any parts where explanation is insufficient, format it clearly using HTML/CSS, and output it as a single code block. Transcript follows:</span>
-            <span lang="fr">La transcription suivante provient d'un enregistrement audio de cours. Veuillez organiser les informations pour qu'elles soient faciles à consulter pour les étudiants, créer une table des matières avec des liens, compléter les parties où l'explication est insuffisante, la mettre en forme de manière claire en utilisant HTML/CSS, et la sortir en un seul bloc de code. Transcription ci-dessous :</span>
-            <span lang="uk">Наступна транскрипція є записом лекції. Будь ласка, організуйте інформацію так, щоб студентам було легко її переглядати, створіть зміст із посиланнями, доповніть будь-які частини, де пояснення недостатньо, чітко відформатуйте її за допомогою HTML/CSS та виведіть як єдиний блок коду. Транскрипція нижче:</span>
+          <span lang="ja"><span class="app-name">Google AI Studio</span>のテキスト入力欄（プロンプト入力エリア）に、<span class="warning">まず以下の「指示文（プロンプト）」をコピー＆ペーストします</span>。（下のコピーボタンが便利です）</span>
+          <span lang="en">In the text input field (prompt area) of <span class="app-name">Google AI Studio</span>, <span class="warning">first copy and paste the following "instruction text (prompt)"</span>. (The copy button below is convenient).</span>
+          <span lang="fr">Dans le champ de saisie de texte (zone d'invite) de <span class="app-name">Google AI Studio</span>, <span class="warning">copiez et collez d'abord le "texte d'instruction (invite)" suivant</span>. (Le bouton de copie ci-dessous est pratique).</span>
+          <span lang="uk">У полі введення тексту (область запиту) <span class="app-name">Google AI Studio</span> <span class="warning">спочатку скопіюйте та вставте наступний «текст інструкції (промпт)»</span>. (Зручно використовувати кнопку копіювання нижче).</span>
+
+          <!-- コードブロック (変更済み) -->
+          <div class="code-block-container">
+            <pre><code class="prompt-code">
+<span lang="ja">以下の文字起こしは、授業の記録音声です。生徒が見返してわかりやすいように、情報を整理し、リンク付きの目次を作り、適宜説明が足りない部分は補いながらhtml/cssで見やすくまとめ、ひとつのコードブロックで出力してください。以下文字起こし：</span><span lang="en">The following transcript is from a recorded class lecture. Please organize the information so that it is easy for students to review, create a table of contents with links, supplement any parts where explanation is insufficient, format it clearly using HTML/CSS, and output it as a single code block. Transcript follows:</span><span lang="fr">La transcription suivante provient d'un enregistrement audio de cours. Veuillez organiser les informations pour qu'elles soient faciles à consulter pour les étudiants, créer une table des matières avec des liens, compléter les parties où l'explication est insuffisante, la mettre en forme de manière claire en utilisant HTML/CSS, et la sortir en un seul bloc de code. Transcription ci-dessous :</span><span lang="uk">Наступна транскрипція є записом лекції. Будь ласка, організуйте інформацію так, щоб студентам було легко її переглядати, створіть зміст із посиланнями, доповніть будь-які частини, де пояснення недостатньо, чітко відформатуйте її за допомогою HTML/CSS та виведіть як єдиний блок коду. Транскрипція нижче:</span>
+            </code></pre>
+            <button class="copy-button" aria-label="Copy prompt to clipboard">
+                <span lang="ja">コピー</span>
+                <span lang="en">Copy</span>
+                <span lang="fr">Copier</span>
+                <span lang="uk">Копіювати</span>
+                <span class="copied-feedback"></span> <!-- コピー完了メッセージ用 -->
+            </button>
           </div>
+
         </li>
         <li>
-          <span lang="ja"><span class="warning">次に、先ほどコピーした授業の文字起こしテキストを、上の「お願いの言葉」のすぐ下に貼り付け</span>ます。（右クリック→貼り付け、または Ctrl+V / Command+V ）</span>
-          <span lang="en"><span class="warning">Next, paste the class transcript text you just copied immediately below the "request text" above.</span> (Right-click -> Paste, or use Ctrl+V / Command+V).</span>
-          <span lang="fr"><span class="warning">Ensuite, collez le texte de la transcription du cours que vous venez de copier juste en dessous du "texte de demande" ci-dessus.</span> (Clic droit -> Coller, ou utilisez Ctrl+V / Command+V).</span>
-          <span lang="uk"><span class="warning">Далі, вставте текст транскрипції заняття, який ви щойно скопіювали, відразу під «текстом запиту» вище.</span> (Клацніть правою кнопкою миші -> Вставити або використовуйте Ctrl+V / Command+V).</span>
+          <span lang="ja"><span class="warning">次に、コピーした文字起こしテキストを、上記の「指示文」の直後に続けて貼り付け</span>ます（マウス操作または Ctrl+V / Command+V を使用）。</span>
+          <span lang="en"><span class="warning">Next, paste the copied transcript text immediately after the "instruction text" above</span> (using mouse actions or Ctrl+V / Command+V).</span>
+          <span lang="fr"><span class="warning">Ensuite, collez le texte de la transcription copiée immédiatement après le "texte d'instruction" ci-dessus</span> (en utilisant la souris ou Ctrl+V / Command+V).</span>
+          <span lang="uk"><span class="warning">Далі, вставте скопійований текст транскрипції відразу після «тексту інструкції» вище</span> (за допомогою миші або Ctrl+V / Command+V).</span>
         </li>
         <li>
-          <span lang="ja">入力欄には、「お願いの言葉」と「授業の文字起こし」が連続して入っている状態になります。</span>
-          <span lang="en">The input field should now contain the "request text" followed immediately by the "class transcript".</span>
-          <span lang="fr">Le champ de saisie doit maintenant contenir le "texte de demande" suivi immédiatement de la "transcription du cours".</span>
-          <span lang="uk">Поле введення тепер має містити «текст запиту», за яким відразу йде «транскрипція заняття».</span>
+          <span lang="ja">入力欄に「指示文」と「文字起こしテキスト」が連結された状態で入力されていることを確認します。</span>
+          <span lang="en">Confirm that the input field contains the "instruction text" followed by the "transcript text".</span>
+          <span lang="fr">Confirmez que le champ de saisie contient le "texte d'instruction" suivi du "texte de transcription".</span>
+          <span lang="uk">Переконайтеся, що поле введення містить «текст інструкції», за яким слідує «текст транскрипції».</span>
         </li>
         <li>
-          <span lang="ja">「<span class="button-style"><span lang="ja">生成</span><span lang="en">Generate</span><span lang="fr">Générer</span><span lang="uk">Згенерувати</span></span>」や「<span class="button-style"><span lang="ja">送信</span><span lang="en">Submit</span><span lang="fr">Envoyer</span><span lang="uk">Надіслати</span></span>」、「<span class="button-style"><span lang="ja">Run</span><span lang="en">Run</span><span lang="fr">Exécuter</span><span lang="uk">Запустити</span></span>」のようなボタンをクリックします。 [<span class="icon-placeholder">▶</span> 実行ボタンのイメージ]</span>
-          <span lang="en">Click a button like "<span class="button-style"><span lang="ja">生成</span><span lang="en">Generate</span><span lang="fr">Générer</span><span lang="uk">Згенерувати</span></span>", "<span class="button-style"><span lang="ja">送信</span><span lang="en">Submit</span><span lang="fr">Envoyer</span><span lang="uk">Надіслати</span></span>", or "<span class="button-style"><span lang="ja">Run</span><span lang="en">Run</span><span lang="fr">Exécuter</span><span lang="uk">Запустити</span></span>". [<span class="icon-placeholder">▶</span> Image of a run/play button]</span>
-          <span lang="fr">Cliquez sur un bouton comme "<span class="button-style"><span lang="ja">生成</span><span lang="en">Generate</span><span lang="fr">Générer</span><span lang="uk">Згенерувати</span></span>", "<span class="button-style"><span lang="ja">送信</span><span lang="en">Submit</span><span lang="fr">Envoyer</span><span lang="uk">Надіслати</span></span>", ou "<span class="button-style"><span lang="ja">Run</span><span lang="en">Run</span><span lang="fr">Exécuter</span><span lang="uk">Запустити</span></span>". [<span class="icon-placeholder">▶</span> Image d'un bouton exécuter/lecture]</span>
-          <span lang="uk">Натисніть кнопку, наприклад "<span class="button-style"><span lang="ja">生成</span><span lang="en">Generate</span><span lang="fr">Générer</span><span lang="uk">Згенерувати</span></span>", "<span class="button-style"><span lang="ja">送信</span><span lang="en">Submit</span><span lang="fr">Envoyer</span><span lang="uk">Надіслати</span></span>" або "<span class="button-style"><span lang="ja">Run</span><span lang="en">Run</span><span lang="fr">Exécuter</span><span lang="uk">Запустити</span></span>". [Зображення кнопки запуску/відтворення <span class="icon-placeholder">▶</span>]</span>
+          <span lang="ja">「<span class="button-style"><span lang="ja">生成</span><span lang="en">Generate</span><span lang="fr">Générer</span><span lang="uk">Згенерувати</span></span>」や「<span class="button-style"><span lang="ja">送信</span><span lang="en">Submit</span><span lang="fr">Envoyer</span><span lang="uk">Надіслати</span></span>」、「<span class="button-style"><span lang="ja">Run</span><span lang="en">Run</span><span lang="fr">Exécuter</span><span lang="uk">Запустити</span></span>」といった実行ボタンをクリックします。 [<span class="icon-placeholder">▶</span> 実行アイコンのイメージ]</span>
+          <span lang="en">Click the execution button, such as "<span class="button-style"><span lang="ja">生成</span><span lang="en">Generate</span><span lang="fr">Générer</span><span lang="uk">Згенерувати</span></span>", "<span class="button-style"><span lang="ja">送信</span><span lang="en">Submit</span><span lang="fr">Envoyer</span><span lang="uk">Надіслати</span></span>", or "<span class="button-style"><span lang="ja">Run</span><span lang="en">Run</span><span lang="fr">Exécuter</span><span lang="uk">Запустити</span></span>". [<span class="icon-placeholder">▶</span> Image representing a run icon]</span>
+          <span lang="fr">Cliquez sur le bouton d'exécution, tel que "<span class="button-style"><span lang="ja">生成</span><span lang="en">Generate</span><span lang="fr">Générer</span><span lang="uk">Згенерувати</span></span>", "<span class="button-style"><span lang="ja">送信</span><span lang="en">Submit</span><span lang="fr">Envoyer</span><span lang="uk">Надіслати</span></span>", ou "<span class="button-style"><span lang="ja">Run</span><span lang="en">Run</span><span lang="fr">Exécuter</span><span lang="uk">Запустити</span></span>". [<span class="icon-placeholder">▶</span> Image représentant une icône d'exécution]</span>
+          <span lang="uk">Натисніть кнопку виконання, наприклад "<span class="button-style"><span lang="ja">生成</span><span lang="en">Generate</span><span lang="fr">Générer</span><span lang="uk">Згенерувати</span></span>", "<span class="button-style"><span lang="ja">送信</span><span lang="en">Submit</span><span lang="fr">Envoyer</span><span lang="uk">Надіслати</span></span>" або "<span class="button-style"><span lang="ja">Run</span><span lang="en">Run</span><span lang="fr">Exécuter</span><span lang="uk">Запустити</span></span>". [Зображення іконки запуску <span class="icon-placeholder">▶</span>]</span>
         </li>
         <li>
-          <span lang="ja">AIがノート作成を始めるので、少し待ちます。</span>
-          <span lang="en">The AI will start creating the notes, so wait a moment.</span>
-          <span lang="fr">L'IA commencera à créer les notes, alors attendez un instant.</span>
-          <span lang="uk">ШІ почне створювати нотатки, тому зачекайте хвилинку.</span>
+          <span lang="ja">AIによるノート生成処理が完了するまで待ちます。</span>
+          <span lang="en">Wait for the AI to complete the note generation process.</span>
+          <span lang="fr">Attendez que l'IA termine le processus de génération de notes.</span>
+          <span lang="uk">Зачекайте, доки ШІ завершить процес генерації нотаток.</span>
         </li>
         <li>
-          <span lang="ja">しばらくすると、HTML/CSS形式のコード（英語や記号がたくさん書かれたもの）が出力されます。これが、見やすいノートの素になります。 [<span class="icon-placeholder">&lt;/&gt;</span> コードの絵のイメージ]</span>
-          <span lang="en">After a while, code in HTML/CSS format (lots of English words and symbols) will be output. This is the basis for your easy-to-read notes. [<span class="icon-placeholder">&lt;/&gt;</span> Image representing code]</span>
-          <span lang="fr">Après un moment, du code au format HTML/CSS (beaucoup de mots anglais et de symboles) sera généré. C'est la base de vos notes faciles à lire. [<span class="icon-placeholder">&lt;/&gt;</span> Image représentant du code]</span>
-          <span lang="uk">Через деякий час буде виведено код у форматі HTML/CSS (багато англійських слів та символів). Це основа для ваших нотаток, які легко читати. [Зображення, що представляє код <span class="icon-placeholder">&lt;/&gt;</span>]</span>
+          <span lang="ja">処理が完了すると、HTML/CSS形式のコードが出力されます。これが整形済みノートの元データとなります。 [<span class="icon-placeholder"></></span> コードを示すイメージ]</span>
+          <span lang="en">Once complete, code in HTML/CSS format will be output. This is the source data for the formatted notes. [<span class="icon-placeholder"></></span> Image representing code]</span>
+          <span lang="fr">Une fois terminé, du code au format HTML/CSS sera généré. Ce sont les données sources pour les notes formatées. [<span class="icon-placeholder"></></span> Image représentant du code]</span>
+          <span lang="uk">Після завершення буде виведено код у форматі HTML/CSS. Це вихідні дані для відформатованих нотаток. [Зображення, що представляє код <span class="icon-placeholder"></></span>]</span>
         </li>
         <li>
-          <span lang="ja">出力された<span class="highlight">コード全体をコピー</span>します。（コピー用のボタンがあるか、全部選択してコピーします）</span>
-          <span lang="en"><span class="highlight">Copy the entire output code.</span> (There might be a copy button, or select all and copy).</span>
-          <span lang="fr"><span class="highlight">Copiez l'intégralité du code généré.</span> (Il peut y avoir un bouton de copie, ou sélectionnez tout et copiez).</span>
-          <span lang="uk"><span class="highlight">Скопіюйте весь вихідний код.</span> (Може бути кнопка копіювання, або виділіть все та скопіюйте).</span>
+          <span lang="ja">出力された<span class="highlight">コード全体をコピー</span>します（専用のコピーボタンまたは手動での全選択＆コピー）。</span>
+          <span lang="en"><span class="highlight">Copy the entire output code</span> (using a dedicated copy button or by manually selecting all and copying).</span>
+          <span lang="fr"><span class="highlight">Copiez l'intégralité du code généré</span> (en utilisant un bouton de copie dédié ou en sélectionnant manuellement tout et en copiant).</span>
+          <span lang="uk"><span class="highlight">Скопіюйте весь вихідний код</span> (за допомогою спеціальної кнопки копіювання або вручну виділивши все та скопіювавши).</span>
         </li>
       </ol>
     </li>
     <li>
       <h3>
-        <span lang="ja">できたノート（HTML）を保存して、みんなに見せよう</span>
-        <span lang="en">Save the created notes (HTML) and share them</span>
-        <span lang="fr">Enregistrer les notes créées (HTML) et les partager</span>
-        <span lang="uk">Збережіть створені нотатки (HTML) та поділіться ними</span>
+        <span lang="ja">生成されたノート（HTML）を保存し、共有する</span>
+        <span lang="en">Save and Share the Generated Notes (HTML)</span>
+        <span lang="fr">Enregistrer et partager les notes générées (HTML)</span>
+        <span lang="uk">Зберегти та поділитися згенерованими нотатками (HTML)</span>
       </h3>
       <p>
-        <span lang="ja">AIが作ってくれたコードを、ファイルとして保存します。このファイルを開くと、ブラウザできれいなノートが見られます。</span>
-        <span lang="en">Save the code generated by the AI as a file. Opening this file will display the neat notes in a browser.</span>
-        <span lang="fr">Enregistrez le code généré par l'IA sous forme de fichier. L'ouverture de ce fichier affichera les notes claires dans un navigateur.</span>
-        <span lang="uk">Збережіть код, згенерований ШІ, як файл. Відкриття цього файлу відобразить акуратні нотатки у браузері.</span>
+        <span lang="ja">AIが生成したHTML/CSSコードをファイルとして保存します。このファイルはWebブラウザで開くことで、整形されたノートとして閲覧できます。</span>
+        <span lang="en">Save the HTML/CSS code generated by the AI as a file. This file can be opened in a web browser to view the formatted notes.</span>
+        <span lang="fr">Enregistrez le code HTML/CSS généré par l'IA sous forme de fichier. Ce fichier peut être ouvert dans un navigateur Web pour afficher les notes formatées.</span>
+        <span lang="uk">Збережіть код HTML/CSS, згенерований ШІ, як файл. Цей файл можна відкрити у веб-браузері для перегляду відформатованих нотаток.</span>
       </p>
       <ol>
         <li>
-          <span lang="ja">パソコンに最初から入っている簡単なメモ帳ソフトを開きます。</span>
-          <span lang="en">Open a simple text editor program that comes with your computer.</span>
-          <span lang="fr">Ouvrez un éditeur de texte simple fourni avec votre ordinateur.</span>
-          <span lang="uk">Відкрийте просту програму текстового редактора, що постачається з вашим комп’ютером.</span>
+          <span lang="ja">標準搭載のテキストエディタ（メモ帳など）を開きます。</span>
+          <span lang="en">Open a standard text editor (like Notepad).</span>
+          <span lang="fr">Ouvrez un éditeur de texte standard (comme le Bloc-notes).</span>
+          <span lang="uk">Відкрийте стандартний текстовий редактор (наприклад, Блокнот).</span>
             <ul>
-                <li><!-- li要素はdisplay:list-itemがデフォルトなので、中のspanはinlineでOK -->
-                  <span lang="ja">Windowsなら「<span class="app-name">メモ帳</span> (Notepad)」</span>
-                  <span lang="en">On Windows: "<span class="app-name">Notepad</span>"</span>
-                  <span lang="fr">Sous Windows : "<span class="app-name">Bloc-notes</span>"</span>
-                  <span lang="uk">У Windows: "<span class="app-name">Блокнот</span> (Notepad)"</span>
+                <li>
+                  <span lang="ja">Windows: 「<span class="app-name">メモ帳</span> (Notepad)」</span>
+                  <span lang="en">Windows: "<span class="app-name">Notepad</span>"</span>
+                  <span lang="fr">Windows : "<span class="app-name">Bloc-notes</span>"</span>
+                  <span lang="uk">Windows: "<span class="app-name">Блокнот</span> (Notepad)"</span>
                 </li>
                 <li>
-                  <span lang="ja">Macなら「<span class="app-name">テキストエディット</span> (TextEdit)」<br>（Macの場合、メニューの「フォーマット」から「標準テキストにする」を選んでください）</span>
-                  <span lang="en">On Mac: "<span class="app-name">TextEdit</span>"<br>(On Mac, please select "Make Plain Text" from the "Format" menu)</span>
-                  <span lang="fr">Sur Mac : "<span class="app-name">TextEdit</span>"<br>(Sur Mac, veuillez sélectionner "Convertir au format texte" dans le menu "Format")</span>
-                  <span lang="uk">На Mac: "<span class="app-name">TextEdit</span>"<br>(На Mac, будь ласка, виберіть «Зробити звичайним текстом» у меню «Формат»)</span>
+                  <span lang="ja">Mac: 「<span class="app-name">テキストエディット</span> (TextEdit)」 (メニュー「フォーマット」>「標準テキストにする」を選択)</span>
+                  <span lang="en">Mac: "<span class="app-name">TextEdit</span>" (Select "Format" > "Make Plain Text")</span>
+                  <span lang="fr">Mac : "<span class="app-name">TextEdit</span>" (Sélectionnez "Format" > "Convertir au format texte")</span>
+                  <span lang="uk">Mac: "<span class="app-name">TextEdit</span>" (Виберіть "Формат" > "Зробити звичайним текстом")</span>
                 </li>
             </ul>
-            [<span class="icon-placeholder">📝</span> <span lang="ja">メモ帳アプリの絵のイメージ</span><span lang="en">Image of a notepad app icon</span><span lang="fr">Image de l'icône d'une application bloc-notes</span><span lang="uk">Зображення піктограми програми блокнота</span>]
+            [<span class="icon-placeholder">📝</span> テキストエディタのアイコンイメージ]
         </li>
         <li>
-          <span lang="ja">メモ帳の白い画面に、先ほど<span class="app-name">Google AI Studio</span>からコピーした<span class="highlight">HTML/CSSコードを全部貼り付け</span>ます。</span>
-          <span lang="en">In the blank window of the text editor, <span class="highlight">paste the entire HTML/CSS code</span> copied from <span class="app-name">Google AI Studio</span>.</span>
-          <span lang="fr">Dans la fenêtre vide de l'éditeur de texte, <span class="highlight">collez l'intégralité du code HTML/CSS</span> copié depuis <span class="app-name">Google AI Studio</span>.</span>
-          <span lang="uk">У порожньому вікні текстового редактора <span class="highlight">вставте весь код HTML/CSS</span>, скопійований з <span class="app-name">Google AI Studio</span>.</span>
+          <span lang="ja">テキストエディタに、先ほどコピーした<span class="highlight">HTML/CSSコード全体を貼り付け</span>ます。</span>
+          <span lang="en">In the text editor, <span class="highlight">paste the entire HTML/CSS code</span> you copied earlier.</span>
+          <span lang="fr">Dans l'éditeur de texte, <span class="highlight">collez l'intégralité du code HTML/CSS</span> que vous avez copié précédemment.</span>
+          <span lang="uk">У текстовому редакторі <span class="highlight">вставте весь код HTML/CSS</span>, який ви скопіювали раніше.</span>
         </li>
         <li>
-          <span lang="ja">メモ帳のメニューから「<span class="button-style"><span lang="ja">ファイル</span><span lang="en">File</span><span lang="fr">Fichier</span><span lang="uk">Файл</span></span>」→「<span class="button-style"><span lang="ja">名前を付けて保存</span><span lang="en">Save As...</span><span lang="fr">Enregistrer sous...</span><span lang="uk">Зберегти як...</span></span>」を選びます。</span>
-          <span lang="en">From the text editor's menu, choose "<span class="button-style"><span lang="ja">ファイル</span><span lang="en">File</span><span lang="fr">Fichier</span><span lang="uk">Файл</span></span>" -> "<span class="button-style"><span lang="ja">名前を付けて保存</span><span lang="en">Save As...</span><span lang="fr">Enregistrer sous...</span><span lang="uk">Зберегти як...</span></span>".</span>
-          <span lang="fr">Dans le menu de l'éditeur de texte, choisissez "<span class="button-style"><span lang="ja">ファイル</span><span lang="en">File</span><span lang="fr">Fichier</span><span lang="uk">Файл</span></span>" -> "<span class="button-style"><span lang="ja">名前を付けて保存</span><span lang="en">Save As...</span><span lang="fr">Enregistrer sous...</span><span lang="uk">Зберегти як...</span></span>".</span>
-          <span lang="uk">У меню текстового редактора виберіть "<span class="button-style"><span lang="ja">ファイル</span><span lang="en">File</span><span lang="fr">Fichier</span><span lang="uk">Файл</span></span>" -> "<span class="button-style"><span lang="ja">名前を付けて保存</span><span lang="en">Save As...</span><span lang="fr">Enregistrer sous...</span><span lang="uk">Зберегти як...</span></span>".</span>
+          <span lang="ja">メニューから「<span class="button-style"><span lang="ja">ファイル</span><span lang="en">File</span><span lang="fr">Fichier</span><span lang="uk">Файл</span></span>」>「<span class="button-style"><span lang="ja">名前を付けて保存</span><span lang="en">Save As...</span><span lang="fr">Enregistrer sous...</span><span lang="uk">Зберегти як...</span></span>」を選択します。</span>
+          <span lang="en">From the menu, select "<span class="button-style"><span lang="ja">ファイル</span><span lang="en">File</span><span lang="fr">Fichier</span><span lang="uk">Файл</span></span>" > "<span class="button-style"><span lang="ja">名前を付けて保存</span><span lang="en">Save As...</span><span lang="fr">Enregistrer sous...</span><span lang="uk">Зберегти як...</span></span>".</span>
+          <span lang="fr">Dans le menu, sélectionnez "<span class="button-style"><span lang="ja">ファイル</span><span lang="en">File</span><span lang="fr">Fichier</span><span lang="uk">Файл</span></span>" > "<span class="button-style"><span lang="ja">名前を付けて保存</span><span lang="en">Save As...</span><span lang="fr">Enregistrer sous...</span><span lang="uk">Зберегти як...</span></span>".</span>
+          <span lang="uk">У меню виберіть "<span class="button-style"><span lang="ja">ファイル</span><span lang="en">File</span><span lang="fr">Fichier</span><span lang="uk">Файл</span></span>" > "<span class="button-style"><span lang="ja">名前を付けて保存</span><span lang="en">Save As...</span><span lang="fr">Enregistrer sous...</span><span lang="uk">Зберегти як...</span></span>".</span>
         </li>
         <li>
-          <span lang="ja">「ファイル名」を決めます。例えば「<span class="highlight">4月1日の数学授業ノート.html</span>」のように、<span class="warning">最後に必ず「.html」を付けてください</span>。これがとても重要です！</span>
-          <span lang="en">Choose a "File name". For example, "<span class="highlight">Math_Class_Notes_April_1st.html</span>". <span class="warning">Make sure to add ".html" at the very end</span>. This is very important!</span>
-          <span lang="fr">Choisissez un "Nom de fichier". Par exemple, "<span class="highlight">Notes_Cours_Maths_1er_Avril.html</span>". <span class="warning">Assurez-vous d'ajouter ".html" à la toute fin</span>. C'est très important !</span>
-          <span lang="uk">Виберіть «Ім'я файлу». Наприклад, "<span class="highlight">Нотатки_Математика_1_квітня.html</span>". <span class="warning">Обов’язково додайте ".html" у самому кінці</span>. Це дуже важливо!</span>
+          <span lang="ja">ファイル名を決定します（例: <span class="highlight">授業ノート_日付.html</span>）。<span class="warning">ファイル名の末尾は必ず「.html」としてください</span>。これは非常に重要です。</span>
+          <span lang="en">Decide on a file name (e.g., <span class="highlight">ClassNotes_Date.html</span>). <span class="warning">Ensure the file name ends with ".html"</span>. This is crucial.</span>
+          <span lang="fr">Choisissez un nom de fichier (par exemple, <span class="highlight">NotesCours_Date.html</span>). <span class="warning">Assurez-vous que le nom de fichier se termine par ".html"</span>. C'est crucial.</span>
+          <span lang="uk">Визначте ім'я файлу (наприклад, <span class="highlight">Нотатки_Дата.html</span>). <span class="warning">Переконайтеся, що ім'я файлу закінчується на ".html"</span>. Це надзвичайно важливо.</span>
         </li>
         <li>
-          <span lang="ja">「ファイルの種類」や「エンコーディング（文字コード）」は、「<span class="highlight">すべてのファイル</span>」や「<span class="highlight">UTF-8</span>」が選べれば、それに設定します。（わからなければ、そのままでも大丈夫なことが多いです）</span>
-          <span lang="en">If possible, set "Save as type" to "<span class="highlight">All Files</span>" and "Encoding" to "<span class="highlight">UTF-8</span>". (If you're unsure, the default settings are often okay).</span>
-          <span lang="fr">Si possible, définissez "Type de fichier" sur "<span class="highlight">Tous les fichiers</span>" et "Encodage" sur "<span class="highlight">UTF-8</span>". (Si vous n'êtes pas sûr, les paramètres par défaut conviennent souvent).</span>
-          <span lang="uk">Якщо можливо, встановіть "Тип файлу" на "<span class="highlight">Усі файли</span>" та "Кодування" на "<span class="highlight">UTF-8</span>". (Якщо ви не впевнені, налаштування за замовчуванням часто підходять).</span>
+          <span lang="ja">可能であれば、「ファイルの種類」を「<span class="highlight">すべてのファイル</span>」、「文字コード（エンコーディング）」を「<span class="highlight">UTF-8</span>」に設定します（多くの場合、デフォルト設定でも問題ありません）。</span>
+          <span lang="en">If possible, set "Save as type" to "<span class="highlight">All Files</span>" and "Encoding" to "<span class="highlight">UTF-8</span>" (default settings are often acceptable).</span>
+          <span lang="fr">Si possible, définissez "Type de fichier" sur "<span class="highlight">Tous les fichiers</span>" et "Encodage" sur "<span class="highlight">UTF-8</span>" (les paramètres par défaut sont souvent acceptables).</span>
+          <span lang="uk">Якщо можливо, встановіть "Тип файлу" на "<span class="highlight">Усі файли</span>" та "Кодування" на "<span class="highlight">UTF-8</span>" (налаштування за замовчуванням часто є прийнятними).</span>
         </li>
         <li>
-          <span lang="ja">「<span class="button-style"><span lang="ja">保存</span><span lang="en">Save</span><span lang="fr">Enregistrer</span><span lang="uk">Зберегти</span></span>」ボタンを押します。</span>
-          <span lang="en">Press the "<span class="button-style"><span lang="ja">保存</span><span lang="en">Save</span><span lang="fr">Enregistrer</span><span lang="uk">Зберегти</span></span>" button.</span>
-          <span lang="fr">Appuyez sur le bouton "<span class="button-style"><span lang="ja">保存</span><span lang="en">Save</span><span lang="fr">Enregistrer</span><span lang="uk">Зберегти</span></span>".</span>
-          <span lang="uk">Натисніть кнопку "<span class="button-style"><span lang="ja">保存</span><span lang="en">Save</span><span lang="fr">Enregistrer</span><span lang="uk">Зберегти</span></span>".</span>
+          <span lang="ja">「<span class="button-style"><span lang="ja">保存</span><span lang="en">Save</span><span lang="fr">Enregistrer</span><span lang="uk">Зберегти</span></span>」ボタンをクリックしてファイルを保存します。</span>
+          <span lang="en">Click the "<span class="button-style"><span lang="ja">保存</span><span lang="en">Save</span><span lang="fr">Enregistrer</span><span lang="uk">Зберегти</span></span>" button to save the file.</span>
+          <span lang="fr">Cliquez sur le bouton "<span class="button-style"><span lang="ja">保存</span><span lang="en">Save</span><span lang="fr">Enregistrer</span><span lang="uk">Зберегти</span></span>" pour enregistrer le fichier.</span>
+          <span lang="uk">Натисніть кнопку "<span class="button-style"><span lang="ja">保存</span><span lang="en">Save</span><span lang="fr">Enregistrer</span><span lang="uk">Зберегти</span></span>", щоб зберегти файл.</span>
         </li>
         <li>
-          <span lang="ja">これで、授業ノートのファイル（.htmlファイル）が完成しました！ [<span class="icon-placeholder">🌐</span> ブラウザで開けるファイルの絵のイメージ]</span>
-          <span lang="en">The class notes file (.html file) is now complete! [<span class="icon-placeholder">🌐</span> Image of a file openable in a browser]</span>
-          <span lang="fr">Le fichier de notes de cours (fichier .html) est maintenant terminé ! [<span class="icon-placeholder">🌐</span> Image d'un fichier ouvrable dans un navigateur]</span>
-          <span lang="uk">Файл нотаток заняття (.html файл) тепер готовий! [Зображення файлу, який можна відкрити у браузері <span class="icon-placeholder">🌐</span>]</span>
+          <span lang="ja">これで授業ノートのHTMLファイルが作成されました。 [<span class="icon-placeholder">🌐</span> ブラウザで開けるファイルを示すイメージ]</span>
+          <span lang="en">The HTML file for the class notes has now been created. [<span class="icon-placeholder">🌐</span> Image representing a browser-openable file]</span>
+          <span lang="fr">Le fichier HTML des notes de cours a maintenant été créé. [<span class="icon-placeholder">🌐</span> Image représentant un fichier ouvrable par navigateur]</span>
+          <span lang="uk">HTML-файл для нотаток заняття створено. [Зображення файлу, що відкривається у браузері <span class="icon-placeholder">🌐</span>]</span>
         </li>
         <li>
-          <span lang="ja">このファイルをメールで送ったり、共有フォルダに入れたりして、生徒さんに渡しましょう。</span>
-          <span lang="en">Send this file via email or put it in a shared folder to give it to the students.</span>
-          <span lang="fr">Envoyez ce fichier par e-mail ou placez-le dans un dossier partagé pour le donner aux étudiants.</span>
-          <span lang="uk">Надішліть цей файл електронною поштою або розмістіть його у спільній папці, щоб передати студентам.</span>
+          <span lang="ja">作成したファイルを、メール添付や共有フォルダなどを利用して生徒に配布します。</span>
+          <span lang="en">Distribute the created file to students via email attachment, shared folder, or other means.</span>
+          <span lang="fr">Distribuez le fichier créé aux étudiants par pièce jointe d'e-mail, dossier partagé ou autre moyen.</span>
+          <span lang="uk">Розповсюдьте створений файл студентам за допомогою вкладення електронної пошти, спільної папки або іншими способами.</span>
         </li>
         <li>
-          <span lang="ja">生徒さんは、このファイルをダブルクリックするだけで、インターネットを見るソフト（ブラウザ）で、目次付きの見やすい授業ノートを読むことができます。</span>
-          <span lang="en">Students can simply double-click this file to open it in their web browser (like Chrome, Edge, Safari) and read the easy-to-view class notes with a table of contents.</span>
-          <span lang="fr">Les étudiants peuvent simplement double-cliquer sur ce fichier pour l'ouvrir dans leur navigateur Web (comme Chrome, Edge, Safari) et lire les notes de cours faciles à consulter avec une table des matières.</span>
-          <span lang="uk">Студенти можуть просто двічі клацнути цей файл, щоб відкрити його у своєму веб-браузері (наприклад, Chrome, Edge, Safari) та прочитати зручні для перегляду нотатки заняття зі змістом.</span>
+          <span lang="ja">生徒はこのファイルをダブルクリックするだけで、Webブラウザ上で目次付きの授業ノートを閲覧できます。</span>
+          <span lang="en">Students can simply double-click this file to view the class notes with a table of contents in their web browser.</span>
+          <span lang="fr">Les étudiants peuvent simplement double-cliquer sur ce fichier pour afficher les notes de cours avec une table des matières dans leur navigateur Web.</span>
+          <span lang="uk">Студенти можуть просто двічі клацнути цей файл, щоб переглянути нотатки заняття зі змістом у своєму веб-браузері.</span>
         </li>
       </ol>
     </li>
   </ol>
 
-  <p style="text-align: center; margin-top: 40px; font-weight: bold;">
-    <span lang="ja">お疲れ様でした！これで授業の記録とノート作りは完了です。</span>
-    <span lang="en">Great job! The class recording and note creation process is complete.</span>
-    <span lang="fr">Bravo ! Le processus d'enregistrement du cours et de création de notes est terminé.</span>
-    <span lang="uk">Чудова робота! Процес запису заняття та створення нотаток завершено.</span>
+  <p style="text-align: center; margin-top: 50px; font-weight: 600; color: var(--color-primary);">
+    <span lang="ja">以上で、授業の記録とノート作成の全工程は完了です。</span>
+    <span lang="en">This concludes the entire process for recording the class and creating notes.</span>
+    <span lang="fr">Ceci conclut l'ensemble du processus d'enregistrement du cours et de création de notes.</span>
+    <span lang="uk">На цьому весь процес запису заняття та створення нотаток завершено.</span>
   </p>
 
 </div>
@@ -738,24 +803,86 @@
 <script>
   const langRadios = document.querySelectorAll('.lang-toggle input[name="language"]');
   const body = document.body;
+  const copyButtons = document.querySelectorAll('.copy-button'); // グローバルスコープで定義
 
+  // 言語設定とUI更新を行う関数
   function setLanguage(lang) {
     body.dataset.lang = lang;
-    // 選択された言語をローカルストレージに保存（次回訪問時にも反映させるため）
     localStorage.setItem('preferredLanguage', lang);
+
+    // コピーボタンのテキスト表示を更新
+    copyButtons.forEach(button => {
+        const currentLangText = button.querySelector(`span[lang="${lang}"]`);
+        const copiedFeedback = button.querySelector('.copied-feedback');
+        // 表示中の言語テキストのみ表示、フィードバックは非表示
+        button.querySelectorAll('span[lang], .copied-feedback').forEach(span => {
+            span.style.display = (span === currentLangText) ? 'inline' : 'none';
+        });
+        // ボタンの状態をリセット（コピー済み表示を消す）
+        button.classList.remove('copied');
+    });
   }
 
-  // ラジオボタンが変更されたときのイベントリスナー
+  // 言語トグル変更時のイベントリスナー
   langRadios.forEach(radio => {
     radio.addEventListener('change', (event) => {
       setLanguage(event.target.value);
     });
   });
 
-  // ページ読み込み時にローカルストレージから言語設定を読み込む
+  // コピーボタンの機能
+  copyButtons.forEach(button => {
+    button.addEventListener('click', async () => {
+      const codeBlockContainer = button.closest('.code-block-container');
+      const codeElement = codeBlockContainer.querySelector('.prompt-code');
+      const currentLang = body.dataset.lang || 'ja';
+      const textSpanToCopy = codeElement.querySelector(`span[lang="${currentLang}"]`);
+
+      if (textSpanToCopy && navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(textSpanToCopy.textContent || '');
+
+          // コピー成功のフィードバック
+          const currentLangButtonText = button.querySelector(`span[lang="${currentLang}"]`);
+          const copiedFeedback = button.querySelector('.copied-feedback');
+
+          // 元のテキストを隠し、フィードバックを表示
+          if(currentLangButtonText) currentLangButtonText.style.display = 'none';
+          if(copiedFeedback) {
+              // フィードバックテキストを設定 (各言語)
+              let copiedText = 'コピー完了';
+              if (currentLang === 'en') copiedText = 'Copied!';
+              else if (currentLang === 'fr') copiedText = 'Copié !';
+              else if (currentLang === 'uk') copiedText = 'Скопійовано!';
+              copiedFeedback.textContent = copiedText;
+              copiedFeedback.style.display = 'inline';
+          }
+          button.classList.add('copied');
+
+          // 一定時間後に元に戻す
+          setTimeout(() => {
+            if(copiedFeedback) copiedFeedback.style.display = 'none';
+            if(currentLangButtonText) currentLangButtonText.style.display = 'inline'; // 元のテキストを再表示
+            button.classList.remove('copied');
+          }, 1500);
+
+        } catch (err) {
+          console.error('クリップボードへのコピーに失敗:', err);
+          alert('コピーに失敗しました。');
+        }
+      } else if (!navigator.clipboard) {
+         alert('お使いのブラウザはクリップボード機能に対応していません。');
+      } else {
+          console.error('コピー対象のテキスト要素が見つかりません。 Language:', currentLang);
+          alert('コピーするテキストが見つかりません。');
+      }
+    });
+  });
+
+  // ページ読み込み時の初期化処理
   document.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('preferredLanguage');
-    let langToSet = 'ja'; // デフォルトは日本語
+    let langToSet = 'ja'; // デフォルト言語
     if (savedLang) {
       const savedRadio = document.getElementById(`lang-${savedLang}`);
       if (savedRadio) {
@@ -763,7 +890,8 @@
         langToSet = savedLang;
       }
     }
-    setLanguage(langToSet); // 初期言語を設定
+    // 初期言語を設定し、UIを更新
+    setLanguage(langToSet);
   });
 </script>
 
