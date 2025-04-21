@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自由記述アンケート「AIを利用する理由」分析報告</title>
+<style>
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    line-height: 1.7;
+    color: #333;
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+
+  .analysis-report {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1, h2, h3 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    text-align: center;
+    border-bottom: none;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    border-bottom: 1px dashed #bdc3c7;
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+
+  strong {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+
+  ol, ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: top; /* 長文の場合の表示を考慮 */
+  }
+
+  th {
+    background-color: #ecf0f1;
+    font-weight: bold;
+    color: #34495e;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  .category-table th:nth-child(2),
+  .category-table td:nth-child(2),
+  .category-table th:nth-child(3),
+  .category-table td:nth-child(3) {
+    text-align: center;
+    width: 15%; /* 件数と割合のカラム幅を調整 */
+  }
+
+  .category-table td:nth-child(4) {
+     font-size: 0.9em; /* 例の内容を少し小さく */
+  }
+
+  .conclusion {
+    background-color: #e8f4fd;
+    border-left: 5px solid #3498db;
+    padding: 15px;
+    margin-top: 25px;
+    border-radius: 4px;
+  }
+
+  .note {
+      font-size: 0.85em;
+      color: #777;
+      margin-top: 5px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="analysis-report">
+
+  <h1>自由記述アンケート「AIを利用する理由」分析報告</h1>
+
+  <h2>1. 分析の目的</h2>
+  <p>回答者がAIを利用する主な理由を特定し、その背景にある期待や価値認識を明らかにすることを目的としました。</p>
+
+  <h2>2. 分析手法</h2>
+  <p>データ件数（23件）を考慮し、以下の手法を組み合わせて分析を行いました。</p>
+  <ul>
+    <li><strong>キーワード抽出・頻度分析:</strong> 回答内で頻繁に使用される単語を抽出し、全体的な傾向を把握。</li>
+    <li><strong>カテゴリ分類（コーディング）:</strong> 回答内容を意味に基づいて分類し、主要な理由をグルーピング。</li>
+    <li><strong>N-gram分析（バイグラム）:</strong> 隣接する2単語の組み合わせを抽出し、特徴的なフレーズを特定。</li>
+  </ul>
+
+  <h2>3. 分析結果</h2>
+
+  <h3>(1) 頻出キーワード</h3>
+  <p>回答全体を通して、特に多く出現したキーワードは以下の通りです（表記揺れ考慮）。</p>
+  <ol>
+    <li><strong>視点</strong> (11回)</li>
+    <li><strong>考え</strong> (8回)</li>
+    <li><strong>自分</strong> (8回)</li>
+    <li><strong>意見</strong> (7回)</li>
+    <li><strong>新しい</strong> (5回)</li>
+    <li>違う (4回)</li>
+    <li>広がる (3回)</li>
+    <li>知る/分かる/気づく (計6回程度)</li>
+    <li>情報 (3回)</li>
+    <li>手軽/効率 (関連語含む 3回程度)</li>
+  </ol>
+  <p>「視点」「考え」「意見」といった思考やアイデア関連の言葉が非常に多く、<strong>自身の能力や発想との比較</strong>においてAIの価値を感じていることが伺えます。「新しい」「違う」「広がる」は<strong>現状からの変化や拡張</strong>への期待を示唆しています。</p>
+
+  <h3>(2) カテゴリ分類</h3>
+  <p>回答内容を意味的に分類した結果、主に以下のカテゴリに大別されました。</p>
+  <table class="category-table">
+    <thead>
+      <tr>
+        <th>カテゴリ</th>
+        <th>件数</th>
+        <th>割合</th>
+        <th>主な内容・代表的な回答例</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. 新しい視点・発想の獲得</strong></td>
+        <td>15件</td>
+        <td><strong>65%</strong></td>
+        <td>・自分にはない視点/考え/意見が得られる<br>・視野が広がる<br>・気づかない点を発見できる<br>・第三者目線<br><span class="note"><em>例: 「自分達にはない新しい考えが得られるから」「様々な視点から考えてくれるから」</em></span></td>
+      </tr>
+      <tr>
+        <td><strong>2. 効率性・利便性・情報整理</strong></td>
+        <td>4件</td>
+        <td>17%</td>
+        <td>・手軽に情報を得られる<br>・瞬時に生成される<br>・分かりやすく書き出してくれる<br>・情報をまとめてくれる<br><span class="note"><em>例: 「手軽に情報を教えてくれる」「たくさんの意見が瞬時に生成されるから」</em></span></td>
+      </tr>
+      <tr>
+        <td><strong>3. その他（前提・所感など）</strong></td>
+        <td>4件</td>
+        <td>17%</td>
+        <td>・使えるものは使うべき<br>・参考になる<br>・AI利用の注意点（質問次第）<br><span class="note"><em>例: 「使えるものは使ったほうがいいから」「質問する人の質問が言葉足らずだったら回答もおかしくなるから」</em></span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>圧倒的多数（65%）が「新しい視点・発想の獲得」を理由</strong>として挙げており、AIを自身の思考の限界を超え、多様なアイデアや気づきを与えてくれる存在として捉えていることが明確です。</p>
+
+  <h3>(3) 注目されるフレーズ（N-gram: バイグラム）</h3>
+  <p>回答内で繰り返し出現した特徴的な2単語の組み合わせです。</p>
+  <ul>
+    <li><strong>新しい 考え</strong> (3回)</li>
+    <li><strong>違う 視点</strong> (2回)</li>
+    <li>視点 広がる (関連表現含む 2回)</li>
+    <li>自分 ない / 違う (複数回)</li>
+    <li>意見 知る / 見る (複数回)</li>
+  </ul>
+  <p>これらのフレーズからも、「新しい考え」「違う視点」を得たいという強い動機が裏付けられます。</p>
+
+  <h2>4. 考察</h2>
+  <p>今回の分析結果から、回答者がAIを利用する<strong>最大の理由は「自分にはない新しい視点や発想を得られること」</strong>であると結論付けられます。多くの回答者は、AIが人間とは異なる多様な角度からの意見や、自身では思いつかなかったアイデア、見落としていた論点などを提示してくれる点に価値を感じています。</p>
+  <p>これは、AIを単なる情報検索ツールとしてではなく、<strong>思考の壁打ち相手や、発想を広げるための触媒</strong>として捉えていることを示唆しています。「視野が広がる」「第三者目線」といった言葉も、この主要な理由を補強しています。</p>
+  <p>また、「手軽さ」や「分かりやすさ」といった効率性・利便性も副次的な理由として挙げられており、情報収集や整理の負担軽減ツールとしての側面も評価されています。</p>
+
+  <h2>5. まとめ</h2>
+  <div class="conclusion">
+    <p>今回の自由記述アンケート分析により、AIは回答者にとって、<strong>自己の思考や視点を拡張し、新たな気づきや発想をもたらしてくれる存在</strong>として強く認識されていることが明らかになりました。</p>
+    <p>効率性や利便性も評価されつつありますが、その<strong>中核的な価値は、人間の創造性や思考力を補完・刺激する点にある</strong>と考えられます。今後のAI活用においては、この「新しい視点・発想の獲得支援」という価値をさらに高める方向性が重要となるでしょう。</p>
+  </div>
+
+</div>
+
+</body>
+</html>
