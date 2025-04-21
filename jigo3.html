@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自由記述アンケート「AI回答による意見・判断への影響」分析報告</title>
+<style>
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    line-height: 1.7;
+    color: #333;
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+
+  .analysis-report {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1, h2, h3, h4 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db; /* 前回同様青系 */
+    padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    text-align: center;
+    border-bottom: none;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    border-bottom: 1px dashed #bdc3c7;
+  }
+
+  h4 {
+    font-size: 1.1em;
+    border-bottom: none;
+    color: #2980b9; /* カテゴリ見出しの色を少し変える */
+    margin-top: 25px;
+  }
+
+
+  p {
+    margin-bottom: 15px;
+  }
+
+  strong {
+    color: #e74c3c;
+    font-weight: bold;
+  }
+
+  ol, ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background-color: #ecf0f1;
+    font-weight: bold;
+    color: #34495e;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  .category-table th:nth-child(2) { /* 件数カラム */
+      text-align: center;
+      width: 15%;
+  }
+  .category-table td:nth-child(2) {
+      text-align: center;
+  }
+
+  .category-table td:nth-child(3) {
+     font-size: 0.9em; /* 例の内容を少し小さく */
+  }
+
+  .conclusion {
+    background-color: #eaf2f8; /* 少し落ち着いた青系の背景 */
+    border-left: 5px solid #3498db;
+    padding: 15px;
+    margin-top: 25px;
+    border-radius: 4px;
+  }
+
+  .note {
+      font-size: 0.85em;
+      color: #777;
+      margin-top: 5px;
+      display: block; /* 例の前に改行を入れる */
+  }
+
+  .caution {
+      color: #c0392b; /* 注意・懸念を示す色 */
+      font-weight: bold;
+  }
+  .positive {
+      color: #27ae60; /* ポジティブな側面を示す色 */
+      font-weight: bold;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="analysis-report">
+
+  <h1>自由記述アンケート「AI回答による意見・判断への影響」分析報告</h1>
+
+  <h2>1. 分析の目的</h2>
+  <p>生成AIの回答を参考にすることで、回答者自身の意見や判断が影響を受けると考えているか、またその理由や背景にあるAIへの認識、自己の判断力への信頼などを明らかにすることを目的としました。</p>
+
+  <h2>2. 分析手法</h2>
+  <p>データ件数（24件）を考慮し、以下の手法を組み合わせて分析を行いました。</p>
+  <ul>
+    <li><strong>キーワード抽出・頻度分析:</strong> 全体の傾向把握のため、頻出する単語を抽出。</li>
+    <li><strong>カテゴリ分類（コーディング）:</strong> AIからの影響について「受ける（肯定的理由）」「受ける（懸念/否定的理由）」「受けない/限定的」に大別し、それぞれの理由をグルーピング。</li>
+    <li><strong>N-gram分析（バイグラム）:</strong> 特徴的なフレーズを特定。</li>
+  </ul>
+
+  <h2>3. 分析結果</h2>
+
+  <h3>(1) 頻出キーワード</h3>
+  <p>回答全体を通して、特に多く出現したキーワードは以下の通りです（表記揺れ考慮）。</p>
+  <ol>
+    <li><strong>影響</strong> (多数)</li>
+    <li><strong>意見</strong> (多数)</li>
+    <li><strong>自分 / 自己</strong> (多数)</li>
+    <li><strong>視点</strong> (多数)</li>
+    <li><strong>AI / 生成AI</strong> (多数)</li>
+    <li><strong>回答</strong> (多数)</li>
+    <li><strong>判断</strong> (多数)</li>
+    <li><strong>新しい / 違う</strong> (多数)</li>
+    <li><strong>正しい / 間違えている</strong> (複数回)</li>
+    <li><strong>受ける / 変わる</strong> (多数)</li>
+    <li><strong>思う / 考える</strong> (多数)</li>
+    <li><strong>偏る / 客観的</strong> (複数回)</li>
+  </ol>
+  <p>「影響」「意見」「自分」「視点」「判断」といった言葉が非常に多く、AIと自己の思考・判断との関係性が強く意識されていることがわかります。「新しい/違う」視点への期待と、「正しい/偏る」といった情報の質への関心が共存しています。</p>
+
+  <h3>(2) カテゴリ分類</h3>
+  <p>AIの回答から影響を受けるかについて、回答者の意見とその理由は以下のように分類されました。</p>
+
+  <h4>【影響を受けると思う（肯定的・中立的な理由）】（計 約15件 / 約63%）</h4>
+  <p class="positive">新しい視点を得たり、考えを深めたりするポジティブな影響を期待する声が多数。</p>
+  <table class="category-table">
+      <thead>
+          <tr>
+              <th>理由カテゴリ</th>
+              <th>件数</th>
+              <th>主な内容・代表的な回答例</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td><strong>1. 新しい視点・発想の獲得と深化</strong></td>
+              <td>約8件</td>
+              <td>・自分にはない視点/考え方を知れる<br>・違う意見に触れることで考えが深まる<br>・意見を取り入れてより良くする<br><span class="note"><em>例: 「新しい視点から見たものをAIの発言から更に深堀できるから」「違う意見も知ることができるから」「その意見も取り入れてより良い意見にするから。」</em></span></td>
+          </tr>
+          <tr>
+              <td><strong>2. AI回答の説得力・客観性</strong></td>
+              <td>約4件</td>
+              <td>・納得できる書き方をしている<br>・客観的な情報を提供してくれる<br><span class="note"><em>例: 「納得できるような書き方をしているから」「客観的に話してくれるから」</em></span></td>
+          </tr>
+           <tr>
+              <td><strong>3. 自己の誤りへの気づき・変化</strong></td>
+              <td>約2件</td>
+              <td>・自分が間違えていることに気づく<br>・実際に意見が変わった経験がある<br><span class="note"><em>例: 「自分が間違えていることに気付かされるから」「実際に意見が変わったから」</em></span></td>
+          </tr>
+      </tbody>
+  </table>
+
+  <h4>【影響を受けると思う（懸念・否定的な理由）】（計 約4件 / 約17%）</h4>
+  <p class="caution">AIの情報に流されたり、判断が鈍ったりするリスクを懸念する声。</p>
+  <table class="category-table">
+      <thead>
+          <tr>
+              <th>理由カテゴリ</th>
+              <th>件数</th>
+              <th>主な内容・代表的な回答例</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td><strong>1. 情報の鵜呑み・誤信リスク</strong></td>
+              <td>約3件</td>
+              <td>・AIの情報が正しいと思い込んでしまう<br>・偏った意見を正しいと勘違いする<br><span class="note"><em>例: 「AIの情報が正しく思えてしまうから、影響を受けることがある。」「中には偏った意見があってそれを正しいと勘違いしてしまうから」</em></span></td>
+          </tr>
+          <tr>
+              <td><strong>2. 自己判断力の低下懸念</strong></td>
+              <td>約1件</td>
+              <td>・自分の意見が正しいかの判断が鈍る<br><span class="note"><em>例: 「自分の意見が正しいのかの判断が鈍るから」</em></span></td>
+          </tr>
+      </tbody>
+  </table>
+
+   <h4>【影響を受けないと思う / 影響は限定的】（計 約4件 / 約17%）</h4>
+   <p>自己の判断軸を保てる、または影響は本質的ではないと考える声。</p>
+   <table class="category-table">
+      <thead>
+          <tr>
+              <th>理由カテゴリ</th>
+              <th>件数</th>
+              <th>主な内容・代表的な回答例</th>
+          </tr>
+      </thead>
+      <tbody>
+           <tr>
+              <td><strong>1. 自己の意見・判断の維持</strong></td>
+              <td>約2件</td>
+              <td>・根拠があれば意見を貫ける<br>・自分で判断すべき性質のもの<br><span class="note"><em>例: 「しっかり根拠のある意見なら貫けると思うから」「こういうものは自分で判断し意見を貫くようなものであると思うから。」</em></span></td>
+          </tr>
+          <tr>
+              <td><strong>2. 影響の実感がない</strong></td>
+              <td>約1件</td>
+              <td>・（少なくとも現時点では）影響を受けていない<br><span class="note"><em>例: 「現に今日は影響を受けてないから」</em></span></td>
+          </tr>
+      </tbody>
+  </table>
+  <p class="note">※件数は重複回答や解釈により変動する可能性があります。</p>
+  <p><strong>大多数（約8割）が何らかの形でAIから影響を受けると考えており</strong>、特に<strong class="positive">「新しい視点を得られる」といったポジティブな影響</strong>を期待する回答者が半数以上を占めています。しかし、<strong class="caution">情報の偏りや鵜呑みにすることへのリスク</strong>も明確に認識されています。</p>
+
+  <h3>(3) 注目されるフレーズ（N-gram: バイグラム）</h3>
+  <p>回答内で見られた特徴的な2単語の組み合わせです。</p>
+  <ul>
+    <li><strong>影響 受ける</strong> (多数)</li>
+    <li><strong>新しい 視点 / 考え</strong> (多数)</li>
+    <li><strong>違う 意見 / 視点</strong> (複数回)</li>
+    <li><strong>意見 変わる / 深まる</strong> (複数回)</li>
+    <li><strong>正しい 思える / 勘違い</strong> (複数回)</li>
+    <li><strong>偏った 意見</strong> (複数回)</li>
+    <li><strong>判断 鈍る / 貫く</strong> (複数回)</li>
+  </ul>
+  <p>「影響を受ける」ことを前提としつつ、「新しい視点」への期待と、「正しいか」「偏っていないか」という情報の質への関心、そして「自分の判断」をどう保つか、という点がキーワードとして浮かび上がっています。</p>
+
+  <h2>4. 考察</h2>
+  <p>今回の分析から、<strong>回答者の多くが生成AIの回答から自身の意見や判断が影響を受ける可能性を認識している</strong>ことが明らかになりました。その影響の捉え方は二分しており、ポジティブな側面とネガティブな側面の両方が意識されています。</p>
+  <p><strong class="positive">ポジティブな側面としては、AIが「新しい視点」や「多様な意見」を提供してくれることで、自己の考えを深めたり、より良い結論に至ったりする触媒としての役割</strong>が期待されています。これは、AIを思考拡張ツールとして活用しようとする意欲の表れと言えます。</p>
+  <p>一方で、<strong class="caution">ネガティブな側面としては、AIの回答を無批判に受け入れてしまうことによる「誤信」や「偏り」のリスク、そしてそれに伴う「自己判断力の低下」への懸念</strong>が挙げられています。AIの情報が必ずしも正しいとは限らない、という認識を持っている回答者も一定数存在します。</p>
+  <p>「影響を受けない」とする少数派の意見からは、<strong>自己の意見形成における主体性や、情報に対する批判的思考（クリティカルシンキング）の重要性</strong>を重視する姿勢がうかがえます。</p>
+  <p>全体として、AIの影響力を認めつつも、それをどのように受け止め、自身の思考や判断にどう活かすか（あるいはどう距離を置くか）について、回答者それぞれが考えている様子がうかがえる結果となりました。</p>
+
+  <h2>5. まとめ</h2>
+  <div class="conclusion">
+    <p>生成AIの回答は、<strong>多くの回答者にとって意見や判断に影響を与えうるもの</strong>として認識されています。</p>
+    <ul>
+      <li><strong class="positive">主なポジティブな影響:</strong> 新しい視点の獲得、思考の深化、客観性の補完。</li>
+      <li><strong class="caution">主な懸念点:</strong> 情報の鵜呑み、偏った意見への同調、自己判断力の低下リスク。</li>
+    </ul>
+    <p>この結果は、生成AIを効果的に活用するためには、その回答を<strong>鵜呑みにせず、常に批判的な視点を持ち、最終的な判断は自分自身で行うことの重要性</strong>を示唆しています。AIは有用な「思考の壁打ち相手」となり得ますが、それに依存しすぎることなく、主体的に情報を吟味・活用するリテラシーが求められます。</p>
+  </div>
+
+</div>
+
+</body>
+</html>
