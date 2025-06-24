@@ -82,6 +82,7 @@
         .content-section p { font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; }
         .content-section strong { color: var(--accent-color); font-weight: bold; }
         
+        /* Specific content styles */
         .residents-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
         .residents-list li { background: var(--secondary-color); border-radius: 8px; border-left: 4px solid var(--primary-color); transition: background-color 0.3s, transform 0.3s ease; overflow: hidden; }
         .residents-list li.has-link:hover { background-color: #dfe6e9; transform: translateY(-3px); }
@@ -90,69 +91,34 @@
         .residents-list .name { font-size: 1.2rem; font-weight: bold; color: var(--primary-color); }
         .residents-list .model { font-size: 0.85em; font-weight: normal; color: #7f8c8d; display: block; margin-top: -5px; }
         .residents-list .role { font-size: 0.9rem; color: var(--text-color); margin-top: 8px; }
-        
         .final-message { margin-top: 3rem; padding: 2rem; border-top: 2px dashed var(--line-color); text-align: center; font-size: 1.1rem; color: var(--text-color); background-color: #f9f9f9; border-radius: 8px; }
         
+        /* Implementation Details Styles */
+        .details-list { display: grid; grid-template-columns: 100px 1fr; gap: 1rem 1.5rem; margin-bottom: 2rem; }
+        .details-list dt { font-weight: bold; text-align: right; color: var(--primary-color); }
+        .details-list dd { margin: 0; }
+        
+        .schedule-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+        .schedule-table th, .schedule-table td { border: 1px solid var(--line-color); padding: 0.75rem; text-align: left; vertical-align: top; }
+        .schedule-table th { background-color: var(--secondary-color); font-weight: bold; width: 100px; text-align: center; }
+        
+        .notes-list { list-style: none; padding: 0; }
+        .notes-list li { background-color: #fff9f2; border-left: 4px solid var(--accent-color); padding: 0.75rem 1.25rem; margin-bottom: 0.75rem; border-radius: 0 4px 4px 0; }
+        .notes-list strong { color: var(--accent-color); }
+        
         /* Access Notes Styles */
-        .access-notes {
-            text-align: left;
-            max-width: 600px;
-            margin: 0 auto 2.5rem auto;
-            background-color: #fff9f2;
-            padding: 1.5rem 2rem;
-            border-radius: 8px;
-            border: 1px solid #fce5cd;
-        }
-        .access-notes h5 {
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .access-notes ol {
-            padding-left: 20px;
-            margin-bottom: 1rem;
-        }
-        .access-notes li {
-            font-size: 1rem;
-            margin-bottom: 0.75rem;
-        }
-        .access-notes .caution {
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-        .access-notes .rules {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px dashed var(--line-color);
-            text-align: center;
-        }
-        .access-notes .rules p {
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
+        .access-notes { text-align: left; max-width: 600px; margin: 0 auto 2.5rem auto; background-color: #fff9f2; padding: 1.5rem 2rem; border-radius: 8px; border: 1px solid #fce5cd; }
+        .access-notes h5 { font-size: 1.2rem; color: var(--primary-color); text-align: center; margin-bottom: 1.5rem; }
+        .access-notes ol { padding-left: 20px; margin-bottom: 1rem; }
+        .access-notes li { font-size: 1rem; margin-bottom: 0.75rem; }
+        .access-notes .caution { color: var(--accent-color); font-weight: bold; }
+        .access-notes .rules { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--line-color); text-align: center; }
+        .access-notes .rules p { font-weight: bold; color: var(--primary-color); font-size: 1.1rem; margin-bottom: 0.5rem; }
+        
         /* Responsive Embed Container for Maps */
-        .embed-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 75%; /* 4:3 Aspect Ratio */
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .embed-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
+        .embed-container { position: relative; width: 100%; height: 0; padding-bottom: 75%; overflow: hidden; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .embed-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        
         /* Responsive adjustments */
         @media screen and (max-width: 768px) {
             .header h1 { font-size: 2.2rem; }
@@ -163,6 +129,8 @@
             .timeline-item::after { left: 21px; }
             .content-section { padding: 2rem 1.5rem; margin-top: 4rem; }
             .content-section h2 { font-size: 1.8rem; }
+            .details-list { grid-template-columns: 1fr; gap: 0.5rem; }
+            .details-list dt { text-align: left; }
             .access-notes { padding: 1rem 1.5rem; }
         }
     </style>
@@ -210,13 +178,50 @@
     </section>
 
     <section class="content-section fade-in-section">
+        <h2>芸術鑑賞会 実施要項</h2>
+        <dl class="details-list">
+            <dt>１ 内容</dt>
+            <dd>演劇鑑賞「トキワ荘の夏」</dd>
+            <dt>２ 日時</dt>
+            <dd>令和７年６月２６日（木） １３：２０ ～ １５：３０</dd>
+            <dt>３ 場所</dt>
+            <dd>ザ・ヒロサワシティ会館（茨城県民文化センター）大ホール</dd>
+            <dt>４ 対象</dt>
+            <dd>全学年生徒</dd>
+        </dl>
+        
+        <h4>５ 日程</h4>
+        <table class="schedule-table">
+            <tr><th>～11:50</th><td>１限から３限まで平常授業</td></tr>
+            <tr><th>11:50～</th><td>給食</td></tr>
+            <tr><th>12:20～</th><td>SHR、清掃終了後、会館へ移動。大ホール入り口前（中庭）に学年・クラス毎に集合。</td></tr>
+            <tr><th>12:50</th><td>整列・身だしなみ・出席確認</td></tr>
+            <tr><th>13:00</th><td>開場</td></tr>
+            <tr><th>13:15</th><td>着席完了・諸連絡</td></tr>
+            <tr><th>13:20</th><td>開会（生徒会による開会の言葉、紹介、諸注意）</td></tr>
+            <tr><th>13:30</th><td>開演</td></tr>
+            <tr><th>15:30</th><td>終演予定（生徒会謝辞・花束贈呈）、閉会。終了後、現地解散。</td></tr>
+        </table>
+        
+        <h4>６ 注意事項</h4>
+        <ul class="notes-list">
+            <li>交通ルール・時間を守って行動する。</li>
+            <li>施設移動の際は、近隣の方々の顰蹙を買うことのないように行動する。</li>
+            <li>上演中はマナーを守って鑑賞すること。（大声を上げず、マスクの着用を奨励）</li>
+            <li><strong>上演中の録音、写真撮影は禁止。飲食は厳禁。</strong></li>
+            <li>各自手指消毒・手洗い・マスクの着用など、感染症予防に努める。</li>
+            <li>身嗜みを整えて整列すること。</li>
+        </ul>
+    </section>
+
+    <section class="content-section fade-in-section">
         <h2>会場へのアクセス：ザ・ヒロサワ・シティ会館</h2>
         <div class="access-notes">
             <h5>徒歩・自転車での主な経路と注意点</h5>
             <ol>
                 <li>KASUMI前を千波湖方面へ直進</li>
                 <li>SLOW JAMの交差点を御茶園通りを上る</li>
-                <li>レストランドルフの前の小道を下る<span class="caution">（車に注意）</span></li>
+                <li>レストランドルフの前の小道を下る<span class="caution">（車に注意してください）</span></li>
             </ol>
             <div class="rules">
                 <p>自転車は左側通行・一時停止を厳守</p>
