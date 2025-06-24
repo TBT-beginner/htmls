@@ -75,13 +75,12 @@
         .timeline-text-content .masterpiece { font-weight: bold; margin-top: 15px; color: var(--primary-color); border-top: 1px solid var(--line-color); padding-top: 10px; }
         .timeline-text-content ul { list-style-type: none; padding-left: 0; font-size: 0.9rem; }
 
-        /* Tokiwaso Section */
-        .tokiwaso-section { width: 90%; max-width: 900px; margin: 5rem auto; padding: 3rem; background-color: var(--card-bg-color); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--primary-color); }
-        .tokiwaso-section h2 { font-size: 2.2rem; color: var(--primary-color); text-align: center; margin-bottom: 1rem; }
-        .tokiwaso-section .subtitle { text-align: center; font-size: 1.2rem; color: var(--text-color); margin-bottom: 2.5rem; font-weight: bold; }
-        .tokiwaso-section h4 { font-size: 1.4rem; color: var(--accent-color); margin-top: 2rem; margin-bottom: 1rem; border-left: 4px solid var(--accent-color); padding-left: 1rem; }
-        .tokiwaso-section p { font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; }
-        .tokiwaso-section strong { color: var(--accent-color); font-weight: bold; }
+        /* General Content Section */
+        .content-section { width: 90%; max-width: 900px; margin: 5rem auto; padding: 3rem; background-color: var(--card-bg-color); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--primary-color); }
+        .content-section h2 { font-size: 2.2rem; color: var(--primary-color); text-align: center; margin-bottom: 2rem; }
+        .content-section h4 { font-size: 1.4rem; color: var(--accent-color); margin-top: 2rem; margin-bottom: 1rem; border-left: 4px solid var(--accent-color); padding-left: 1rem; }
+        .content-section p { font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; }
+        .content-section strong { color: var(--accent-color); font-weight: bold; }
         
         .residents-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
         .residents-list li { background: var(--secondary-color); border-radius: 8px; border-left: 4px solid var(--primary-color); transition: background-color 0.3s, transform 0.3s ease; overflow: hidden; }
@@ -93,6 +92,66 @@
         .residents-list .role { font-size: 0.9rem; color: var(--text-color); margin-top: 8px; }
         
         .final-message { margin-top: 3rem; padding: 2rem; border-top: 2px dashed var(--line-color); text-align: center; font-size: 1.1rem; color: var(--text-color); background-color: #f9f9f9; border-radius: 8px; }
+        
+        /* Access Notes Styles */
+        .access-notes {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            background-color: #fff9f2;
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            border: 1px solid #fce5cd;
+        }
+        .access-notes h5 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .access-notes ol {
+            padding-left: 20px;
+            margin-bottom: 1rem;
+        }
+        .access-notes li {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .access-notes .caution {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        .access-notes .rules {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--line-color);
+            text-align: center;
+        }
+        .access-notes .rules p {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Embed Container for Maps */
+        .embed-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 75%; /* 4:3 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
 
         /* Responsive adjustments */
         @media screen and (max-width: 768px) {
@@ -102,8 +161,9 @@
             .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { left: 0; }
             .timeline-item:nth-child(odd) .timeline-content::before, .timeline-item:nth-child(even) .timeline-content::before { left: -15px; border-right-color: var(--card-bg-color); border-left-color: transparent; }
             .timeline-item::after { left: 21px; }
-            .tokiwaso-section { padding: 2rem 1.5rem; margin-top: 4rem; }
-            .tokiwaso-section h2 { font-size: 1.8rem; }
+            .content-section { padding: 2rem 1.5rem; margin-top: 4rem; }
+            .content-section h2 { font-size: 1.8rem; }
+            .access-notes { padding: 1rem 1.5rem; }
         }
     </style>
 </head>
@@ -115,171 +175,56 @@
 
     <div class="timeline-container">
         <!-- タイムラインの項目 -->
-        <div class="timeline-item fade-in-section">
-            <div class="timeline-content">
-                <div class="timeline-image-container"><img src="https://tezukaosamu.net/jp/manga/img/m0291/m0291_main_sp.jpg" alt="火の鳥"></div>
-                <div class="timeline-text-content">
-                    <span class="era">1940s-50s</span><h3>手塚治虫</h3>
-                    <p>「漫画の神様」。『新宝島』で映画的なコマ割りや構図を導入し、日本のストーリー漫画の基礎を築いた。後のすべての漫画家に影響を与えたとされる。</p>
-                    <div class="masterpiece">代表作:</div>
-                    <ul><li>鉄腕アトム (1952)</li><li>火の鳥 (1954)</li><li>ブラック・ジャック (1973)</li></ul>
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item fade-in-section">
-            <div class="timeline-content">
-                <div class="timeline-image-container"><img src="https://core-choco.com/info/wp-content/uploads/%E3%82%AB%E3%83%A0%E3%82%A4.jpg" alt="カムイ伝"></div>
-                <div class="timeline-text-content">
-                    <span class="era">1960s</span><h3>白土三平</h3>
-                    <p>リアルで硬質なタッチの「劇画」を牽引。封建社会の矛盾や差別、階級闘争といった重厚なテーマを扱い、漫画の読者層を大人へと広げた。</p>
-                    <div class="masterpiece">代表作:</div>
-                    <ul><li>忍者武芸帳 影丸伝 (1959)</li><li>サスケ (1961)</li><li>カムイ伝 (1964)</li></ul>
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item fade-in-section">
-            <div class="timeline-content">
-                <div class="timeline-image-container"><img src="https://www.saito-pro.co.jp/wp-content/uploads/2019/12/masterpiece_golgo_01.jpg" alt="ゴルゴ13"></div>
-                <div class="timeline-text-content">
-                    <span class="era">1960s-70s</span><h3>さいとう・たかを</h3>
-                    <p>劇画を一大ジャンルとして確立。プロダクションによる分業制作システムを漫画界で本格的に導入し、『ゴルゴ13』の長期連載を実現した。</p>
-                    <div class="masterpiece">代表作:</div>
-                    <ul><li>ゴルゴ13 (1968)</li><li>無用ノ介 (1967)</li></ul>
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item fade-in-section">
-            <div class="timeline-content">
-                <div class="timeline-image-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCG1-lQEdf9qS5SR8z4ycasYhSkCkYlxQ3lQ&s" alt="うる星やつら"></div>
-                <div class="timeline-text-content">
-                    <span class="era">1970s-80s</span><h3>高橋留美子</h3>
-                    <p>「ラブコメディ」というジャンルを確立し、少年誌で男女問わず絶大な人気を獲得。『うる星やつら』は社会現象となり、その後の漫画文化に大きな影響を与えた。</p>
-                    <div class="masterpiece">代表作:</div>
-                    <ul><li>うる星やつら (1978)</li><li>めぞん一刻 (1980)</li><li>らんま1/2 (1987)</li></ul>
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item fade-in-section">
-            <div class="timeline-content">
-                <div class="timeline-image-container"><img src="https://img.kai-you.net/storage/2023/10/aaa70feb-7534-4ba7-a3f3-1c99bad9c6d2/main/origin.webp" alt="AKIRA"></div>
-                <div class="timeline-text-content">
-                    <span class="era">1980s</span><h3>大友克洋</h3>
-                    <p>「大友以前、大友以後」という言葉が生まれるほど漫画表現に革命を起こした。『AKIRA』の緻密な描き込み、映画的な構図、斬新な表現は国内外のクリエイターに衝撃を与えた。</p>
-                    <div class="masterpiece">代表作:</div>
-                    <ul><li>童夢 (1980)</li><li>AKIRA (1982)</li></ul>
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item fade-in-section">
-            <div class="timeline-content">
-                <div class="timeline-image-container"><img src="https://ogre.natalie.mu/media/news/comic/2013/0325/toriyama_a.jpg?imwidth=750&imdensity=1" alt="ドラゴンボール"></div>
-                <div class="timeline-text-content">
-                    <span class="era">1980s-90s</span><h3>鳥山明</h3>
-                    <p>『ドラゴンボール』が世界的な大ヒットを記録。少年漫画における「友情・努力・勝利」とバトル描写のフォーマットを完成させ、日本の漫画・アニメを世界に広める最大の功労者となった。</p>
-                    <div class="masterpiece">代表作:</div>
-                    <ul><li>Dr.スランプ (1980)</li><li>ドラゴンボール (1984)</li></ul>
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item fade-in-section">
-            <div class="timeline-content">
-                 <div class="timeline-image-container"><img src="https://images-fe.ssl-images-amazon.com/images/I/71JvE-21ElL._AC_UL600_SR600,600_.jpg" alt="スラムダンク"></div>
-                <div class="timeline-text-content">
-                    <span class="era">1990s</span><h3>井上雄彦</h3>
-                    <p>『スラムダンク』でスポーツ漫画の金字塔を打ち立て、バスケブームを巻き起こす。『バガボンド』では毛筆を使った画法を取り入れ、漫画を芸術の域にまで高めた。</p>
-                    <div class="masterpiece">代表作:</div>
-                    <ul><li>スラムダンク (1990)</li><li>バガボンド (1998)</li><li>リアル (1999)</li></ul>
-                </div>
-            </div>
-        </div>
-        <div class="timeline-item fade-in-section">
-            <div class="timeline-content">
-                 <div class="timeline-image-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-uP9h0nXjDfpXyP3IsRO0hdPc9VhrZ4JibA&s" alt="ONE PIECE"></div>
-                <div class="timeline-text-content">
-                    <span class="era">1990s-現在</span><h3>尾田栄一郎</h3>
-                    <p>『ONE PIECE』で日本の漫画史上最高発行部数を記録。王道の冒険活劇の中に、壮大な世界観と緻密な伏線を張り巡らせ、長期連載漫画の新たな地平を切り開いた。</p>
-                    <div class="masterpiece">代表作:</div>
-                    <ul><li>ONE PIECE (1997)</li></ul>
-                </div>
-            </div>
-        </div>
+        <div class="timeline-item fade-in-section"><div class="timeline-content"><div class="timeline-image-container"><img src="https://tezukaosamu.net/jp/manga/img/m0291/m0291_main_sp.jpg" alt="火の鳥"></div><div class="timeline-text-content"><span class="era">1940s-50s</span><h3>手塚治虫</h3><p>「漫画の神様」。『新宝島』で映画的なコマ割りや構図を導入し、日本のストーリー漫画の基礎を築いた。後のすべての漫画家に影響を与えたとされる。</p><div class="masterpiece">代表作:</div><ul><li>鉄腕アトム (1952)</li><li>火の鳥 (1954)</li><li>ブラック・ジャック (1973)</li></ul></div></div></div>
+        <div class="timeline-item fade-in-section"><div class="timeline-content"><div class="timeline-image-container"><img src="https://core-choco.com/info/wp-content/uploads/%E3%82%AB%E3%83%A0%E3%82%A4.jpg" alt="カムイ伝"></div><div class="timeline-text-content"><span class="era">1960s</span><h3>白土三平</h3><p>リアルで硬質なタッチの「劇画」を牽引。封建社会の矛盾や差別、階級闘争といった重厚なテーマを扱い、漫画の読者層を大人へと広げた。</p><div class="masterpiece">代表作:</div><ul><li>忍者武芸帳 影丸伝 (1959)</li><li>サスケ (1961)</li><li>カムイ伝 (1964)</li></ul></div></div></div>
+        <div class="timeline-item fade-in-section"><div class="timeline-content"><div class="timeline-image-container"><img src="https://www.saito-pro.co.jp/wp-content/uploads/2019/12/masterpiece_golgo_01.jpg" alt="ゴルゴ13"></div><div class="timeline-text-content"><span class="era">1960s-70s</span><h3>さいとう・たかを</h3><p>劇画を一大ジャンルとして確立。プロダクションによる分業制作システムを漫画界で本格的に導入し、『ゴルゴ13』の長期連載を実現した。</p><div class="masterpiece">代表作:</div><ul><li>ゴルゴ13 (1968)</li><li>無用ノ介 (1967)</li></ul></div></div></div>
+        <div class="timeline-item fade-in-section"><div class="timeline-content"><div class="timeline-image-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCG1-lQEdf9qS5SR8z4ycasYhSkCkYlxQ3lQ&s" alt="うる星やつら"></div><div class="timeline-text-content"><span class="era">1970s-80s</span><h3>高橋留美子</h3><p>「ラブコメディ」というジャンルを確立し、少年誌で男女問わず絶大な人気を獲得。『うる星やつら』は社会現象となり、その後の漫画文化に大きな影響を与えた。</p><div class="masterpiece">代表作:</div><ul><li>うる星やつら (1978)</li><li>めぞん一刻 (1980)</li><li>らんま1/2 (1987)</li></ul></div></div></div>
+        <div class="timeline-item fade-in-section"><div class="timeline-content"><div class="timeline-image-container"><img src="https://img.kai-you.net/storage/2023/10/aaa70feb-7534-4ba7-a3f3-1c99bad9c6d2/main/origin.webp" alt="AKIRA"></div><div class="timeline-text-content"><span class="era">1980s</span><h3>大友克洋</h3><p>「大友以前、大友以後」という言葉が生まれるほど漫画表現に革命を起こした。『AKIRA』の緻密な描き込み、映画的な構図、斬新な表現は国内外のクリエイターに衝撃を与えた。</p><div class="masterpiece">代表作:</div><ul><li>童夢 (1980)</li><li>AKIRA (1982)</li></ul></div></div></div>
+        <div class="timeline-item fade-in-section"><div class="timeline-content"><div class="timeline-image-container"><img src="https://ogre.natalie.mu/media/news/comic/2013/0325/toriyama_a.jpg?imwidth=750&imdensity=1" alt="ドラゴンボール"></div><div class="timeline-text-content"><span class="era">1980s-90s</span><h3>鳥山明</h3><p>『ドラゴンボール』が世界的な大ヒットを記録。少年漫画における「友情・努力・勝利」とバトル描写のフォーマットを完成させ、日本の漫画・アニメを世界に広める最大の功労者となった。</p><div class="masterpiece">代表作:</div><ul><li>Dr.スランプ (1980)</li><li>ドラゴンボール (1984)</li></ul></div></div></div>
+        <div class="timeline-item fade-in-section"><div class="timeline-content"><div class="timeline-image-container"><img src="https://images-fe.ssl-images-amazon.com/images/I/71JvE-21ElL._AC_UL600_SR600,600_.jpg" alt="スラムダンク"></div><div class="timeline-text-content"><span class="era">1990s</span><h3>井上雄彦</h3><p>『スラムダンク』でスポーツ漫画の金字塔を打ち立て、バスケブームを巻き起こす。『バガボンド』では毛筆を使った画法を取り入れ、漫画を芸術の域にまで高めた。</p><div class="masterpiece">代表作:</div><ul><li>スラムダンク (1990)</li><li>バガボンド (1998)</li><li>リアル (1999)</li></ul></div></div></div>
+        <div class="timeline-item fade-in-section"><div class="timeline-content"><div class="timeline-image-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-uP9h0nXjDfpXyP3IsRO0hdPc9VhrZ4JibA&s" alt="ONE PIECE"></div><div class="timeline-text-content"><span class="era">1990s-現在</span><h3>尾田栄一郎</h3><p>『ONE PIECE』で日本の漫画史上最高発行部数を記録。王道の冒険活劇の中に、壮大な世界観と緻密な伏線を張り巡らせ、長期連載漫画の新たな地平を切り開いた。</p><div class="masterpiece">代表作:</div><ul><li>ONE PIECE (1997)</li></ul></div></div></div>
     </div>
 
-    <!-- ===== 観劇ガイドセクション ===== -->
-    <section class="tokiwaso-section fade-in-section">
+    <section class="content-section fade-in-section">
         <h2>劇団俳小『トキワ荘の夏』鑑賞ガイド</h2>
-        <p class="subtitle">これを読めば、舞台の感動が何倍にも！</p>
-
         <h4>見どころ①：物語の鍵を握る登場人物たち</h4>
         <p>舞台に登場する個性豊かな人物たち。そのモデルとなった「本物の漫画家」を知っておくと、彼らのセリフや行動の深みがグッと増します。<strong>カードをクリックすると、関連ページが開きます。</strong></p>
         <ul class="residents-list">
-            <li class="has-link">
-                <a href="https://ishimoripro.com/" target="_blank" rel="noopener noreferrer">
-                    <div class="name">秋森 良太郎</div>
-                    <div class="model">(モデル: 石ノ森章太郎)</div>
-                    <div class="role">新進気鋭の天才漫画家。彼の成功が物語を大きく動かします。</div>
-                </a>
-            </li>
-            <li class="has-link">
-                <a href="https://tezukaosamu.net/jp/" target="_blank" rel="noopener noreferrer">
-                    <div class="name">木塚 修身</div>
-                    <div class="model">(モデル: 手塚治虫)</div>
-                    <div class="role">皆の憧れである「漫画の神様」。しかし、スランプに悩み苦しみます。</div>
-                </a>
-            </li>
-            <li class="has-link">
-                <a href="https://www.koredeiinoda.net/" target="_blank" rel="noopener noreferrer">
-                    <div class="name">赤坂 不二朗</div>
-                    <div class="model">(モデル: 赤塚不二夫)</div>
-                    <div class="role">秋森の幼馴染で一番の理解者。ムードメーカー的存在。</div>
-                </a>
-            </li>
-             <li class="has-link">
-                <a href="https://teradahiroo.jp/" target="_blank" rel="noopener noreferrer">
-                    <div class="name">寺本 文緒</div>
-                    <div class="model">(モデル: 寺田ヒロオ)</div>
-                    <div class="role">トキワ荘のリーダー格。皆を静かに見守る兄貴分です。</div>
-                </a>
-            </li>
-            <li class="has-link">
-                <a href="https://fujiko-museum.com/" target="_blank" rel="noopener noreferrer">
-                    <div class="name">藤本 博文 & 愛甲 郁夫</div>
-                    <div class="model">(モデル: 藤子・F・不二雄 & 藤子不二雄Ⓐ)</div>
-                    <div class="role">二人で一つの夢を追う親友コンビ。彼らの友情に注目！</div>
-                </a>
-            </li>
-             <li class="has-link">
-                <a href="https://ja.wikipedia.org/wiki/%E6%B0%B4%E9%87%8E%E8%8B%B1%E5%AD%90" target="_blank" rel="noopener noreferrer">
-                    <div class="name">水島 洋子</div>
-                    <div class="model">(モデル: 水野英子)</div>
-                    <div class="role">トキワ荘の紅一点。漫画を厳しくも愛をもって批評します。</div>
-                </a>
-            </li>
-            <li>
-                <div class="card-content">
-                    <div class="name">秋森 恵美</div>
-                    <div class="model">(劇オリジナルキャラクター)</div>
-                    <div class="role">主人公・秋森の姉。病弱ながら、弟や仲間たちを献身的に支えます。</div>
-                </div>
-            </li>
-             <li>
-                <div class="card-content">
-                    <div class="name">内山 啓</div>
-                    <div class="model">(モデル: 加藤謙一)</div>
-                    <div class="role">雑誌「漫画少年」の編集長。漫画家たちの才能を見出す重要な人物。</div>
-                </div>
-            </li>
+            <li class="has-link"><a href="https://ishimoripro.com/" target="_blank" rel="noopener noreferrer"><div class="name">秋森 良太郎</div><div class="model">(モデル: 石ノ森章太郎)</div><div class="role">新進気鋭の天才漫画家。彼の成功が物語を大きく動かします。</div></a></li>
+            <li class="has-link"><a href="https://tezukaosamu.net/jp/" target="_blank" rel="noopener noreferrer"><div class="name">木塚 修身</div><div class="model">(モデル: 手塚治虫)</div><div class="role">皆の憧れである「漫画の神様」。しかし、スランプに悩み苦しみます。</div></a></li>
+            <li class="has-link"><a href="https://www.koredeiinoda.net/" target="_blank" rel="noopener noreferrer"><div class="name">赤坂 不二朗</div><div class="model">(モデル: 赤塚不二夫)</div><div class="role">秋森の幼馴染で一番の理解者。ムードメーカー的存在。</div></a></li>
+            <li class="has-link"><a href="https://teradahiroo.jp/" target="_blank" rel="noopener noreferrer"><div class="name">寺本 文緒</div><div class="model">(モデル: 寺田ヒロオ)</div><div class="role">トキワ荘のリーダー格。皆を静かに見守る兄貴分です。</div></a></li>
+            <li class="has-link"><a href="https://fujiko-museum.com/" target="_blank" rel="noopener noreferrer"><div class="name">藤本 博文 & 愛甲 郁夫</div><div class="model">(モデル: 藤子・F・不二雄 & 藤子不二雄Ⓐ)</div><div class="role">二人で一つの夢を追う親友コンビ。彼らの友情に注目！</div></a></li>
+            <li class="has-link"><a href="https://ja.wikipedia.org/wiki/%E6%B0%B4%E9%87%8E%E8%8B%B1%E5%AD%90" target="_blank" rel="noopener noreferrer"><div class="name">水島 洋子</div><div class="model">(モデル: 水野英子)</div><div class="role">トキワ荘の紅一点。漫画を厳しくも愛をもって批評します。</div></a></li>
+            <li><div class="card-content"><div class="name">秋森 恵美</div><div class="model">(劇オリジナルキャラクター)</div><div class="role">主人公・秋森の姉。病弱ながら、弟や仲間たちを献身的に支えます。</div></div></li>
+            <li><div class="card-content"><div class="name">内山 啓</div><div class="model">(モデル: 加藤謙一)</div><div class="role">雑誌「漫画少年」の編集長。漫画家たちの才能を見出す重要な人物。</div></div></li>
         </ul>
-
         <h4>見どころ②：天才たちの「光と影」</h4>
         <p>あらすじにあるように、この物語は<strong>秋森（石ノ森）の連載が大ヒットする「光」</strong>と、<strong>木塚（手塚）がスランプに陥り雑誌が廃刊の危機に瀕する「影」</strong>のコントラストが大きな軸となります。成功の喜び、焦り、嫉妬、そして仲間を思う気持ち。輝かしい青春の裏側にある、ほろ苦い人間ドラマに注目してください。</p>
-        
         <h4>見どころ③：フィクションで描かれる「本物の魂」</h4>
         <p>この劇は史実をなぞるドキュメンタリーではありません。しかしパンフレットにある通り<strong>「彼らのスピリットは精一杯こめた」</strong>物語です。一つの屋根の下で、同じ夢を追いかけた若者たちの友情、ライバル意識、そして困難に立ち向かう情熱。その「魂」が、舞台上の役者たちを通してどう表現されるのかが、最大の魅力です。</p>
-
         <div class="final-message">
             なぜタイトルが「夏」なのか。それはきっと、彼らの才能と情熱が最も熱く燃え上がった、短くも輝かしい青春時代そのものを象徴しているからでしょう。<br>
             このガイドを胸に、どうぞ『トキワ荘の夏』の世界に浸ってください。忘れられない観劇体験となることを願っています！
+        </div>
+    </section>
+
+    <section class="content-section fade-in-section">
+        <h2>会場へのアクセス：ザ・ヒロサワ・シティ会館</h2>
+        <div class="access-notes">
+            <h5>徒歩・自転車での主な経路と注意点</h5>
+            <ol>
+                <li>KASUMI前を千波湖方面へ直進</li>
+                <li>SLOW JAMの交差点を御茶園通りを上る</li>
+                <li>レストランドルフの前の小道を下る<span class="caution">（車に注意）</span></li>
+            </ol>
+            <div class="rules">
+                <p>自転車は左側通行・一時停止を厳守</p>
+                <p>自転車・徒歩でも並列にならないよう注意</p>
+            </div>
+        </div>
+        <div class="embed-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m32!1m12!1m3!1d6425.758976286504!2d140.45151804790243!3d36.363697839498926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m17!3e2!4m5!1s0x6022248a09e46919%3A0x233bf93e28ef7116!2z44CSMzEwLTA4NTEg6Iyo5Z-O55yM5rC05oi45biC5Y2D5rOi55S677yS77yT77yW77yZ4oiS77yTIOawtOaIuOiRtemZtemrmOetieWtpuagoQ!3m2!1d36.3603711!2d140.4475856!4m3!3m2!1d36.366178999999995!2d140.4521528!4m5!1s0x602224f8d810f2c9%3A0xe5771b0dc429c1ed!2z6Iyo5Z-O55yM5rC05oi45biC5Y2D5rOi55S677yW77yZ77yXIOOCtuODkuODreOCteODr-OCt-ODhuOCo-OCq-OCpOOCq-ODsyjjgrHjg7Pjg5_jg7Pjg5bjg7Pjgqvjgrvjg7Pjgr_jg7wp!3m2!1d36.3666374!2d140.4650207!5e0!3m2!1sja!2sjp!4v1750742302580!5m2!1sja!2sjp" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
 
