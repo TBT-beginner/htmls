@@ -106,6 +106,31 @@
         .notes-list li { background-color: #fff9f2; border-left: 4px solid var(--accent-color); padding: 0.75rem 1.25rem; margin-bottom: 0.75rem; border-radius: 0 4px 4px 0; }
         .notes-list strong { color: var(--accent-color); }
         
+        /* ▼▼▼ ここから追加 ▼▼▼ */
+        /* Link Button Style */
+        .link-button-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .link-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(44, 62, 80, 0.2);
+        }
+        .link-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(44, 62, 80, 0.3);
+        }
+        /* ▲▲▲ ここまで追加 ▲▲▲ */
+        
         /* Access Notes Styles */
         .access-notes { text-align: left; max-width: 600px; margin: 0 auto 2.5rem auto; background-color: #fff9f2; padding: 1.5rem 2rem; border-radius: 8px; border: 1px solid #fce5cd; }
         .access-notes h5 { font-size: 1.2rem; color: var(--primary-color); text-align: center; margin-bottom: 1.5rem; }
@@ -115,8 +140,8 @@
         .access-notes .rules { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--line-color); text-align: center; }
         .access-notes .rules p { font-weight: bold; color: var(--primary-color); font-size: 1.1rem; margin-bottom: 0.75rem; }
         
-        /* Responsive Embed Container for Maps & PDFs */
-        .embed-container { position: relative; width: 100%; height: 0; padding-bottom: 75%; /* 4:3 Aspect Ratio */ overflow: hidden; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        /* Responsive Embed Container for Maps */
+        .embed-container { position: relative; width: 100%; height: 0; padding-bottom: 75%; overflow: hidden; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .embed-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
         /* Responsive adjustments */
@@ -213,15 +238,13 @@
             <li>身嗜みを整えて整列すること。</li>
         </ul>
 
-        <!-- ▼▼▼ ここから追加 ▼▼▼ -->
+        <!-- ▼▼▼ ここから修正 ▼▼▼ -->
         <h4>７ 座席表</h4>
-        <p style="margin-bottom: 1.5rem;">
-            座席はクラスごとに指定されています。下の埋め込みビューで確認するか、<a href="https://drive.google.com/file/d/1Q3z_6EsL6LK184TseMBH4ttxQ-Bk9SLP/view?usp=drive_link" target="_blank" rel="noopener noreferrer"><strong>こちらのリンクからPDFを開いて</strong></a>ください。
-        </p>
-        <div class="embed-container" style="padding-bottom: 141.42%;"> <!-- PDF(A4)の縦横比に合わせて高さを調整 -->
-            <iframe src="https://drive.google.com/file/d/1Q3z_6EsL6LK184TseMBH4ttxQ-Bk9SLP/preview" loading="lazy"></iframe>
+        <p>座席はクラスごとに指定されています。下のボタンをクリックして、PDFファイルで座席表を確認してください。</p>
+        <div class="link-button-container">
+            <a href="https://drive.google.com/file/d/1Q3z_6EsL6LK184TseMBH4ttxQ-Bk9SLP/view?usp=drive_link" class="link-button" target="_blank" rel="noopener noreferrer">座席表PDFを開く</a>
         </div>
-        <!-- ▲▲▲ ここまで追加 ▲▲▲ -->
+        <!-- ▲▲▲ ここまで修正 ▲▲▲ -->
 
     </section>
 
