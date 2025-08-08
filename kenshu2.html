@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>講演会レポート</title>
+    <style>
+        /* Reset & Basic Settings */
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.9; color: #333; background-color: #f8f9fa; margin: 0; padding: 0; font-feature-settings: "palt";
+        }
+        .wrapper { max-width: 850px; margin: 30px auto; padding: 40px 50px 60px; background-color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 8px; }
+
+        /* Header & Language Toggle */
+        .header-container { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
+        header { text-align: center; flex-grow: 1; margin-bottom: 20px;}
+        header .subtitle { font-size: 1rem; color: #005A9C; font-weight: bold; margin: 0; }
+        header h1 { font-size: 2.2rem; font-weight: 900; color: #222; margin: 10px 0; line-height: 1.4; }
+        .lecture-info { font-size: 0.9rem; color: #555; }
+        .keywords { margin-top: 20px; font-size: 0.85rem; color: #666; text-align: left; width: 100%;}
+
+        .lang-toggle { flex-shrink: 0; margin-left: auto; margin-right: auto; }
+        .switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #005A9C; }
+        input:checked + .slider:before { transform: translateX(26px); }
+        .lang-labels { display: flex; justify-content: space-around; align-items: center; margin-top: 4px; font-size: 0.9rem;}
+
+        /* Language Visibility Control */
+        .lang-en { display: none; }
+        body.lang-mode-en .lang-ja { display: none; }
+        body.lang-mode-en .lang-en { display: revert; }
+
+        /* TOC, Main Contents, Boxes, Table, Footer - Styles from previous version */
+        .toc { background-color: #f8f9fa; border: 1px solid #e9ecef; padding: 20px 30px; margin: 40px 0; border-radius: 8px; }
+        .toc .toc-title { font-size: 1.2rem; font-weight: bold; text-align: center; margin: 0 0 15px 0; color: #005A9C; }
+        .toc ul { list-style: none; padding-left: 0; }
+        .toc > ul > li { font-weight: bold; margin-top: 10px; }
+        .toc ul ul { padding-left: 25px; margin-top: 5px; }
+        .toc ul ul li { font-weight: normal; }
+        .toc a { text-decoration: none; color: #345; }
+        .toc a:hover { text-decoration: underline; }
+        main section { margin-bottom: 50px; }
+        h2 { font-size: 1.8rem; font-weight: bold; color: #005A9C; padding-left: 15px; border-left: 5px solid #005A9C; margin: 60px 0 30px 0; }
+        h3 { font-size: 1.3rem; font-weight: bold; color: #333; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; margin: 40px 0 20px 0; }
+        p { margin: 0 0 1.5em 0; }
+        ul, ol { padding-left: 25px; margin-bottom: 1.5em; }
+        li { margin-bottom: 0.8em; }
+        strong.emphasis { font-weight: bold; color: #D9534F; }
+        .point-box, .supplement-box, .critique-box { border-radius: 8px; padding: 25px 30px; margin: 30px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .point-box { background: #fffbea; border: 1px solid #ffeeba; }
+        .supplement-box { background: #f0f7f0; border: 1px solid #c8e6c9; }
+        .critique-box { background: #fbe9e7; border: 1px solid #ffccbc; }
+        .box-title { font-weight: bold; font-size: 1.1rem; margin: 0 0 15px 0; display: flex; align-items: center; }
+        .point-box .box-title { color: #856404; }
+        .point-box .box-title::before { content: '💡'; margin-right: 10px; font-size: 1.5rem; }
+        .supplement-box .box-title { color: #155724; }
+        .supplement-box .box-title::before { content: '📖'; margin-right: 10px; font-size: 1.5rem; }
+        .critique-box .box-title { color: #b71c1c; }
+        .critique-box .box-title::before { content: '⚠️'; margin-right: 10px; font-size: 1.5rem; }
+        table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 0.95rem; }
+        th, td { border: 1px solid #ddd; padding: 12px 15px; text-align: left; vertical-align: middle; }
+        th { background-color: #f8f8f8; font-weight: bold; }
+        td.center { text-align: center; }
+        td.zero { font-weight: bold; color: #D9534F; }
+        footer { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #eee; font-size: 0.85rem; color: #777; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header-container">
+            <header>
+                <p class="subtitle">
+                    <span class="lang-ja">茨城県高等学校教育研究会英語部 指導法研究委員会</span>
+                    <span class="lang-en">Ibaraki Prefecture High School English Education Research Association, Committee on Teaching Methods</span>
+                </p>
+                <h1>
+                    <span class="lang-ja">講演会レポート</span>
+                    <span class="lang-en">Lecture Report</span>
+                </h1>
+                <p class="lecture-info">
+                    <strong><span class="lang-ja">講演者：</span><span class="lang-en">Lecturer:</span></strong>
+                    <span class="lang-ja">鈴木 祐一 氏 (早稲田大学国際学術院・国際教養学部准教授)</span>
+                    <span class="lang-en">Yuichi Suzuki (Associate Professor, School of International Liberal Studies, Waseda University)</span>
+                    <br>
+                    <strong><span class="lang-ja">日付：</span><span class="lang-en">Date:</span></strong>
+                    <span class="lang-ja">令和7年8月7日(木)</span>
+                    <span class="lang-en">Thursday, August 7, 2025</span>
+                </p>
+                <div class="keywords">
+                    <strong><span class="lang-ja">関連キーワード:</span><span class="lang-en">Keywords:</span></strong>
+                    <span class="lang-ja">ISLA (指示による第二言語習得), SLA, 英語教員養成コアカリキュラム,『外国語学習の科学』(白井恭弘), 英語学習の科学,『ISLA あたらしい第二言語習得論』, 英語を教えるときの思い込みを探る, 言語知識とスキルの指導法</span>
+                    <span class="lang-en">ISLA (Instructed Second Language Acquisition), SLA, Core Curriculum for English Teacher Training, "The Science of Foreign Language Learning" (Yasuhiro Shirai), The Science of English Learning, "ISLA: A New Theory of Second Language Acquisition", Exploring Assumptions in English Teaching, Teaching Methods for Language Knowledge and Skills</span>
+                </div>
+            </header>
+            <div class="lang-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="lang-switch">
+                    <span class="slider"></span>
+                </label>
+                <div class="lang-labels">
+                    <span>日本語</span> / <span>English</span>
+                </div>
+            </div>
+        </div>
+
+        <main>
+             <section id="intro">
+                <h2 style="margin-top:20px;"><span class="lang-ja">はじめに：指導の「プライオリティ」を科学する</span><span class="lang-en">Introduction: A Scientific Approach to "Priorities" in Teaching</span></h2>
+                <p>
+                    <span class="lang-ja">本講演は、「英語を教えるときの思い込みを探る」ことを通じ、日々の実践を振り返り、授業改善に役立てることを主眼に置いた。特に、現行教科書の分量の多さを前に「すべてを教えるのは『？』」という現状認識のもと、午前は「文法」、午後は「語彙」に特化し、指導のプライオリティ（優先順位）を科学的知見から再検討することを目標とした。</span>
+                    <span class="lang-en">This lecture aimed to help educators reflect on their daily practices and improve their classes by "exploring assumptions in English teaching." Recognizing the challenge that "teaching everything is questionable" given the large volume of current textbooks, the goal was to reconsider teaching priorities from a scientific perspective, focusing on grammar in the morning and vocabulary in the afternoon.</span>
+                </p>
+            </section>
+            
+            <nav class="toc">
+                 <p class="toc-title"><span class="lang-ja">目次</span><span class="lang-en">Table of Contents</span></p>
+                 <ul>
+                    <li><a href="#part1"><span class="lang-ja">第1部：文法指導の再定義</span><span class="lang-en">Part 1: Redefining Grammar Instruction</span></a></li>
+                    <li><a href="#part2"><span class="lang-ja">第2部：語彙指導の戦略</span><span class="lang-en">Part 2: Vocabulary Instruction Strategy</span></a></li>
+                    <li><a href="#conclusion"><span class="lang-ja">結論：「Less is More」— 指導の質を高めるための選択と集中</span><span class="lang-en">Conclusion: "Less is More" – Focusing to Enhance Teaching Quality</span></a></li>
+                </ul>
+            </nav>
+
+            <h2 id="part1"><span class="lang-ja">第1部：文法指導の再定義</span><span class="lang-en">Part 1: Redefining Grammar Instruction</span></h2>
+            
+            <section id="bunpou1">
+                <h3><span class="lang-ja">1-1. 現状への問い：その指導は本当に効果的か？</span><span class="lang-en">1-1. Questioning the Status Quo: Is Current Instruction Truly Effective?</span></h3>
+                <p>
+                    <span class="lang-ja">講演は、多くの教師が「入試対策に必要」「網羅的で安心」という理由で採用している文法問題集への根源的な問いから始まった。参加者への活動として「入試に出題される頻度を当ててみる」が実施され、その結果が以下のデータで示された。</span>
+                    <span class="lang-en">The lecture began with a fundamental question about the grammar workbooks that many teachers adopt for being "necessary for exams" and "comprehensively reassuring." An activity for participants, "Guess the Frequency in Entrance Exams," was conducted, with the results shown in the data below.</span>
+                </p>
+                <table>
+                    <thead><tr><th><span class="lang-ja">文法項目</span><span class="lang-en">Grammar Point</span></th><th class="center"><span class="lang-ja">実際の入試出題数 (2003-2009)</span><span class="lang-en">Actual Exam Frequency (2003-2009)</span></th><th class="center"><span class="lang-ja">主要問題集の掲載回数</span><span class="lang-en">Workbook Frequency</span></th></tr></thead>
+                    <tbody>
+                        <tr><td>no more … than ~</td><td class="center">1</td><td class="center">16</td></tr>
+                        <tr><td>help someone to do</td><td class="center">25</td><td class="center">8</td></tr>
+                        <tr><td>there is no use -ing</td><td class="center zero">0</td><td class="center">28</td></tr>
+                        <tr><td>what is more</td><td class="center zero">0</td><td class="center">10</td></tr>
+                        <tr><td>might as well</td><td class="center zero">0</td><td class="center">14</td></tr>
+                        <tr><td>A is to B what C is to D</td><td class="center zero">0</td><td class="center">15</td></tr>
+                        <tr><td>it is … for/of to do</td><td class="center">125</td><td class="center">268</td></tr>
+                        <tr><td>scarcely/hardly ... when ~</td><td class="center zero">0</td><td class="center">25</td></tr>
+                    </tbody>
+                </table>
+                <div class="critique-box">
+                    <p class="box-title"><span class="lang-ja">データが示す課題</span><span class="lang-en">Challenges Revealed by the Data</span></p>
+                    <p>
+                        <span class="lang-ja">このデータは、出題される文法事項に著しい偏りがあるにもかかわらず、問題集はそれに対応していない実態を明らかにした。「出ないものまで網羅して、意味があるのか？」という根本的な疑問が提示され、さらに「高1からで本当にいいのか？」「他教科や週末課題で疲弊している生徒に、授業時間を圧迫してまで扱うべきか？」という、生徒の負担と学習タイミングへの配慮の必要性が訴えられた。</span>
+                        <span class="lang-en">This data revealed that although there is a significant bias in the grammar points tested, workbooks do not reflect this reality. A fundamental question was posed: "Is there any meaning in comprehensively covering items that don't appear on exams?" Furthermore, the need to consider student workload and timing was emphasized: "Is it really okay to start in the first year of high school?" and "Should we use up valuable class time for students already exhausted by other subjects and weekend assignments?"</span>
+                    </p>
+                </div>
+                 <p>
+                    <span class="lang-ja">ただし、これは「問題集をやるべきではない」という単純な結論ではない。講演では「モチベーションが高く、入試問題を解くことが至上命題ならば問題集を進められる生徒もいる」と補足され、画一的な指導ではなく、生徒の実態に応じた判断が重要であることが示唆された。</span>
+                    <span class="lang-en">However, this is not a simple conclusion that "workbooks should not be used." The lecture added that "some highly motivated students who see solving exam questions as their ultimate goal can benefit from workbooks," suggesting the importance of judgments based on student realities rather than uniform instruction.</span>
+                </p>
+            </section>
+
+            <section id="bunpou2">
+                <h3><span class="lang-ja">1-2. 指導のプライオリティ：「根・幹・枝」で考える文法事項</span><span class="lang-en">1-2. Prioritizing Instruction: Thinking of Grammar as "Roots, Trunk, and Branches"</span></h3>
+                <p>
+                    <span class="lang-ja">では、何を優先的に身につけさせるべきか。参加者からは「語順、時制、助動詞」など様々な意見が出された。これらを踏まえ、講演では文法事項を木にたとえて整理することが提案された。</span>
+                    <span class="lang-en">So, what should be prioritized for mastery? Participants offered various opinions, including "word order, tense, and auxiliary verbs." Based on these, the lecture proposed organizing grammar points using the metaphor of a tree.</span>
+                </p>
+                <ul>
+                    <li><strong><span class="lang-ja">枝 (Branches):</span><span class="lang-en">Branches:</span></strong> <span class="lang-ja"><code>might as well</code> や三単現の-sなど、末端の構文や規則。</span><span class="lang-en">Terminal structures and rules like <code>might as well</code> or the third-person singular -s.</span></li>
+                    <li><strong><span class="lang-ja">幹 (Trunk):</span><span class="lang-en">Trunk:</span></strong> <span class="lang-ja">時制など、文の構造を支える中心的な文法。</span><span class="lang-en">Core grammar that supports sentence structure, such as tenses.</span></li>
+                    <li><strong><span class="lang-ja">根 (Roots):</span><span class="lang-en">Roots:</span></strong> <span class="lang-ja"><strong class="emphasis">語順</strong>。これが中学英語の根幹であり、最優先事項。</span><span class="lang-en"><strong class="emphasis">Word order</strong>. This is the foundation of junior high English and the top priority.</span></li>
+                </ul>
+                <div class="point-box">
+                    <p class="box-title"><span class="lang-ja">なぜ「中学英語」が最重要なのか？</span><span class="lang-en">Why is "Junior High English" So Important?</span></p>
+                    <ul>
+                        <li><span class="lang-ja">高校での大きな目標は、中学英語を自在に使いこなせることである。</span><span class="lang-en">A major goal in high school is to be able to use junior high English fluently.</span></li>
+                        <li><span class="lang-ja">多くの高校生は中学英文法を使いこなせていない (金谷, 2017)。</span><span class="lang-en">Many high school students have not mastered junior high grammar (Kanaya, 2017).</span></li>
+                        <li><span class="lang-ja">大学入試の<strong>79-89％</strong>は中学英文法の知識があれば解ける。</span><span class="lang-en"><strong>79-89%</strong> of university entrance exams can be solved with knowledge of junior high grammar.</span></li>
+                        <li><span class="lang-ja">英語コミュニケーションの教科書の<strong>80-90％</strong>は中学英文法の組み合わせである (田中, 臼倉 2023)。</span><span class="lang-en"><strong>80-90%</strong> of English Communication textbooks are combinations of junior high grammar (Tanaka & Usukura, 2023).</span></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="bunpou3">
+                <h3><span class="lang-ja">1-3. 指導法の転換：「解説」から「活動」へ</span><span class="lang-en">1-3. Shifting Teaching Methods: From "Explanation" to "Activities"</span></h3>
+                <div class="critique-box">
+                    <p class="box-title"><span class="lang-ja">「解説から入る」指導の問題点</span><span class="lang-en">Problems with "Explanation-First" Instruction</span></p>
+                    <ol>
+                        <li><b><span class="lang-ja">個人差が大きい：</span><span class="lang-en">Large Individual Differences:</span></b> <span class="lang-ja">半数以上の生徒は、抽象的な規則から入る説明では理解が難しい。</span><span class="lang-en">More than half of students find it difficult to understand abstract rules first.</span></li>
+                        <li><b><span class="lang-ja">心理的ブロックを生む：</span><span class="lang-en">Creates Psychological Blocks:</span></b> <span class="lang-ja">「必ず正しく使わないといけない」という過度の正確さへのプレッシャーを与え、コミュニケーションへの躊躇を生む。</span><span class="lang-en">It creates pressure for perfect accuracy ("I must use it correctly"), leading to hesitation in communication.</span></li>
+                        <li><b><span class="lang-ja">流暢さを阻害する：</span><span class="lang-en">Hinders Fluency:</span></b> <span class="lang-ja">会話中に規則へ意識が向きすぎ、スムーズな発話が妨げられる。</span><span class="lang-en">Over-focusing on rules during conversation obstructs smooth speech.</span></li>
+                    </ol>
+                </div>
+                <div class="supplement-box">
+                    <p class="box-title"><span class="lang-ja">【学術補足】明示的指導 vs 暗示的指導</span><span class="lang-en">[Academic Supplement] Explicit vs. Implicit Instruction</span></p>
+                    <p>
+                        <span class="lang-ja">教師が文法規則をはっきりと説明する「明示的指導(Explicit Instruction)」は、ISLA研究で短期的な効果は認められていますが、長期的な定着には繋がりにくいとされています。一方、豊富なインプットの中で学習者が自ら規則性を見出す「暗示的指導(Implicit Instruction)」は、より長期的な定着が期待されます。本講演の「解説＜活動」という主張は、明示的指導を学習の「きっかけ」に留め、暗示的指導を促す活動に時間を割くべきだという考え方に基づいています。</span>
+                        <span class="lang-en">While "explicit instruction," where teachers clearly explain grammar rules, is recognized in ISLA research for its short-term effects, it is considered less effective for long-term retention. In contrast, "implicit instruction," where learners discover rules themselves through rich input, is expected to lead to better long-term retention. The lecture's assertion of "Activities over Explanation" is based on the idea that explicit instruction should be limited to a "trigger" for learning, with more time dedicated to activities that promote implicit instruction.</span>
+                    </p>
+                </div>
+                <div class="point-box">
+                    <p class="box-title"><span class="lang-ja">「使える知識」にするための活動サイクル</span><span class="lang-en">The Activity Cycle for "Usable Knowledge"</span></p>
+                    <p>
+                        <span class="lang-ja">「活動」とは、単なるドリルではない。①意味がある、②場面や状況が想定できる、③自分の意志を込められる、という3要素を満たす必要がある。従来のドリルはインプット・アウトプットが欠けていると指摘された。</span>
+                        <span class="lang-en">"Activity" is not just a drill. It must satisfy three elements: ① it is meaningful, ② it assumes a scene or situation, and ③ it allows for personal intention. Traditional drills were criticized for lacking input and output.</span>
+                    </p>
+                    <ol>
+                        <li><strong><span class="lang-ja">インプット(Input):</span><span class="lang-en">Input:</span></strong> <span class="lang-ja">生徒が興味を持てる、文脈があり、内容がわかる英文。ここで生徒は、文法の「形式(Form)」「意味(Meaning)」「機能(Function)」が結びついていることに「気づく」。</span><span class="lang-en">English text that is interesting, contextualized, and comprehensible to students. Here, students "notice" the connection between grammatical "Form," "Meaning," and "Function."</span></li>
+                        <li><strong><span class="lang-ja">練習(Practice):</span><span class="lang-en">Practice:</span></strong> <span class="lang-ja">音読、シャドウイング、単語カードなど、理解した表現を定着させる活動。使える知識に変え、自信をつけるのが狙い。</span><span class="lang-en">Activities like reading aloud, shadowing, or using flashcards to consolidate understood expressions. The goal is to turn knowledge into usable skills and build confidence.</span></li>
+                        <li><strong><span class="lang-ja">アウトプット(Output):</span><span class="lang-en">Output:</span></strong> <span class="lang-ja">自分の考えを話したり書いたりする。これにより、知識のギャップへの気づき、仮説検証、文法処理の自動化、次のインプットへの意欲向上といった効果が生まれる。</span><span class="lang-en">Speaking or writing one's own thoughts. This leads to effects such as noticing knowledge gaps, hypothesis testing, automatization of grammar processing, and increased motivation for the next input.</span></li>
+                    </ol>
+                    <div class="supplement-box">
+                        <p class="box-title" style="font-size:1rem;"><span class="lang-ja">【学術補足】Form-Meaning-Functionの統合</span><span class="lang-en">[Academic Supplement] The Integration of Form-Meaning-Function</span></p>
+                        <p>
+                            <span class="lang-ja">SLAでは、文法が「使える」とは、その文法の「形式（見た目や音）」「意味（文字通りの意味）」「機能（文脈での役割）」の3つが結びついた状態を指します。例えば、"Can you pass the salt?"という文の「形式(Can you...?)」は、文字通りの「能力を尋ねる意味」だけでなく、「依頼する機能」を持っています。形式のみを練習するドリルではこの統合は起こらず、意味のあるインプットとアウトプットの中で初めて知識として定着します。</span>
+                            <span class="lang-en">In SLA, "usable" grammar refers to the state where its "form" (appearance/sound), "meaning" (literal sense), and "function" (role in context) are connected. For example, the form "Can you...?" in "Can you pass the salt?" has not only the literal meaning of asking about ability but also the function of making a request. Drills focusing only on form do not achieve this integration; it is only through meaningful input and output that this knowledge becomes consolidated.</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="bunpou4">
+                <h3><span class="lang-ja">1-4. 実践上の課題と田名部モデル</span><span class="lang-en">1-4. Practical Challenges and the Tanabu Model</span></h3>
+                <p>
+                    <span class="lang-ja">理想的なタスクベースの活動を阻む現実的な課題として、①検定教科書の分量、②題材が崇高すぎる、③リーディングのための英文になっている（発表時間がない）、④生徒の英語力、⑤教師の英語力、が挙げられた。</span>
+                    <span class="lang-en">Practical challenges hindering ideal task-based activities were listed: ① the sheer volume of official textbooks, ② overly lofty topics, ③ texts designed mainly for reading (leaving no time for presentations), ④ students' English proficiency, and ⑤ teachers' own English proficiency.</span>
+                </p>
+                <div class="supplement-box">
+                    <p class="box-title"><span class="lang-ja">【具体例】田名部モデル (PPPの応用)</span><span class="lang-en">[Concrete Example] The Tanabu Model (An Application of PPP)</span></p>
+                    <p>
+                        <span class="lang-ja">これらの課題へのヒントとして、PPP (Presentation, Practice, Production) を応用した田名部モデルが紹介された。これは、練習で終わらず、産出活動まで繋げることを重視する。</span>
+                        <span class="lang-en">As a hint for these challenges, the Tanabu Model, an application of PPP (Presentation, Practice, Production), was introduced. It emphasizes not ending with practice but connecting it to production activities.</span>
+                    </p>
+                    <ul>
+                        <li><strong>Presentation:</strong> Paragraph Chart, Summary Sheet, Comprehension Sheet</li>
+                        <li><strong>Practice:</strong> Vocabulary Scanning, Reading Practice, Dictation, Reproduction</li>
+                        <li><strong>Production:</strong> Skit Making (寸劇作成)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <h2 id="part2"><span class="lang-ja">第2部：語彙指導の戦略</span><span class="lang-en">Part 2: Vocabulary Instruction Strategy</span></h2>
+            
+            <section id="goi1">
+                <h3><span class="lang-ja">2-1. 意図的学習と偶発的学習</span><span class="lang-en">2-1. Intentional vs. Incidental Learning</span></h3>
+                <p>
+                    <span class="lang-ja">語彙学習には「意図的学習(intentional)」と「偶発的学習(incidental)」の2種類がある。それぞれの記憶保持率には顕著な違いが見られた。</span>
+                    <span class="lang-en">There are two types of vocabulary learning: "intentional" and "incidental." Significant differences were observed in their retention rates.</span>
+                </p>
+                <div class="supplement-box">
+                    <p class="box-title"><span class="lang-ja">【具体例】意図的学習と偶発的学習の活動</span><span class="lang-en">[Concrete Examples] Activities for Intentional and Incidental Learning</span></p>
+                    <ul>
+                        <li><strong><span class="lang-ja">意図的学習 (Intentional Learning):</span><span class="lang-en">Intentional Learning:</span></strong> <span class="lang-ja">語彙習得そのものを目的とした活動。</span><span class="lang-en">Activities where vocabulary acquisition is the primary goal.</span>
+                            <ul>
+                                <li><span class="lang-ja">単語カードや単語リストの暗記</span><span class="lang-en">Memorizing flashcards or word lists</span></li>
+                                <li><span class="lang-ja">単語帳アプリでのドリル</span><span class="lang-en">Drills on a vocabulary app</span></li>
+                                <li><span class="lang-ja">ペアでの単語の意味の確認クイズ</span><span class="lang-en">Paired quizzes on word meanings</span></li>
+                            </ul>
+                        </li>
+                        <li><strong><span class="lang-ja">偶発的学習 (Incidental Learning):</span><span class="lang-en">Incidental Learning:</span></strong> <span class="lang-ja">内容理解を主目的とする活動の中で、副次的に語彙を習得すること。</span><span class="lang-en">Acquiring vocabulary as a byproduct of activities focused on comprehension.</span>
+                            <ul>
+                                <li><span class="lang-ja">興味のある分野の本を読む（多読）</span><span class="lang-en">Reading books in an area of interest (extensive reading)</span></li>
+                                <li><span class="lang-ja">英語字幕で映画やドラマを見る（多聴）</span><span class="lang-en">Watching movies or dramas with English subtitles (extensive listening)</span></li>
+                                <li><span class="lang-ja">海外のゲーマーとオンラインゲームをする</span><span class="lang-en">Playing online games with gamers from overseas</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                 <table>
+                    <thead><tr><th><span class="lang-ja">学習方法</span><span class="lang-en">Learning Method</span></th><th class="center"><span class="lang-ja">テスト直後の正答率</span><span class="lang-en">Immediate Post-Test Score</span></th><th class="center"><span class="lang-ja">1ヶ月後の正答率</span><span class="lang-en">1-Month Retention Rate</span></th></tr></thead>
+                    <tbody>
+                        <tr><td><strong><span class="lang-ja">意図的学習</span><span class="lang-en">Intentional</span></strong></td><td class="center">62%</td><td class="center">44%</td></tr>
+                        <tr><td><strong><span class="lang-ja">偶発的学習</span><span class="lang-en">Incidental</span></strong></td><td class="center">17%</td><td class="center">15%</td></tr>
+                    </tbody>
+                </table>
+                <p>
+                    <span class="lang-ja">偶発的学習は一度に覚える数は少ないが、<strong class="emphasis">ほとんど忘れない</strong>という大きな利点がある。</span>
+                    <span class="lang-en">Incidental learning allows for fewer words to be learned at once, but it has the significant advantage of being <strong class="emphasis">hardly forgotten</strong>.</span>
+                </p>
+            </section>
+            
+            <section id="goi2">
+                 <h3><span class="lang-ja">2-2. 教師の役割とプランニング</span><span class="lang-en">2-2. The Teacher's Role and Planning</span></h3>
+                 <div class="supplement-box">
+                    <p class="box-title"><span class="lang-ja">【学術補足】ポール・ネーションの「4つのストランド」</span><span class="lang-en">[Academic Supplement] Paul Nation's "Four Strands"</span></p>
+                    <p>
+                        <span class="lang-ja">語彙指導の大家ポール・ネーションは、バランスの取れた言語学習には以下の「4つのストランド（流れ）」がほぼ均等に必要だと提唱している。本講演での提案は、この理論と深く共鳴する。</span>
+                        <span class="lang-en">Vocabulary expert Paul Nation proposes that a balanced language course requires roughly equal time for the following "Four Strands." The suggestions in this lecture resonate deeply with his theory.</span>
+                    </p>
+                    <ol>
+                        <li><span class="lang-ja"><strong>意味に焦点を当てたインプット (Meaning-focused Input):</strong> 多読・多聴など（偶発的学習）</span><span class="lang-en"><strong>Meaning-focused Input:</strong> Extensive reading/listening (Incidental Learning)</span></li>
+                        <li><span class="lang-ja"><strong>意味に焦点を当てたアウトプット (Meaning-focused Output):</strong> スピーチやライティングなど</span><span class="lang-en"><strong>Meaning-focused Output:</strong> Speeches, writing, etc.</span></li>
+                        <li><span class="lang-ja"><strong>言語形式に焦点を当てた学習 (Language-focused Learning):</strong> 単語学習や文法演習など（意図的学習）</span><span class="lang-en"><strong>Language-focused Learning:</strong> Vocabulary study, grammar exercises (Intentional Learning)</span></li>
+                        <li><span class="lang-ja"><strong>流暢さの訓練 (Fluency Development):</strong> 既知の事柄を使い、より速く、よりスムーズになる練習</span><span class="lang-en"><strong>Fluency Development:</strong> Practicing to become faster and smoother with already known material</span></li>
+                    </ol>
+                    <p>
+                        <span class="lang-ja">講演で示された「プランニング、ストラテジー指導、テスト」という教師の役割は、特にストランド3と4を効果的に設計し、生徒の自律性を高めるための重要な指針となる。</span>
+                        <span class="lang-en">The teacher's roles of "planning, strategy instruction, and testing" mentioned in the lecture serve as crucial guidelines for effectively designing Strands 3 and 4 and enhancing student autonomy.</span>
+                    </p>
+                </div>
+                 <div class="point-box">
+                    <p class="box-title"><span class="lang-ja">【具体例】プランニングと分散学習</span><span class="lang-en">[Concrete Example] Planning and Distributed Practice</span></p>
+                    <p><strong><span class="lang-ja">テスト計画例：</span><span class="lang-en">Sample Test Plan:</span></strong></p>
+                    <ul>
+                        <li><span class="lang-ja">Week 1-3: 単語リストの1-150番を対象に、毎週30問ずつテスト。</span><span class="lang-en">Weeks 1-3: Test 30 words each week from items 1-150 on the word list.</span></li>
+                        <li><span class="lang-ja">Week 4-6: 151-300番を対象に同様に実施。</span><span class="lang-en">Weeks 4-6: Do the same for items 151-300.</span></li>
+                    </ul>
+                     <p>
+                         <span class="lang-ja">この計画で年間1800語が確認でき、途中に復習テストを入れたり、<strong class="emphasis">積み上げ型のテスト</strong>にしたりするとさらに効果的である。</span>
+                         <span class="lang-en">This plan covers 1800 words a year. Adding review tests or using a <strong class="emphasis">cumulative testing</strong> format would be even more effective.</span>
+                     </p>
+                     <p><strong><span class="lang-ja">分散学習のヒント：</span><span class="lang-en">Hint for Distributed Practice:</span></strong></p>
+                     <p>
+                         <span class="lang-ja">「1日に5回学習機会があれば忘れない」という研究結果は現実的ではないかもしれない。しかし、「<strong>1日1回を5日間繰り返す</strong>」ことで、同様の効果が期待できる。これをヒントに計画を立てることが推奨された。</span>
+                         <span class="lang-en">The research finding that "five learning opportunities in one day prevents forgetting" may not be realistic. However, a similar effect can be expected by "<strong>studying once a day for five days</strong>." It was recommended to create a plan based on this hint.</span>
+                     </p>
+                </div>
+            </section>
+            
+            <section id="conclusion">
+                <h2 id="conclusion"><span class="lang-ja">結論：「Less is More」— 指導の質を高めるための選択と集中</span><span class="lang-en">Conclusion: "Less is More" – Focusing to Enhance Teaching Quality</span></h2>
+                <p>
+                    <span class="lang-ja">本講演全体を貫く哲学は、紹介された<strong>「Less is More」</strong>という言葉に集約される。これは、単に教える量を減らすことではない。網羅性を追求する「量」の指導から、生徒の深い理解と定着を促す「質」の指導へと転換することを意味する。</span>
+                    <span class="lang-en">The philosophy pervading this entire lecture is encapsulated in the phrase that was introduced: <strong>"Less is More."</strong> This does not simply mean teaching less. It signifies a shift from instruction focused on the "quantity" of comprehensive coverage to one focused on the "quality" of deep student understanding and mastery.</span>
+                </p>
+                <div class="point-box">
+                    <p class="box-title"><span class="lang-ja">明日からの実践に向けた要点</span><span class="lang-en">Key Takeaways for Future Practice</span></p>
+                    <ul>
+                        <li><span class="lang-ja"><strong>文法指導：</strong> 出題頻度の低い項目に時間を費やす網羅的なアプローチから脱却する。最重要である中学英語の「根（語順）」と「幹（時制など）」の完全な定着と自動化に時間を集中させる。</span><span class="lang-en"><strong>Grammar Instruction:</strong> Move away from a comprehensive approach that spends time on low-frequency items. Concentrate time on the complete mastery and automatization of the "roots" (word order) and "trunk" (tenses) of junior high English, which are most important.</span></li>
+                        <li><span class="lang-ja"><strong>語彙指導：</strong> より多くの単語を機械的に覚えさせるのではなく、高頻度語を確実に習得させ、学習方略（ストラテジー）を教えることで、生徒の自律的学習を促す。</span><span class="lang-en"><strong>Vocabulary Instruction:</strong> Instead of making students mechanically memorize long lists of words, foster autonomous learning by ensuring they master high-frequency words and by teaching them effective learning strategies.</span></li>
+                        <li><span class="lang-ja"><strong>教師の役割：</strong> 知識の伝達者から、学習のデザイナーへとシフトする。何を「教えないか」を戦略的に選択し、それによって創出された貴重な時間で、生徒が思考し、試行錯誤できる質の高い「活動」を提供する。</span><span class="lang-en"><strong>The Teacher's Role:</strong> Shift from being a transmitter of knowledge to a designer of learning experiences. Strategically choose what *not* to teach, and use the precious time created to provide high-quality "activities" where students can think, experiment, and learn deeply.</span></li>
+                    </ul>
+                </div>
+                <p>
+                    <span class="lang-ja">講演の最終的なメッセージは、教師一人ひとりが自身の教室で「実践的研究者」となり、指導のプライオリティを見失わないための強力な羅針盤を、今回の知見から得ることである。「これに関するデータや結論はない。先生方の指導で一定の答えを見出してほしい」という言葉は、その最たる激励であった。</span>
+                    <span class="lang-en">The final message of the lecture is for each teacher to become a "practitioner-researcher" in their own classroom, using the insights gained as a powerful compass to avoid losing sight of teaching priorities. The words, "There is no clear data or conclusion on this. I hope you will find your own answers that suit your students through your teaching," were the ultimate encouragement for this endeavor.</span>
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                <span class="lang-ja">講演会メモに基づき作成されたレポート</span>
+                <span class="lang-en">Report created based on lecture notes</span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const langSwitch = document.getElementById('lang-switch');
+            const body = document.body;
+            
+            const jaTitle = "講演会レポート";
+            const enTitle = "Lecture Report";
+
+            const setLanguage = (lang) => {
+                if (lang === 'en') {
+                    body.classList.add('lang-mode-en');
+                    langSwitch.checked = true;
+                    document.title = enTitle;
+                } else {
+                    body.classList.remove('lang-mode-en');
+                    langSwitch.checked = false;
+                    document.title = jaTitle;
+                }
+            };
+
+            const savedLang = localStorage.getItem('language');
+            if (savedLang) { setLanguage(savedLang); } else { setLanguage('ja'); }
+
+            langSwitch.addEventListener('change', function () {
+                if (this.checked) {
+                    setLanguage('en');
+                    localStorage.setItem('language', 'en');
+                } else {
+                    setLanguage('ja');
+                    localStorage.setItem('language', 'ja');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
