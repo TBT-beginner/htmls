@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文理選択説明会20251017</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --primary-color: #ffffff;
+            --accent-color: #007bff;
+            --accent-color-light: #e6f2ff;
+            --text-color: #212529;
+            --text-muted-color: #6c757d;
+            --border-color: #dee2e6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slideshow-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            perspective: 1200px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 5vw;
+            opacity: 0;
+            transform: translateX(100%) rotateY(-15deg);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            visibility: hidden;
+            background-color: var(--bg-color);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0) rotateY(0);
+            visibility: visible;
+        }
+
+        .slide.prev {
+            transform: translateX(-100%) rotateY(15deg);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .slide-content {
+            text-align: center;
+            max-width: 1100px; 
+            width: 100%; /* 横幅いっぱいに使うように設定 */
+            animation: fadeIn 1s 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .slide.active .slide-content {
+            opacity: 0; /* Reset for animation trigger */
+            animation: fadeIn 1s 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2, h3, .big-text {
+            font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 8vw, 6rem); 
+            font-weight: 900;
+            color: var(--text-color);
+            margin-bottom: 25px; 
+            background: linear-gradient(45deg, var(--accent-color), #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 6vw, 4rem); 
+            color: var(--text-color);
+            margin-bottom: 45px; 
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 5px; 
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        p {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem); 
+            line-height: 1.9; 
+            color: var(--text-muted-color);
+            max-width: 800px; 
+            margin: 0 auto 25px; 
+        }
+        
+        .intro-subtext {
+            font-size: clamp(1.5rem, 3vw, 2rem); 
+            color: var(--text-muted-color);
+        }
+
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3.5rem; 
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            user-select: none;
+            padding: 20px; 
+        }
+        .nav-arrow:hover {
+            color: var(--accent-color);
+        }
+        #prevBtn { left: 2vw; }
+        #nextBtn { right: 2vw; }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 6px; 
+            background: var(--accent-color);
+            width: 0%;
+            transition: width 0.5s ease;
+            z-index: 100;
+        }
+        
+        /* Slide Specific Styles */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 2%; /* gapを%指定に変更 */
+            flex-wrap: wrap;
+            margin-top: 50px; 
+        }
+        .card {
+            background: var(--primary-color);
+            border-radius: 25px;
+            padding: 35px; /* サイズ調整 */
+            width: 31%; /* ★変更点: 横幅をパーセンテージに */
+            min-width: 320px; /* ★追加点: これ以上小さくならないように */
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex; /* Flexboxで内部要素を制御 */
+            flex-direction: column; /* 縦並び */
+            align-items: center; /* 中央揃え */
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        .card-icon {
+            font-size: 3rem; /* サイズ調整 */
+            color: var(--accent-color);
+            margin-bottom: 20px; 
+            height: 70px; /* サイズ調整 */
+            width: 70px; /* サイズ調整 */
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--accent-color-light);
+            border-radius: 50%;
+        }
+        .card h3 {
+            font-size: 1.6rem; /* サイズ調整 */
+            margin-bottom: 15px; 
+            color: var(--text-color);
+        }
+        .card p {
+            font-size: 1.1rem; /* サイズ調整 */
+            line-height: 1.7; 
+            color: var(--text-muted-color);
+            margin-bottom: 0;
+            flex-grow: 1; /* ★追加点: 高さを揃えるため */
+        }
+
+        .caution-card .card-icon { color: #dc3545; background: #fdf2f3; }
+        .caution-card h3 { color: #dc3545; }
+        .caution-question { 
+            font-weight: bold; 
+            margin-top: auto; /* ★追加点: 高さを揃えるため */
+            padding-top: 15px;
+            color: var(--text-color) !important; 
+            font-size: 1.25rem !important; /* サイズ調整 */
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+            display: inline-block;
+            text-align: left;
+            margin-top: 30px; 
+        }
+        .checklist li {
+            font-size: 1.6rem; 
+            margin-bottom: 30px; 
+            display: flex;
+            align-items: center;
+        }
+        .checklist li i {
+            color: var(--accent-color);
+            margin-right: 25px; 
+            font-size: 2rem; 
+            width: 40px; 
+        }
+        .checklist li:last-child i { color: #c81e1e; }
+
+        .interactive-box {
+            background: #f1f3f5;
+            padding: 30px 40px; 
+            border-radius: 20px; 
+            margin-top: 40px; 
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+        }
+        .interactive-box p { 
+            margin-bottom: 10px; 
+            color: var(--text-color); 
+            font-size: 1.5rem; 
+        }
+        .interactive-box .example { 
+            font-weight: 700; 
+            color: var(--accent-color); 
+            min-height: 70px; 
+            transition: opacity 0.3s; 
+            font-size: 1.4rem; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .site-links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px; 
+            margin-top: 40px; 
+            text-align: left;
+            max-width: 800px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .site-category {
+            background: var(--primary-color);
+            padding: 25px; 
+            border-radius: 15px; 
+            border: 1px solid var(--border-color);
+        }
+        .site-category h4 {
+            font-size: 1.3rem; 
+            color: var(--text-muted-color);
+            margin-bottom: 15px; 
+        }
+        .site-link {
+            display: inline-block;
+            margin-right: 20px; 
+            font-size: 1.5rem; 
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--accent-color);
+            transition: all 0.2s ease;
+        }
+        .site-link:hover { text-decoration: underline; }
+
+        .final-question {
+            font-size: 2.5rem; 
+            color: var(--text-color);
+            margin-top: 50px; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .final-question:hover { transform: scale(1.05); color: var(--accent-color); }
+
+    </style>
+</head>
+<body>
+
+    <div class="slideshow-container">
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-content">
+                <p class="intro-subtext">進路説明会</p>
+                <h1>後悔しない<br>文理選択</h1>
+                <p>自ら舵を切ろう！</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: はじめに -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>もやもや</h2>
+                <p>「進路なんてまだ分からない…」「友達は決めてるのに焦る…」<br>実は将来の目標が決まっていない高校生は圧倒的多数。<br>だからこそ、今日のアドバイスをしっかりと聞いて、後悔が少ない選択をしてほしい。</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: 第1部タイトル -->
+        <div class="slide">
+            <div class="slide-content">
+                 <p class="intro-subtext">はじめに</p>
+                <h2>未来の自分のために</h2>
+                <p>文理選択は単なる科目選びではない。未来の可能性を選ぶ、重要で後戻りできない決断。</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: 文系とは？ -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>文系とは？</h2>
+                <div class="card-container">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <h3>「人間と社会」を探求</h3>
+                        <p>心、文化、歴史、経済など、目に見えない「ルール」や「因果関係の流れ」を解き明かす。</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-question-circle"></i></div>
+                        <h3>キーワードは "Why?"</h3>
+                        <p>「なぜ、こうなったのか？」「どうすれば、もっと良くなるのか？」を考える。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 5: 理系とは？ -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>理系とは？</h2>
+                <div class="card-container">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-atom"></i></div>
+                        <h3>「自然界の法則」を探究</h3>
+                        <p>物質、生命、情報、宇宙など、客観的な事実に基づき「世界の真理」を解き明かす。</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-flask"></i></div>
+                        <h3>キーワードは "How?"</h3>
+                        <p>「これは、どんな仕組みなのか？」「どうすれば、実現できるのか？」を考える。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: やってはいけない選択 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>やってはいけない選択</h2>
+                <div class="card-container">
+                    <div class="card caution-card">
+                        <div class="card-icon"><i class="fas fa-user-friends"></i></div>
+                        <h3>友達が行くから</h3>
+                        <p class="caution-question">その道は、君の将来(夢や学問)に繋がっている？</p>
+                    </div>
+                    <div class="card caution-card">
+                        <div class="card-icon"><i class="fas fa-thumbs-down"></i></div>
+                        <h3>苦手だから</h3>
+                        <p class="caution-question">興味のない分野で<b>２年間</b>学び続けられる？</p>
+                    </div>
+                    <div class="card caution-card">
+                        <div class="card-icon"><i class="fas fa-cloud"></i></div>
+                        <h3>楽「らしい」から</h3>
+                        <p class="caution-question">噂を信じる前に、先生や先輩に<b>直接</b>聞いた？</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: 第2部タイトル -->
+        <div class="slide">
+            <div class="slide-content">
+                <p class="intro-subtext">行動しよう</p>
+                <h2>何をすべき？</h2>
+                <p>じっと待っていても、何も変わらない、誰も決めてくれない。</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: 自己分析 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Step 1: 自己分析</h2>
+                <p>君の「好き」と「得意」を見つけよう。<br>「なぜ？」を繰り返すと、本当の興味が見えてくる。</p>
+                <div class="interactive-box" id="interactive-example">
+                    <p>例えば「ゲームが好き」→ なぜ？</p>
+                    <div class="example" id="example-text">クリックして例を見る</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 9: 情報収集 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Step 2: 情報収集</h2>
+                <p>オープンキャンパスは行った？</p>
+                 <div class="card-container">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-university"></i></div>
+                        <h3>リアルを体験する</h3>
+                        <p>オープンキャンパスで、大学生の表情や授業の熱気を確認した？</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+                        <h3>社会人に聞く</h3>
+                        <p>身近な大人や先輩に「面白いところ」「大変なところ」を聞いてみよう。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: 新しい選択肢 -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>選択肢を広げる</h2>
+                <p>文系・理系だけじゃない。学際学問も見てみよう。</p>
+                <h3 style="font-size: 2.5rem; color: var(--accent-color); margin-top: 40px;">文理融合</h3>
+                <p>情報学、環境学、国際教養など、両方の視点が必要な学問が増えている。<br>社会が求めるのは、文理の枠を超えたハイブリッドな人材。</p>
+            </div>
+        </div>
+        
+        <!-- Slide 11: 役立つサイト -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>文理選択に役立つサイト</h2>
+                <p>もっと深く知りたい君へ。これらのサイトも活用してみよう。</p>
+                <div class="site-links-container">
+                    <div class="site-category">
+                        <h4>自分に向いている学部を調べたいとき</h4>
+                        <a href="https://www.gyakubiki.net/gyakubiki-jibuncompass/" target="_blank" class="site-link"><i class="fas fa-compass"></i> 逆引き自分コンパス</a>
+                    </div>
+                    <div class="site-category">
+                        <h4>学部を詳しく知りたいとき</h4>
+                        <a href="https://miraibook.jp/" target="_blank" class="site-link"><i class="fas fa-book-open"></i> みらいぶっく（河合塾）</a>
+                    </div>
+                    <div class="site-category">
+                        <h4>受験科目などを調べたいとき</h4>
+                        <a href="https://passnavi.obunsha.co.jp/search_univ/" target="_blank" class="site-link"><i class="fas fa-search"></i> ぱすなび</a>
+                        <a href="https://shingakunet.com/" target="_blank" class="site-link"><i class="fas fa-graduation-cap"></i> スタディサプリ進路</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Slide 12: 最終チェック -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>決断の前に：最終チェック</h2>
+                <ul class="checklist">
+                    <li><i class="fas fa-hourglass-start"></i><b>短期的視点：</b>受験勉強、3年間やりきれる？</li>
+                    <li><i class="fas fa-rocket"></i><b>長期的視点：</b>その先の未来に、ワクワクする？</li>
+                    <li><i class="fas fa-anchor"></i><b>覚悟の視点：</b>後戻りはできない。この選択が未来の土台になる。</li>
+                </ul>
+                 <p style="margin-top: 30px;">これは君の人生の大きな決断だ。覚悟を持って選ぼう。</p>
+            </div>
+        </div>
+
+        <!-- Slide 13: 最後のメッセージ -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>自分の選択が、自分の未来を作る</h2>
+                <p>文理選択はゴールではありません。<br>どんな道を選んでも、後悔せずそこで学び続ける姿勢が一番大切です。</p>
+                <div class="final-question">
+                    <p>これから<br>何をするべきでしょうか？</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="nav-arrow" id="prevBtn"><i class="fas fa-chevron-left"></i></div>
+    <div class="nav-arrow" id="nextBtn"><i class="fas fa-chevron-right"></i></div>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progressBar');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+        
+        function showNextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlides();
+            }
+        }
+
+        function showPrevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlides();
+            }
+        }
+
+        nextBtn.addEventListener('click', showNextSlide);
+        prevBtn.addEventListener('click', showPrevSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                showNextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                showPrevSlide();
+            }
+        });
+
+        // Interactive example on slide 8
+        const interactiveBox = document.getElementById('interactive-example');
+        const exampleText = document.getElementById('example-text');
+        const examples = [
+            '「壮大なストーリーに感動するから」<br>→ 物語や人の心に興味があるのかも (文系的)',
+            '「攻略法を考え、効率化するのが好き」<br>→ データ分析や戦略立案が得意かも (理系的)',
+            '「綺麗なグラフィックや世界観が好き」<br>→ デザインや芸術に興味があるのかも (文理融合的)',
+            '「友達と協力してクリアするのが楽しい」<br>→ チームワークやコミュニケーションが好きかも (分野問わず重要)'
+        ];
+        let exampleIndex = -1;
+
+        if (interactiveBox) {
+            interactiveBox.addEventListener('click', () => {
+                exampleText.style.opacity = 0;
+                setTimeout(() => {
+                    exampleIndex = (exampleIndex + 1) % examples.length;
+                    exampleText.innerHTML = examples[exampleIndex];
+                    exampleText.style.opacity = 1;
+                }, 300);
+            });
+        }
+        
+        // Initial setup
+        updateSlides();
+    </script>
+</body>
+</html>
