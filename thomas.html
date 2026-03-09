@@ -248,6 +248,247 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+        .hero-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .story-card { transition: transform 0.2s; cursor: pointer; border: 2px solid transparent; }
+        .story-card:hover { transform: translateY(-4px); border-color: #3b82f6; }
+        .modal-enter { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body class="text-gray-900">
+
+    <!-- Hero Section -->
+    <header class="hero-gradient text-white py-12 px-6 text-center">
+        <h1 class="text-4xl font-bold mb-4">SDGs × Thomas the Tank Engine</h1>
+        <p class="text-xl opacity-90">英作文総合フィードバック ＆ 全員作品集</p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-20">
+
+        <!-- 1. よくあった間違いと学び -->
+        <section>
+            <div class="flex items-center mb-8">
+                <div class="w-2 h-8 bg-blue-600 mr-4"></div>
+                <h2 class="text-3xl font-bold">1. よくあった間違いと学び</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl card-shadow border-t-4 border-red-400">
+                    <h3 class="font-bold text-lg mb-3">① カンマ(,)とピリオド(.)のルール</h3>
+                    <p class="text-sm leading-relaxed text-gray-600">"One day, Thomas..." のように、文頭の副詞句の後にはカンマを打つ癖をつけましょう。ピリオドの打ち忘れも「文の終わり」を曖昧にしてしまいます。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl card-shadow border-t-4 border-blue-400">
+                    <h3 class="font-bold text-lg mb-3">② 固有名詞の大文字化</h3>
+                    <p class="text-sm leading-relaxed text-gray-600">"Thomas", "Sodor", "India" など。固有名詞は常に大文字から始めます。これは英語の最も基本的なルールの一つです。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl card-shadow border-t-4 border-green-400">
+                    <h3 class="font-bold text-lg mb-3">③ 時制のコントロール</h3>
+                    <p class="text-sm leading-relaxed text-gray-600">ストーリーは「過去形」、最後の教訓（We can help...）は「現在形」で書くと、物語と現実のつながりが明確になります。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl card-shadow border-t-4 border-yellow-400">
+                    <h3 class="font-bold text-lg mb-3">④ 冠詞（a/the）の意識</h3>
+                    <p class="text-sm leading-relaxed text-gray-600">初めて出るものは "a"、すでに話題に出た特定のものは "the" です。特に環境問題(the problem)を指す時に重要です。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 類題と解答解説 -->
+        <section class="bg-blue-50 -mx-4 px-8 py-12 rounded-3xl">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center mb-8">
+                    <div class="w-2 h-8 bg-blue-800 mr-4"></div>
+                    <h2 class="text-3xl font-bold">2. 挑戦！レベルアップ類題</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm">
+                        <p class="font-bold text-blue-700 mb-2">【類題1】時制の修正</p>
+                        <p class="mb-4 text-gray-700">"Thomas see much plastic and feel sad." を過去形に直しなさい。</p>
+                        <details class="bg-gray-50 p-4 rounded-lg cursor-pointer">
+                            <summary class="font-bold text-gray-600">解答・解説</summary>
+                            <p class="mt-2 font-bold text-green-700">Ans: Thomas saw much plastic and felt sad.</p>
+                        </details>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm">
+                        <p class="font-bold text-blue-700 mb-2">【類題2】受動態（～された）</p>
+                        <p class="mb-4 text-gray-700">「線路が敷かれた」を英語にしなさい。(layの過去分詞はlaidです)</p>
+                        <details class="bg-gray-50 p-4 rounded-lg cursor-pointer">
+                            <summary class="font-bold text-gray-600">解答・解説</summary>
+                            <p class="mt-2 font-bold text-green-700">Ans: Railway tracks were laid.</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 & 4. 特選ストーリー（リンク付き） -->
+        <section class="grid md:grid-cols-2 gap-12">
+            <div>
+                <div class="flex items-center mb-6">
+                    <div class="w-2 h-8 bg-purple-600 mr-4"></div>
+                    <h2 class="text-2xl font-bold">3. 成績優秀作品</h2>
+                </div>
+                <div class="bg-white p-6 rounded-xl border-l-8 border-purple-500 shadow-md">
+                    <h3 class="font-bold text-blue-800 italic mb-2">"Thomas Delivers!!"</h3>
+                    <p class="text-sm leading-relaxed mb-4 text-gray-600">飢餓に苦しむ人々を助けるための「インフラ整備」の必要性まで言及した、論理的で素晴らしい作品です。</p>
+                    <button onclick="scrollToStory(18)" class="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-xs font-bold hover:bg-purple-200 transition">
+                        この作品の全文を読む ↓
+                    </button>
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center mb-6">
+                    <div class="w-2 h-8 bg-pink-600 mr-4"></div>
+                    <h2 class="text-2xl font-bold">4. 目標別ベストストーリー</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-pink-100 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-pink-600 text-sm">【Goal 5: ジェンダー】</span><br>
+                            <span class="text-xs text-gray-500 italic">Emma and Gender Equality</span>
+                        </div>
+                        <button onclick="scrollToStory(6)" class="text-pink-600 text-xs font-bold hover:underline">読む →</button>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-pink-100 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-pink-600 text-sm">【Goal 7: エネルギー】</span><br>
+                            <span class="text-xs text-gray-500 italic">Thomas and the Clean Town</span>
+                        </div>
+                        <button onclick="scrollToStory(8)" class="text-pink-600 text-xs font-bold hover:underline">読む →</button>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-pink-100 flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-pink-600 text-sm">【Goal 4: 教育】</span><br>
+                            <span class="text-xs text-gray-500 italic">Thomas and the Timetable Lesson</span>
+                        </div>
+                        <button onclick="scrollToStory(15)" class="text-pink-600 text-xs font-bold hover:underline">読む →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. 全員のストーリー -->
+        <section id="all-stories">
+            <div class="flex items-center mb-8">
+                <div class="w-2 h-8 bg-indigo-600 mr-4"></div>
+                <h2 class="text-3xl font-bold">全員のフルストーリー (19名分)</h2>
+            </div>
+            
+            <p class="mb-8 text-gray-600 text-sm">※カードをタップすると、改善後のフルストーリー、和訳、そして作品の良点が表示されます。</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="story-grid">
+                <!-- JSでカードを生成 -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12 text-center mt-20">
+        <p class="text-lg font-bold">Keep writing, Keep changing the world.</p>
+    </footer>
+
+    <script>
+        const stories = [
+            { id: 0, title: "Thomas and the Beautiful Green Sodor", eng: "One day, Thomas was working in the forest near Vicarstown. However, there was a problem. Many trees had been cut down, and the animals had no place to live. Thomas felt very sad and worried. Then, Thomas had a good idea. He decided to plant new trees with his friends. In the end, Sodor became a beautiful green island again. We can help our planet also!", jp: "ある日、トーマスはヴィカーズタウン近くの森で働いていました。しかし、問題がありました。たくさんの木が切り倒され、動物たちの住む場所がなくなっていたのです。トーマスはとても悲しく、心配になりました。そこでトーマスは良い考えを思いつきました。友達と一緒に新しい木を植えることにしたのです。最後には、ソドー島は再び美しい緑の島になりました。私たちも地球を助けることができます！", merit: "SDGs Goal 15（陸の豊かさ）をテーマに、植樹という具体的なアクションを提示できています。" },
+            { id: 1, title: "Thomas and the Clean Sea", eng: "One day, Thomas was working at Brendam Docks. However, there was a lot of plastic waste in the sea. Thomas felt very sad for the fish. Then, Thomas had a good idea. He decided to pick up the trash with his friends and use less plastic. In the end, Sodor became beautiful and the sea became clean again. We can help our planet too!", jp: "ある日、トーマスはブレンダムの港で働いていました。しかし、海にはたくさんのプラスチックごみがありました。トーマスは魚たちのことを思い、とても悲しくなりました。そこでトーマスは良い考えを思いつきました。友達と一緒にゴミを拾い、プラスチックの使用を減らすことに決めたのです。最後にはソドー島は美しくなり、海は再び綺麗になりました。私たちも地球を助けられます！", merit: "プラスチック削減という現代的な課題をトーマスの世界観にうまく落とし込んでいます。" },
+            { id: 2, title: "Thomas and Food Waste", eng: "One day, Thomas carried a lot of food to the town. However, some food fell out of his wagon and was wasted. Thomas felt sad. He told the workers to pack the food more carefully. The next time they delivered food, no food was dropped. Thomas felt happy. Finally, the people in the town were happy, and Thomas learned that not wasting food is very important.", jp: "ある日、トーマスは町へたくさんの食べ物を運びました。しかし、貨車から食べ物が落ちて無駄になってしまいました。トーマスは悲しみました。彼は作業員たちに、もっと丁寧に食べ物を詰めるように言いました。次に運んだとき、食べ物は一つも落ちませんでした。トーマスは嬉しく思いました。ついに町の人々は幸せになり、トーマスは食べ物を無駄にしないことがとても大切だと学びました。", merit: "「梱包を丁寧にする」という、実務的な改善から無駄を減らす視点がユニークです。" },
+            { id: 3, title: "Thomas and the Clean Ocean", eng: "One day, Thomas was working at Brendam Docks. However, there was a problem. There was a lot of plastic waste in the sea. Thomas felt very sad for the fish. Then, Thomas had a good idea. He decided to pick up the trash with his friends and use less plastic. In the end, Sodor became beautiful and the sea became clean again. We can help our planet too!", jp: "ある日、トーマスはブレンダムの港で働いていました。しかし問題がありました。海に大量のプラスチックごみがあったのです。トーマスは魚たちがかわいそうで、とても悲しくなりました。そこで良い考えを思いつきました。友達とゴミを拾い、プラスチックを減らすことにしたのです。最後にはソドー島は美しくなり、海もまた綺麗になりました。私たちも地球を助けられます！", merit: "感情の動きから行動への流れが自然で、読み手に共感を与えます。" },
+            { id: 4, title: "Thomas and the Sea Animals", eng: "One day, Thomas was working at Brendam Docks. However, there was a problem: There was a lot of plastic waste in the sea. Thomas felt sad for the fish. Then, Thomas had a good idea. He decided to pick up trash with his friends and use less plastic. In the end, the sea became clean again. We can help our planet too!", jp: "ある日、トーマスはブレンダムの港で働いていました。しかし問題がありました。海にたくさんのプラスチックごみがあったのです。トーマスは魚たちのために悲しみました。そこで良い考えを思いつきました。友達とゴミを拾い、プラスチックを減らすことにしました。最後には海は再び綺麗になりました。私たちも地球を助けられます！", merit: "簡潔ながらも、海の豊かさを守ることの重要性がしっかり伝わります。" },
+            { id: 5, title: "Thomas and Clean Energy", eng: "Thomas the Tank Engine learns about SDG 7. SDG 7 is about clean and affordable energy for everyone. Thomas stops using dirty coal and starts using clean electricity. As a result, the air becomes cleaner. His friends save energy too. They want Sodor to be healthy and bright for children everywhere in the future.", jp: "きかんしゃトーマスはSDG 7について学びます。SDG 7は、すべての人にクリーンで手ごろな価格のエネルギーを届けることです。トーマスは汚い石炭を使うのをやめ、クリーンな電気を使い始めます。その結果、空気はより綺麗になりました。友達もエネルギーを節約します。彼らは、将来どこにいても子供たちが健康で明るく過ごせるソドー島であってほしいと願っています。", merit: "「石炭から電気へ」という、機関車トーマスという設定を活かした素晴らしいエネルギー革命の描写です。" },
+            { id: 6, title: "Emma and Gender Equality", eng: "One day, Emma was a new engine on Sodor. She wanted to try every job. However, some engines said heavy work was only for boys. But Thomas encouraged her to try. Emma pulled the heavy trucks and succeeded. Everyone learned that any engine can do any job with effort. We can achieve gender equality for everyone!", jp: "ある日、エマはソドー島の新しい機関車としてやってきました。彼女はあらゆる仕事に挑戦したいと思いました。しかし、いくつかの機関車は「重い仕事は男の子のものだ」と言いました。でも、トーマスは彼女に挑戦するよう励ましました。エマは重い貨車を引き、成功しました。みんな、努力すればどんな機関車でもどんな仕事もできるのだと学びました。私たちはみんなのためにジェンダー平等を実現できます！", merit: "Emmaという新キャラクターを使い、SDGs 5の「ジェンダー平等」を明確にストーリー化しました。" },
+            { id: 7, title: "Thomas and the Bridge to Prosperity", eng: "One day, Thomas was working in South Africa. However, there was a problem: the tracks were broken by some people because they had no money. Thomas felt very sad because he couldn't go any further. But Thomas had a good idea. He decided to introduce jobs to the people in the country so they could earn money. In the end, South Africa became more peaceful. We can help other countries in this way too!", jp: "ある日、トーマスは南アフリカで働いていました。しかし問題がありました。お金がないために、一部の人々によって線路が壊されていたのです。トーマスはこれ以上進めず、とても悲しくなりました。でも、トーマスは良い考えを思いつきました。国の人々にお金が稼げるように仕事を介することにしたのです。最後には、南アフリカはより平和になりました。私たちもこのように他の国々を助けることができます！", merit: "「貧困が争いや破壊を生む」という社会的な背景を捉えた深い洞察があります。" },
+            { id: 8, title: "Thomas and the Clean Town", eng: "One day, Thomas was working at a solar station on Sodor Island. However, the town had a problem. The town used too much dirty energy, and the air was getting smoky. Thomas felt worried. Then, Thomas had a good idea. He decided to carry parts for windmills and solar panels. In the end, the town became bright and clean. Thomas and the people of Sodor Island are very happy now.", jp: "ある日、トーマスはソドー島のソーラー・ステーションで働いていました。しかし、町には問題がありました。町は汚いエネルギーを使いすぎ、空気が煙たくなっていました。トーマスは心配しました。そこで良い考えを思いつきました。風車やソーラーパネルの部品を運ぶことに決めたのです。最後には、町は明るく綺麗になりました。トーマスとソドー島の人々は今、とても幸せです。", merit: "「鉄道がクリーンエネルギーへの移行を助ける」という、機関車の新たな役割を描けています。" },
+            { id: 9, title: "Percy and the Quest for 'No Hunger'", eng: "One day, Percy was in a small town. He saw a problem: some people had no food. He felt very sad. He said, 'People need food.' He had a good idea and helped them. He brought food and taught them how to grow vegetables. In the end, everyone was happy. We can help the world!!", jp: "ある日、パーシーは小さな町にいました。彼はある問題を目にしました。一部の人々に食べ物がなかったのです。彼はとても悲しくなりました。彼は「人々には食べ物が必要だ」と言いました。彼は良い考えで彼らを助けました。食べ物を運び、野菜の育て方を教えたのです。最後にはみんなが幸せになりました。私たちは世界を助けられます！", merit: "「野菜の育て方を教える」という自立支援の視点が、持続可能な開発目標にぴったりです。" },
+            { id: 10, title: "Thomas and Food Waste (Alt)", eng: "One day, Thomas carried a lot of food to the town. However, some food fell out of his wagon and was wasted. Thomas felt sad. He told the workers to pack the food more carefully. The next time they delivered food, no food was dropped. Thomas felt happy. Finally, the people in the town were happy, and Thomas learned that not wasting food is very important.", jp: "ある日、トーマスは町へたくさんの食べ物を運びました。しかし、貨車から食べ物が落ちて無駄になってしまいました。トーマスは悲しみました。彼は作業員たちに、もっと丁寧に食べ物を詰めるように言いました。次に運んだとき、食べ物は一つも落ちませんでした。トーマスは嬉しく思いました。ついに町の人々は幸せになり、トーマスは食べ物を無駄にしないことがとても大切だと学びました。", merit: "食べ物を大切にする心を、丁寧な行動の変化として表現できています。" },
+            { id: 11, title: "Thomas and Life on Land", eng: "Thomas the Tank Engine learns about SDG Goal 15. He wants to protect forests, animals, and plants. Thomas tells his friends not to cut down too many trees. They clean the parks and help nature grow. Thomas says, 'Let's care for the land and keep it beautiful for everyone!'", jp: "きかんしゃトーマスはSDG目標15について学びます。彼は森、動物、そして植物を守りたいと思っています。トーマスは友達に、あまりに多くの木を切らないように伝えます。彼らは公園を掃除し、自然が育つのを助けます。トーマスは言います。「土地を大切にして、みんなのために美しく保とう！」", merit: "care for the land（土地をいたわる）という優しさに満ちた言葉が印象的です。" },
+            { id: 12, title: "Thomas and the Health Express", eng: "Thomas carried medicine and clean water to the village. Thomas said, 'I want to help people!' Then, Thomas met Percy. Percy was very tired. Thomas said, 'Please take a rest. Health is important.' The people in the village were very happy because now they can see a doctor. Sir Topham Hatt said, 'Good job, Thomas! You're a very useful engine.'", jp: "トーマスは薬ときれいな水を村へ運びました。トーマスは「人々を助けたいんだ！」と言いました。その時、トーマスはパーシーに会いました。パーシーはとても疲れていました。トーマスは「休んで。健康は大切だよ」と言いました。村の人々はとても幸せでした。なぜなら今、彼らは医者に診てもらえるからです。トップハム・ハット卿は「よくやった、トーマス！君は本当に役に立つ機関車だ」と言いました。", merit: "SDG 3の「健康」を、物流と休養の両面から描いた温かい作品です。" },
+            { id: 13, title: "Thomas and the Bread for Children", eng: "One day, Thomas was running on the road to give bread to many people. Then, Thomas met some children. They were very small. Those poor children had no money and no parents. Thomas felt very sad when he heard their story. He decided to take care of them and gave them his bread. The children were very happy!", jp: "ある日、トーマスはたくさんの人にパンを届けるために道を走っていました。すると、数人の子供たちに出会いました。彼らはとても小さかったです。そのかわいそうな子供たちにはお金も両親もいませんでした。トーマスは彼らの話を聞いてとても悲しくなりました。彼は彼らの世話をすることにし、自分のパンをあげました。子供たちはとても幸せそうでした！", merit: "恵まれない状況にいる子供たちへの「ケア」に焦点を当てた、慈愛の物語です。" },
+            { id: 14, title: "Thomas: Guardian of the Forest", eng: "One day, Thomas was working near the forest. He saw that many trees were cut down, and the animals lost their homes. Thomas thought that the best answer was to guard the forest. He made a speech to the whole world. He said, 'Let's protect our nature!' The world listened to him and decided to guard the forest too. Thomas hoped for a better future for the forest and all animals.", jp: "ある日、トーマスは森の近くで働いていました。彼は多くの木が切られ、動物たちが家を失っているのを見ました。トーマスは、一番の答えは森を守ることだと考えました。彼は全世界に向けてスピーチをしました。「私たちの自然を守りましょう！」世界は彼の言葉を聞き、同じように森を守ることに決めました。トーマスは森とすべての動物たちのより良い未来を願いました。", merit: "「世界に向かって発信する」という大きなアクションが、環境保護の重要性を際立たせています。" },
+            { id: 15, title: "Thomas and the Timetable Lesson", eng: "One day, Thomas's friend Percy did not understand how to read the timetable and was very confused. Thomas saw this and had a good idea. Thomas and his friends taught Percy how to read the timetable. Then, Percy practiced very hard. Soon, Percy could understand the timetable perfectly. Percy felt very happy because he learned something new!", jp: "ある日、トーマスの友達のパーシーは時刻表の読み方が分からず、とても困っていました。トーマスはこれを見て、良い考えを思いつきました。トーマスと仲間たちは、パーシーに時刻表の読み方を教えました。その後、パーシーは一生懸命練習しました。すぐに、パーシーは時刻表を完璧に理解できるようになりました。パーシーは新しいことを学べたので、とても幸せに感じました！", merit: "「時刻表の読み方」という鉄道に不可欠な知識を教え合う姿が、教育の本質を捉えています。" },
+            { id: 16, title: "Thomas and the Hungry People in India", eng: "One day, Thomas was working in a town in India. However, there was a problem: all the people in the town were very hungry. Thomas felt sorry for them. Then, Thomas had a good idea. He decided to load lots of food and carry it to the town. Thanks to his help, the people were no longer hungry. We can all help people in need!", jp: "ある日、トーマスはインドのある町で働いていました。しかし問題がありました。町のすべての人々がとてもお腹を空かせていたのです。トーマスは彼らを気の毒に思いました。そこで良い考えを思いつきました。たくさんの食べ物を積み込み、町へ運ぶことにしたのです。彼の助けのおかげで、人々はもう空腹ではなくなりました。私たちは皆、困っている人を助けることができます！", merit: "国際的な支援（インド）という舞台設定が、SDGsの「地球規模の課題」にマッチしています。" },
+            { id: 17, title: "Thomas and the Electric Engines", eng: "One day, Thomas visited a transport factory. However, there was a problem: the factory released too much CO2. Then, Thomas had a good idea to solve the problem. Thomas decided to convert the engines to electric ones. In the end, the factory released only a little CO2. We can protect our planet for the future!!", jp: "ある日、トーマスは輸送工場を訪れました。しかし問題がありました。その工場はCO2を出しすぎていたのです。そこでトーマスは問題を解決するための良い考えを思いつきました。機関車を電気式のものに改造することに決めたのです。最後には、工場はわずかなCO2しか出しませんでした。私たちは未来のために地球を守ることができます！", merit: "convert A to B（AをBに改造する）という高度な構文で、技術革新を鮮やかに描きました。" },
+            { id: 18, title: "Thomas Delivers!!", eng: "One day, Thomas was working in a place filled with food. But Thomas had a dream: it was to ensure that everyone suffering from hunger could eat equally. However, to deliver food to them, railway tracks had to be laid. So, people built the tracks, and Thomas successfully delivered food to those suffering from hunger.", jp: "ある日、トーマスは食べ物がいっぱいの場所で働いていました。でもトーマスには夢がありました。それは、飢えに苦しむすべての人が平等に食べられるようにすることでした。しかし、彼らに食べ物を届けるためには、線路が敷かれなければなりませんでした。そこで人々は線路を築き、トーマスは飢えに苦しむ人々に無事食べ物を届けました。", merit: "「線路を敷く」という物流の土台に言及した、非常にプロフェッショナルな視点の作品です。" }
+        ];
+
+        const grid = document.getElementById('story-grid');
+
+        // カード生成
+        stories.forEach((s) => {
+            const card = document.createElement('div');
+            card.id = `card-${s.id}`;
+            card.className = "story-card bg-white rounded-2xl p-6 card-shadow flex flex-col h-full";
+            card.innerHTML = `
+                <div class="flex-grow">
+                    <span class="text-xs font-bold text-indigo-500 mb-1 block">Entry #${s.id + 1}</span>
+                    <h3 class="text-lg font-bold text-gray-800 mb-3">${s.title}</h3>
+                    <p class="text-sm text-gray-500 italic line-clamp-2">"${s.eng}"</p>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-50 text-indigo-600 font-bold text-sm">詳しく見る →</div>
+            `;
+            card.onclick = () => showModal(s);
+            grid.appendChild(card);
+        });
+
+        // モーダル表示
+        function showModal(s) {
+            const modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50";
+            modal.innerHTML = `
+                <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 shadow-2xl relative modal-enter">
+                    <button class="absolute top-4 right-6 text-3xl text-gray-400 hover:text-gray-600" onclick="this.parentElement.parentElement.remove()">×</button>
+                    <div class="mb-2"><span class="bg-indigo-100 text-indigo-600 text-xs font-bold px-3 py-1 rounded-full">Entry #${s.id + 1}</span></div>
+                    <h2 class="text-2xl font-bold text-indigo-800 mb-6">${s.title}</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                            <h4 class="text-xs font-bold text-indigo-400 uppercase mb-2">English Story</h4>
+                            <p class="text-gray-800 leading-relaxed font-medium text-lg">${s.eng}</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-400 uppercase mb-2">日本語訳</h4>
+                            <p class="text-gray-700 leading-relaxed">${s.jp}</p>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded-xl border border-green-100">
+                            <h4 class="text-xs font-bold text-green-600 uppercase mb-1">作品のポイント！</h4>
+                            <p class="text-sm text-gray-700">${s.merit}</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <button class="bg-gray-900 text-white px-10 py-3 rounded-full font-bold hover:bg-black transition" onclick="this.parentElement.parentElement.parentElement.remove()">閉じる</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // 指定のカードまでスクロールしてモーダルを開く
+        function scrollToStory(id) {
+            const element = document.getElementById(`card-${id}`);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // スクロール後に少し強調してモーダルを開く
+                setTimeout(() => {
+                    element.classList.add('ring-4', 'ring-indigo-400');
+                    setTimeout(() => element.classList.remove('ring-4', 'ring-indigo-400'), 1500);
+                    showModal(stories.find(s => s.id === id));
+                }, 800);
+            }
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDGs×Thomas 英作文総合フィードバック</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
         body { font-family: 'Noto Sans JP', sans-serif; background-color: #f8fafc; }
         .hero-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
         .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
