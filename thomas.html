@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英作文総合フィードバック：SDGs × Thomas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Poppins:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Noto Sans JP', 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .story-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .sdgs-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="text-gray-900 pb-20">
+
+    <!-- Header -->
+    <header class="bg-blue-900 text-white py-12 px-6 text-center shadow-lg">
+        <h1 class="text-4xl font-bold mb-4">English Writing Feedback</h1>
+        <p class="text-xl opacity-90">Sodor's Journey to a Better World: SDGs × Thomas</p>
+        <div class="mt-6 inline-block bg-blue-800 px-4 py-2 rounded-lg text-sm border border-blue-700">
+            計19名全員のブラッシュアップ・ストーリー掲載中
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 mt-10">
+
+        <!-- 1. Lesson Learned -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4 mb-6">1. よくある間違いと学び</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-red-600 mb-3 underline">要注意！ミスTOP3</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li>
+                            <span class="font-bold">① 固有名詞の大文字忘れ</span><br>
+                            <code class="bg-red-50 px-1 italic">thomas, sodor, india</code> → <code class="bg-green-50 px-1 font-bold">Thomas, Sodor, India</code><br>
+                            <span class="text-gray-500">※名前や地名は世界に一つ。大文字で敬意を払いましょう。</span>
+                        </li>
+                        <li>
+                            <span class="font-bold">② 過去形と現在形の混同</span><br>
+                            <code class="bg-red-50 px-1 italic">Thomas is sad when he heard...</code> → <code class="bg-green-50 px-1 font-bold">was sad</code><br>
+                            <span class="text-gray-500">※物語は基本的に「過去」で進めます。</span>
+                        </li>
+                        <li>
+                            <span class="font-bold">③ 可算名詞（数えられる名詞）</span><br>
+                            <code class="bg-red-50 px-1 italic">give bread to many person</code> → <code class="bg-green-50 px-1 font-bold">people</code><br>
+                            <span class="text-gray-500">※manyの後は複数形が鉄則です。</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                    <h3 class="font-bold text-blue-800 mb-3 underline">ここを伸ばそう！</h3>
+                    <p class="text-sm leading-relaxed mb-4">
+                        「悲しかった(sad)」だけで終わらず、<span class="font-bold text-blue-700">"decided to..." (〜することを決めた)</span> や <span class="font-bold text-blue-700">"had a good idea"</span> を使って行動に移す展開が非常に多く見られました。SDGsのテーマにふさわしい「解決(Action)」の書き方が定着しています。
+                    </p>
+                    <div class="bg-white p-3 rounded border border-blue-100 text-xs italic">
+                        "We can protect our planet for the future!!" (私たちの未来のために地球を守ることができる) <br>— この締めくくりは素晴らしい結びの定型です。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Keywords -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4 mb-6">2. 重要キーワード・バンク</h2>
+            <div class="flex flex-wrap gap-3">
+                <span class="bg-white border border-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Sustainable Development</span>
+                <span class="bg-white border border-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Gender Equality</span>
+                <span class="bg-white border border-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Convert A to B</span>
+                <span class="bg-white border border-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Ensure that...</span>
+                <span class="bg-white border border-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Infrastructure (Tracks)</span>
+                <span class="bg-white border border-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Hunger / Poor</span>
+                <span class="bg-white border border-gray-300 px-4 py-2 rounded-full text-sm font-semibold">Affordable Energy</span>
+            </div>
+        </section>
+
+        <!-- 3. Quiz -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4 mb-6">3. 復習ミニクイズ</h2>
+            <div class="bg-gray-800 text-white p-6 rounded-xl">
+                <p class="mb-4 text-lg italic">Q. 次の（ ）を正しい形に直しなさい。</p>
+                <div class="space-y-4">
+                    <p>1. Thomas (decide) to carry food yesterday. <span class="text-yellow-400 font-bold ml-2">→ decided</span></p>
+                    <p>2. The sea became (beautifully) again. <span class="text-yellow-400 font-bold ml-2">→ beautiful</span></p>
+                    <p>3. He (teach) them how to grow vegetables. <span class="text-yellow-400 font-bold ml-2">→ taught</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Stories Grid -->
+        <section>
+            <div class="flex justify-between items-end mb-6">
+                <h2 class="text-2xl font-bold border-l-4 border-blue-600 pl-4">4. 19 Stories (Tap to read)</h2>
+                <span class="text-sm text-gray-500">クリック/タップで物語が開きます</span>
+            </div>
+            
+            <div id="storyGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- JavaScriptで生成 -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="storyModal" class="modal" onclick="closeModal()">
+        <div class="bg-white w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+            <div id="modalHeader" class="p-6 text-white text-xl font-bold">
+                Title
+            </div>
+            <div class="p-8">
+                <div id="modalSDG" class="mb-4"></div>
+                <div id="modalBody" class="text-gray-700 leading-relaxed text-lg italic mb-6">
+                    Story content...
+                </div>
+                <button onclick="closeModal()" class="w-full bg-gray-100 hover:bg-gray-200 py-3 rounded-xl font-bold transition">閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const stories = [
+            { id: 1, title: "Thomas and the Beautiful Green Sodor", goal: "Goal 15: Life on Land", color: "#4c9f38", text: "One day, Thomas was working in the forest near Vicarstown. However, there was a problem. Many trees had been cut down, and the animals had no place to live. Thomas felt very sad and worried. Then, Thomas had a good idea. He decided to plant new trees with his friends. In the end, Sodor became a beautiful green island again. We can help our planet also!" },
+            { id: 2, title: "Thomas and the Clean Sea", goal: "Goal 14: Life Below Water", color: "#007dbb", text: "One day, Thomas was working at Brendam Docks. However, there was a lot of plastic waste in the sea. Thomas felt very sad for the fish. Then, Thomas had a good idea. He decided to pick up the trash with his friends and use less plastic. In the end, Sodor became beautiful and the sea became clean again. We can help our planet too!" },
+            { id: 3, title: "Thomas and Food Waste", goal: "Goal 12: Responsible Consumption", color: "#bf8b2e", text: "One day, Thomas carried a lot of food to the town. However, some food fell out of his wagon and was wasted. Thomas felt sad. He told the workers to pack the food more carefully. The next time they delivered food, no food was dropped. Thomas felt happy. Finally, the people in the town were happy, and Thomas learned that not wasting food is very important." },
+            { id: 4, title: "Thomas and the Clean Ocean", goal: "Goal 14: Life Below Water", color: "#007dbb", text: "One day, Thomas was working at Brendam Docks. However, there was a problem. There was a lot of plastic waste in the sea. Thomas felt very sad for the fish. Then, Thomas had a good idea. He decided to pick up the trash with his friends and use less plastic. In the end, Sodor became beautiful and the sea became clean again. We can help our planet too!" },
+            { id: 5, title: "Thomas and the Sea Animals", goal: "Goal 14: Life Below Water", color: "#007dbb", text: "One day, Thomas was working at Brendam Docks. However, there was a problem: There was a lot of plastic waste in the sea. Thomas felt sad for the fish. Then, Thomas had a good idea. He decided to pick up trash with his friends and use less plastic. In the end, the sea became clean again. We can help our planet too!" },
+            { id: 6, title: "Thomas and Clean Energy", goal: "Goal 7: Clean Energy", color: "#fdb713", text: "Thomas the Tank Engine learns about SDG 7. SDG 7 is about clean and affordable energy for everyone. Thomas stops using dirty coal and starts using clean electricity. As a result, the air becomes cleaner. His friends save energy too. They want Sodor to be healthy and bright for children everywhere in the future." },
+            { id: 7, title: "Emma and Gender Equality", goal: "Goal 5: Gender Equality", color: "#ff3a21", text: "One day, Emma was a new engine on Sodor. She wanted to try every job. However, some engines said heavy work was only for boys. But Thomas encouraged her to try. Emma pulled the heavy trucks and succeeded. Everyone learned that any engine can do any job with effort. We can achieve gender equality for everyone!" },
+            { id: 8, title: "Thomas and the Bridge to Prosperity", goal: "Goal 8: Decent Work & Economic Growth", color: "#a21942", text: "One day, Thomas was working in South Africa. However, there was a problem: the tracks were broken by some people because they had no money. Thomas felt very sad because he couldn't go any further. But Thomas had a good idea. He decided to introduce jobs to the people in the country so they could earn money. In the end, South Africa became more peaceful. We can help other countries in this way too!" },
+            { id: 9, title: "Thomas and the Clean Town", goal: "Goal 11: Sustainable Cities", color: "#fd9d24", text: "One day, Thomas was working at a solar station on Sodor Island. However, the town had a problem. The town used too much dirty energy, and the air was getting smoky. Thomas felt worried. Then, Thomas had a good idea. He decided to carry parts for windmills and solar panels. In the end, the town became bright and clean. Thomas and the people of Sodor Island are very happy now." },
+            { id: 10, title: "Percy and the Quest for No Hunger", goal: "Goal 2: Zero Hunger", color: "#e5243b", text: "One day, Percy was in a small town. He saw a problem: some people had no food. He felt very sad. He said, 'People need food.' He had a good idea and helped them. He brought food and taught them how to grow vegetables. In the end, everyone was happy. We can help the world!!" },
+            { id: 11, title: "Thomas and Food Waste (Ver. 2)", goal: "Goal 12: Responsible Consumption", color: "#bf8b2e", text: "One day, Thomas carried a lot of food to the town. However, some food fell out of his wagon and was wasted. Thomas felt sad. He told the workers to pack the food more carefully. The next time they delivered food, no food was dropped. Thomas felt happy. Finally, the people in the town were happy, and Thomas learned that not wasting food is very important." },
+            { id: 12, title: "Thomas and Life on Land", goal: "Goal 15: Life on Land", color: "#4c9f38", text: "Thomas the Tank Engine learns about SDG Goal 15. He wants to protect forests, animals, and plants. Thomas tells his friends not to cut down too many trees. They clean the parks and help nature grow. Thomas says, 'Let's care for the land and keep it beautiful for everyone!'" },
+            { id: 13, title: "Thomas and the Health Express", goal: "Goal 3: Good Health & Well-being", color: "#4c9f38", text: "Thomas carried medicine and clean water to the village. Thomas said, 'I want to help people!' Then, Thomas met Percy. Percy was very tired. Thomas said, 'Please take a rest. Health is important.' The people in the village were very happy because now they can see a doctor. Sir Topham Hatt said, 'Good job, Thomas! You're a very useful engine.'" },
+            { id: 14, title: "Thomas and the Bread for Children", goal: "Goal 2: Zero Hunger", color: "#e5243b", text: "One day, Thomas was running on the road to give bread to many people. Then, Thomas met some children. They were very small. Those poor children had no money and no parents. Thomas felt very sad when he heard their story. He decided to take care of them and gave them his bread. The children were very happy!" },
+            { id: 15, title: "Thomas: Guardian of the Forest", goal: "Goal 15: Life on Land", color: "#4c9f38", text: "One day, Thomas was working near the forest. He saw that many trees were cut down, and the animals lost their homes. Thomas thought that the best answer was to guard the forest. He made a speech to the whole world. He said, 'Let's protect our nature!' The world listened to him and decided to guard the forest too. Thomas hoped for a better future for the forest and all animals." },
+            { id: 16, title: "Thomas and the Timetable Lesson", goal: "Goal 4: Quality Education", color: "#c21928", text: "One day, Thomas's friend Percy did not understand how to read the timetable and was very confused. Thomas saw this and had a good idea. Thomas and his friends taught Percy how to read the timetable. Then, Percy practiced very hard. Soon, Percy could understand the timetable perfectly. Percy felt very happy because he learned something new!" },
+            { id: 17, title: "Thomas and the Hungry People in India", goal: "Goal 2: Zero Hunger", color: "#e5243b", text: "One day, Thomas was working in a town in India. However, there was a problem: all the people in the town were very hungry. Thomas felt sorry for them. Then, Thomas had a good idea. He decided to load lots of food and carry it to the town. Thanks to his help, the people were no longer hungry. We can all help people in need!" },
+            { id: 18, title: "Thomas and the Electric Engines", goal: "Goal 13: Climate Action", color: "#3f7e44", text: "One day, Thomas visited a transport factory. However, there was a problem: the factory released too much CO2. Then, Thomas had a good idea to solve the problem. Thomas decided to convert the engines to electric ones. In the end, the factory released only a little CO2. We can protect our planet for the future!!" },
+            { id: 19, title: "Thomas Delivers!!", goal: "Goal 2: Zero Hunger", color: "#e5243b", text: "One day, Thomas was working in a place filled with food. But Thomas had a dream: it was to ensure that everyone suffering from hunger could eat equally. However, to deliver food to them, railway tracks had to be laid. So, people built the tracks, and Thomas successfully delivered food to those suffering from hunger." }
+        ];
+
+        const grid = document.getElementById('storyGrid');
+        
+        stories.forEach(story => {
+            const div = document.createElement('div');
+            div.className = 'story-card bg-white p-5 rounded-xl border-l-4 shadow-sm';
+            div.style.borderLeftColor = story.color;
+            div.innerHTML = `
+                <span class="sdgs-badge" style="background-color: ${story.color}">${story.goal}</span>
+                <h3 class="font-bold text-gray-800 line-clamp-1 mb-2">${story.title}</h3>
+                <p class="text-xs text-gray-500 line-clamp-2">${story.text}</p>
+            `;
+            div.onclick = () => openModal(story);
+            grid.appendChild(div);
+        });
+
+        function openModal(story) {
+            document.getElementById('modalHeader').innerText = story.title;
+            document.getElementById('modalHeader').style.backgroundColor = story.color;
+            document.getElementById('modalSDG').innerHTML = `<span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-bold">${story.goal}</span>`;
+            document.getElementById('modalBody').innerText = story.text;
+            document.getElementById('storyModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('storyModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
