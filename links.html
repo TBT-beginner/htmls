@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini English Apps Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Helvetica / Arial Based Typography */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            overflow: hidden;
+        }
+
+        .border-thin {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .menu-item {
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .menu-item.active {
+            color: #000;
+            opacity: 1;
+        }
+
+        .menu-item:not(.active) {
+            opacity: 0.2;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 767px) {
+            body {
+                overflow: auto;
+            }
+            .main-content {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+            }
+            .detail-section {
+                padding-bottom: 250px; /* メニューに被らないための余白 */
+            }
+            .mobile-menu-container {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 220px;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-blur: md;
+                border-top: 1px solid rgba(0,0,0,0.05);
+                overflow-y: auto;
+                z-index: 40;
+                padding: 1rem 2rem;
+            }
+            .menu-item {
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+                padding: 12px 0;
+            }
+        }
+
+        /* Prevent word break for titles */
+        .keep-all {
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .title-link {
+            position: relative;
+            display: inline-block;
+        }
+        .title-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 4px;
+            bottom: 4px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.4s ease-out;
+        }
+        .title-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+    </style>
+</head>
+<body class="h-screen w-full flex flex-col">
+
+    <!-- Header -->
+    <header class="p-6 md:p-10 flex justify-between items-start fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md">
+        <div class="text-xl font-bold tracking-tighter">ENGLISH APPS</div>
+        <div class="text-[10px] uppercase tracking-[0.3em] hidden md:block opacity-50">Advanced Learning Tools for Students</div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content flex-1 flex flex-col md:flex-row h-full">
+        
+        <!-- Detail View -->
+        <section class="detail-section flex-1 md:w-3/5 md:order-2 relative flex items-center justify-start p-8 md:p-24 pt-32 md:pt-0">
+            <div id="detail-view" class="w-full">
+                <div id="detail-content" class="fade-in">
+                    <!-- Updated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <aside class="md:w-2/5 md:order-1 flex items-center px-8 md:px-16 z-20 bg-white md:bg-transparent">
+            <nav class="w-full md:py-0 mobile-menu-container">
+                <div id="menu-container" class="flex flex-col">
+                    <!-- Updated via JS -->
+                </div>
+            </nav>
+        </aside>
+
+    </main>
+
+    <!-- Footer (Desktop Only) -->
+    <footer class="hidden md:flex fixed bottom-0 w-full p-10 justify-between text-[10px] uppercase tracking-[0.25em] opacity-40 z-10">
+        <div class="flex gap-16">
+            <div>AI ASSISTED EDUCATION</div>
+            <div>STAY CREATIVE ©2024</div>
+        </div>
+        <div>ENGLISH TOOLS PORTAL</div>
+    </footer>
+
+    <script>
+        const appsData = [
+            { 
+                id: "01", 
+                title: "英作文自動添削", 
+                url: "https://gemini.google.com/gem/1vcs6Cc4KsEN1w437fr9viQdxpBslusvM?usp=sharing",
+                desc: "紙の答案をPDFでアップロードするだけで、AIがCanvas機能を用いて詳細な添削を自動生成します。内容の修正も対話形式で自由自在。全選択して印刷すれば、そのまま生徒への配布資料として活用可能です。"
+            },
+            { 
+                id: "02", 
+                title: "WORD DUEL", 
+                url: "https://script.google.com/a/macros/kiryo.ac.jp/s/AKfycbyohvtQUsXrErjhlhzLwSe-imD1eC1SYWimejeXf-BKIHYdzTNUMOvfkU-6y9EXg20WEw/exec",
+                desc: "英単語ターゲット1400の語彙力を鍛える練習ツール。ゲーム感覚で単語をマスターし、基礎体力を向上させましょう。日々の積み重ねが大きな力になります。"
+            },
+            { 
+                id: "03", 
+                title: "準2級 英作文練習", 
+                url: "https://gemini.google.com/gem/1dI_YE7-IufWiSLo62rkn4zWqeX0YJvhm?usp=sharing",
+                desc: "英検準2級合格を目指すステップアップ・ツール。まずはAIに挨拶をして、練習を開始しましょう。基礎から着実に書く力を養います。"
+            },
+            { 
+                id: "04", 
+                title: "2級 要約練習", 
+                url: "https://gemini.google.com/gem/1DJ3KlYlHmYypmb8X1XJDh6LimYLaZfEP?usp=sharing",
+                desc: "エッセンスを抽出する力を鍛える。長文の構造を理解し、2級合格に必須の要約スキルを効率的にマスターするための専門アプリです。"
+            },
+            { 
+                id: "05", 
+                title: "2級 英作文練習", 
+                url: "https://gemini.google.com/gem/1P4eCWOmaUz5dU8ytOp0uJifnL4qgcH8M?usp=sharing",
+                desc: "論理的な文章構成をAIと共に磨く。多様なトピックに対応し、2級レベルの語彙と表現を使いこなすためのトレーニング・パートナーです。"
+            },
+            { 
+                id: "06", 
+                title: "準1級 英作文練習", 
+                url: "https://gemini.google.com/gem/18_NBrA42DZw25_9mkIQR1ze183KAtLx7?usp=sharing",
+                desc: "アカデミックな表現力を手に入れる。ハイレベルな語彙と複文構造を駆使し、準1級の壁を突破するための高度な添削体験を提供します。"
+            },
+            { 
+                id: "07", 
+                title: "1級 英作文練習", 
+                url: "https://gemini.google.com/gem/1aQKKFRar8S2S-8xMZmqE2FgUf9sG8BSr?usp=sharing",
+                desc: "英語学習の最高峰へ。洗練された文章術とクリティカル・シンキング。1級合格に必要な品格ある英語ライティングを極めるアプリです。"
+            }
+        ];
+
+        const menuContainer = document.getElementById('menu-container');
+        const detailContent = document.getElementById('detail-content');
+
+        function updateDetail(item) {
+            detailContent.innerHTML = `
+                <div class="fade-in">
+                    <span class="text-xs md:text-sm font-bold opacity-20 block mb-4 tracking-[0.4em] uppercase">PROJECT ${item.id}</span>
+                    <a href="${item.url}" target="_blank" class="title-link group">
+                        <h2 class="text-4xl md:text-8xl font-bold tracking-tighter leading-[1.1] md:leading-[0.95] mb-8 md:mb-12 uppercase keep-all">
+                            ${item.title}
+                        </h2>
+                    </a>
+                    <div class="max-w-xl">
+                        <p class="text-base md:text-xl font-medium leading-relaxed opacity-80 mb-8">
+                            ${item.desc}
+                        </p>
+                        <a href="${item.url}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase border-b-2 border-black pb-1 hover:opacity-50 transition-opacity">
+                            Launch Project 
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 11L11 1M11 1H1M11 1V11" stroke="black" stroke-width="2"/></svg>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initMenu() {
+            appsData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = `menu-item md:py-4 border-thin flex items-center cursor-pointer group ${index === 0 ? 'active' : ''}`;
+                div.innerHTML = `
+                    <span class="w-10 text-[10px] font-bold opacity-40 hidden md:inline-block tracking-widest">${item.id}</span>
+                    <span class="text-sm md:text-base font-bold tracking-tight uppercase">${item.title}</span>
+                `;
+
+                const setActive = () => {
+                    document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+                    div.classList.add('active');
+                    updateDetail(item);
+                    if (window.innerWidth < 768) {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                };
+
+                div.addEventListener('mouseenter', () => {
+                    if (window.innerWidth >= 768) setActive();
+                });
+                div.addEventListener('click', setActive);
+
+                menuContainer.appendChild(div);
+            });
+
+            updateDetail(appsData[0]);
+        }
+
+        window.onload = initMenu;
+    </script>
+</body>
+</html>
