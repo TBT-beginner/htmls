@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デジタル英語長文読解マスター</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      /* スクロールバーのカスタマイズ */
+      scrollbar-width: thin;
+      scrollbar-color: #cbd5e1 #f8fafc;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f8fafc; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1; 
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8; 
+    }
+
+    /* 英文ハイライト時のレイアウトシフトを完全に防ぐためのCSS */
+    .sentence-span {
+      display: inline;
+      padding: 0.15em 0;
+      border-radius: 0.2em;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    .sentence-span:hover {
+      background-color: #fef08a; /* bg-yellow-200 */
+    }
+    .sentence-span.active {
+      background-color: #fde047; /* bg-yellow-300 */
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed min-h-screen flex flex-col">
+
+  <!-- ヘッダー -->
+  <header class="bg-white shadow-sm sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="bg-indigo-600 text-white p-2 rounded-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <h1 class="text-xl md:text-2xl font-bold text-slate-800">デジタル英語長文読解マスター</h1>
+      </div>
+      <div class="hidden md:block text-sm text-slate-500 font-medium">
+        文をクリックすると解説が表示されます
+      </div>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8">
+    
+    <!-- 英文精読エリア -->
+    <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="bg-slate-100/50 border-b border-slate-200 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+          </svg>
+          本文精読
+        </h2>
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="toggle-syntax-btn" class="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-sm font-semibold py-2 px-4 rounded-lg transition-colors flex items-center gap-2 justify-center shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+            構文解析を表示
+          </button>
+          <button id="toggle-translation-btn" class="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-sm font-semibold py-2 px-4 rounded-lg transition-colors flex items-center gap-2 justify-center shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+            全文の日本語訳を表示
+          </button>
+        </div>
+      </div>
+      
+      <!-- メイン画面用 凡例（初期非表示） -->
+      <div id="main-syntax-legend" class="hidden bg-slate-50 border-b border-slate-200 px-6 py-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-500 mr-2">【凡例】</span>
+          <div class="flex flex-wrap gap-1 text-[10px] font-bold">
+            <span class="bg-blue-100 text-blue-800 border border-blue-200 px-1.5 py-0.5 rounded shadow-sm">主語(S)</span>
+            <span class="bg-red-100 text-red-800 border border-red-200 px-1.5 py-0.5 rounded shadow-sm">動詞(V)</span>
+            <span class="bg-green-100 text-green-800 border border-green-200 px-1.5 py-0.5 rounded shadow-sm">目的語(O)</span>
+            <span class="bg-purple-100 text-purple-800 border border-purple-200 px-1.5 py-0.5 rounded shadow-sm">補語(C)</span>
+            <span class="bg-orange-100 text-orange-800 border border-orange-200 px-1.5 py-0.5 rounded shadow-sm">修飾語(M)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 全訳表示エリア（アコーディオン） -->
+      <div id="full-translation-area" class="hidden bg-slate-50 border-b border-slate-200 px-6 py-6 text-slate-700 text-[15px]">
+        <!-- JSで動的に生成 -->
+      </div>
+
+      <!-- 本文コンテナ -->
+      <div id="text-container" class="p-6 md:p-8 lg:p-10 text-lg md:text-[19px] text-slate-800 tracking-wide">
+        <!-- JSで動的に生成 -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 講義ノート（ドロワー）のオーバーレイ -->
+  <div id="overlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm opacity-0 hidden z-40 transition-opacity duration-300"></div>
+
+  <!-- 講義ノート（ドロワー）本体 -->
+  <aside id="drawer" class="fixed top-0 right-0 h-full w-full sm:w-[450px] md:w-[500px] bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col border-l border-slate-200">
+    <!-- ドロワーヘッダー -->
+    <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+      <h3 class="font-bold text-lg text-indigo-800 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+        </svg>
+        講義ノート
+      </h3>
+      <button id="close-drawer-btn" class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-full transition-colors focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- ドロワーコンテンツ -->
+    <div class="flex-grow overflow-y-auto p-6 flex flex-col gap-8">
+      
+      <!-- 対象の英文 -->
+      <section>
+        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Original Sentence</h4>
+        <p id="drawer-english" class="text-lg font-bold text-slate-800 bg-slate-50 p-4 rounded-lg border border-slate-200 leading-snug"></p>
+      </section>
+
+      <!-- 構文解析 -->
+      <section>
+        <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Syntax Analysis</h4>
+          <div class="flex flex-wrap gap-1 text-[10px] font-bold">
+            <span class="bg-blue-100 text-blue-800 border border-blue-200 px-1.5 py-0.5 rounded shadow-sm">主語(S)</span>
+            <span class="bg-red-100 text-red-800 border border-red-200 px-1.5 py-0.5 rounded shadow-sm">動詞(V)</span>
+            <span class="bg-green-100 text-green-800 border border-green-200 px-1.5 py-0.5 rounded shadow-sm">目的語(O)</span>
+            <span class="bg-purple-100 text-purple-800 border border-purple-200 px-1.5 py-0.5 rounded shadow-sm">補語(C)</span>
+            <span class="bg-orange-100 text-orange-800 border border-orange-200 px-1.5 py-0.5 rounded shadow-sm">修飾語(M)</span>
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm overflow-x-auto">
+          <p id="drawer-analysis" class="text-[16px] leading-[2.5] font-mono tracking-tight whitespace-pre-wrap"></p>
+        </div>
+      </section>
+
+      <!-- 日本語訳 -->
+      <section>
+        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Translation</h4>
+        <p id="drawer-translation" class="text-[15px] text-slate-700 leading-relaxed"></p>
+      </section>
+
+      <!-- 入試の着眼点 -->
+      <section>
+        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Focus & Context</h4>
+        <div class="border-l-4 border-amber-400 pl-4 py-1">
+          <p id="drawer-focus" class="text-[15px] text-slate-700 leading-relaxed"></p>
+        </div>
+      </section>
+
+      <!-- 重要文法 -->
+      <section>
+        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Grammar & Idioms</h4>
+        <ul id="drawer-grammars" class="flex flex-wrap gap-2">
+          <!-- JSで生成 -->
+        </ul>
+      </section>
+      
+    </div>
+  </aside>
+
+  <script>
+    /**
+     * 【1. データ解析・生成要件】
+     * 英文の分割、構文解析、日本語訳、解説データの定義
+     */
+    const sentences = [
+      { id: 1, p: 1, english: "Steve Jobs created the iPod.", analysis: "S[Steve Jobs] V[created] O[the iPod].", translation: "スティーブ・ジョブズはiPodを発明した。", focus: "パラグラフの導入。身近で有名な創造的な人物の例としてジョブズを挙げ、読者の関心を惹きつけています。", grammars: [] },
+      { id: 2, p: 1, english: "Lady Gaga writes hit songs.", analysis: "S[Lady Gaga] V[writes] O[hit songs].", translation: "レディー・ガガはヒット曲を書く。", focus: "ジョブズに続く、音楽界における創造的な人物の具体例です。", grammars: [] },
+      { id: 3, p: 1, english: "Mom made a delicious dinner with the food she found in the refrigerator.", analysis: "S[Mom] V[made] O[a delicious dinner] M[with the food <(which) S'[she] V'[found] M'[in the refrigerator]>].", translation: "母は冷蔵庫で見つけた食材で美味しい夕食を作った。", focus: "歴史的な偉人だけでなく、日常の身近な場面（母親の料理）にも創造性が存在することを示しています。", grammars: ["関係代名詞の省略 (the food と she の間)"] },
+      { id: 4, p: 1, english: "Uncle Fred fixed our broken car with a can opener.", analysis: "S[Uncle Fred] V[fixed] O[our broken car] M[with a can opener].", translation: "フレッドおじさんは缶切りを使って私たちの壊れた車を直した。", focus: "本来の用途とは違うもの（缶切り）を使って問題を解決する、という具体的な「創造的思考」の例です。", grammars: ["with A (道具を表す前置詞「Aを使って」)"] },
+      
+      { id: 5, p: 2, english: "These creative people all did important things.", analysis: "S[These creative people] (all) V[did] O[important things].", translation: "これら創造的な人々は皆、重要なことを成し遂げた。", focus: "第1段落で挙げられた具体例を「These creative people」と抽象化し、まとめている文です。", grammars: [] },
+      { id: 6, p: 2, english: "Some people were famous and they changed history; others were not well known and they only helped one family for a day.", analysis: "S[Some people] V[were] C[famous] and S[they] V[changed] O[history]; S[others] V[were not] C[well known] and S[they] (only) V[helped] O[one family] M[for a day].", translation: "有名になって歴史を変えた人もいれば、無名でたった一日の間一つの家族を助けただけの人もいた。", focus: "Some ... others ... の対比構造。創造性の規模の大小に関わらず、本質は同じであることを示しています。", grammars: ["Some ~, others ... (〜な人もいれば、…な人もいる)"] },
+      { id: 7, p: 2, english: "None of the people on the list finished college.", analysis: "S[None <of the people (on the list)>] V[finished] O[college].", translation: "このリストに載っている人の誰も大学を卒業していなかった。", focus: "ここで意外な共通点を提示し、「学校教育と創造性」というこの長文のメインテーマへと接続します。", grammars: ["None of A (Aのうち誰も〜ない [全体否定])"] },
+      { id: 8, p: 2, english: "Many of the world’s most creative thinkers learned their creative skills outside of school.", analysis: "S[Many <of the world’s most creative thinkers>] V[learned] O[their creative skills] M[outside of school].", translation: "世界で最も創造的な思想家の多くは、学校の外でその創造的スキルを学んだのだ。", focus: "前文の内容を受け、創造的スキルは必ずしも伝統的な学校教育の中で育まれるものではないと結論づけています。", grammars: [] },
+      
+      { id: 9, p: 3, english: "Creative thinking is a very important skill.", analysis: "S[Creative thinking] V[is] C[a very important skill].", translation: "創造的思考は非常に重要なスキルである。", focus: "筆者の主張の根幹です。これ以降、なぜ重要なのかが説明されます。", grammars: [] },
+      { id: 10, p: 3, english: "It helps us make new things.", analysis: "S[It] V[helps] O[us] C(原形不定詞)[make new things].", translation: "それは私たちが新しいものを作り出すのを助けてくれる。", focus: "It = Creative thinking。創造的思考のメリットその1です。", grammars: ["help O (to) do (Oが〜するのを助ける) ※ここではtoが省略された原形不定詞"] },
+      { id: 11, p: 3, english: "It also helps us solve everyday problems that don’t have one easy answer.", analysis: "S[It] (also) V[helps] O[us] C(原形不定詞)[solve everyday problems <that V'[don’t have] O'[one easy answer]>].", translation: "それはまた、簡単には答えが出ない日常の課題を解決するのにも役立つ。", focus: "創造的思考のメリットその2。のちの「キツネとニワトリ」や「限られたお金での食事作り」の伏線となる一文です。", grammars: ["help O (to) do", "関係代名詞主格の that"] },
+      { id: 12, p: 3, english: "Yet traditional schools often don’t encourage creative thinking.", analysis: "M[Yet] S[traditional schools] (often) V[don’t encourage] O[creative thinking].", translation: "しかし、伝統的な学校はしばしば創造的思考を奨励しない。", focus: "「Yet」による逆接。重要なスキルであるにもかかわらず、学校では扱われていないという問題提起です。", grammars: [] },
+      { id: 13, p: 3, english: "Many teachers don’t know how to teach it or measure it.", analysis: "S[Many teachers] V[don’t know] O[how to teach it or measure it].", translation: "多くの教師はそれをどう教え、どう評価すればよいかを知らない。", focus: "学校で奨励されない理由の一つ。教え方と評価方法（measure）が確立されていないことが挙げられます。", grammars: ["how to do (疑問詞 + to不定詞「〜の仕方」)"] },
+      
+      { id: 14, p: 4, english: "Schools like to show that students are learning.", analysis: "S[Schools] V[like] O[to show <that S'[students] V'[are learning]>].", translation: "学校は、生徒たちが学んでいることを示したがる。", focus: "学校教育の性質についての説明です。", grammars: ["名詞節を導く接続詞 that"] },
+      { id: 15, p: 4, english: "So they usually focus on teaching logical thinking and facts because they can easily measure them.", analysis: "M[So] S[they] (usually) V[focus] M[on teaching logical thinking and facts] M[because S'[they] (can easily) V'[measure] O'[them]].", translation: "だからたいていの場合、簡単に測定できる論理的思考や事実を教えることに重点を置く。", focus: "前段落の「教師は創造的思考の評価(measure)の仕方を知らない」と対比され、論理的思考は「簡単に評価できる(easily measure)」から学校で教えられているという論理展開を把握しましょう。", grammars: ["focus on A (Aに焦点を当てる、集中する)", "because S V (〜なので [理由・原因])"] },
+      
+      { id: 16, p: 5, english: "On the other hand, creative thinking creates original answers — new answers that others don’t usually think of.", analysis: "M[On the other hand], S[creative thinking] V[creates] O[original answers] — 同格[new answers <that S'[others] V'[don’t usually think] M'[of]>].", translation: "一方で、創造的思考は独創的な答え、つまり他人が普段思いつかないような新しい答えを生み出す。", focus: "直前の段落の「論理的思考（一つに定まる測定しやすい答え）」と対比するディスコースマーカー（On the other hand など）が入ります。", grammars: ["ダッシュ(—)による同格・言い換え", "think of A (Aを思いつく) ※関係代名詞の目的語欠落"] },
+      { id: 17, p: 5, english: "2 ＋ 2 ＝ 4 if you are counting houses or apples.", analysis: "S[2 ＋ 2] V[＝] C[4] M[if S'[you] V'[are counting] O'[houses or apples]].", translation: "家やリンゴを数えているなら、2 ＋ 2 ＝ 4 である。", focus: "これは「論理的思考と事実」の例です。誰もが同じ答えに辿り着きます。", grammars: [] },
+      { id: 18, p: 5, english: "But if a student is counting 2 hungry foxes ＋ 2 fat chickens, then 2 ＋ 2 ＝ 2 happy foxes.", analysis: "M[But] M[if S'[a student] V'[is counting] O'[2 hungry foxes ＋ 2 fat chickens]], (then) S[2 ＋ 2] V[＝] C[2 happy foxes].", translation: "しかし、もし生徒が2匹の腹を空かせたキツネと2羽の太ったニワトリを数えているなら、2 ＋ 2 ＝ 2匹の幸せなキツネ、となる。", focus: "キツネがニワトリを食べてしまうという「文脈・別の知識」を計算に持ち込んだ「創造的思考」の例え話です。", grammars: [] },
+      
+      { id: 19, p: 6, english: "Most people think creative thinking is difficult to understand.", analysis: "S[Most people] V[think] O[<that> S'[creative thinking] V'[is] C'[difficult] M(副詞的用法)[to understand]].", translation: "ほとんどの人は、創造的思考は理解するのが難しいと考えている。", focus: "一般論の提示です。「Most people think ~」と来た場合、筆者は「But ~」と後で反論するのが英文読解の鉄則です。", grammars: ["接続詞 that の省略", "難易を表す形容詞 + to do (〜するのが難しい)"] },
+      { id: 20, p: 6, english: "They think it is hard to teach.", analysis: "S[They] V[think] O[<that> S'[it] V'[is] C'[hard] M(副詞的用法)[to teach]].", translation: "教えるのが難しいと考えている。", focus: "前文と同構造の繰り返しで強調しています。", grammars: ["難易を表す形容詞 + to do"] },
+      { id: 21, p: 6, english: "They think they can’t measure or score it.", analysis: "S[They] V[think] O[<that> S'[they] V'[can’t measure or score] O'[it]].", translation: "それを測定したり採点したりすることはできないと考えている。", focus: "これも一般論の続きです。", grammars: [] },
+      { id: 22, p: 6, english: "But it is not so difficult.", analysis: "M[But] S[it] V[is not] C[so difficult].", translation: "しかし、それはそこまで難しくはない。", focus: "予想通り「But」で一般論を覆し、筆者の主張を展開します。", grammars: ["not so ~ (それほど〜ではない)"] },
+      { id: 23, p: 6, english: "Creative thinking is putting different ideas together in new ways.", analysis: "S[Creative thinking] V[is] C(動名詞)[putting different ideas together] M[in new ways].", translation: "創造的思考とは、異なるアイデアを新しい方法で組み合わせることである。", focus: "筆者による「創造的思考」の明確な定義です。この文章全体の最重要センテンスの一つです。", grammars: ["動名詞 (putting) が補語(C)になる用法", "put A together (Aを組み合わせる)"] },
+      
+      { id: 25, p: 7, english: "Some skilled teachers teach creative thinking all the time, in addition to teaching facts.", analysis: "S[Some skilled teachers] V[teach] O[creative thinking] M[all the time], M[in addition to teaching facts].", translation: "熟練した教師の中には、事実を教えることに加えて、常に創造的思考を教えている人もいる。", focus: "創造的思考は教えられないという一般論に対する反例（具体的な教育実践例）の提示です。", grammars: ["in addition to ~ing (〜することに加えて)"] },
+      { id: 26, p: 7, english: "They might teach students to measure the size of a room and also describe the size of a room（“It’s the size of a *racquetball court’’; Or “It’s big enough for a *salsa band to practice”）. ", analysis: "S[They] (might) V[teach] O[students] C(不定詞)[to measure the size of a room] and (also) C[describe the size of a room]...", translation: "彼らは生徒に部屋の広さを測るよう教え、さらにその広さを描写するよう教えるかもしれない（「ラケットボールのコートの広さだ」や「サルサバンドが練習するのに十分な広さだ」など）。", focus: "事実（測量）と創造性（比喩的な表現）を組み合わせる教育例です。", grammars: ["teach O to do (Oに〜するように教える)", "~ enough for A to do (Aが〜するのに十分な)"] },
+      { id: 27, p: 7, english: "They might teach facts about history and also discuss possible meanings of a painting from that time（“The red colors seem angry, and that is how people felt when the revolution happened”）.", analysis: "S[They] (might) V[teach] O[facts about history] and (also) V[discuss] O[possible meanings of a painting <from that time>]...", translation: "歴史の事実を教えるとともに、当時の絵画の持つ意味について議論するかもしれない（「赤色は怒っているように見え、それは革命が起きた時の人々の感情だ」など）。", focus: "事実（歴史的事件）と創造性（絵画の解釈）を組み合わせる教育例です。", grammars: ["how S V (どのようにSがVするか / SがVする方法・様子)"] },
+      
+      { id: 28, p: 8, english: "Measuring creative thinking is not easy, but it is possible.", analysis: "S(動名詞)[Measuring creative thinking] V[is not] C[easy], but S[it] V[is] C[possible].", translation: "創造的思考を評価することは簡単ではないが、可能である。", focus: "「測定(measure)できない」という批判に対する筆者の見解です。", grammars: ["動名詞主語"] },
+      { id: 29, p: 8, english: "There is no one right or wrong answer to a creative thinking question.", analysis: "M[There] V[is] S[no one right or wrong answer] M[to a creative thinking question].", translation: "創造的思考の問いに対して、たった一つの正解や間違いというものはない。", focus: "創造的思考の性質です。だからこそ従来のテストでは測りにくいことを示しています。", grammars: ["answer to A (Aに対する答え) ※toは前置詞"] },
+      { id: 30, p: 8, english: "How can a teacher（or a computer!）know if “2 ＋ 2 ＝ 2” is a creative answer about foxes and chickens, or if it is simply a wrong answer?", analysis: "M[How] V(助)[can] S[a teacher] V[know] O(名詞節)[if S'[“2 ＋ 2 ＝ 2”] V'[is] C'[a creative answer...] , or if S[it] V[is] (simply) C[a wrong answer]]?", translation: "教師（あるいはコンピュータ）は、「2 ＋ 2 ＝ 2」がキツネとニワトリについての創造的な答えなのか、それとも単なる間違いなのか、どうやって知ることができるだろうか。", focus: "評価の難しさを具体的な疑問文で読者に投げかけています。", grammars: ["名詞節を導く if (〜かどうか)"] },
+      { id: 31, p: 8, english: "Teachers need to see students’ reasons for their answers in order to measure creative thinking.", analysis: "S[Teachers] V[need] O[to see students’ reasons <for their answers>] M[in order to measure creative thinking].", translation: "教師が創造的思考を評価するには、生徒がその答えを出した理由を見る必要がある。", focus: "前文の疑問に対する筆者の答え。「理由(reasons)」に着目することが評価の鍵だとしています。", grammars: ["in order to do (〜するために [目的])"] },
+      { id: 32, p: 8, english: "The student with the creative answer to 2 ＋ 2 is putting math together with her knowledge from English class.", analysis: "S[The student <with the creative answer to 2 ＋ 2>] V[is putting] O[math] M[together] M[with her knowledge <from English class>].", translation: "2 ＋ 2 に対して創造的な答えを出した生徒は、数学と国語（英語）の授業で得た知識とを組み合わせているのだ。", focus: "第6段落の定義「putting different ideas together」を実際の行動として説明しています。", grammars: ["put A together with B (AとBを組み合わせる)"] },
+      { id: 33, p: 8, english: "She just read a novel about farming and learned about foxes and chickens.", analysis: "S[She] (just) V[read] O[a novel <about farming>] and V[learned] M[about foxes and chickens].", translation: "彼女はちょうど農業についての小説を読み、キツネとニワトリについて学んだところだったのだ。", focus: "異なる領域の知識が結びついた背景説明です。", grammars: [] },
+      { id: 34, p: 8, english: "Another student might say “2 ＋ 2 ＝ 2 because I like the number two!”", analysis: "S[Another student] (might) V[say] O[“2 ＋ 2 ＝ 2 because I like the number two!”]", translation: "別の生徒は「2という数字が好きだから 2 ＋ 2 ＝ 2だ！」と言うかもしれない。", focus: "論理的な組み合わせ（理由）が存在しない、単なる思いつきの例です。", grammars: [] },
+      { id: 35, p: 8, english: "That is not a creative thinking.", analysis: "S[That] V[is] C[not a creative thinking].", translation: "それは創造的思考ではない。", focus: "直前の適当な答えに対して筆者が下す評価が入ります。文脈から「単なる間違いだ」「創造的ではない」といった内容になります。", grammars: [] },
+      
+      { id: 36, p: 9, english: "Can schools teach creative thinking?", analysis: "V(助)[Can] S[schools] V[teach] O[creative thinking]?", translation: "学校は創造的思考を教えることができるだろうか。", focus: "最終段落の導入。読者に問いかけ、結論へ導きます。", grammars: [] },
+      { id: 37, p: 9, english: "Absolutely!", analysis: "Absolutely!", translation: "もちろんだ！", focus: "強い肯定の副詞一語で、筆者の確信を表しています。", grammars: [] },
+      { id: 38, p: 9, english: "And they must!", analysis: "And S[they] V[must] (teach it)!", translation: "そして、教えなければならない！", focus: "単に「できる」だけでなく「義務・必要性」があることを強く主張しています。", grammars: ["代動詞・目的語の省略 (teach it が省略されている)"] },
+      { id: 39, p: 9, english: "Teaching logical thinking and facts is still important.", analysis: "S(動名詞)[Teaching logical thinking and facts] V[is] (still) C[important].", translation: "論理的思考や事実を教えることは依然として重要である。", focus: "創造的思考を推しているからといって、従来教育を全否定しているわけではない、というバランスを取る譲歩の文です。", grammars: ["動名詞主語"] },
+      { id: 40, p: 9, english: "We need math skills to make sure we don’t spend more money than we have, for example.", analysis: "S[We] V[need] O[math skills] M[to make sure <that S'[we] V'[don’t spend] O'[more money] M'[than we have]>], M[for example].", translation: "例えば、持っている以上のお金を使わないようにするためには数学のスキルが必要だ。", focus: "論理的思考（事実の把握）が必要な現実の場面の例です。", grammars: ["make sure that S V (確実にSがVするようにする)", "比較級 + than (〜よりも)"] },
+      { id: 41, p: 9, english: "But many other questions in life do not have clear right and wrong answers.", analysis: "M[But] S[many other questions <in life>] V[do not have] O[clear right and wrong answers].", translation: "しかし、人生における他の多くの問題には、明確な正解や間違いがない。", focus: "第8段落の内容をリフレインし、現実社会の複雑さを指摘します。", grammars: [] },
+      { id: 42, p: 9, english: "For example, how do you give a family healthy food with only a small amount of money?", analysis: "M[For example], M[how] V(助)[do] S[you] V[give] O1[a family] O2[healthy food] M[with only a small amount of money]?", translation: "例えば、わずかなお金だけでどうやって家族に健康的な食事を与えるか？", focus: "正解のない現実問題の具体例です。第1段落の「母親の料理」と美しくリンクしています。", grammars: ["give O1 O2 (O1にO2を与える [第4文型])"] },
+      { id: 43, p: 9, english: "Our schools need to prepare students for those tasks as well.", analysis: "S[Our schools] V[need] O[to prepare students <for those tasks>] M[as well].", translation: "私たちの学校は、生徒たちにそうした課題に対する備えもさせる必要がある。", focus: "学校教育の果たすべき新たな役割の提示です。", grammars: ["prepare A for B (AにBの準備をさせる)", "as well (〜もまた)"] },
+      { id: 44, p: 9, english: "Teaching creative thinking to our students helps them solve more problems, and that helps the rest of us.", analysis: "S(動名詞)[Teaching creative thinking <to our students>] V[helps] O[them] C(原形不定詞)[solve more problems], and S[that] V[helps] O[the rest of us].", translation: "生徒たちに創造的思考を教えることは、彼らがより多くの問題を解決する手助けとなり、そしてそのことが私たちの残りの人生をも助けてくれるのである。", focus: "文章全体の美しい結びです。個人のスキルの向上が、社会全体の利益（the rest of us）につながるという壮大な結論です。", grammars: ["help O (to) do (Oが〜するのを助ける)"] }
+    ];
+
+    /**
+     * 【2. UIのレンダリングとインタラクション】
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+      initApp();
+    });
+
+    function initApp() {
+      renderSentences();
+      generateFullTranslation();
+      setupDrawerEvents();
+      setupSyntaxToggle();
+    }
+
+    // 英文を段落ごとにpタグで囲みながらレンダリング
+    function renderSentences() {
+      const container = document.getElementById('text-container');
+      if (!container) return;
+
+      container.innerHTML = '';
+      let currentP = -1;
+      let currentParagraphEl = null;
+
+      sentences.forEach(sentence => {
+        // 段落が変わった場合、新しい <p> タグを作成
+        if (sentence.p !== currentP) {
+          currentParagraphEl = document.createElement('p');
+          currentParagraphEl.className = 'mb-5 md:mb-6 leading-[2.2]';
+          container.appendChild(currentParagraphEl);
+          currentP = sentence.p;
+        }
+
+        // 通常の文の処理
+        const span = document.createElement('span');
+        span.className = 'sentence-span';
+        span.dataset.id = sentence.id;
+        span.textContent = sentence.english + ' ';
+        
+        // クリックイベントの付与
+        span.addEventListener('click', () => openDrawer(sentence.id));
+        
+        currentParagraphEl.appendChild(span);
+      });
+    }
+
+    // 全訳の生成
+    function generateFullTranslation() {
+      const area = document.getElementById('full-translation-area');
+      const btn = document.getElementById('toggle-translation-btn');
+      if (!area || !btn) return;
+      
+      let html = '';
+      let currentP = -1;
+      
+      sentences.forEach(s => {
+        if (s.p !== currentP) {
+          if (currentP !== -1) html += '</p>';
+          html += '<p class="mb-3 last:mb-0 leading-relaxed">';
+          currentP = s.p;
+        }
+        html += s.translation + ' ';
+      });
+      if (currentP !== -1) html += '</p>';
+      
+      area.innerHTML = html;
+
+      // トグルイベント
+      btn.addEventListener('click', () => {
+        area.classList.toggle('hidden');
+        const isHidden = area.classList.contains('hidden');
+        
+        if(isHidden) {
+          btn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+            全文の日本語訳を表示
+          `;
+          btn.classList.remove('bg-indigo-50', 'border-indigo-200', 'text-indigo-700');
+        } else {
+          btn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
+            日本語訳を閉じる
+          `;
+          btn.classList.add('bg-indigo-50', 'border-indigo-200', 'text-indigo-700');
+        }
+      });
+    }
+
+    // 構文解析テキストの視覚的フォーマット
+    function formatAnalysis(text) {
+      if(!text) return '<span class="text-slate-400 italic">No syntax data</span>';
+      
+      let result = '';
+      const stack = [];
+      let i = 0;
+      
+      while(i < text.length) {
+        const remaining = text.substring(i);
+        // S[, V[, V(助)[, S(動名詞)[ などのタグ開始を汎用的に検出
+        const match = remaining.match(/^(S'|S|V'|V|O1|O2|O'|O|C'|C|M'|M)(?:\([^)]+\))?\[/);
+        
+        if (match) {
+          const type = match[1];
+          const fullMatch = match[0];
+          
+          let colorClass = '';
+          let bgClass = '';
+          // 従属節（ダッシュ付き）かどうか
+          let isSub = type.includes("'");
+          
+          const baseType = type.replace("'", "").replace("1", "").replace("2", "");
+          
+          // 要素ごとに色を割り当て
+          switch(baseType) {
+            case 'S': colorClass = 'text-blue-900'; bgClass = isSub ? 'bg-blue-50/60' : 'bg-blue-100'; break;
+            case 'V': colorClass = 'text-red-900'; bgClass = isSub ? 'bg-red-50/60' : 'bg-red-100'; break;
+            case 'O': colorClass = 'text-green-900'; bgClass = isSub ? 'bg-green-50/60' : 'bg-green-100'; break;
+            case 'C': colorClass = 'text-purple-900'; bgClass = isSub ? 'bg-purple-50/60' : 'bg-purple-100'; break;
+            case 'M': colorClass = 'text-orange-900'; bgClass = isSub ? 'bg-orange-50/60' : 'bg-orange-100'; break;
+          }
+          
+          const borderClass = isSub ? 'border border-dashed border-slate-300' : 'border border-solid border-slate-200 shadow-sm';
+          
+          // 記号やSVOCの表記を省き、背景色だけで示す。メイン画面でのハイライト被りを防ぐため mix-blend-multiply を追加
+          result += `<span class="inline box-decoration-clone px-1 py-0.5 mx-0.5 rounded-md ${bgClass} ${colorClass} ${borderClass} font-medium mix-blend-multiply">`;
+          
+          stack.push(type);
+          i += fullMatch.length;
+        } else if (remaining.startsWith(']')) {
+          if (stack.length > 0) {
+            stack.pop();
+            result += `</span>`;
+          }
+          i++;
+        } else if (remaining.startsWith('<')) {
+          // < も表示しない
+          i++;
+        } else if (remaining.startsWith('>')) {
+          // > も表示しない
+          i++;
+        } else {
+          result += text[i];
+          i++;
+        }
+      }
+      
+      // 閉じ忘れ対策
+      while(stack.length > 0) {
+        result += '</span>';
+        stack.pop();
+      }
+      
+      return result;
+    }
+
+    // ドロワーの開閉ロジック
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('overlay');
+    const closeDrawerBtn = document.getElementById('close-drawer-btn');
+
+    function openDrawer(id) {
+      const sentence = sentences.find(s => s.id === id);
+      if (!sentence) return;
+
+      // 1. 本文のハイライト状態を更新
+      document.querySelectorAll('.sentence-span').forEach(el => el.classList.remove('active'));
+      const targetSpan = document.querySelector(`.sentence-span[data-id="${id}"]`);
+      if (targetSpan) {
+        targetSpan.classList.add('active');
+      }
+
+      // 2. ドロワー内のデータ更新
+      document.getElementById('drawer-english').textContent = sentence.english;
+      
+      document.getElementById('drawer-analysis').innerHTML = formatAnalysis(sentence.analysis);
+      
+      document.getElementById('drawer-translation').textContent = sentence.translation;
+      document.getElementById('drawer-focus').textContent = sentence.focus;
+      
+      const grammarsContainer = document.getElementById('drawer-grammars');
+      grammarsContainer.innerHTML = '';
+      if (sentence.grammars && sentence.grammars.length > 0) {
+        sentence.grammars.forEach(g => {
+          const li = document.createElement('li');
+          li.className = 'text-[13px] font-bold text-slate-700 bg-white border border-slate-200 shadow-sm px-3 py-1.5 rounded-lg';
+          li.textContent = g;
+          grammarsContainer.appendChild(li);
+        });
+      } else {
+        const p = document.createElement('p');
+        p.className = 'text-sm text-slate-400 italic';
+        p.textContent = '特になし';
+        grammarsContainer.appendChild(p);
+      }
+
+      // 3. UIの展開
+      drawer.classList.remove('translate-x-full');
+      overlay.classList.remove('hidden');
+      // requestAnimationFrame等を使って少し遅延させないとtransitionが効かない
+      requestAnimationFrame(() => {
+        overlay.classList.remove('opacity-0');
+        overlay.classList.add('opacity-100');
+      });
+    }
+
+    function closeDrawer() {
+      // ハイライト解除
+      document.querySelectorAll('.sentence-span').forEach(el => el.classList.remove('active'));
+      
+      // UIの非表示
+      drawer.classList.add('translate-x-full');
+      overlay.classList.remove('opacity-100');
+      overlay.classList.add('opacity-0');
+      
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+      }, 300); // duration-300に合わせる
+    }
+
+    function setupDrawerEvents() {
+      if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeDrawer);
+      if (overlay) overlay.addEventListener('click', closeDrawer);
+      
+      // Escキーで閉じる
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !drawer.classList.contains('translate-x-full')) {
+          closeDrawer();
+        }
+      });
+    }
+
+    // 構文解析のメイン画面トグルロジック
+    let isMainSyntaxMode = false;
+
+    function setupSyntaxToggle() {
+      const btn = document.getElementById('toggle-syntax-btn');
+      const legend = document.getElementById('main-syntax-legend');
+      if (!btn || !legend) return;
+
+      btn.addEventListener('click', () => {
+        isMainSyntaxMode = !isMainSyntaxMode;
+
+        if (isMainSyntaxMode) {
+          // 表示モードON
+          legend.classList.remove('hidden');
+          btn.classList.add('bg-indigo-50', 'border-indigo-200', 'text-indigo-700');
+          btn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+            </svg>
+            構文解析を隠す
+          `;
+        } else {
+          // 表示モードOFF
+          legend.classList.add('hidden');
+          btn.classList.remove('bg-indigo-50', 'border-indigo-200', 'text-indigo-700');
+          btn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+            構文解析を表示
+          `;
+        }
+
+        // 本文の表示切り替え
+        document.querySelectorAll('.sentence-span').forEach(span => {
+          const id = parseInt(span.dataset.id);
+          const sentence = sentences.find(s => s.id === id);
+          if (!sentence) return;
+
+          if (isMainSyntaxMode) {
+            span.innerHTML = formatAnalysis(sentence.analysis) + ' ';
+          } else {
+            span.textContent = sentence.english + ' ';
+          }
+        });
+      });
+    }
+
+  </script>
+</body>
+</html>
