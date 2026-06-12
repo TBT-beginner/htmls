@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎰 ROYAL VEGAS SLOT 🎰</title>
+<style>
+body {
+    text-align: center;
+    font-family: 'Arial Black', sans-serif;
+    background: #111;
+    color: white;
+    padding-top: 20px;
+}
+h1 {
+    color: #ffd700;
+    text-shadow: 0 0 15px rgba(255,215,0,0.8);
+    font-size: 2.5em;
+}
+/* 筐体 */
+.slot-machine {
+    background: linear-gradient(135px, #222 0%, #111 100%);
+    border: 10px solid #d4af37;
+    border-radius: 20px;
+    display: inline-block;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(212,175,55,0.3);
+}
+/* ★新パーツ:プレイカウンターのデザイン */
+.play-counter {
+    background: #050505;
+    border: 2px solid #d4af37;
+    border-radius: 5px;
+    padding: 8px 5px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+}
+.count-main {
+    font-size: 20px;
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255,215,0,0.6);
+}
+.count-sub {
+    font-size: 13px;
+    color: #aaa;
+}
+/* 残り回数が少なくなった時の警告表示 */
+.count-warning {
+    border-color: #ff4757;
+}
+.count-warning .count-main {
+    color: #ff4757;
+    text-shadow: 0 0 8px rgba(255,71,87,0.8);
+    animation: blink 0.6s infinite alternate;
+}
+/* ★新パーツ:ボーナスランプのデザイン */
+.bonus-lamp {
+    background: #222;
+    color: #555;
+    border: 2px solid #444;
+    padding: 5px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+}
+/* ボーナス中に光る演出用 */
+.bonus-active {
+    background: #ff00ff;
+    color: #fff;
+    border-color: #fff;
+    text-shadow: 0 0 10px #fff;
+    box-shadow: 0 0 15px #ff00ff;
+    animation: blink 0.5s infinite alternate;
+}
+@keyframes blink {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+.reels-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    background: #050505;
+    padding: 15px;
+    border-radius: 10px;
+    border: 3px solid #555;
+}
+.reel-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+.reel-window {
+    width: 120px;
+    height: 100px;
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 10px 20px rgba(0,0,0,0.8), inset 0 -10px 20px rgba(0,0,0,0.8);
+}
+.reel-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.symbol-wrapper {
+    width: 120px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+}
+.design-7 {
+    font-size: 70px;
+    font-weight: 900;
+    color: #ff003c;
+    text-shadow: 2px 2px 0px #b3002a, 4px 4px 0px #550014, 0 0 10px rgba(255,0,60,0.5);
+    font-family: 'Impact', sans-serif;
+}
+.design-bar {
+    background: #111;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 5px 15px;
+    border: 4px double #ffd700;
+    border-radius: 3px;
+    letter-spacing: 2px;
+    box-shadow: 0 0 5px rgba(214,175,55,0.8);
+}
+.design-cherry {
+    font-size: 65px;
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
+}
+button { font-weight: bold; cursor: pointer; border: none; border-radius: 5px; }
+button:disabled { background: #444 !important; color: #777 !important; cursor: not-allowed; box-shadow: none !important; }
+.start-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 22px;
+    background: linear-gradient(to bottom, #ffd700, #b8860b);
+    color: #111;
+    border: 2px solid #fff;
+    box-shadow: 0 5px 0 #7c5d03;
+    border-radius: 10px;
+}
+.start-btn:active { transform: translateY(5px); box-shadow: none; }
+.stop-btn {
+    width: 100px;
+    padding: 10px;
+    font-size: 16px;
+    background: linear-gradient(to bottom, #ff4757, #ff2a3b);
+    color: white;
+    box-shadow: 0 4px 0 #c0392b;
+}
+.stop-btn:active { transform: translateY(4px); box-shadow: none; }
+#result { font-size: 25px; font-weight: bold; margin-top: 25px; height: 35px; color: #555; }
+/* 大画面ポップアップ */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+.overlay-content {
+    animation: bounceIn 0.5s ease-out;
+}
+.overlay-content h2 {
+    font-size: 3.5em;
+    color: #ffd700;
+    text-shadow: 0 0 20px #ff0000, 0 0 40px #ff00ff;
+    margin: 0;
+    line-height: 1.3;
+}
+.overlay-content p {
+    font-size: 1.2em;
+    color: #aaa;
+    margin-top: 20px;
+}
+/* ★新パーツ:終了画面のデザイン */
+.end-title.clear {
+    color: #ffd700;
+    text-shadow: 0 0 20px #ffd700, 0 0 40px #ff00ff;
+}
+.end-title.gameover {
+    color: #ff4757;
+    text-shadow: 0 0 20px #ff0000, 0 0 40px #550000;
+}
+.end-sub {
+    font-size: 1.3em !important;
+    color: #fff !important;
+}
+.end-stats {
+    margin-top: 25px;
+    font-size: 1.2em;
+    color: #ffd700;
+    background: rgba(255,255,255,0.08);
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    padding: 15px 30px;
+    display: inline-block;
+    line-height: 1.8;
+}
+.restart-btn {
+    display: block;
+    margin: 30px auto 0;
+    padding: 15px 40px;
+    font-size: 20px;
+    background: linear-gradient(to bottom, #ffd700, #b8860b);
+    color: #111;
+    border: 2px solid #fff;
+    box-shadow: 0 5px 0 #7c5d03;
+    border-radius: 10px;
+}
+.restart-btn:active { transform: translateY(5px); box-shadow: none; }
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.1); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+</style>
+</head>
+<body>
+
+<h1>🎰 ROYAL VEGAS SLOT 🎰</h1>
+<div class="slot-machine">
+    <!-- ★新規:プレイカウンター -->
+    <div id="playCounter" class="play-counter"></div>
+
+    <div id="bonusLamp" class="bonus-lamp">READY</div>
+    <div class="reels-container">
+        <div class="reel-block">
+            <div class="reel-window"><div id="strip0" class="reel-strip"></div></div>
+            <button id="stop0" class="stop-btn" onclick="stopReel(0)" disabled>STOP</button>
+        </div>
+        <div class="reel-block">
+            <div class="reel-window"><div id="strip1" class="reel-strip"></div></div>
+            <button id="stop1" class="stop-btn" onclick="stopReel(1)" disabled>STOP</button>
+        </div>
+        <div class="reel-block">
+            <div class="reel-window"><div id="strip2" class="reel-strip"></div></div>
+            <button id="stop2" class="stop-btn" onclick="stopReel(2)" disabled>STOP</button>
+        </div>
+    </div>
+    <button id="startBtn" class="start-btn" onclick="startSlot()">SPIN START</button>
+</div>
+<div id="result"></div>
+
+<div id="winOverlay" class="overlay" onclick="closeOverlay()">
+    <div class="overlay-content">
+        <h2 id="winMessage">🎉 CONGRATULATIONS! 🎉</h2>
+        <p>画面をタップして戻る</p>
+    </div>
+</div>
+
+<!-- ★新規:終了画面オーバーレイ -->
+<div id="endOverlay" class="overlay">
+    <div class="overlay-content">
+        <h2 id="endTitle" class="end-title"></h2>
+        <p id="endSub" class="end-sub"></p>
+        <div id="endStats" class="end-stats"></div>
+        <button id="restartBtn" class="restart-btn" onclick="restartGame()">🔄 もう一度遊ぶ</button>
+    </div>
+</div>
+
+<script>
+const symbols = ["cherry", "bell", "watermelon", "bar", "seven"];
+const SYMBOL_HEIGHT = 100;
+
+let reelPositions = [0, 0, 0];
+let timers = [null, null, null];
+let isRunning = [false, false, false];
+let bonusTurns = 0; // ボーナス残り回数
+
+// ★新規:プレイカウント関連
+const MAX_PLAYS = 20;       // 最大プレイ回数
+const SEVEN_GOAL = 2;       // 777の目標回数
+const TRIPLE_GOAL = 3;      // 777以外の3揃いの目標回数
+let playCount = 0;          // 現在のプレイ回数
+let sevenWins = 0;          // 777が揃った回数
+let tripleWins = 0;         // 777以外の3揃い回数
+let gameEnded = false;      // ゲーム終了フラグ
+let pendingEnd = null;      // 当選演出の後に表示する終了情報
+
+// リールごとのバラバラな回転スピード
+const REEL_SPEEDS = [8, 12, 10]; 
+
+function initReels() {
+    for (let i = 0; i < 3; i++) {
+        const strip = document.getElementById(`strip${i}`);
+        if (!strip) continue;
+        strip.innerHTML = "";
+
+        const doubleSymbols = [...symbols, ...symbols, ...symbols];
+        
+        doubleSymbols.forEach(symbol => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "symbol-wrapper";
+
+            const inner = document.createElement("div");
+            
+            if (symbol === "seven") {
+                inner.className = "design-7";
+                inner.textContent = "7";
+            } else if (symbol === "bar") {
+                inner.className = "design-bar";
+                inner.textContent = "BAR";
+            } else if (symbol === "cherry") {
+                inner.className = "design-cherry";
+                inner.textContent = "🍒";
+            } else if (symbol === "bell") {
+                inner.className = "design-cherry"; 
+                inner.textContent = "🔔";
+            } else if (symbol === "watermelon") {
+                inner.className = "design-cherry"; 
+                inner.textContent = "🍉";
+            }
+
+            wrapper.appendChild(inner);
+            strip.appendChild(wrapper);
+        });
+
+        reelPositions[i] = Math.floor(Math.random() * symbols.length);
+        strip.style.top = `-${reelPositions[i] * SYMBOL_HEIGHT}px`;
+    }
+    updateBonusDisplay();
+    updateCounterDisplay();
+}
+
+function startSlot() {
+    if (gameEnded) return; // ★ゲーム終了後はスピン不可
+    if (isRunning[0] || isRunning[1] || isRunning[2]) return;
+
+    document.getElementById('startBtn').disabled = true;
+    document.getElementById('result').textContent = "";
+
+    // ★プレイカウントを加算
+    playCount++;
+    updateCounterDisplay();
+
+    if (bonusTurns > 0) {
+        bonusTurns--;
+        updateBonusDisplay();
+    }
+
+    // 時間差スタート
+    for (let i = 0; i < 3; i++) {
+        isRunning[i] = true;
+        document.getElementById(`stop${i}`).disabled = false;
+        
+        ((idx) => {
+            setTimeout(() => {
+                runReel(idx);
+            }, idx * 120);
+        })(i);
+    }
+}
+
+function runReel(index) {
+    const strip = document.getElementById(`strip${index}`);
+    if (!strip) return;
+    
+    let currentTop = -reelPositions[index] * SYMBOL_HEIGHT;
+    const intervalTime = 10 + (index * 2); 
+
+    clearInterval(timers[index]);
+
+    timers[index] = setInterval(() => {
+        currentTop -= REEL_SPEEDS[index]; 
+        
+        if (currentTop <= -symbols.length * SYMBOL_HEIGHT) {
+            currentTop = 0;
+        }
+        strip.style.top = `${currentTop}px`;
+    }, intervalTime);
+}
+
+function stopReel(index) {
+    if (!isRunning[index]) return;
+
+    clearInterval(timers[index]);
+    document.getElementById(`stop${index}`).disabled = true;
+
+    const strip = document.getElementById(`strip${index}`);
+    if (!strip) return;
+
+    const currentTop = parseFloat(strip.style.top) || 0;
+    let stoppedIndex = Math.round(Math.abs(currentTop) / SYMBOL_HEIGHT) % symbols.length;
+    
+    // ボーナス中(確定フラグが立っている時)の100%大当りリール制御
+    if (bonusTurns > 0 && index > 0) {
+        stoppedIndex = reelPositions[0]; 
+    }
+
+    strip.style.top = `-${stoppedIndex * SYMBOL_HEIGHT}px`;
+    reelPositions[index] = stoppedIndex;
+    isRunning[index] = false;
+
+    if (!isRunning[0] && !isRunning[1] && !isRunning[2]) {
+        checkResult();
+    }
+}
+
+function checkResult() {
+    const r0 = symbols[reelPositions[0]];
+    const r1 = symbols[reelPositions[1]];
+    const r2 = symbols[reelPositions[2]];
+    const resultDiv = document.getElementById('result');
+    const overlay = document.getElementById('winOverlay');
+    const winMessage = document.getElementById('winMessage');
+
+    let winShown = false; // ★当選演出が出たかどうか
+
+    if (r0 === r1 && r1 === r2) {
+        winShown = true;
+
+        if (r0 === "seven") {
+            sevenWins++; // ★777カウント加算
+            winMessage.innerHTML = "👑 JACKPOT 777 👑<br>✨おめでとう!!✨";
+            overlay.style.display = "flex";
+            bonusTurns = 0;
+        } else if (r0 === "bell") {
+            tripleWins++; // ★3揃いカウント加算
+            winMessage.innerHTML = "🔔 BELL WIN 🔔<br>ナイス払い出し!";
+            overlay.style.display = "flex";
+            bonusTurns = 0;
+        } 
+        // BARが揃った時(30%の確率でボーナス突入)
+        else if (r0 === "bar") {
+            tripleWins++; // ★3揃いカウント加算
+            if (Math.random() < 0.3) {
+                winMessage.innerHTML = "🎰 BAR BONUS当選!! 🎰<br>🔥次の1回は超大当り確定🔥";
+                bonusTurns = 2; // 実質残り1回
+            } else {
+                winMessage.innerHTML = "🎰 BAR WIN 🎰<br>(ボーナス抽選はハズレ…)";
+                bonusTurns = 0;
+            }
+            overlay.style.display = "flex";
+        } 
+        // スイカが揃った時(30%の確率でボーナス突入)
+        else if (r0 === "watermelon") {
+            tripleWins++; // ★3揃いカウント加算
+            if (Math.random() < 0.3) {
+                winMessage.innerHTML = "🍉 WATERMELON当選!! 🍉<br>🔥次の1回は超大当り確定🔥";
+                bonusTurns = 2; // 実質残り1回
+            } else {
+                winMessage.innerHTML = "🍉 WATERMELON WIN 🍉<br>(ボーナス抽選はハズレ…)";
+                bonusTurns = 0;
+            }
+            overlay.style.display = "flex";
+        } 
+        // チェリーは今まで通り100%ボーナス
+        else if (r0 === "cherry") {
+            tripleWins++; // ★3揃いカウント加算
+            winMessage.innerHTML = "🍒 CHERRY BONUS!! 🍒<br>🔥次の1回は超大当り確定🔥";
+            overlay.style.display = "flex";
+            bonusTurns = 2; // 実質残り1回
+        }
+    } else {
+        if (bonusTurns > 0) {
+            resultDiv.textContent = `BONUS SPIN (残り ${bonusTurns} 回)`;
+            resultDiv.style.color = "#ff00ff";
+        } else {
+            resultDiv.textContent = "TRY AGAIN";
+            resultDiv.style.color = "#555";
+        }
+    }
+
+    updateCounterDisplay();
+
+    // ★終了判定
+    checkGameEnd(winShown);
+
+    if (!gameEnded) {
+        document.getElementById('startBtn').disabled = false;
+    }
+    updateBonusDisplay();
+}
+
+// ★新規:終了条件のチェック
+function checkGameEnd(winShown) {
+    let endInfo = null;
+
+    if (sevenWins >= SEVEN_GOAL) {
+        endInfo = {
+            clear: true,
+            title: "👑 PERFECT CLEAR!! 👑",
+            sub: `777を${SEVEN_GOAL}回達成!伝説のプレイヤー誕生!`
+        };
+    } else if (tripleWins >= TRIPLE_GOAL) {
+        endInfo = {
+            clear: true,
+            title: "🎉 GAME CLEAR!! 🎉",
+            sub: `絵柄3揃いを${TRIPLE_GOAL}回達成!お見事!`
+        };
+    } else if (playCount >= MAX_PLAYS) {
+        endInfo = {
+            clear: false,
+            title: "💀 GAME OVER 💀",
+            sub: `${MAX_PLAYS}回以内に達成できませんでした…`
+        };
+    }
+
+    if (!endInfo) return;
+
+    gameEnded = true;
+    bonusTurns = 0;
+    document.getElementById('startBtn').disabled = true;
+    for (let i = 0; i < 3; i++) {
+        document.getElementById(`stop${i}`).disabled = true;
+    }
+
+    if (winShown) {
+        // 当選演出が表示中なら、閉じた後に終了画面を出す
+        pendingEnd = endInfo;
+    } else {
+        showEndScreen(endInfo);
+    }
+}
+
+// ★新規:終了画面の表示
+function showEndScreen(endInfo) {
+    const overlay = document.getElementById('endOverlay');
+    const title = document.getElementById('endTitle');
+    const sub = document.getElementById('endSub');
+    const stats = document.getElementById('endStats');
+
+    title.textContent = endInfo.title;
+    title.className = endInfo.clear ? "end-title clear" : "end-title gameover";
+    sub.textContent = endInfo.sub;
+    stats.innerHTML = 
+        `プレイ回数:${playCount} / ${MAX_PLAYS}<br>` +
+        `👑 777:${sevenWins} / ${SEVEN_GOAL} 回<br>` +
+        `🎰 絵柄3揃い:${tripleWins} / ${TRIPLE_GOAL} 回`;
+
+    overlay.style.display = "flex";
+}
+
+// ★新規:リスタート処理
+function restartGame() {
+    playCount = 0;
+    sevenWins = 0;
+    tripleWins = 0;
+    bonusTurns = 0;
+    gameEnded = false;
+    pendingEnd = null;
+
+    document.getElementById('endOverlay').style.display = "none";
+    document.getElementById('result').textContent = "";
+    document.getElementById('startBtn').disabled = false;
+
+    initReels();
+}
+
+function updateBonusDisplay() {
+    const lamp = document.getElementById('bonusLamp');
+    const startBtn = document.getElementById('startBtn');
+    
+    if (!lamp || !startBtn) return;
+
+    const displayTurns = bonusTurns > 1 ? 1 : bonusTurns;
+
+    if (displayTurns > 0) {
+        lamp.textContent = `🔥 BONUS SPIN : 残り ${displayTurns} 回 🔥`;
+        lamp.className = "bonus-lamp bonus-active";
+        startBtn.style.background = "linear-gradient(to bottom, #ff00ff, #800080)";
+        startBtn.textContent = "🔥 SUPER SPIN 🔥";
+    } else {
+        lamp.textContent = "🎰 READY 🎰";
+        lamp.className = "bonus-lamp";
+        startBtn.style.background = "linear-gradient(to bottom, #ffd700, #b8860b)";
+        startBtn.textContent = "SPIN START";
+    }
+}
+
+// ★新規:カウンター表示の更新
+function updateCounterDisplay() {
+    const counter = document.getElementById('playCounter');
+    if (!counter) return;
+
+    const remaining = MAX_PLAYS - playCount;
+    counter.innerHTML = 
+        `<span class="count-main">PLAY ${playCount} / ${MAX_PLAYS}</span>` +
+        `<span class="count-sub">👑777:${sevenWins}/${SEVEN_GOAL} 🎰3揃い:${tripleWins}/${TRIPLE_GOAL}</span>`;
+
+    // 残り5回以下で警告色に
+    if (!gameEnded && remaining <= 5) {
+        counter.classList.add("count-warning");
+    } else {
+        counter.classList.remove("count-warning");
+    }
+}
+
+function closeOverlay() {
+    const overlay = document.getElementById('winOverlay');
+    if (overlay) overlay.style.display = "none";
+    updateBonusDisplay();
+
+    // ★当選演出の後に終了画面を表示
+    if (pendingEnd) {
+        const info = pendingEnd;
+        pendingEnd = null;
+        showEndScreen(info);
+    }
+}
+
+initReels();
+
+</script>
+</body>
+</html>
