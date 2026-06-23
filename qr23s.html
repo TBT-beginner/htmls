@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生徒英作文アンケート分析＆フィードバック・ダッシュボード</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter & Noto Sans JP) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+        /* アコーディオンの開閉アニメーション */
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary svg {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- ヘッダー -->
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-md py-6 px-4 sm:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-blue-500 text-white text-xs px-2.5 py-1 rounded-full font-semibold uppercase tracking-wider">Teacher Tool</span>
+                    <span class="text-xs text-blue-100">2026年度版</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">生徒英作文アンケート回答 分析ダッシュボード</h1>
+                <p class="text-blue-100 text-sm mt-1">提出された自由英作文・例文構築の文法チェック、和訳、解説、および指導用修正フィードバック</p>
+            </div>
+            <div class="flex gap-3 bg-white/10 p-2 rounded-xl backdrop-blur-sm">
+                <button onclick="expandAll()" class="text-xs font-medium bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg transition-all flex items-center gap-1">
+                    <i data-lucide="chevrons-down" class="w-3.5 h-3.5"></i> すべて展開
+                </button>
+                <button onclick="collapseAll()" class="text-xs font-medium bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg transition-all flex items-center gap-1">
+                    <i data-lucide="chevrons-up" class="w-3.5 h-3.5"></i> すべて折りたたむ
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ領域 -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-8 py-8 flex flex-col lg:flex-row gap-8">
+        
+        <!-- 左サイドバー: 統計とフィルター -->
+        <div class="w-full lg:w-80 flex flex-col gap-6 shrink-0">
+            
+            <!-- 統計カード -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="bar-chart-3" class="text-blue-600 w-5 h-5"></i>
+                    分析サマリー
+                </h2>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <span class="text-xs text-slate-500 block">総回答数</span>
+                        <span class="text-2xl font-bold text-slate-800" id="stat-total">88</span>
+                    </div>
+                    <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-100">
+                        <span class="text-xs text-emerald-600 block">適切 (OK)</span>
+                        <span class="text-2xl font-bold text-emerald-600" id="stat-ok">49</span>
+                    </div>
+                    <div class="bg-rose-50 p-3 rounded-xl border border-rose-100">
+                        <span class="text-xs text-rose-600 block">不適切 (NG)</span>
+                        <span class="text-2xl font-bold text-rose-600" id="stat-ng">29</span>
+                    </div>
+                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 block">無効・ゴミ</span>
+                        <span class="text-2xl font-bold text-slate-500" id="stat-invalid">10</span>
+                    </div>
+                </div>
+                
+                <div class="space-y-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="text-xs font-semibold text-slate-600 mb-1">主な間違いの傾向</div>
+                    <div class="flex items-center justify-between text-xs text-slate-600">
+                        <span>冠詞・単数/複数形の誤り</span>
+                        <span class="font-bold text-slate-800">35%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <div class="bg-amber-500 h-full rounded-full" style="width: 35%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-slate-600 mt-2">
+                        <span>スペルミス・タイポ</span>
+                        <span class="font-bold text-slate-800">28%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <div class="bg-orange-500 h-full rounded-full" style="width: 28%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-slate-600 mt-2">
+                        <span>時制・文構造の欠落</span>
+                        <span class="font-bold text-slate-800">22%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <div class="bg-rose-500 h-full rounded-full" style="width: 22%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- コントロール・フィルター -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sticky top-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="sliders-horizontal" class="text-blue-600 w-5 h-5"></i>
+                    コントロール
+                </h2>
+                
+                <!-- 検索バー -->
+                <div class="mb-5">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">キーワード検索</label>
+                    <div class="relative">
+                        <input type="text" id="search-input" oninput="filterData()" placeholder="英文、単語、お題で検索..." 
+                               class="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                        <i data-lucide="search" class="absolute left-3 top-2.5 text-slate-400 w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- ステータスフィルター -->
+                <div class="mb-5">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">判定ステータスで絞り込み</label>
+                    <div class="flex flex-col gap-1.5">
+                        <button onclick="setStatusFilter('all')" id="btn-filter-all" class="filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-blue-50 text-blue-700 border border-blue-100">
+                            <span>すべて表示</span>
+                            <span class="bg-blue-100 text-blue-800 text-[10px] px-1.5 py-0.5 rounded-full font-bold">88</span>
+                        </button>
+                        <button onclick="setStatusFilter('ok')" id="btn-filter-ok" class="filter-btn w-full text-left text-xs px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-50 border border-transparent transition-all flex items-center justify-between">
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> 適切 (OK)</span>
+                            <span class="bg-slate-100 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full font-bold">49</span>
+                        </button>
+                        <button onclick="setStatusFilter('ng')" id="btn-filter-ng" class="filter-btn w-full text-left text-xs px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-50 border border-transparent transition-all flex items-center justify-between">
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-500"></span> 不適切 (NG)</span>
+                            <span class="bg-slate-100 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full font-bold">29</span>
+                        </button>
+                        <button onclick="setStatusFilter('invalid')" id="btn-filter-invalid" class="filter-btn w-full text-left text-xs px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-50 border border-transparent transition-all flex items-center justify-between">
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-slate-400"></span> 無効データ</span>
+                            <span class="bg-slate-100 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full font-bold">10</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-[11px] text-slate-400 leading-relaxed border-t border-slate-100 pt-4">
+                    ※回答内の不適切なスペルや抜け漏れはハイライトされ、修正用の詳細な解説が格納されています。授業での共通フィードバックや個別添削にお役立てください。
+                </div>
+            </div>
+        </div>
+
+        <!-- 右メイン: お題別回答分析リスト -->
+        <div class="flex-grow flex flex-col gap-6" id="analysis-container">
+            <!-- JavaScriptでここにターゲット構文ごとの分析カードが生成されます -->
+        </div>
+
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-slate-900 text-slate-400 py-8 px-4 border-t border-slate-800 text-center text-xs">
+        <div class="max-w-7xl mx-auto">
+            <p>生徒英作文アンケート回答分析ツール &copy; 2026. 教師用英語指導支援・分析用データベース</p>
+            <p class="mt-1 text-slate-600">英語の標準的表現、および高校・中学の学習指導要領を参考にした添削と解説が含まれています。</p>
+        </div>
+    </footer>
+
+    <!-- 通知ポップアップ（コピー時用） -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-lg text-sm flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none z-50">
+        <i data-lucide="check-circle" class="text-emerald-400 w-5 h-5"></i>
+        <span id="toast-message">コピーしました！</span>
+    </div>
+
+    <!-- 分析用データ定義 (JSON形式) -->
+    <script>
+        // 判定ステータスフィルター
+        let currentFilter = 'all';
+
+        const rawData = [
+            {
+                id: 1,
+                title: "1. 休暇や活動の期間の表現",
+                syntax: "I have another week of [vacation/freedom/etc.]",
+                desc: "「〜がもう1週間ある」という表現。`another week of`の使い方の定着度を見ます。",
+                items: [
+                    { original: "I another week of summer vacation", status: "ng", highlight: "I <span class='text-rose-600 font-bold underline decoration-wavy'>another week</span> of summer vacation", translation: "（修正後）私には夏休みがもう1週間あります。", correction: "I <strong>have</strong> another week of summer vacation", comment: "動詞 <strong>have</strong> が完全に抜け落ちています。日本語の「私はあと1週間の夏休み」という名詞節的な感覚を直訳してしまった典型的なミスです。" },
+                    { original: "I have another week of winter vacation", status: "ok", highlight: "I have another week of winter vacation", translation: "私には冬休みがもう1週間あります。", comment: "文法・文脈ともに完璧です。冬休みを心待ちにする自然な表現です。" },
+                    { original: "I have another week of winter vacation.", status: "ok", highlight: "I have another week of winter vacation.", translation: "私には冬休みがもう1週間あります。", comment: "文法・ピリオドも含め完璧な文です。" },
+                    { original: "I have another week of spring vacation.", status: "ok", highlight: "I have another week of spring vacation.", translation: "私には春休みがもう1週間あります。", comment: "お題の応用として、冬休みを春休みに言い換えた、適切な英文です。" },
+                    { original: "I have another week of freedom.", status: "ok", highlight: "I have another week of freedom.", translation: "私には自由な時間がもう1週間あります。", comment: "「休みの期間」を「自由（freedom）」とユニークに応用しています。文法的にも非常に自然です。" },
+                    { original: "I have another week of winter", status: "ng", highlight: "I have another week of <span class='text-amber-600 font-bold underline'>winter</span>", translation: "（修正後）私には冬休みがもう1週間あります。", correction: "I have another week of <strong>winter vacation</strong>", comment: "単に `winter`（冬という季節）とすると、「私の冬はあと1週間残っている」という詩的で奇妙な表現になります。文脈上、冬休み（winter vacation）と書きたかったものと思われます。" },
+                    { original: "We have another week for exam.", status: "ng", highlight: "We have another week <span class='text-rose-600 font-bold underline decoration-wavy'>for exam</span>.", translation: "（修正後）試験まであと1週間あります。", correction: "We have another week <strong>before the exams</strong>. / We have another week <strong>to study for the exam</strong>.", comment: "「試験に向けた時間がもう1週間ある」と言いたい場合、`for exam` は不自然です。一般的には `before the exams`（試験の前に）、または `to prepare for the exam`（試験に備えるために）と表現します。また、単数の exam には冠詞（an exam / the exam）を付けるか、複数形にする必要があります。" }
+                ]
+            },
+            {
+                id: 2,
+                title: "2. 身体的特徴や性質の表現",
+                syntax: "S + has + [red eyes / beautiful eyes / long hair / etc.]",
+                desc: "「〜は〜（身体的特徴）を持っている、〜だ」という表現。可算名詞・不可算名詞、主語の単数・複数による動詞の変化を見ます。",
+                items: [
+                    { original: "She has red eyes", status: "ok", highlight: "She has red eyes", translation: "彼女は目が赤い。", comment: "文法的には正しいですが、「red eyes」は通常、目が充血している状態、あるいはアルビノ、あるいはアニメキャラなどの特徴を指します。日常描写としては文法的に完璧です。" },
+                    { original: "She has biautiful eyes.", status: "ng", highlight: "She has <span class='text-rose-600 font-bold underline decoration-wavy'>biautiful</span> eyes.", translation: "彼女は美しい目をしている。", correction: "She has <strong>beautiful</strong> eyes.", comment: "形容詞 `beautiful` のスペルミス（タイポ）です。発音の「ビュー」に引っ張られて `bi-` と綴ってしまいがちなので、正しい綴りを意識させましょう。" },
+                    { original: "She has beautiful eyes.", status: "ok", highlight: "She has beautiful eyes.", translation: "彼女は美しい目をしている。", comment: "文法、スペルともに完璧です。" },
+                    { original: "He has red hair.", status: "ok", highlight: "He has red hair.", translation: "彼は赤髪だ。", comment: "髪の毛（hair）は通常「不可算名詞（数えられない）」として扱うため、a red hair ではなく、単数扱いの red hair で正解です。" },
+                    { original: "She has long hair.", status: "ok", highlight: "She has long hair.", translation: "彼女は髪が長い。", comment: "こちらも不可算名詞の hair を正しく扱い、文法・スペルともに適切です。" },
+                    { original: "Cat has green eyes.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>Cat</span> has green eyes.", translation: "（修正後）猫は緑色の目をしている。", correction: "<strong>A cat</strong> has green eyes. / <strong>Cats have</strong> green eyes.", comment: "数えられる名詞 `cat` が、冠詞（A / The）も複数形の s もついていない裸の状態で主語になっています。一般論としての猫の特徴を語る場合は、複数形を用いて `Cats have green eyes.` とするのが最も自然です。" },
+                    { original: "He has long leg.", status: "ng", highlight: "He has long <span class='text-rose-600 font-bold underline decoration-wavy'>leg</span>.", translation: "（修正後）彼は足が長い。", correction: "He has long <strong>legs</strong>.", comment: "人間の足（脚部）は通常2本ありますので、複数形の <strong>legs</strong> にする必要があります。単数形 `leg` にすると「片方の脚だけが長い」という奇妙な意味になってしまいます。" }
+                ]
+            },
+            {
+                id: 3,
+                title: "3. 存在を表す表現",
+                syntax: "There is/are + [名詞] + in/at [場所]",
+                desc: "「〜に〜がある/いる」という表現。主語の単数・複数に応じた represents-verb (is/are) の一致、及び名詞の冠詞のルールを確認します。",
+                items: [
+                    { original: "There is a zoo in this country", status: "ok", highlight: "There is a zoo in this country", translation: "この国には動物園があります。", comment: "文法的に全く問題ありません。" },
+                    { original: "There is a aquarium in this city", status: "ng", highlight: "There is <span class='text-rose-600 font-bold underline decoration-wavy'>a</span> aquarium in this city", translation: "（修正後）この街には水族館があります。", correction: "There is <strong>an</strong> aquarium in this city", comment: "母音（a, i, u, e, o）で始まる名詞 `aquarium` の前なので、不定冠詞は `a` ではなく <strong>an</strong> でなければなりません。よくある見落としです。" },
+                    { original: "There are thirty - one people in my classroom.", status: "ok", highlight: "There are thirty - one people in my classroom.", translation: "私のクラスには31人の人がいます。", comment: "ハイフン「-」の前後スペースが少し不自然ですが、文法的には正しい文です。（通常は thirty-one とスペースなしで書きます）" },
+                    { original: "There is a prefectural office in this city.", status: "ok", highlight: "There is a prefectural office in this city.", translation: "この街には県庁があります。", comment: "prefectural office（県庁・県庁所在地）という少し高度な語彙を正しく使い、文法も完璧です。" },
+                    { original: "There is a police station in this city.", status: "ok", highlight: "There is a police station in this city.", translation: "この街には警察署があります。", comment: "文法・構成ともに完璧です。" },
+                    { original: "There is a pretty.", status: "ng", highlight: "There is a <span class='text-rose-600 font-bold underline decoration-wavy'>pretty</span>.", translation: "（修正後）かわいい［花／女の子など］がいます。", correction: "There is a <strong>pretty flower</strong> in the garden. / There is a <strong>pretty girl</strong>.", comment: "形容詞 `pretty` の後ろに修飾される「名詞」が欠落しています。`There is a + 形容詞 + 名詞` の形を完成させる必要があります。" },
+                    { original: "There are a lot of students in my schools.", status: "ng", highlight: "There are a lot of students in my <span class='text-amber-600 font-bold underline'>schools</span>.", translation: "（修正後）私の学校にはたくさんの生徒がいます。", correction: "There are a lot of students in my <strong>school</strong>.", comment: "自分が通っている「私の学校」を指す場合、通常は単数形の `school` です。複数形の `schools` にすると、「私が所有・運営している複数の学校」という大規模な意味になってしまい、不自然です。" }
+                ]
+            },
+            {
+                id: 4,
+                title: "4. 食欲やエネルギーの表現（否定）",
+                syntax: "I don't have much of an appetite / energy [時間]",
+                desc: "「あまり食欲がない、元気がない」という慣用句表現。時制（現在・過去）の使い分けに注意が必要です。",
+                items: [
+                    { original: "I don't have much of an appetite last night", status: "ng", highlight: "I <span class='text-rose-600 font-bold underline decoration-wavy'>don't</span> have much of an appetite last night", translation: "（修正後）昨日の夜はあまり食欲がありませんでした。", correction: "I <strong>didn't</strong> have much of an appetite last night", comment: "文末に `last night`（昨夜）という過去を示す表現があるため、現在形の `don't` は不適切です。過去否定の <strong>didn't</strong> に修正する必要があります。時制の一致は重要です。" },
+                    { original: "I don`t have much of an appetite this lunch", status: "ng", highlight: "I don<span class='text-amber-600 font-bold underline font-mono'>`</span>t have much of an appetite <span class='text-rose-600 font-bold underline decoration-wavy'>this lunch</span>", translation: "（修正後）今日の昼食はあまり食欲がありません。", correction: "I don<strong>'</strong>t have much of an appetite <strong>at lunch today</strong> / <strong>for lunch today</strong>", comment: "2つの修正点があります。①アポストロフィがバッククォート（`）になっています。②「今日の昼食（時）」は `this lunch` ではなく `at lunch today` または `for lunch today` と表現するのが自然です。" },
+                    { original: "You don't have much of an appetite this lunch.", status: "ng", highlight: "You don't have much of an appetite <span class='text-rose-600 font-bold underline decoration-wavy'>this lunch</span>.", translation: "（修正後）あなたは今日の昼食、あまり食欲がないのですね。", correction: "You don't have much of an appetite <strong>at lunch today</strong>.", comment: "上記同様、`this lunch` ではなく `at lunch today` と表現します。主語を You に変えたのは良い視点です。" },
+                    { original: "I don't have much energy this morning.", status: "ok", highlight: "I don't have much energy this morning.", translation: "今朝はあまり元気がありません。", comment: "appetite（食欲）を energy（元気・エネルギー）に置き換えた、非常に実用的かつ正しい英文です。`this morning` も自然に使えています。" },
+                    { original: "I did not have time to eat lunch today.", status: "ok", highlight: "I did not have time to eat lunch today.", translation: "今日は昼食を食べる時間がありませんでした。", comment: "お題の構文とはやや離れていますが、時間表現（today）と過去形（did not）が噛み合っており、文法的に完璧に自立した文です。" }
+                ]
+            },
+            {
+                id: 5,
+                title: "5. 全力を尽くす表現",
+                syntax: "S + did + [所有格] + best",
+                desc: "「ベストを尽くした」という表現。主語に応じた「所有格（my, your, our, their）」の変化を見ます。",
+                items: [
+                    { original: "I did my best", status: "ok", highlight: "I did my best", translation: "私は最善を尽くしました。", comment: "完璧です。日常会話でも非常によく使うイディオムです。" },
+                    { original: "You tried your best.", status: "ok", highlight: "You tried your best.", translation: "あなたは全力を尽くしました。", comment: "お題の `did` を `tried` に変更した応用文。`try one's best` も「全力を尽くす」という意味の素晴らしい表現です。主語 You に対する your の一致も完璧。" },
+                    { original: "We did our best.", status: "ok", highlight: "We did our best.", translation: "私たちは最善を尽くしました。", comment: "主語を We に、所有格を our に正しく一致させています。完璧な文です。" }
+                ]
+            },
+            {
+                id: 6,
+                title: "6. 義務・提案・アドバイス",
+                syntax: "You should / shouldn't + [動詞の原形]",
+                desc: "「〜すべきだ / すべきではない」という助動詞を用いた表現。助動詞の後の動詞の形、コロケーション、タイポに注意します。",
+                items: [
+                    { original: "You should run a blue light", status: "ng", highlight: "You should <span class='text-rose-600 font-bold underline decoration-wavy'>run a blue light</span>", translation: "（修正後）青信号では進むべきです。", correction: "You should <strong>go on a green light</strong>.", comment: "英語圏では「青信号」を <strong>green light</strong> と言います（blue はNG）。また、`run a red light`（赤信号を無視して走る）という表現はありますが、青信号の時に `run a green light` とは言いません。青信号なら進むべき、は `go on a green light` とします。" },
+                    { original: "You shouldn`t eat snack to much", status: "ng", highlight: "You shouldn<span class='text-amber-600 font-bold underline'>`</span>t eat <span class='text-rose-600 font-bold underline decoration-wavy'>snack to much</span>", translation: "（修正後）お菓子を食べ過ぎるべきではありません。", correction: "You shouldn<strong>'</strong>t eat <strong>snacks too much</strong> / eat <strong>too many snacks</strong>", comment: "3つの修正が必要です。①アポストロフィが ` になっています。②「お菓子」は通常複数形の <strong>snacks</strong> にします。③「〜すぎる」は to ではなく <strong>too</strong> です。" },
+                    { original: "You shouldn't eat with family.", status: "ng", highlight: "You shouldn't eat <span class='text-amber-600 font-bold underline'>with family</span>.", translation: "（修正後）家族と一緒に食事をするべきではありません（？）", correction: "You shouldn't eat <strong>alone without your</strong> family. / You shouldn't eat <strong>messily in front of your</strong> family.", comment: "文法的には通りますが、「家族と一緒に食べてはならない」という文脈になり、一般常識からすると不自然です。文脈（例えば、黙食やマナー等）を表現したい場合は、より詳細な説明が必要になります。" },
+                    { original: "You shouldn't fall asleep in class.", status: "ok", highlight: "You shouldn't fall asleep in class.", translation: "授業中に居眠りをするべきではありません。", comment: "スペル、文法、文脈（生徒としての日常）すべてにおいて非常に自然で素晴らしい文です。" },
+                    { original: "You shouldn't run rail way.", status: "ng", highlight: "You shouldn't run <span class='text-rose-600 font-bold underline decoration-wavy'>rail way</span>.", translation: "（修正後）線路の上を走ってはいけません。", correction: "You shouldn't run <strong>on the railway / tracks</strong>.", comment: "「線路を走る」は、直接目的語をとる `run railway` ではなく、前置詞 `on` と冠詞を用いて <strong>run on the railway</strong> または <strong>run on the tracks</strong> と表します。" },
+                    { original: "You should  not run in the classrooms.", status: "ok", highlight: "You should  not run in the classrooms.", translation: "教室内で走るべきではありません。", comment: "少しスペースが空いていますが、文法としては完全に正しく、学校のルールとして自然な表現です。" }
+                ]
+            },
+            {
+                id: 7,
+                title: "7. 一般論としての習慣表現（主語 We/They）",
+                syntax: "We/They + [動詞] + in [Country/Season]",
+                desc: "特定の国や時期における一般大衆の習慣。「一般の人々」を主語にする場合の We と They の感覚、名詞の可算・不可算の確認をします。",
+                items: [
+                    { original: "They wear masks in winter in Korea", status: "ok", highlight: "They wear masks in winter in Korea", translation: "韓国では冬にマスクを着用します。", comment: "第三者の国の一般習慣を言うため主語を They にしており、文法・文脈ともに自然です。" },
+                    { original: "We wear masks in disaster", status: "ng", highlight: "We wear masks <span class='text-rose-600 font-bold underline decoration-wavy'>in disaster</span>", translation: "（修正後）私たちは災害時にマスクを着用します。", correction: "We wear masks <strong>in a disaster</strong> / <strong>during disasters</strong>", comment: "可算名詞である `disaster` が冠詞なしの単数形になっています。特定の災害ではなく一般の災害時を指す場合は、<strong>during disasters</strong>（災害時）または <strong>in times of disaster</strong> と複数形や慣用表現を使うのが自然です。" },
+                    { original: "We wear sunglasses in summer in Australia.", status: "ok", highlight: "We wear sunglasses in summer in Australia.", translation: "オーストラリアでは夏にサングラスをかけます。", comment: "主語 We（現地の人、あるいは人間一般）、複数名詞 sunglasses の使い方が非常に綺麗です。" },
+                    { original: "We eat cold noodles in summer in Japan.", status: "ok", highlight: "We eat cold noodles in summer in Japan.", translation: "日本では夏に冷たい麺（冷やし中華やそうめんなど）を食べます。", comment: "日本の夏の習慣を外国に紹介する表現として非常に優れています。文法的にも正しいです。" },
+                    { original: "We use a chopsticks in Japan.", status: "ng", highlight: "We use <span class='text-rose-600 font-bold underline decoration-wavy'>a chopsticks</span> in Japan.", translation: "（修正後）日本では私たちは箸を使います。", correction: "We use <strong>chopsticks</strong> in Japan.", comment: "箸（chopsticks）は2本で1組のため常に複数形で表します。そのため、単数を意味する不定冠詞 <strong>a</strong> を同時につけることはできません。a を削除してください。" },
+                    { original: "We quit during test.", status: "ng", highlight: "We quit <span class='text-rose-600 font-bold underline decoration-wavy'>during test</span>.", translation: "（修正後）私たちはテスト中、諦めます（？）", correction: "We shouldn't quit <strong>during tests</strong>. / We quit <strong>during the test</strong>.", comment: "文意がやや曖昧です。「テスト中にテストを投げる（諦める）」の意であれば、冠詞や複数形を用いて `during tests` または `during the test` とします。また、習慣として「諦める」と言い切るのも文脈上不自然なので、「諦めるべきではない」など助動詞をつけるとより良くなります。" }
+                ]
+            },
+            {
+                id: 8,
+                title: "8. 気候や災害を伴う一般的表現",
+                syntax: "We/They + have + [earthquakes/rain/etc.] + in [Place]",
+                desc: "「（ある場所で）〜がある（天候・自然現象）」を `We have...` や `They have...` を用いて表す構文です。",
+                items: [
+                    { original: "We always have big earthquakes in Japan", status: "ok", highlight: "We always have big earthquakes in Japan", translation: "日本にはいつも大きな地震があります（私たちは常に大地震を経験します）。", comment: "頻度を表す always の位置、複数形 earthquakes、日本を主語とする We have、すべて正しいです。" },
+                    { original: "They often have big earthquakes in Japan.", status: "ok", highlight: "They often have big earthquakes in Japan.", translation: "日本にはしばしば大きな地震があります。", comment: "客観的に日本について語る文として、主語を They にして earthquake を複数形にするなど、文法的に完璧です。" },
+                    { original: "We had a lot of rain here last summer.", status: "ok", highlight: "We had a lot of rain here last summer.", translation: "去年の夏、ここは雨が多かったです（私たちはたくさんの雨を経験しました）。", comment: "過去のこと（last summer）に対して過去形 had を使えており、雨（rain：不可算名詞）の扱いも完璧です。" },
+                    { original: "They sometimes have big events in schools", status: "ng", highlight: "They sometimes have big events <span class='text-rose-600 font-bold underline decoration-wavy'>in schools</span>", translation: "（修正後）学校では時々大きなイベントがあります。", correction: "They sometimes have big events <strong>at school</strong> / <strong>in school</strong>", comment: "一般的な「学校という場所において、通学中に」という意味を表す場合、慣用的に <strong>at school</strong> または <strong>in school</strong> と無冠詞の単数で表します。`in schools` だと、複数の建物という物理的なニュアンスが強くなり不自然です。" }
+                ]
+            },
+            {
+                id: 9,
+                title: "9. 日時や記念日の表現",
+                syntax: "It's [not/my] birthday [today]",
+                desc: "Itを主語にした記念日・特別な日の表し方、所有格のアポストロフィをチェックします。",
+                items: [
+                    { original: "It's not my birthday", status: "ok", highlight: "It's not my birthday", translation: "今日は私の誕生日ではありません。", comment: "文法的に全く問題ありません。完璧です。" },
+                    { original: "It's my birthday today.", status: "ok", highlight: "It's my birthday today.", translation: "今日は私の誕生日です。", comment: "定番の祝祭表現。完璧です。" },
+                    { original: "It is Takahasi`s special days", status: "ng", highlight: "It is Takahasi<span class='text-amber-600 font-bold underline font-mono'>`</span>s special <span class='text-rose-600 font-bold underline decoration-wavy'>days</span>", translation: "（修正後）今日は高橋くんの特別な日（記念日）です。", correction: "It is Takahashi<strong>'</strong>s special <strong>day</strong>", comment: "スペルと記号に3点修正。①アポストロフィがバッククォート（`）になっています。②高橋の綴りは通常 `Takahashi` です。③「特別な日」は特定の日（今日）を指すため、複数形 `days` ではなく単数形 <strong>day</strong> にします。" }
+                ]
+            },
+            {
+                id: 10,
+                title: "10. 天候を表す表現（It is ~）",
+                syntax: "It's / It was + [weather] + [today/yesterday]",
+                desc: "天候を表す形式の `It` と時制（現在・過去）、形容詞と名詞の使い分けを確認します。",
+                items: [
+                    { original: "It's sunny and hot today", status: "ok", highlight: "It's sunny and hot today", translation: "今日は晴れていて暑いです。", comment: "日常英会話の基本文です。素晴らしい使いこなしです。" },
+                    { original: "It is sunny today.", status: "ok", highlight: "It is sunny today.", translation: "今日は晴れています。", comment: "シンプルかつ正しい、完璧な英文です。" },
+                    { original: "It was hot all day yesterday.", status: "ok", highlight: "It was hot all day yesterday.", translation: "昨日は一日中暑かったです。", comment: "過去を表す `was` と `yesterday` がしっかり一致しており、`all day` も正しく使えています。" },
+                    { original: "It's sunny and hot today.", status: "ok", highlight: "It's sunny and hot today.", translation: "今日は晴れていて暑いです。", comment: "ピリオドまで含めて完璧な文です。" },
+                    { original: "It's  rainy and cold today.", status: "ok", highlight: "It's  rainy and cold today.", translation: "今日は雨が降っていて寒いです。", comment: "スペースが少し広いですが、文法的には完全に正しいです。" },
+                    { original: "It is sunny and hot today.", status: "ok", highlight: "It is sunny and hot today.", translation: "今日は晴れていて暑いです。", comment: "短縮形にせず `It is` と書いており、非常に丁寧で正しい文です。" },
+                    { original: "It was hot day yesterday.", status: "ng", highlight: "It was <span class='text-rose-600 font-bold underline decoration-wavy'>hot day</span> yesterday.", translation: "（修正後）昨日は暑い日でした。/ 昨日は暑かったです。", correction: "It was <strong>a hot day</strong> yesterday. / It was <strong>hot</strong> yesterday.", comment: "名詞 `day` を置く場合は、数えられる名詞の単数形なので不定冠詞 <strong>a</strong> が必要になり `a hot day` となります。あるいは、単に天候を形容詞で表す `It was hot yesterday.` とします。冠詞の忘れに注意しましょう。" }
+                ]
+            },
+            {
+                id: 11,
+                title: "11. 距離や近さを尋ねる表現",
+                syntax: "Is it near / far / close to ~ ?",
+                desc: "「〜は近いですか/遠いですか」という表現。特に `near` と `close` の後続の前置詞（to）の有無に注目します。",
+                items: [
+                    { original: "Is it near to City Hall?", status: "ng", highlight: "Is it <span class='text-rose-600 font-bold underline decoration-wavy'>near to</span> City Hall?", translation: "（修正後）市役所の近くですか？", correction: "Is it <strong>near</strong> City Hall? / Is it <strong>close to</strong> City Hall?", comment: "前置詞・形容詞の `near` の後には **to を置きません**。直接 `near City Hall` とします。もし `to` を使いたい場合は、類似表現の <strong>close to</strong>（〜の近くに）を使い、`Is it close to City Hall?` とする必要があります。" },
+                    { original: "Is it far to station.", status: "ng", highlight: "Is it far to <span class='text-rose-600 font-bold underline decoration-wavy'>station</span>.", translation: "（修正後）駅までは遠いですか？", correction: "Is it far to <strong>the</strong> station<strong>?</strong>", comment: "2箇所の修正点。①「駅」は特定の駅を指すため、必ず定冠詞 <strong>the</strong> が必要です。②疑問文なので、ピリオドではなくクエスチョンマーク <strong>?</strong> にします。" },
+                    { original: "Is it far to America?", status: "ng", highlight: "Is it <span class='text-amber-600 font-bold underline'>far to</span> America?", translation: "（修正後）アメリカは遠いですか？", correction: "Is America far from here?", comment: "文法的に間違いとまでは言い切れませんが、国のような巨大な対象に対して `far to`（〜まで行くのに遠いか）と聞くのはやや不自然です。一般的には「ここからアメリカは遠いですか？」という意味で <strong>Is America far from here?</strong> と表現します。" },
+                    { original: "Is it close to snhool", status: "ng", highlight: "Is it close to <span class='text-rose-600 font-bold underline decoration-wavy'>snhool</span>", translation: "（修正後）学校の近くですか？", correction: "Is it close to <strong>school?</strong>", comment: "タイポと記号の欠落です。`school` が `snhool`（hとcの間違い）になっており、末尾の <strong>?</strong> もありません。" }
+                ]
+            },
+            {
+                id: 12,
+                title: "12. 対比を表す表現（Some ~ and others ~）",
+                syntax: "Some ... and others [prefer/like] ...",
+                desc: "「〜なもの（人）もいれば、〜なもの（人）もいる」という代表的な対比構造です。othersの品詞の誤用に注意します。",
+                items: [
+                    { original: "Some girls like basketball, and others like baseball", status: "ok", highlight: "Some girls like basketball, and others like baseball", translation: "バスケットボールが好きな女の子もいれば、野球が好きな女の子もいる。", comment: "文法的に大変美しく、対比が完璧に成り立っている文です。" },
+                    { original: "Some people like udon, and others people like soba...", status: "ng", highlight: "Some people like udon, and <span class='text-rose-600 font-bold underline decoration-wavy'>others people</span> like soba...", translation: "（修正後）うどんが好きな人もいれば、そばが好きな人もいる。", correction: "Some people like udon, and <strong>others</strong> like soba... / and <strong>other people</strong> like soba...", comment: "代名詞の <strong>others</strong>（他の人々）自体が「他の人」を表すため、後ろにさらに `people` を続けることはできません。`others` 単体にするか、形容詞の `other` を用いて <strong>other people</strong> とするかのどちらかに統一します。" },
+                    { original: "Some like udon, and others prefer soba.", status: "ok", highlight: "Some like udon, and others prefer soba.", translation: "うどんを好む人もいれば、そばをより好む人もいる。", comment: "後半に単なる `like` ではなく `prefer`（〜をより好む）を用いて言葉の重複を避けており、英語として非常にスタイリッシュな表現です。" },
+                    { original: "Some like rice, and others prefer bread.", status: "ok", highlight: "Some like rice, and others prefer bread.", translation: "米が好きな人もいれば、パンをより好む人もいる。", comment: "文法、単語の選択、対比構造ともに完璧です。" },
+                    { original: "Some like milk tea,and others prefer water.", status: "ng", highlight: "Some like milk tea<span class='text-rose-600 font-bold underline decoration-wavy'>,and</span> others prefer water.", translation: "（修正後）ミルクティーが好きな人もいれば、水を好む人もいる。", correction: "Some like milk tea<strong>, and</strong> others prefer water.", comment: "カンマ `,` の後ろにスペース（空白）がありません。英語の正書法（書き方のルール）では、カンマやピリオドの後ろには必ず半角スペースを入れます。細かい点ですが指導が必要です。" },
+                    { original: "some girls like cooking, and others like eating.", status: "ok", highlight: "<span class='text-amber-600 font-bold underline'>some</span> girls like cooking, and others like eating.", translation: "料理をするのが好きな女の子もいれば、食べるのが好きな女の子もいる。", comment: "文頭の `some` が小文字で始まっている点のみ惜しいですが、対比文としての構造（like -ing vs like -ing）は文法的に完璧で、内容も非常に自然です。" }
+                ]
+            },
+            {
+                id: 13,
+                title: "13. 数や割合の増減表現（The number of ~）",
+                syntax: "The number of [plural noun] is [increasing/decreasing]",
+                desc: "「〜の数」を表す主語。`The number of` + 複数名詞は**「単数扱い」**になるため、動詞に `is` を使うルールが徹底されているか確認します。",
+                items: [
+                    { original: "The number of young people in Japan is decreasing", status: "ok", highlight: "The number of young people in Japan is decreasing", translation: "日本の若者の数は減少しています。", comment: "主語 `The number` に対応する動詞として、三人称単数の `is` を正しく使えています。非常に美しい文です。" },
+                    { original: "The number of students who study English is increasing.", status: "ok", highlight: "The number of students who study English is increasing.", translation: "英語を勉強する生徒の数は増加しています。", comment: "関係代名詞 `who` を伴う修飾節を正しく挿入し、動詞を `is` と単数扱いできています。大変素晴らしいレベルの英文です。" },
+                    { original: "The number of middle school students  who go abroad on school trips is increasing.", status: "ok", highlight: "The number of middle school students  who go abroad on school trips is increasing.", translation: "修学旅行で海外へ行く中学生の数は増加しています。", comment: "「修学旅行で海外に行く中学生」という非常に具体的で複雑な主語を、関係代名詞を用いて正しく表現できています。文法も完璧です。" },
+                    { original: "The number of children in Japan is decreseing.", status: "ng", highlight: "The number of children in Japan is <span class='text-rose-600 font-bold underline decoration-wavy'>decreseing</span>.", translation: "（修正後）日本の子供の数は減少しています。", correction: "The number of children in Japan is <strong>decreasing</strong>.", comment: "動詞 `decreasing` のスペルミス（タイポ）です。`e` ではなく `a` を使う <strong>decreasing</strong> が正しい綴りです。発音の「デクリース」に引きずられたと考えられます。" },
+                    { original: "The number of people who traveling abroad.", status: "ng", highlight: "The number of people who <span class='text-rose-600 font-bold underline decoration-wavy'>traveling abroad</span>.", translation: "（修正後）海外旅行をする人々の数（が増加している）。", correction: "The number of people who <strong>travel</strong> abroad <strong>is increasing</strong>.", comment: "重大な文法エラーが2つあります。①文の核となる「動詞（V）」が完全に不足しており、名詞句（巨大な主語だけ）になっています。②関係代名詞 `who` の後ろが `traveling` になっていますが、修飾節内の動詞として機能させるために `travel`（または are traveling）にする必要があります。" }
+                ]
+            },
+            {
+                id: 14,
+                title: "14. 調子や不具合の表現",
+                syntax: "There is something wrong/good with ~",
+                desc: "「〜の調子が悪い」を表す `something wrong with` の定着を確認。肯定的な表現に変える場合の英語としての自然さを評価します。",
+                items: [
+                    { original: "There is something wrong with my computer", status: "ok", highlight: "There is something wrong with my computer", translation: "パソコンの調子がどこか悪いです。", comment: "標準的なイディオムとして完璧な表現です。" },
+                    { original: "There is something wrong with my smart phone.", status: "ok", highlight: "There is something wrong with my smart phone.", translation: "スマートフォンの調子がどこかおかしいです。", comment: "現代的な語彙を使い、スペル、文法ともに完璧です。" },
+                    { original: "There ie some thing wrong with my brother's camera.", status: "ng", highlight: "There <span class='text-rose-600 font-bold underline decoration-wavy'>ie some thing</span> wrong with my brother's camera.", translation: "（修正後）兄（弟）のカメラはどこか調子が悪いです。", correction: "There <strong>is something</strong> wrong with my brother's camera.", comment: "タイポが2点あります。① `is` が `ie` になっています（キーボードのsとeは隣り合っているため、典型的なタイプミスです）。② `something` がスペースで区切られて `some thing` になっています。1語の <strong>something</strong> が適切です。" },
+                    { original: "There is somethings wrong with the radio.", status: "ng", highlight: "There is <span class='text-rose-600 font-bold underline decoration-wavy'>somethings</span> wrong with the radio.", translation: "（修正後）ラジオの調子がどこかおかしいです。", correction: "There is <strong>something</strong> wrong with the radio.", comment: "代名詞の `something` を複数形（s付き）の `somethings` にしてしまっています。この慣用表現では常に単数形の <strong>something</strong> を用います。" },
+                    { original: "There is something good with my computer.", status: "ng", highlight: "There is <span class='text-rose-600 font-bold underline decoration-wavy'>something good with</span> my computer.", translation: "（修正後）パソコンの調子はとても良いです。", correction: "My computer <strong>is working very well</strong>. / There is <strong>nothing wrong with</strong> my computer.", comment: "「パソコンの調子が良い」と言いたい形跡がありますが、`something wrong with` の対義表現として `something good with` という表現は通常**英語では存在しません**。「調子が良い、問題ない」と言う場合は、シンプルに <strong>My computer is working fine.</strong> や、不具合がゼロであるという意味で <strong>There is nothing wrong with my computer.</strong> と表現します。" }
+                ]
+            },
+            {
+                id: 15,
+                title: "15. 新聞や本の情報量・ページの表現",
+                syntax: "This [book/newspaper/etc.] has [pages/characters]",
+                desc: "無生物を主語にして「〜には〜がある、〜ページから成る」を `has` で表現する構文です。",
+                items: [
+                    { original: "This newspaper has 300 characters.", status: "ok", highlight: "This newspaper has 300 characters.", translation: "この新聞は300文字あります。", comment: "文法的には完全に正しいです。ただ、実際の新聞で300文字（characters）は少なすぎるため、意味的にはやや不自然ですが、作文のルール（has の使用）としては合格です。" },
+                    { original: "This novel has three stories.", status: "ok", highlight: "This novel has three stories.", translation: "この小説には3つの物語が収録されています。", comment: "オムニバス形式の小説などの描写として、文法、スペル、文脈ともに極めて自然です。" },
+                    { original: "This magazine has fifty pages.", status: "ok", highlight: "This magazine has fifty pages.", translation: "この雑誌は50ページあります。", comment: "無生物主語の has を完全に使いこなしています。完璧な文です。" },
+                    { original: "This novel has three pages.", status: "ok", highlight: "This novel has three pages.", translation: "この小説は3ページあります。", comment: "3ページの小説は極めて短いですが、文法的には完全に正しいです。" }
+                ]
+            },
+            {
+                id: 16,
+                title: "16. 動物や一般的な特徴の表現（一般論）",
+                syntax: "[Elephants] have long [noses]",
+                desc: "一般論として動物の特徴を述べる際、主語を複数形にしたら、対応する部位も複数形にするルールをチェックします。",
+                items: [
+                    { original: "Elephants have long noses.", status: "ok", highlight: "Elephants have long noses.", translation: "ゾウは鼻が長い。", comment: "（※元データにはないですが、比較用模範解答）主語 `Elephants`（複数）に対して、鼻も複数存在する（各ゾウに1本ずつ）ため、noses と複数形にします。これが本来の完璧な表現です。" },
+                    { original: "Elephants have long nose.", status: "ng", highlight: "Elephants have long <span class='text-rose-600 font-bold underline decoration-wavy'>nose</span>.", translation: "（修正後）ゾウは鼻が長い。", correction: "Elephants have long <strong>noses</strong>. / <strong>An elephant has a</strong> long nose.", comment: "主語が複数形の `Elephants` になっているため、それぞれのゾウが持つ鼻を合わせた全体を指すため、後ろの `nose` も複数形の <strong>noses</strong> にする必要があります。単数形で書きたい場合は `An elephant has a long nose.` とします。" },
+                    { original: "elephant have long nose.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>elephant have long nose</span>.", translation: "（修正後）ゾウは鼻が長い。", correction: "<strong>Elephants have</strong> long <strong>noses</strong>. / <strong>An elephant has a</strong> long nose.", comment: "多くの誤りがあります。①文頭の `elephant` が小文字です。②単数形の `elephant`（冠詞なし）に複数用の動詞 `have` が続いており不一致です。③上述の通り、鼻も単数形 `nose` のままです。正しい一般総称表現をマスターしましょう。" },
+                    { original: "Elephant have long nose.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>Elephant have long nose</span>.", translation: "（修正後）ゾウは鼻が長い。", correction: "<strong>Elephants have</strong> long <strong>noses</strong>.", comment: "上記と同様です。可算名詞の単数・複数の扱い、及び動詞の主語一致（S-V Agreement）の指導が必要です。" }
+                ]
+            },
+            {
+                id: 17,
+                title: "17. 家族構成の表現",
+                syntax: "There are [number] people in my family.",
+                desc: "「家族が何人いるか」を伝える基本構文。主格、数の概念、前置詞の定着を見ます。",
+                items: [
+                    { original: "There are seven people in his family.", status: "ok", highlight: "There are seven people in his family.", translation: "彼の家族は7人家族です。", comment: "所有格を his に変えて他者の家族について正しく表現できています。文法・構成ともに完璧です。" },
+                    { original: "There are five people in my family.", status: "ok", highlight: "There are five people in my family.", translation: "私の家族は5人家族です。", comment: "最も一般的で完璧な家族紹介の表現です。" },
+                    { original: "There are two people in my family.", status: "ok", highlight: "There are two people in my family.", translation: "私の家族は2人家族（2人暮らし）です。", comment: "文法的に全く問題ありません。完璧です。" }
+                ]
+            },
+            {
+                id: 18,
+                title: "18. 体調不良・病気の表現",
+                syntax: "I had [a stomach ache / headache / a cold] [time]",
+                desc: "病気や体調不良を表す表現。名詞によって冠詞（a/an）が必要か、また過去の時間を示す副詞表現が自然かを確認します。",
+                items: [
+                    { original: "I had a stomach ache last night.", status: "ok", highlight: "I had a stomach ache last night.", translation: "昨日の夜、胃が痛かったです（腹痛がありました）。", comment: "病気を示す stomach ache に不定冠詞 `a` を正しく付け、過去形 `had` と `last night` を噛み合わせており、素晴らしい文です。" },
+                    { original: "I cought a cold this morning.", status: "ng", highlight: "I <span class='text-rose-600 font-bold underline decoration-wavy'>cought</span> a cold this morning.", translation: "（修正後）今朝、風邪を引きました。", correction: "I <strong>caught</strong> a cold this morning.", comment: "動詞 `catch（風邪を引く）` の過去形 `caught` のスペルミス（タイポ）です。`o` ではなく `a` を用いる <strong>caught</strong> が正解です。不規則変化動詞の綴りは繰り返し練習が必要です。" },
+                    { original: "I had headache last night.", status: "ng", highlight: "I had <span class='text-rose-600 font-bold underline decoration-wavy'>headache</span> last night.", translation: "（修正後）昨日の夜、頭痛がしました。", correction: "I had <strong>a headache</strong> last night.", comment: "頭痛（headache）は可算名詞（数えられる名詞）として扱われるため、前に不定冠詞の <strong>a</strong> が必須となります。`stomach ache` に `a` が必要なのと同じルールです。" },
+                    { original: "I had a cold last morning.", status: "ng", highlight: "I had a cold <span class='text-rose-600 font-bold underline decoration-wavy'>last morning</span>.", translation: "（修正後）昨日の朝、風邪を引いていました（引きました）。", correction: "I had a cold <strong>yesterday morning</strong>.", comment: "「昨日の朝」を英語で **last morning と言うことはできません**。必ず <strong>yesterday morning</strong> と表現します。同様に「昨日の午後」は `yesterday afternoon` とします（「昨夜」だけは `last night` と言うため、生徒が混同しやすいポイントです）。" }
+                ]
+            },
+            {
+                id: 19,
+                title: "19. 命令文 + or （〜しなさい、さもないと〜）",
+                syntax: "Hurry up or you will be late for ~",
+                desc: "「急ぎなさい、さもないと遅れる」という条件を表す重要構文のチェックです。",
+                items: [
+                    { original: "Hurry up or you will be late for school.", status: "ok", highlight: "Hurry up or you will be late for school.", translation: "急ぎなさい、さもないと学校に遅刻しますよ。", comment: "模範的な命令文+or構文です。文法、スペル、完璧です。" },
+                    { original: "Hurry up or you will be late for your bus.", status: "ok", highlight: "Hurry up or you will be late for your bus.", translation: "急ぎなさい、さもないとバスに乗り遅れますよ（バスに遅れますよ）。", correction: "", comment: "対象を school から `your bus` にカスタマイズしています。非常に自然で素晴らしい表現です。" },
+                    { original: "Hurry up or  you'll be late for your taxi.", status: "ok", highlight: "Hurry up or  you'll be late for your taxi.", translation: "急ぎなさい、さもないとタクシーに遅れますよ。", comment: "短縮形 `you'll` を正しく使い、さらに `your taxi` という新しいシチュエーションに応用できています。" }
+                ]
+            },
+            {
+                id: 20,
+                title: "20. 否定の副詞を用いた強調（never）",
+                syntax: "You never + [動詞の原形/現在形]",
+                desc: "強い否定・可能性を表す `never`（決して〜ない）の使いこなしを確認します。",
+                items: [
+                    { original: "You never understand me.", status: "ok", highlight: "You never understand me.", translation: "あなたは決して私を理解してくれない（わかってくれない）。", comment: "感情表現としても非常に自然で、文法も完璧です。" },
+                    { original: "You never know the answer.", status: "ok", highlight: "You never know the answer.", translation: "あなたには絶対にその答えはわかりません（知るはずがない）。", comment: "語彙・用法ともに正しく、適切な文です。" },
+                    { original: "You know the past.", status: "ok", highlight: "You know the past.", translation: "あなたは過去を知っている。", comment: "お題の `never` から離れて、肯定文として作文されていますが、文法自体は全く正しく成立しています。" }
+                ]
+            },
+            {
+                id: 21,
+                title: "21. 国・文化ごとの行事表現",
+                syntax: "In [Country], they celebrate [Festival] in [Season]",
+                desc: "客観的な文化紹介の文。特定地域の行事の固有名詞、季節、および「〜に（節分に）」などの前置詞の使い方を確認します。",
+                items: [
+                    { original: "In Japan, they celebrate Christmas in winter.", status: "ok", highlight: "In Japan, they celebrate Christmas in winter.", translation: "日本では、冬にクリスマスを祝います（一般的に冬に祝われます）。", comment: "行事名 Christmas の最初を大文字にし、一般論の彼ら（they）を主語に置いており、文法的・文化的な記述として非常に自然で完璧です。" },
+                    { original: "In India, many people celebrate Diwali in autumn.", status: "ok", highlight: "In India, many people celebrate Diwali in autumn.", translation: "インドでは、多くの人が秋にディワリ（ヒンドゥー教の光の祭典）を祝います。", comment: "Diwali（ディワリ）という特定の他国文化をテーマに挙げ、固有名詞の大文字化、季節の autumn も正しく用いた超優秀な応用文です。" },
+                    { original: "In Japan, they eat Beans in Setsubun.", status: "ng", highlight: "In Japan, they eat <span class='text-rose-600 font-bold underline decoration-wavy'>Beans in Setsubun</span>.", translation: "（修正後）日本では、節分に豆を食べます。", correction: "In Japan, they eat <strong>beans on Setsubun</strong>.", comment: "2箇所の前置詞と大文字の修正。①「豆」は一般的な食べ物なので大文字にする必要はありません（`beans`）。②「節分（特定の行事の日）」に行う習慣は、月や季節に使う `in` ではなく、特定の日を表す前置詞 <strong>on</strong> を用いて <strong>on Setsubun</strong> と表します。" }
+                ]
+            },
+            {
+                id: 22,
+                title: "22. 時刻・日付・曜日の質問と回答",
+                syntax: "What day/season is it? - It is [Day/Season]",
+                desc: "曜日、季節、日付を聞き、正しくそのカテゴリの単語で答えることができるかをチェックします。",
+                items: [
+                    { original: "What day is it today ?-It is  Sunday.", status: "ok", highlight: "What day is it today ?-It is  Sunday.", translation: "今日は何曜日ですか？ ー 日曜日です。", comment: "質問、回答の噛み合わせともに正しいです。スペース（スペース+ハイフン）の取り方が少し独特ですが文法としてはOKです。" },
+                    { original: "What day is it?   It is Friday.", status: "ok", highlight: "What day is it?   It is Friday.", translation: "（今日は）何曜日ですか？ ー 金曜日です。", comment: "曜日を尋ねる標準表現として完璧です。" },
+                    { original: "What season is it? It's June.", status: "ng", highlight: "What <span class='text-rose-600 font-bold underline decoration-wavy'>season</span> is it? It's <span class='text-rose-600 font-bold underline decoration-wavy'>June</span>.", translation: "（修正後）今は何月ですか？ ー 6月です。 / 今は何の季節ですか？ ー 夏です。", correction: "<strong>What month</strong> is it? It's June. / What season is it? <strong>It's summer</strong>.", comment: "質問と回答の**カテゴリが一致していません**。質問では「何の季節（season）ですか？」と聞いているにもかかわらず、回答で「6月（June：月）」と答えています。質問を `What month is it?` にするか、回答を `It's summer.`（夏です）にする必要があります。" }
+                ]
+            },
+            {
+                id: 23,
+                title: "23. 天候の動詞表現（激しい天候）",
+                syntax: "It [weather verb + ed] heavily yesterday",
+                desc: "天候を動詞（snow, thunder など）として扱い、過去形かつ副詞修飾で正しく使えるかを確認します。",
+                items: [
+                    { original: "It snowed heavily all day yesterday.", status: "ok", highlight: "It snowed heavily all day yesterday.", translation: "昨日は一日中、雪が激しく降りました。", comment: "天候動詞 `snow` の過去形、副詞 `heavily`、期間 `all day yesterday`、すべて素晴らしい調和の取れた完璧な文です。" },
+                    { original: "It thunder heavily all day yesterday.", status: "ng", highlight: "It <span class='text-rose-600 font-bold underline decoration-wavy'>thunder</span> heavily all day yesterday.", translation: "（修正後）昨日は一日中、雷が激しく鳴り響きました。", correction: "It <strong>thundered</strong> heavily all day yesterday. / There was heavy thunder all day yesterday.", comment: "過去の話（yesterday）であるため、動詞 `thunder` を過去形 <strong>thundered</strong> にする必要があります。また、動詞としての `thunder` も使えますが、天候として「激しい雷雨だった」と言いたい場合は `There was a heavy thunderstorm yesterday.` とする方が自然な英語になります。" }
+                ]
+            },
+            {
+                id: 24,
+                title: "24. 距離の尋ね方（How far ~）",
+                syntax: "How far is it from here to ~ ?",
+                desc: "特定の場所までの距離を尋ねる疑問文。形式主語の `it` の存在を確認します。",
+                items: [
+                    { original: "How far is it from here to my house.", status: "ok", highlight: "How far is it from here to my house<span class='text-amber-600 font-bold underline font-mono'>.</span>", translation: "ここから私の家まではどのくらいの距離がありますか？", comment: "形式主語の `it`、前置詞（from, to）すべて完璧です。最後の符号がクエスチョンマーク `?` ではなくピリオドになっている点だけが非常に惜しいです。" },
+                    { original: "How far is from here to the school?", status: "ng", highlight: "How far is <span class='text-rose-600 font-bold underline decoration-wavy'>from</span> here to the school?", translation: "（修正後）ここから学校までどのくらいの距離がありますか？", correction: "How far is <strong>it</strong> from here to the school?", comment: "距離や天候を表す主語の **it が抜け落ちています**。`How far is it from...` が決まった形であり、この `it` は特定の訳を持ちませんが英文構造上省略することはできません。" }
+                ]
+            },
+            {
+                id: 25,
+                title: "25. カジュアルな挨拶の定型表現",
+                syntax: "Hi, [Name]. How's it going?",
+                desc: "標準的な英会話の挨拶。アポストロフィや符号（?）を確認します。",
+                items: [
+                    { original: "Hi, Bob. How's it going?", status: "ok", highlight: "Hi, Bob. How's it going?", translation: "やあ、ボブ。調子はどう？", comment: "定型表現として完璧です。カジュアルなコミュニケーションに最適です。" },
+                    { original: "Hi, Rira. How is it going?", status: "ok", highlight: "Hi, Rira. How is it going?", translation: "やあ、リラ。調子はどう？", comment: "短縮形にせず `How is it` と書いており、こちらも完全に正しく自然な文です。" },
+                    { original: "Hi, Hiroshi. How's it going.", status: "ok", highlight: "Hi, Hiroshi. How's it going<span class='text-amber-600 font-bold underline font-mono'>.</span>", translation: "やあ、ヒロシ。調子はどう？", comment: "疑問文の末尾がピリオドになっている点を除けば、文法・スペルともに適切です。" }
+                ]
+            },
+            {
+                id: 26,
+                title: "26. その他 基本英作文（追加回答分）",
+                syntax: "基本構文（I watched, S is adjective, etc.）",
+                desc: "アンケート後半に見られる、簡単な状況・自己紹介表現の基礎力を測定します。",
+                items: [
+                    { original: "I watch a movie yesterday", status: "ng", highlight: "I <span class='text-rose-600 font-bold underline decoration-wavy'>watch</span> a movie yesterday", translation: "（修正後）私は昨日映画を見ました。", correction: "I <strong>watched</strong> a movie yesterday", comment: "過去を表す副詞 `yesterday` があるため、現在形の `watch` ではなく、過去形 <strong>watched</strong> にする必要があります。基礎的な時制の一致です。" },
+                    { original: "l like English", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>l</span> like English", translation: "（修正後）私は英語が好きです。", correction: "<strong>I</strong> like English", comment: "「私は」を表す主語の `I`（アイ）が、小文字の <strong>l（エル）</strong> になってしまっています。フォントによっては判別しづらいですが、文字コードとして異なるため、キー入力やタイピング指導が必要です。" },
+                    { original: "you should be carefull", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>you</span> should be <span class='text-rose-600 font-bold underline decoration-wavy'>carefull</span>", translation: "（修正後）あなたは注意するべきです。", correction: "<strong>You</strong> should be <strong>careful</strong>", comment: "2点の修正。①文頭の `you` が小文字です。大文字 <strong>You</strong> にします。②形容詞 `careful` の最後の `l` が2つ重なっています。正しくは <strong>careful</strong>（lは1つ）です。スペルミスに気をつけましょう。" },
+                    { original: "I am hungry", status: "ok", highlight: "I am hungry", translation: "私はお腹が空いています。", comment: "シンプルですが、完璧に正しい文です。" },
+                    { original: "I look forward to the trip", status: "ok", highlight: "I look forward to the trip", translation: "私はその旅行を楽しみにしています。", comment: "熟語 `look forward to + 名詞` を正しく使いこなしており、完璧です。" },
+                    { original: "This movie is interesting", status: "ok", highlight: "This movie is interesting", translation: "この映画は面白いです。", comment: "主語と補語（interesting）の関係が正しく、完璧です。（ピリオドを補うとさらによいです）" },
+                    { original: "This zoo is big", status: "ok", highlight: "This zoo is big", translation: "この動物園は大きいです。", comment: "シンプルで正しい表現です。" },
+                    { original: "There are many trees in the park", status: "ok", highlight: "There are many trees in the park", translation: "その公園にはたくさんの木があります。", comment: "There are 複数名詞の基礎が完全に定着しています。" },
+                    { original: "it is easy to learn English", status: "ok", highlight: "<span class='text-amber-600 font-bold underline'>it</span> is easy to learn English", translation: "英語を学ぶことは簡単です。", comment: "文頭の `it` が小文字ですが、形式主語の `It is easy to ...` 構文自体は完璧に使いこなせています。指導レベルとしては優秀です。" },
+                    { original: "it is hot today", status: "ok", highlight: "<span class='text-amber-600 font-bold underline'>it</span> is hot today", translation: "今日は暑いです。", comment: "文頭大文字化を除いて正しい天候表現です。" },
+                    { original: "it is seven o`clock", status: "ng", highlight: "<span class='text-amber-600 font-bold underline'>it</span> is seven o<span class='text-amber-600 font-bold underline font-mono'>`</span>clock", translation: "（修正後）7時です。", correction: "<strong>It</strong> is seven o<strong>'</strong>clock", comment: "文頭小文字と、アポストロフィがバッククォート（`）になっている点を除けば時刻表現として適切です。" },
+                    { original: "it is time to go home", status: "ok", highlight: "<span class='text-amber-600 font-bold underline'>it</span> is time to go home", translation: "家に帰る時間です。", comment: "文頭小文字以外は、`It is time to ...` イディオムを正しく使えています。" }
+                ]
+            },
+            {
+                id: 27,
+                title: "【無効・ノイズ回答】無意味な記号やテスト送信など",
+                syntax: "ノイズ・テストデータ",
+                desc: "アンケートフォームに生徒がテスト送信、あるいは入力逃れのために打ち込んだ英単語として機能していないノイズデータです。",
+                items: [
+                    { original: "123456789101112131415", status: "invalid", highlight: "123456789101112131415", translation: "（解析不可）数値の羅列", comment: "フォームの番号項目、またはキーボード入力をテストしたと思われる無効な回答です。集計から除外して構いません。" },
+                    { original: "abcdfghijklmno", status: "invalid", highlight: "abcdfghijklmno", translation: "（解析不可）アルファベット順の羅列", comment: "キーボードのアルファベットを順に打ったとみられる入力逃れの形跡です。" },
+                    { original: "00000000", status: "invalid", highlight: "00000000", translation: "（解析不可）ゼロの羅列", comment: "入力スペースを埋めるためのテストデータです。" },
+                    { original: "fgfgru", status: "invalid", highlight: "fgfgru", translation: "（解析不可）意味をなさないキー羅列", comment: "ランダムにキーを打鍵した無効なデータです。" },
+                    { original: "1111", status: "invalid", highlight: "1111", translation: "（解析不可）数値", comment: "無効回答です。" },
+                    { original: "11", status: "invalid", highlight: "11", translation: "（解析不可）数値", comment: "無効回答です。" },
+                    { original: "0", status: "invalid", highlight: "0", translation: "（解析不可）数値", comment: "無効回答です。" },
+                    { original: "0000", status: "invalid", highlight: "0000", translation: "（解析不可）数値", comment: "無効回答です。" },
+                    { original: "0000000000000", status: "invalid", highlight: "0000000000000", translation: "（解析不可）数値の羅列", comment: "無効回答です。" },
+                    { original: "kkk ..", status: "invalid", highlight: "kkk ..", translation: "（解析不可）記号と文字の羅列", comment: "チャットや掲示板のテスト書き込みのような無効回答です。" }
+                ]
+            }
+        ];
+
+        // 初回ロード時に関数を実行
+        window.onload = function() {
+            renderData();
+            lucide.createIcons(); // Lucideアイコンの初期化
+        }
+
+        // データを元にHTMLを生成して描画
+        function renderData() {
+            const container = document.getElementById('analysis-container');
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            container.innerHTML = '';
+
+            let totalShown = 0;
+
+            rawData.forEach(category => {
+                // 各カテゴリから検索クエリとステータスフィルターに合致するアイテムを抽出
+                const filteredItems = category.items.filter(item => {
+                    // ステータスマッチ
+                    const statusMatch = (currentFilter === 'all' || item.status === currentFilter);
+                    
+                    // 検索クエリマッチ
+                    const textToSearch = (category.title + " " + category.syntax + " " + item.original + " " + item.translation + " " + item.comment).toLowerCase();
+                    const queryMatch = !searchQuery || textToSearch.includes(searchQuery);
+
+                    return statusMatch && queryMatch;
+                });
+
+                if (filteredItems.length === 0) return; // 合致するアイテムがなければ表示しない
+
+                totalShown += filteredItems.length;
+
+                // カテゴリカードの作成
+                const categoryCard = document.createElement('div');
+                categoryCard.className = "bg-white rounded-2xl shadow-sm border border-slate-200 p-6 transition-all duration-300 hover:shadow-md";
+                categoryCard.dataset.categoryId = category.id;
+
+                // ヘッダー部分
+                let headerHtml = `
+                    <div class="border-b border-slate-100 pb-4 mb-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-2">
+                            <h3 class="text-base sm:text-lg font-bold text-slate-900">${category.title}</h3>
+                            <span class="bg-blue-50 text-blue-700 text-[10.5px] px-2 py-0.5 rounded font-mono font-semibold border border-blue-100">${category.syntax}</span>
+                        </div>
+                        <p class="text-xs text-slate-500">${category.desc}</p>
+                    </div>
+                    <div class="space-y-3">
+                `;
+
+                // 各回答（アイテム）のレンダリング
+                filteredItems.forEach(item => {
+                    let badgeColor = "bg-slate-100 text-slate-600 border-slate-200";
+                    let badgeLabel = "無効";
+                    let iconName = "minus-circle";
+
+                    if (item.status === 'ok') {
+                        badgeColor = "bg-emerald-50 text-emerald-700 border-emerald-100";
+                        badgeLabel = "適切 (OK)";
+                        iconName = "check";
+                    } else if (item.status === 'ng') {
+                        badgeColor = "bg-rose-50 text-rose-700 border-rose-100";
+                        badgeLabel = "不適切 (要修正)";
+                        iconName = "x";
+                    }
+
+                    // アコーディオン (details) タグ
+                    headerHtml += `
+                        <div class="border border-slate-100 rounded-xl hover:border-slate-200 transition-all">
+                            <details class="group bg-slate-50/50 rounded-xl">
+                                <summary class="flex items-center justify-between p-3.5 cursor-pointer select-none">
+                                    <div class="flex items-center gap-3 overflow-hidden pr-2">
+                                        <span class="border px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 flex items-center gap-1 ${badgeColor}">
+                                            <i data-lucide="${iconName}" class="w-3 h-3"></i> ${badgeLabel}
+                                        </span>
+                                        <span class="text-xs sm:text-sm font-medium text-slate-800 truncate font-mono">
+                                            ${item.highlight}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        <span class="text-[11px] text-slate-400 hidden sm:inline">クリックで詳細を表示</span>
+                                        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+                                    </div>
+                                </summary>
+                                <div class="px-4 pb-4 pt-2 border-t border-slate-100 bg-white rounded-b-xl space-y-3.5 text-xs sm:text-sm">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                                        <!-- 和訳 -->
+                                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                            <div class="text-[11px] font-bold text-slate-500 mb-1 flex items-center gap-1">
+                                                <i data-lucide="languages" class="w-3.5 h-3.5"></i> 日本語訳
+                                            </div>
+                                            <p class="text-slate-800 leading-relaxed font-medium">${item.translation}</p>
+                                        </div>
+                                        
+                                        <!-- 修正案 (不適切な場合のみ) -->
+                                        ${item.status === 'ng' ? `
+                                        <div class="bg-emerald-50/50 p-3 rounded-xl border border-emerald-100">
+                                            <div class="text-[11px] font-bold text-emerald-600 mb-1 flex items-center gap-1">
+                                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 推奨される修正案
+                                            </div>
+                                            <p class="text-emerald-800 leading-relaxed font-mono font-semibold">${item.correction}</p>
+                                        </div>
+                                        ` : `
+                                        <div class="bg-emerald-50/20 p-3 rounded-xl border border-dashed border-emerald-200">
+                                            <div class="text-[11px] font-bold text-emerald-600 mb-1 flex items-center gap-1">
+                                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> ステータス良好
+                                            </div>
+                                            <p class="text-emerald-700 leading-relaxed">文法的に適切です。このまま学習・指導用例文としてご利用いただけます。</p>
+                                        </div>
+                                        `}
+                                    </div>
+
+                                    <!-- 指導の解説 -->
+                                    <div class="bg-slate-50/50 p-3.5 rounded-xl border border-slate-100">
+                                        <div class="text-[11px] font-bold text-slate-500 mb-1 flex items-center gap-1">
+                                            <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-blue-600"></i> 誤りの分析と指導・改善のアドバイス
+                                        </div>
+                                        <p class="text-slate-700 leading-relaxed">${item.comment}</p>
+                                    </div>
+
+                                    <!-- クイックアクション -->
+                                    <div class="flex justify-end pt-1">
+                                        <button onclick="copyFeedback('${item.original.replace(/'/g, "\\'")}', '${item.translation.replace(/'/g, "\\'")}', '${(item.correction || "").replace(/'/g, "\\'")}', '${item.comment.replace(/'/g, "\\'")}')" 
+                                                class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> フィードバックをコピー
+                                        </button>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+                    `;
+                });
+
+                headerHtml += `</div>`;
+                categoryCard.innerHTML = headerHtml;
+                container.appendChild(categoryCard);
+            });
+
+            // 検索結果がない場合
+            if (totalShown === 0) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center text-slate-500">
+                        <i data-lucide="alert-circle" class="w-12 h-12 text-slate-300 mx-auto mb-3"></i>
+                        <p class="text-base font-semibold text-slate-700 mb-1">合致するデータが見つかりませんでした</p>
+                        <p class="text-xs">フィルター条件や検索キーワードを変更してください。</p>
+                    </div>
+                `;
+            }
+
+            // アイコンを再ロード
+            lucide.createIcons();
+        }
+
+        // 判定ステータスの切り替え
+        function setStatusFilter(status) {
+            currentFilter = status;
+            
+            // ボタンのアクティブスタイル制御
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = "filter-btn w-full text-left text-xs px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-50 border border-transparent transition-all flex items-center justify-between";
+            });
+
+            const activeBtn = document.getElementById(`btn-filter-${status}`);
+            if (activeBtn) {
+                if (status === 'all') {
+                    activeBtn.className = "filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-blue-50 text-blue-700 border border-blue-100";
+                } else if (status === 'ok') {
+                    activeBtn.className = "filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-emerald-50 text-emerald-700 border border-emerald-100";
+                } else if (status === 'ng') {
+                    activeBtn.className = "filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-rose-50 text-rose-700 border border-rose-100";
+                } else if (status === 'invalid') {
+                    activeBtn.className = "filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-slate-200 text-slate-700 border border-slate-300";
+                }
+            }
+
+            renderData();
+        }
+
+        // 検索やその他コントロール連動用
+        function filterData() {
+            renderData();
+        }
+
+        // アコーディオンを一斉展開
+        function expandAll() {
+            document.querySelectorAll('details').forEach(details => {
+                details.open = true;
+            });
+        }
+
+        // アコーディオンを一斉閉鎖
+        function collapseAll() {
+            document.querySelectorAll('details').forEach(details => {
+                details.open = false;
+            });
+        }
+
+        // フィードバックのクリップボードへのコピー (iFrame対応用 document.execCommand 使用)
+        function copyFeedback(original, translation, correction, comment) {
+            let text = `【生徒の英作文】\n${original}\n\n【日本語訳のイメージ】\n${translation}\n`;
+            if (correction) {
+                text += `\n【推奨される修正案】\n${correction.replace(/<[^>]*>/g, '')}\n`; // HTMLタグ除去
+            }
+            text += `\n【指導・解説】\n${comment}`;
+
+            // 一時的なtextareaを作成してコピー実行
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed'; // 画面外に逃がす
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast("フィードバックをコピーしました！");
+                } else {
+                    showToast("コピーに失敗しました。");
+                }
+            } catch (err) {
+                showToast("非対応のブラウザです。");
+            }
+
+            document.body.removeChild(textarea);
+        }
+
+        // トースト通知の表示
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            
+            toast.className = "fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-lg text-sm flex items-center gap-2 transform translate-y-0 opacity-100 transition-all duration-300 pointer-events-none z-50";
+            
+            setTimeout(() => {
+                toast.className = "fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-lg text-sm flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none z-50";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
