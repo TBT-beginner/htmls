@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生徒教室描写英作文アンケート分析＆フィードバック・ダッシュボード</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter & Noto Sans JP) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+        /* アコーディオンの開閉アニメーション */
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary svg {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- ヘッダー -->
+    <header class="bg-gradient-to-r from-teal-600 to-cyan-700 text-white shadow-md py-6 px-4 sm:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-teal-500 text-white text-xs px-2.5 py-1 rounded-full font-semibold uppercase tracking-wider">Teacher Tool</span>
+                    <span class="text-xs text-teal-100">教室描写英作文 編</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">教室描写英作文アンケート回答 分析ダッシュボード</h1>
+                <p class="text-teal-100 text-sm mt-1">「教室の様子」を描写した生徒回答の文法チェック、不適切な作文のフィルタリング、和訳、解説、および指導用修正フィードバック</p>
+            </div>
+            <div class="flex gap-3 bg-white/10 p-2 rounded-xl backdrop-blur-sm">
+                <button onclick="expandAll()" class="text-xs font-medium bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg transition-all flex items-center gap-1">
+                    <i data-lucide="chevrons-down" class="w-3.5 h-3.5"></i> すべて展開
+                </button>
+                <button onclick="collapseAll()" class="text-xs font-medium bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg transition-all flex items-center gap-1">
+                    <i data-lucide="chevrons-up" class="w-3.5 h-3.5"></i> すべて折りたたむ
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ領域 -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-8 py-8 flex flex-col lg:flex-row gap-8">
+        
+        <!-- 左サイドバー: 統計とフィルター -->
+        <div class="w-full lg:w-80 flex flex-col gap-6 shrink-0">
+            
+            <!-- 統計カード -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="bar-chart-3" class="text-teal-600 w-5 h-5"></i>
+                    分析サマリー
+                </h2>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <span class="text-xs text-slate-500 block">総回答数</span>
+                        <span class="text-2xl font-bold text-slate-800" id="stat-total">0</span>
+                    </div>
+                    <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-100">
+                        <span class="text-xs text-emerald-600 block">適切 (OK)</span>
+                        <span class="text-2xl font-bold text-emerald-600" id="stat-ok">0</span>
+                    </div>
+                    <div class="bg-rose-50 p-3 rounded-xl border border-rose-100">
+                        <span class="text-xs text-rose-600 block">不適切 (NG)</span>
+                        <span class="text-2xl font-bold text-rose-600" id="stat-ng">0</span>
+                    </div>
+                    <div class="bg-slate-100 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 block">無効・ゴミ</span>
+                        <span class="text-2xl font-bold text-slate-500" id="stat-invalid">0</span>
+                    </div>
+                </div>
+                
+                <div class="space-y-2 mt-4 pt-4 border-t border-slate-100">
+                    <div class="text-xs font-semibold text-slate-600 mb-1">間違いの主な傾向</div>
+                    <div class="flex items-center justify-between text-xs text-slate-600">
+                        <span>スペルミス・タイポ</span>
+                        <span class="font-bold text-slate-800" id="pct-typo">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <div id="bar-typo" class="bg-amber-500 h-full rounded-full" style="width: 0%"></div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between text-xs text-slate-600 mt-2">
+                        <span>受動態の誤用・品詞違い</span>
+                        <span class="font-bold text-slate-800" id="pct-passive">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <div id="bar-passive" class="bg-orange-500 h-full rounded-full" style="width: 0%"></div>
+                    </div>
+
+                    <div class="flex items-center justify-between text-xs text-slate-600 mt-2">
+                        <span>文頭小文字・ピリオド欠落</span>
+                        <span class="font-bold text-slate-800" id="pct-caps">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <div id="bar-caps" class="bg-rose-50 h-full rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- コントロール・フィルター -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sticky top-6">
+                <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="sliders-horizontal" class="text-teal-600 w-5 h-5"></i>
+                    コントロール
+                </h2>
+                
+                <!-- 検索バー -->
+                <div class="mb-5">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">キーワード検索</label>
+                    <div class="relative">
+                        <input type="text" id="search-input" oninput="filterData()" placeholder="英文、単語、お題で検索..." 
+                               class="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition-all">
+                        <i data-lucide="search" class="absolute left-3 top-2.5 text-slate-400 w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- ステータスフィルター -->
+                <div class="mb-5">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1.5">判定ステータスで絞り込み</label>
+                    <div class="flex flex-col gap-1.5">
+                        <button onclick="setStatusFilter('all')" id="btn-filter-all" class="filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-teal-50 text-teal-700 border border-teal-100">
+                            <span>すべて表示</span>
+                            <span id="badge-all" class="bg-teal-100 text-teal-800 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+                        </button>
+                        <button onclick="setStatusFilter('ok')" id="btn-filter-ok" class="filter-btn w-full text-left text-xs px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-50 border border-transparent transition-all flex items-center justify-between">
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> 適切 (OK)</span>
+                            <span id="badge-ok" class="bg-slate-100 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+                        </button>
+                        <button onclick="setStatusFilter('ng')" id="btn-filter-ng" class="filter-btn w-full text-left text-xs px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-50 border border-transparent transition-all flex items-center justify-between">
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-500"></span> 不適切 (NG)</span>
+                            <span id="badge-ng" class="bg-slate-100 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+                        </button>
+                        <button onclick="setStatusFilter('invalid')" id="btn-filter-invalid" class="filter-btn w-full text-left text-xs px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-50 border border-transparent transition-all flex items-center justify-between">
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-slate-400"></span> 無効データ</span>
+                            <span id="badge-invalid" class="bg-slate-100 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-[11px] text-slate-400 leading-relaxed border-t border-slate-100 pt-4">
+                    ※教室写真から抽出された生徒回答データベースです。間違い箇所は黄色・赤色の下線でハイライトされており、コピーボタンから指導用コメントを即座に取得できます。
+                </div>
+            </div>
+        </div>
+
+        <!-- 右メイン: お題別回答分析リスト -->
+        <div class="flex-grow flex flex-col gap-6" id="analysis-container">
+            <!-- JavaScriptでここにターゲット構文ごとの分析カードが生成されます -->
+        </div>
+
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-slate-900 text-slate-400 py-8 px-4 border-t border-slate-800 text-center text-xs">
+        <div class="max-w-7xl mx-auto">
+            <p>生徒英作文アンケート回答分析ツール &copy; 2026. 教師用英語指導支援・分析用データベース</p>
+            <p class="mt-1 text-slate-600">教室風景（黒板・設備・ロッカー・動作など）の英語表現、及び文構造の習熟度分析が含まれています。</p>
+        </div>
+    </footer>
+
+    <!-- 通知ポップアップ（コピー時用） -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-lg text-sm flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none z-50">
+        <i data-lucide="check-circle" class="text-emerald-400 w-5 h-5"></i>
+        <span id="toast-message">コピーしました！</span>
+    </div>
+
+    <!-- 分析用データ定義 (JSON形式) -->
+    <script>
+        // 判定ステータスフィルター
+        let currentFilter = 'all';
+
+        const rawData = [
+            {
+                id: 1,
+                title: "1. 存在表現（There is / are ~ による教室内描写）",
+                syntax: "There is/are + [名詞] + in/on/at [場所]",
+                desc: "「〜に〜がある、いる」という基本描写構文。複数名詞の扱い、後置修飾、冠詞ルールを検証します。",
+                items: [
+                    { original: "There are a lot of pieces of paper taped to the blackboard in the back.", status: "ok", highlight: "There are a lot of pieces of paper taped to the blackboard in the back.", translation: "後ろの黒板には、たくさんの紙がテープで貼られています。", comment: "極めて自然で、かつレベルの高い表現です。`pieces of paper` や、過去分詞 `taped to...`（〜に貼られた）による後置修飾を完璧に使いこなしています。" },
+                    { original: "There is a projector on top of the old blackboard.", status: "ok", highlight: "There is a projector on top of the old blackboard.", translation: "古い黒板の上にプロジェクターがあります。", comment: "単数主語 `a projector` に対して、`There is` を正しく使い、場所の前置詞表現も完璧です。" },
+                    { original: "There are many desks and chairs in the classroom.", status: "ok", highlight: "There are many desks and chairs in the classroom.", translation: "教室にはたくさんの机と椅子があります。", comment: "主語が複数であることを正確に捉え、`There are` 構文に綺麗に当てはめています。" },
+                    { original: "There are 26 students in the class room.", status: "ok", highlight: "There are 26 students in the <span class='text-amber-600 font-bold underline font-mono'>class room</span>.", translation: "教室には26人の生徒がいます。", comment: "基本文法は完璧です。軽微な点として、`class room`（スペースあり）は通常、1語で <strong>classroom</strong> と綴るのが自然です。" },
+                    { original: "There are words written on the blackboard.", status: "ok", highlight: "There are words written on the blackboard.", translation: "黒板に文字（言葉）が書かれています。", comment: "名詞 `words` に対して過去分詞 `written` を後置修飾（書かれた言葉）として美しく機能させています。大変スマートな英語です。" },
+                    { original: "There are many of people in the classroom.", status: "ng", highlight: "There are <span class='text-rose-600 font-bold underline decoration-wavy'>many of people</span> in the classroom.", translation: "（修正後）教室にはたくさんの人々がいます。", correction: "There are <strong>many people</strong> in the classroom. / <strong>a lot of people</strong>", comment: "形容詞 `many` の直後に名詞を修飾する場合、前置詞 `of` を挟むことはできません。`many people` とするべきです。`of` を使いたい場合は <strong>a lot of people</strong> を使用します。" },
+                    { original: "There are two electric fans in this classroom.", status: "ok", highlight: "There are two electric fans in this classroom.", translation: "この教室には2台の扇風機（電気ファン）があります。", comment: "複数形 `electric fans` を正しく用い、There are 構文を完璧に作成しています。（※生徒から2回提出された重複回答です）" },
+                    { original: "back blackboard　the many letter", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>back blackboard　the many letter</span>", translation: "（修正後）後ろの黒板にはたくさんの文字が書かれています。", correction: "There are many letters on the back blackboard.", comment: "主語や動詞がなく、名詞と形容詞がバラバラに並んで全角スペースが混入している状態です。「〜がある」を表現するために <strong>There is/are...</strong> の構文に落とし込む必要があります。" }
+                ]
+            },
+            {
+                id: 2,
+                title: "2. 進行形を用いた「生徒の様子」の描写",
+                syntax: "S + are thinking about / making ~",
+                desc: "「〜している最中だ」という現在進行形表現。主語との一致や名詞の単複を確認します。",
+                items: [
+                    { original: "they are thinking about making English sentence,", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>they</span> are thinking about making English <span class='text-rose-600 font-bold underline decoration-wavy'>sentence,</span>", translation: "（修正後）彼らは英文を作ることについて考えています。", correction: "<strong>They</strong> are thinking about making English <strong>sentences.</strong>", comment: "3つの修正が必要です。①文頭の `they` が小文字です。②可算名詞である `sentence` が裸の単数形で使われています。複数形 <strong>sentences</strong> または `an English sentence` にします。③文末がピリオドではなくカンマ `,` になっています。" },
+                    { original: "Student,s making English sentence.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>Student,s</span> <span class='text-rose-600 font-bold underline decoration-wavy'>making</span> English <span class='text-rose-600 font-bold underline decoration-wavy'>sentence</span>.", translation: "（修正後）生徒たちが英文を作っています。", correction: "<strong>The students are making</strong> English <strong>sentences</strong>.", comment: "① `Student,s` は複数形の `Students` のスペルミス（アポストロフィを誤ってカンマにしたか、アポストロフィの誤用）です。②進行形に必要な <strong>are</strong>（be動詞）が欠落しています。③可算名詞 `sentence` の単複の扱いに注意し、<strong>sentences</strong> とします。" },
+                    { original: "My classmates are thinking about English sentences right now.", status: "ok", highlight: "My classmates are thinking about English sentences right now.", translation: "私のクラスメイトたちは今まさに英文について考えています。", comment: "複数一致（classmates - are）、`thinking about` 熟語、可算名詞の複数形 `sentences`、時を示す `right now`、すべて完璧に組み合わさっています。非常に素晴らしい英文です。" },
+                    { original: "He has no idea.", status: "ok", highlight: "He has no idea.", translation: "彼は全く見当がついていません（困っています）。", comment: "生徒の様子を表現する、定型イディオム `have no idea` を文法的に完璧に用いたスマートな文です。" }
+                ]
+            },
+            {
+                id: 3,
+                title: "3. ロッカー破損の受動態描写（Passive Voice）",
+                syntax: "S + was/is + broken/destroyed + by classmate",
+                desc: "「ロッカーがクラスメイトによって破壊された」という行為の受動表現。be動詞+過去分詞、動作主（by）の表現、冠詞の定着度を確認します。",
+                items: [
+                    { original: "The locker was broken by them.", status: "ok", highlight: "The locker was broken by them.", translation: "ロッカーは彼らによって壊されました。", comment: "受動態（be動詞過去形 + 過去分詞 broken）を完全に使いこなした正しい文です。" },
+                    { original: "A classmate's locker was ransacked.", status: "ok", highlight: "A classmate's locker was ransacked.", translation: "クラスメイトのロッカーが（物色されて）荒らされました。", comment: "`ransack`（〜を荒らす、めちゃくちゃにする）という、極めて高度で状況に合致した動詞を選択し、受動態を完璧に構成しています。素晴らしい語彙力です。" },
+                    { original: "His locker is destroyed by classmate", status: "ng", highlight: "His locker <span class='text-rose-600 font-bold underline decoration-wavy'>is destroyed</span> by <span class='text-rose-600 font-bold underline decoration-wavy'>classmate</span>", translation: "（修正後）彼のロッカーはクラスメイトに壊されました。", correction: "His locker <strong>was destroyed</strong> by <strong>a classmate</strong>.", comment: "2箇所の修正点。①すでに壊されている過去の事実を述べるため、現在形 `is` よりも過去形 <strong>was</strong> にするのが自然です。②`classmate` は数えられる名詞なので、無冠詞単数は不可です。<strong>a classmate</strong> または <strong>classmates</strong>（複数形）にします。文末のピリオドも補います。" },
+                    { original: "This locker was broken by a classmate.", status: "ok", highlight: "This locker was broken by a classmate.", translation: "このロッカーはクラスメイトに壊されました。", comment: "受動態の時制（was broken）、単数名詞への冠詞（a classmate）、大文字ピリオド、すべてがパーフェクトな教科書的模範解答です。" },
+                    { original: "My locker is break by classmate", status: "ng", highlight: "My locker <span class='text-rose-600 font-bold underline decoration-wavy'>is break</span> by <span class='text-rose-600 font-bold underline decoration-wavy'>classmate</span>", translation: "（修正後）私のロッカーはクラスメイトに壊されました。", correction: "My locker <strong>was broken</strong> by <strong>a classmate</strong>.", comment: "受動態のルール（be動詞 + 過去分詞）において、動詞が原形 `break` のままになっています。<strong>broken</strong> に修正し、時制を過去の <strong>was</strong> に、`classmate` の前に <strong>a</strong> を補い、末尾にピリオドを打ちます。" },
+                    { original: "This locker was broken by a classmate.", status: "ok", highlight: "This locker was broken by a classmate.", translation: "このロッカーはクラスメイトに壊されました。", comment: "文法・構成ともに完璧な英文です。（※重複提出回答）" }
+                ]
+            },
+            {
+                id: 4,
+                title: "4. ロッカーの状態描写における動詞・スペルエラー",
+                syntax: "Locker + is + breaking / braking",
+                desc: "状態を示すつもりが、自動詞・進行形の誤用やタイポ（スペルミス）によって不自然になった表現を分析します。",
+                items: [
+                    { original: "Loccer is breaking.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>Loccer</span> is <span class='text-rose-600 font-bold underline decoration-wavy'>breaking.</span>", translation: "（修正後）ロッカーが壊れています。", correction: "The <strong>locker is broken</strong>.", comment: "2点の大きなミス。①`Loccer` は <strong>Locker</strong> のスペルミスです。②`is breaking` とすると「ロッカー自身が今まさにバリバリと自発的に崩壊しつつある」という奇妙な動作表現になります。「すでに壊れた状態」を表したい場合は、受動態あるいは形容詞的に <strong>is broken</strong> とします。" },
+                    { original: "Back rocker is braking.", status: "ng", highlight: "Back <span class='text-rose-600 font-bold underline decoration-wavy'>rocker</span> is <span class='text-rose-600 font-bold underline decoration-wavy'>braking.</span>", translation: "（修正後）後ろのロッカーが壊れています。", correction: "The back <strong>locker is broken</strong>.", comment: "多数のタイポと文法ミスが重なっています。①「ロッカー」は `locker`（L）です。`rocker`（R）は「揺り椅子、ロック歌手」です。②`braking` は「ブレーキをかける」という全く別の単語です。「壊れる（break）」の進行形を意図したとしても、状態を表すため <strong>broken</strong> にする必要があります。③主語に <strong>The</strong> を補います。" }
+                ]
+            },
+            {
+                id: 5,
+                title: "5. 窓・扇風機・エアコンの描写",
+                syntax: "S + is + open / running / dry",
+                desc: "設備機器の状態や環境の描写。動詞のニュアンス、冠詞、スペルを確認します。",
+                items: [
+                    { original: "Open the windows.", status: "ok", highlight: "Open the windows.", translation: "窓を開けなさい。（または、窓が開いている [※意図による]）", comment: "「窓を開けなさい」という命令文としては文法的に完璧に正しいです。もし「窓が開いている（状態）」を描写したかった場合は、<strong>The windows are open.</strong> とするべきです。状況に合わせた使い分けを指導します。" },
+                    { original: "computer　is on tha deskwith air conditioning", status: "ng", highlight: "computer<span class='text-rose-600 font-bold underline font-mono'>　</span>is on <span class='text-rose-600 font-bold underline decoration-wavy'>tha</span> <span class='text-rose-600 font-bold underline decoration-wavy'>deskwith</span> air conditioning", translation: "（修正後）コンピューターは、エアコンが効いている机の上にあります。", correction: "The computer is on the desk in the air-conditioned room.", comment: "複数の入力エラーがあります。①全角スペースが含まれています。②`tha` は <strong>the</strong> のタイポです。③`deskwith` はスペースがなく結合しています。④`with air conditioning`（空調付きの机）は不自然です。「空調の効いた部屋の机の上」を表現するには `in the air-conditioned room` とします。" },
+                    { original: "The classroom is hot.", status: "ok", highlight: "The classroom is hot.", translation: "教室は暑いです。", comment: "シンプルかつ完璧な教室の状態描写です。" },
+                    { original: "My eyes dry by fans", status: "ng", highlight: "My eyes <span class='text-rose-600 font-bold underline decoration-wavy'>dry</span> by <span class='text-rose-600 font-bold underline decoration-wavy'>fans</span>", translation: "（修正後）扇風機の風で目が乾きます。", correction: "My eyes <strong>get dry because of the fans</strong>. / <strong>are dried by the fans</strong>.", comment: "①動詞 `dry`（乾かす）をそのまま用いると「私の目が（何かを）乾燥させる」という不自然な意味になります。「目が（乾燥した状態に）なる」は <strong>get dry</strong> または <strong>feel dry</strong> と表します。②`by fans` だと「扇風機という主体に乾燥させられる」という強い受動態になるため、原因を表す <strong>because of the fans</strong> にする方が自然です。③ピリオドが欠落。" },
+                    { original: "The fan is running.", status: "ok", highlight: "The fan is running.", translation: "扇風機が回っています（作動しています）。", comment: "機械やファンが動いている状態を `running` で表す非常に自然で素晴らしい表現です。" },
+                    { original: "The window is open", status: "ok", highlight: "The window is open", translation: "窓が開いています。", comment: "文法的には完璧です。軽微な点として、文末にピリオドを付ける習慣を指導するとさらによいです。" },
+                    { original: "Fan is on the table.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>Fan</span> is on the table.", translation: "（修正後）扇風機がテーブルの上にあります。", correction: "<strong>The fan</strong> is on the table.", comment: "特定の扇風機を指しているため、主語 `Fan` の前に定冠詞 <strong>The</strong> が必須です。また、文頭は大文字で書き始めます。" },
+                    { original: "the window is open.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>the</span> window is open.", translation: "（修正後）窓が開いています。", correction: "<strong>The</strong> window is open.", comment: "文法的には正しいですが、文頭の `the` が小文字で始まっています。英語の基本的な記述ルールとして、大文字 <strong>The</strong> に修正します。" }
+                ]
+            },
+            {
+                id: 6,
+                title: "6. 電子機器・パソコンの描写",
+                syntax: "This PC/computer + is + charged / old",
+                desc: "PCに関する描写。所有格（He's vs His）の使い分け、及び文頭大文字表記を検証します。",
+                items: [
+                    { original: "this PC is charged", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>this</span> PC is charged", translation: "（修正後）このパソコンは充電されています。", correction: "<strong>This</strong> PC is charged.", comment: "文法（PC is charged = PCが充電されている状態）は正しいですが、文頭の `this` が小文字で、かつ最後にピリオドがありません。形式面での指導が必要です。" },
+                    { original: "He's computer is old.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>He's</span> computer is old.", translation: "（修正後）彼のコンピューターは古いです。", correction: "<strong>His</strong> computer is old.", comment: "「彼の（所有格）」と言いたい部分で、`He is` の短縮形である `He's`（彼は〜です）を使ってしまっています。発音が同じであることによる典型的な混同ミスです。所有格は <strong>His</strong> を用います。" },
+                    { original: "Computer on the desk", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>Computer on the desk</span>", translation: "（修正後）コンピューターが机の上にあります。", correction: "<strong>A computer is on the desk.</strong> / <strong>There is a computer on the desk.</strong>", comment: "文の形になっておらず、名詞句（単語の塊）だけになっています。述語動詞（is など）を補って文を成立させ、文頭は大文字にします。" }
+                ]
+            },
+            {
+                id: 7,
+                title: "7. 教室の雰囲気・状態の形容表現",
+                syntax: "S + is + clean / noisy / messy",
+                desc: "「〜は〜だ」という教室全体の雰囲気や黒板の綺麗さを表すSVCの基本表現。",
+                items: [
+                    { original: "This classroom has a clean blackboard.", status: "ok", highlight: "This classroom has a clean blackboard.", translation: "この教室にはきれいな黒板があります。", comment: "「教室（無生物）」を主語にして `has`（〜を持っている）を使う、非常に英語らしくて表現豊かな、完璧な英文です。" },
+                    { original: "The desk is messy.", status: "ok", highlight: "The desk is messy.", translation: "机が散らかっています（汚いです）。", comment: "散らかっている状態を `messy` という語彙で正確に表しています。文法・スペルともに完璧です。" },
+                    { original: "The blackboard is clean every day.", status: "ok", highlight: "The blackboard is clean every day.", translation: "黒板は毎日きれいです。", comment: "SVC構文、時を表す `every day` も適切に使われています。完璧です。（※重複回答）" },
+                    { original: "this classroom is noisy every day.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>this</span> classroom is noisy every day.", translation: "（修正後）この教室は毎日うるさいです。", correction: "<strong>This</strong> classroom is noisy every day.", comment: "「毎日うるさい」という描写は完璧ですが、文頭の `this` が小文字で始まっています。大文字 <strong>This</strong> に修正します。（※重複回答）" },
+                    { original: "this blackboard is written text by chalk", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>this blackboard is written text by chalk</span>", translation: "（修正後）この黒板にはチョークでテキストが書かれています。", correction: "There is some text written in chalk on this blackboard. / This blackboard has text written on it in chalk.", comment: "英語では「黒板」を主語にして「テキストが書かれている」という受動態（`is written text`）を直接作ることができません。主語を `Text` にして `Text is written on the blackboard` とする、または `There is text written...` の形にします。また、チョーク「で」は手段・材料の <strong>in chalk</strong> または <strong>with chalk</strong> を使います（by chalkだとチョーク自体が生命体として書いたようなニュアンスになります）。文頭は小文字で始まっています。" },
+                    { original: "my score is terrible.", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>my</span> score is terrible.", translation: "（修正後）私のスコア（点数）はひどいです。", correction: "<strong>My</strong> score is terrible.", comment: "教室描写としてはやや脈絡が謎（テストが返却された状況か？）ですが、文法は正しいです。ただし文頭の `my` が小文字になっています。大文字 <strong>My</strong> にします。" }
+                ]
+            },
+            {
+                id: 8,
+                title: "8. 先生の服装・衣服描写",
+                syntax: "S + has a ~ pattern / wear ~ shirt",
+                desc: "人物の服装描写。主語に応じた動詞の変化、 striped (形容詞) のコロケーションを確認します。",
+                items: [
+                    { original: "The teacher's shirt has a striped pattern.", status: "ok", highlight: "The teacher's shirt has a striped pattern.", translation: "先生のシャツはストライプ柄（縞模様）です。", comment: "「ストライプ柄を持っている（has a striped pattern）」という、極めて自然で洗練された表現です。素晴らしい英語力です。" },
+                    { original: "Teacher wear stripe shirt", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>Teacher wear stripe shirt</span>", translation: "（修正後）先生はストライプのシャツを着ています。", correction: "<strong>The teacher is wearing a striped shirt.</strong>", comment: "複数の修正が必要です。①主語 `Teacher` に冠詞 <strong>The</strong> が必要。②現在「着ている」状態なので、単純現在形 `wear` ではなく現在進行形 <strong>is wearing</strong> で表すのが自然。③「ストライプ柄の」という形容詞は <strong>striped</strong>（dが必要）です。④シャツは可算名詞なので <strong>a striped shirt</strong> とします。" },
+                    { original: "The curtains in the classroom are yellow.", status: "ok", highlight: "The curtains in the classroom are yellow.", translation: "教室のカーテンは黄色です。", comment: "主語の `curtains`（複数形）に対して be動詞 `are` が正しく一致しており、完璧な文です。" }
+                ]
+            },
+            {
+                id: 9,
+                title: "9. その他の設備描写エラー",
+                syntax: "projector is mounted on ~ / table is closing",
+                desc: "設備や場所の不自然な受動態や単語の間違いを検証します。",
+                items: [
+                    { original: "In front of blackbord is Clearing.", status: "ng", highlight: "In front of <span class='text-rose-600 font-bold underline decoration-wavy'>blackbord</span> is <span class='text-rose-600 font-bold underline decoration-wavy'>Clearing.</span>", translation: "（修正後）黒板の前は片付いています。", correction: "The area in front of the blackboard is clean. / They are clearing the area in front of the blackboard.", comment: "①`blackbord` は <strong>blackboard</strong> のスペルミス。②前置詞句（In front of...）が直接動詞 `is` の主語になっており、文構造が不自然です。③`is Clearing`（片付けている最中）だと「黒板の前（場所）が自ら掃除している」という意味になり不自然です。状態をいうなら <strong>is clean</strong> / <strong>is clear</strong> とします。" },
+                    { original: "Back table is closing.", status: "ng", highlight: "Back table is <span class='text-rose-600 font-bold underline decoration-wavy'>closing.</span>", translation: "（修正後）後ろのテーブルは閉まっています / 壁に近いです。", correction: "The table in the back is closed. / is near the wall.", comment: "①主語 `Back table` に定冠詞 `The` が必要です。②`is closing`（閉まりつつある）が何を指しているか曖昧です。引き出しや折りたたみテーブルが「閉じている（状態）」なら過去分詞を形容詞として使った <strong>is closed</strong> とします。" },
+                    { original: "the projector is mounted on the well", status: "ng", highlight: "<span class='text-rose-600 font-bold underline decoration-wavy'>the</span> projector is mounted on the <span class='text-rose-600 font-bold underline decoration-wavy'>well</span>", translation: "（修正後）プロジェクターが壁に取り付けられています。", correction: "<strong>The</strong> projector is mounted on the <strong>wall</strong>.", comment: "①文頭が小文字 `the` になっています。②`well` は「井戸、上手に」という意味の単語です。「壁」は <strong>wall</strong> です。母音の発音に引きずられたスペルミスと考えられます。" }
+                ]
+            },
+            {
+                id: 10,
+                title: "【無効・ノイズ回答】無意味な単語、選択肢データの混入",
+                syntax: "ノイズ・テストデータ",
+                desc: "アンケートフォームに打ち込まれた「選択肢」等のノイズデータや、文字の羅列データです。集計から除外して構いません。",
+                items: [
+                    { original: "選択肢 1", status: "invalid", highlight: "選択肢 1", translation: "（解析不可）システム用テスト選択肢", comment: "アンケートフォーム構築時にシステムまたは生徒が誤って送信したと思われるテスト用ノイズ回答です。" },
+                    { original: "this classroom is noisy every day.There are two electric fans in this classroom.This classroom is noisy every day.There are two electric fans in this classroom.", status: "invalid", highlight: "（重複送信によるシステムエラー文）", translation: "（解析不可）重複データ", comment: "複数の文がスペースなしで複数回繰り返されて送信されたバグデータです。個別には分類済みのため、この結合データは除外します。" }
+                ]
+            }
+        ];
+
+        // 初回ロード時に関数を実行
+        window.onload = function() {
+            calculateStats();
+            renderData();
+            lucide.createIcons(); // Lucideアイコンの初期化
+        }
+
+        // 統計データの自動計算
+        function calculateStats() {
+            let total = 0;
+            let ok = 0;
+            let ng = 0;
+            let invalid = 0;
+
+            // 特定エラー数のカウント用
+            let typoCount = 0;
+            let passiveErrorCount = 0;
+            let capsErrorCount = 0;
+
+            rawData.forEach(category => {
+                category.items.forEach(item => {
+                    total++;
+                    if (item.status === 'ok') ok++;
+                    else if (item.status === 'ng') {
+                        ng++;
+                        // エラーの種類を簡易判定
+                        const comment = item.comment || "";
+                        if (comment.includes("タイポ") || comment.includes("スペル")) typoCount++;
+                        if (comment.includes("受動態") || comment.includes("進行形") || comment.includes("動詞")) passiveErrorCount++;
+                        if (comment.includes("文頭") || comment.includes("大文字") || comment.includes("ピリオド")) capsErrorCount++;
+                    }
+                    else if (item.status === 'invalid') invalid++;
+                });
+            });
+
+            // UI反映
+            document.getElementById('stat-total').innerText = total;
+            document.getElementById('stat-ok').innerText = ok;
+            document.getElementById('stat-ng').innerText = ng;
+            document.getElementById('stat-invalid').innerText = invalid;
+
+            // フィルターバッジ数
+            document.getElementById('badge-all').innerText = total;
+            document.getElementById('badge-ok').innerText = ok;
+            document.getElementById('badge-ng').innerText = ng;
+            document.getElementById('badge-invalid').innerText = invalid;
+
+            // 割合計算とバー反映
+            const totalNg = ng || 1; // 0除算防止
+            const pctTypo = Math.round((typoCount / totalNg) * 100);
+            const pctPassive = Math.round((passiveErrorCount / totalNg) * 100);
+            const pctCaps = Math.round((capsErrorCount / totalNg) * 100);
+
+            document.getElementById('pct-typo').innerText = pctTypo + "%";
+            document.getElementById('pct-passive').innerText = pctPassive + "%";
+            document.getElementById('pct-caps').innerText = pctCaps + "%";
+
+            document.getElementById('bar-typo').style.width = pctTypo + "%";
+            document.getElementById('bar-passive').style.width = pctPassive + "%";
+            document.getElementById('bar-caps').style.width = pctCaps + "%";
+        }
+
+        // データを元にHTMLを生成して描画
+        function renderData() {
+            const container = document.getElementById('analysis-container');
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            container.innerHTML = '';
+
+            let totalShown = 0;
+
+            rawData.forEach(category => {
+                // 各カテゴリから検索クエリとステータスフィルターに合致するアイテムを抽出
+                const filteredItems = category.items.filter(item => {
+                    // ステータスマッチ
+                    const statusMatch = (currentFilter === 'all' || item.status === currentFilter);
+                    
+                    // 検索クエリマッチ
+                    const textToSearch = (category.title + " " + category.syntax + " " + item.original + " " + item.translation + " " + item.comment).toLowerCase();
+                    const queryMatch = !searchQuery || textToSearch.includes(searchQuery);
+
+                    return statusMatch && queryMatch;
+                });
+
+                if (filteredItems.length === 0) return; // 合致するアイテムがなければ表示しない
+
+                totalShown += filteredItems.length;
+
+                // カテゴリカードの作成
+                const categoryCard = document.createElement('div');
+                categoryCard.className = "bg-white rounded-2xl shadow-sm border border-slate-200 p-6 transition-all duration-300 hover:shadow-md";
+                categoryCard.dataset.categoryId = category.id;
+
+                // ヘッダー部分
+                let headerHtml = `
+                    <div class="border-b border-slate-100 pb-4 mb-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-2">
+                            <h3 class="text-base sm:text-lg font-bold text-slate-900">${category.title}</h3>
+                            <span class="bg-teal-50 text-teal-700 text-[10.5px] px-2 py-0.5 rounded font-mono font-semibold border border-teal-100">${category.syntax}</span>
+                        </div>
+                        <p class="text-xs text-slate-500">${category.desc}</p>
+                    </div>
+                    <div class="space-y-3">
+                `;
+
+                // 各回答（アイテム）のレンダリング
+                filteredItems.forEach(item => {
+                    let badgeColor = "bg-slate-100 text-slate-600 border-slate-200";
+                    let badgeLabel = "無効";
+                    let iconName = "minus-circle";
+
+                    if (item.status === 'ok') {
+                        badgeColor = "bg-emerald-50 text-emerald-700 border-emerald-100";
+                        badgeLabel = "適切 (OK)";
+                        iconName = "check";
+                    } else if (item.status === 'ng') {
+                        badgeColor = "bg-rose-50 text-rose-700 border-rose-100";
+                        badgeLabel = "不適切 (要修正)";
+                        iconName = "x";
+                    }
+
+                    // アコーディオン (details) タグ
+                    headerHtml += `
+                        <div class="border border-slate-100 rounded-xl hover:border-slate-200 transition-all">
+                            <details class="group bg-slate-50/50 rounded-xl">
+                                <summary class="flex items-center justify-between p-3.5 cursor-pointer select-none">
+                                    <div class="flex items-center gap-3 overflow-hidden pr-2">
+                                        <span class="border px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 flex items-center gap-1 ${badgeColor}">
+                                            <i data-lucide="${iconName}" class="w-3 h-3"></i> ${badgeLabel}
+                                        </span>
+                                        <span class="text-xs sm:text-sm font-medium text-slate-800 truncate font-mono">
+                                            ${item.highlight}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        <span class="text-[11px] text-slate-400 hidden sm:inline">クリックで詳細を表示</span>
+                                        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 transition-transform duration-200"></i>
+                                    </div>
+                                </summary>
+                                <div class="px-4 pb-4 pt-2 border-t border-slate-100 bg-white rounded-b-xl space-y-3.5 text-xs sm:text-sm">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                                        <!-- 和訳 -->
+                                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                            <div class="text-[11px] font-bold text-slate-500 mb-1 flex items-center gap-1">
+                                                <i data-lucide="languages" class="w-3.5 h-3.5"></i> 日本語訳
+                                            </div>
+                                            <p class="text-slate-800 leading-relaxed font-medium">${item.translation}</p>
+                                        </div>
+                                        
+                                        <!-- 修正案 (不適切な場合のみ) -->
+                                        ${item.status === 'ng' ? `
+                                        <div class="bg-emerald-50/50 p-3 rounded-xl border border-emerald-100">
+                                            <div class="text-[11px] font-bold text-emerald-600 mb-1 flex items-center gap-1">
+                                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 推奨される修正案
+                                            </div>
+                                            <p class="text-emerald-800 leading-relaxed font-mono font-semibold">${item.correction}</p>
+                                        </div>
+                                        ` : `
+                                        <div class="bg-emerald-50/20 p-3 rounded-xl border border-dashed border-emerald-200">
+                                            <div class="text-[11px] font-bold text-emerald-600 mb-1 flex items-center gap-1">
+                                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> ステータス良好
+                                            </div>
+                                            <p class="text-emerald-700 leading-relaxed">文法的に適切です。このまま学習・指導用例文としてご利用いただけます。</p>
+                                        </div>
+                                        `}
+                                    </div>
+
+                                    <!-- 指導の解説 -->
+                                    <div class="bg-slate-50/50 p-3.5 rounded-xl border border-slate-100">
+                                        <div class="text-[11px] font-bold text-slate-500 mb-1 flex items-center gap-1">
+                                            <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-teal-600"></i> 誤りの分析と指導・改善のアドバイス
+                                        </div>
+                                        <p class="text-slate-700 leading-relaxed">${item.comment}</p>
+                                    </div>
+
+                                    <!-- クイックアクション -->
+                                    <div class="flex justify-end pt-1">
+                                        <button onclick="copyFeedback('${item.original.replace(/'/g, "\\'")}', '${item.translation.replace(/'/g, "\\'")}', '${(item.correction || "").replace(/'/g, "\\'")}', '${item.comment.replace(/'/g, "\\'")}')" 
+                                                class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-all flex items-center gap-1">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> フィードバックをコピー
+                                        </button>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+                    `;
+                });
+
+                headerHtml += `</div>`;
+                categoryCard.innerHTML = headerHtml;
+                container.appendChild(categoryCard);
+            });
+
+            // 検索結果がない場合
+            if (totalShown === 0) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center text-slate-500">
+                        <i data-lucide="alert-circle" class="w-12 h-12 text-slate-300 mx-auto mb-3"></i>
+                        <p class="text-base font-semibold text-slate-700 mb-1">合致するデータが見つかりませんでした</p>
+                        <p class="text-xs">フィルター条件や検索キーワードを変更してください。</p>
+                    </div>
+                `;
+            }
+
+            // アイコンを再ロード
+            lucide.createIcons();
+        }
+
+        // 判定ステータスの切り替え
+        function setStatusFilter(status) {
+            currentFilter = status;
+            
+            // ボタンのアクティブスタイル制御
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = "filter-btn w-full text-left text-xs px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-50 border border-transparent transition-all flex items-center justify-between";
+            });
+
+            const activeBtn = document.getElementById(`btn-filter-${status}`);
+            if (activeBtn) {
+                if (status === 'all') {
+                    activeBtn.className = "filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-teal-50 text-teal-700 border border-teal-100";
+                } else if (status === 'ok') {
+                    activeBtn.className = "filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-emerald-50 text-emerald-700 border border-emerald-100";
+                } else if (status === 'ng') {
+                    activeBtn.className = "filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-rose-50 text-rose-700 border border-rose-100";
+                } else if (status === 'invalid') {
+                    activeBtn.className = "filter-btn active w-full text-left text-xs px-3 py-2 rounded-lg font-medium transition-all flex items-center justify-between bg-slate-200 text-slate-700 border border-slate-300";
+                }
+            }
+
+            renderData();
+        }
+
+        // 検索やその他コントロール連動用
+        function filterData() {
+            renderData();
+        }
+
+        // アコーディオンを一斉展開
+        function expandAll() {
+            document.querySelectorAll('details').forEach(details => {
+                details.open = true;
+            });
+        }
+
+        // アコーディオンを一斉閉鎖
+        function collapseAll() {
+            document.querySelectorAll('details').forEach(details => {
+                details.open = false;
+            });
+        }
+
+        // フィードバックのクリップボードへのコピー (iFrame対応用 document.execCommand 使用)
+        function copyFeedback(original, translation, correction, comment) {
+            let text = `【生徒の英作文】\n${original}\n\n【日本語訳のイメージ】\n${translation}\n`;
+            if (correction) {
+                text += `\n【推奨される修正案】\n${correction.replace(/<[^>]*>/g, '')}\n`; // HTMLタグ除去
+            }
+            text += `\n【指導・解説】\n${comment}`;
+
+            // 一時的なtextareaを作成してコピー実行
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed'; // 画面外に逃がす
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast("フィードバックをコピーしました！");
+                } else {
+                    showToast("コピーに失敗しました。");
+                }
+            } catch (err) {
+                showToast("非対応のブラウザです。");
+            }
+
+            document.body.removeChild(textarea);
+        }
+
+        // トースト通知の表示
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            
+            toast.className = "fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-lg text-sm flex items-center gap-2 transform translate-y-0 opacity-100 transition-all duration-300 pointer-events-none z-50";
+            
+            setTimeout(() => {
+                toast.className = "fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-lg text-sm flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none z-50";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
