@@ -1,0 +1,3883 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2-1 動詞 ① 【超わかりやすい詳細解答解説ナビゲーター】</title>
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --primary-bg: #eff6ff;
+      --secondary: #0d9488;
+      --secondary-bg: #f0fdfa;
+      --accent: #e11d48;
+      --accent-bg: #fff1f2;
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --dark: #0f172a;
+      --text: #334155;
+      --text-muted: #64748b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.68;
+      padding-bottom: 100px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #0284c7 100%);
+      color: white;
+      padding: 2.5rem 1.5rem 2rem;
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .top-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .badge-chapter {
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 0.2rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .header-sub {
+      font-size: 0.95rem;
+      opacity: 0.92;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+    }
+
+    .header-desc {
+      font-size: 0.98rem;
+      max-width: 850px;
+      line-height: 1.55;
+      opacity: 0.96;
+    }
+
+    /* Navigation Bar */
+    .nav-container {
+      background: white;
+      border-bottom: 2px solid var(--border);
+      position: sticky;
+      top: 130px;
+      z-index: 85;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      overflow-x: auto;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .nav-tab-btn {
+      background: none;
+      border: none;
+      padding: 1rem 1.25rem;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--primary);
+      background-color: #f8fafc;
+    }
+
+    .nav-tab-btn.active {
+      color: var(--primary);
+    }
+
+    .nav-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--primary);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .global-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+    }
+
+    .ctrl-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border-dark);
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .ctrl-btn:hover {
+      background: var(--primary-bg);
+      color: var(--primary);
+      border-color: var(--primary-light);
+    }
+
+    /* Search Bar */
+    .search-section {
+      max-width: 1120px;
+      margin: 1.2rem auto 0;
+      padding: 0 1rem;
+    }
+
+    .search-box {
+      background: white;
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    .search-count {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1120px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* Section Subheaders */
+    .section-intro-card {
+      background: linear-gradient(to right, #ffffff, #f8fafc);
+      border: 1px solid var(--border);
+      border-left: 6px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-intro-card h2 {
+      font-size: 1.3rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-intro-card p {
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Category Group in Textbook */
+    .category-block {
+      margin-bottom: 2.2rem;
+    }
+
+    .category-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .category-ref-badge {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    /* Item Card */
+    .item-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 1.2rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      overflow: hidden;
+    }
+
+    .item-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: var(--shadow);
+    }
+
+    /* Card Header (Visible initially) */
+    .item-header {
+      padding: 1.1rem 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      user-select: none;
+      background: white;
+      transition: background-color 0.15s ease;
+    }
+
+    .item-header:hover {
+      background-color: #fbfcfe;
+    }
+
+    .item-header-left {
+      flex: 1;
+    }
+
+    .item-number-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .item-badge-num {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--primary-bg);
+      padding: 0.15rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #bfdbfe;
+    }
+
+    .item-badge-univ {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .item-badge-grammar {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+    }
+    .grammar-vi { background: #dcfce7; color: #166534; }
+    .grammar-vt { background: #fef3c7; color: #92400e; }
+    .grammar-svo { background: #e0f2fe; color: #075985; }
+    .grammar-svoo { background: #f3e8ff; color: #6b21a8; }
+    .grammar-exp { background: #ffe4e6; color: #9f1239; }
+
+    .item-main-en {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.3rem;
+      line-height: 1.45;
+    }
+
+    .item-main-ja {
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    .toggle-icon-box {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-bg);
+      padding: 0.4rem 0.75rem;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      margin-top: 0.2rem;
+    }
+
+    .item-card.open .toggle-icon-box {
+      background: var(--primary);
+      color: white;
+    }
+
+    .toggle-arrow {
+      font-size: 0.75rem;
+      transition: transform 0.25s ease;
+    }
+
+    .item-card.open .toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Collapsible Body */
+    .item-body {
+      display: none;
+      padding: 1.3rem;
+      background-color: #fafbfc;
+      border-top: 1px solid var(--border);
+      animation: fadeIn 0.25s ease;
+    }
+
+    .item-card.open .item-body {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Explanation Blocks inside Item Body */
+    .ans-box {
+      background: #eff6ff;
+      border-left: 5px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .ans-label {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+
+    .ans-content {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      font-family: 'Consolas', monospace;
+    }
+
+    .expl-section {
+      margin-bottom: 1.2rem;
+    }
+
+    .expl-header {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .text-flow {
+      font-size: 0.93rem;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .text-flow p {
+      margin-bottom: 0.6rem;
+    }
+
+    .text-flow ul {
+      padding-left: 1.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .text-flow li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* Special Highlight Callouts */
+    .callout {
+      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      margin: 0.9rem 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .callout-rule {
+      background: #f0fdf4;
+      border-left: 4px solid var(--secondary);
+      color: #14532d;
+    }
+
+    .callout-rule strong {
+      color: #0f766e;
+    }
+
+    .callout-caution {
+      background: var(--warning-bg);
+      border-left: 4px solid var(--warning);
+      color: #78350f;
+    }
+
+    .callout-caution strong {
+      color: #b45309;
+    }
+
+    .callout-tip {
+      background: #f5f3ff;
+      border-left: 4px solid #8b5cf6;
+      color: #4c1d95;
+    }
+
+    .highlight-word {
+      background-color: #fef08a;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      font-weight: 700;
+      color: #854d0e;
+    }
+
+    .code-term {
+      font-family: 'Consolas', monospace;
+      font-weight: 700;
+      background: #e2e8f0;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      color: #1e293b;
+      font-size: 0.92em;
+    }
+
+    /* Word Breakdown Grid */
+    .word-breakdown {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin: 0.8rem 0;
+    }
+
+    .word-chip {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+    }
+
+    .word-chip-term {
+      font-family: 'Consolas', monospace;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .word-chip-meaning {
+      font-size: 0.84rem;
+      color: #475569;
+      margin-top: 0.2rem;
+    }
+
+    /* Quick jump button on bottom right */
+    .fab-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      border: none;
+      transition: transform 0.2s, background-color 0.2s;
+      z-index: 100;
+    }
+
+    .fab-top:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Multiple Model Answers Styling */
+    .pattern-group {
+      margin-top: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .pattern-group-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .pattern-card {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 0.85rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      border-left: 5px solid var(--primary-light);
+      transition: all 0.15s ease;
+    }
+
+    .pattern-card:hover {
+      border-color: #94a3b8;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07);
+    }
+
+    .pattern-card.pattern-recommended {
+      border-left-color: #059669;
+      background: #f0fdf4;
+    }
+
+    .pattern-card.pattern-alt {
+      border-left-color: #6366f1;
+      background: #faf5ff;
+    }
+
+    .pattern-card.pattern-oppose {
+      border-left-color: #ea580c;
+      background: #fff7ed;
+    }
+
+    .pattern-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .pattern-tag {
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .tag-pattern-main { background: #dcfce7; color: #166534; }
+    .tag-pattern-alt { background: #e0e7ff; color: #3730a3; }
+    .tag-pattern-oppose { background: #ffedd5; color: #9a3412; }
+    .tag-pattern-simple { background: #e0f2fe; color: #0369a1; }
+
+    .pattern-syntax-label {
+      font-size: 0.8rem;
+      color: #64748b;
+      font-weight: 700;
+    }
+
+    .pattern-en {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.45;
+      margin-bottom: 0.35rem;
+    }
+
+    .pattern-ja {
+      font-size: 0.9rem;
+      color: #475569;
+      margin-bottom: 0.4rem;
+      line-height: 1.5;
+    }
+
+    .pattern-note {
+      font-size: 0.86rem;
+      color: #334155;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 0.45rem 0.75rem;
+      border-radius: 5px;
+      border: 1px dashed #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .pattern-note strong {
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 1.5rem 1rem; position: relative; }
+      .nav-container { top: 0; }
+      h1 { font-size: 1.45rem; }
+      .item-header { flex-direction: column; align-items: stretch; }
+      .toggle-icon-box { align-self: flex-start; margin-top: 0.6rem; }
+      .nav-tab-btn { padding: 0.75rem 0.9rem; font-size: 0.88rem; }
+    }
+
+    /* Password Gate Styles */
+    #passwordGate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top right, #1e3a8a, #0f172a 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 1.2rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .pw-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2.4rem 2rem;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      text-align: center;
+      animation: pwPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes pwPopIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .pw-icon-bubble {
+      width: 68px;
+      height: 68px;
+      background: #eff6ff;
+      border: 2px solid #bfdbfe;
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.2rem;
+      box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+    }
+
+    .pw-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 0.4rem;
+    }
+
+    .pw-subtitle {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 1.6rem;
+      line-height: 1.5;
+    }
+
+    .pw-form-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .pw-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 0.4rem;
+    }
+
+    .pw-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .pw-input {
+      width: 100%;
+      padding: 0.75rem 2.8rem 0.75rem 1rem;
+      font-size: 1.1rem;
+      font-family: 'Consolas', monospace;
+      letter-spacing: 0.1em;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.2s ease;
+      background: #f8fafc;
+    }
+
+    .pw-input:focus {
+      background: white;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+
+    .pw-toggle-btn {
+      position: absolute;
+      right: 0.75rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 1.15rem;
+      padding: 0.3rem;
+    }
+
+    .pw-toggle-btn:hover {
+      color: #475569;
+    }
+
+    .pw-error-msg {
+      font-size: 0.86rem;
+      color: #dc2626;
+      font-weight: 700;
+      margin-top: 0.5rem;
+      min-height: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .pw-remember-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 1.4rem;
+      font-size: 0.85rem;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .pw-remember-row input {
+      cursor: pointer;
+    }
+
+    .pw-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #1e40af, #2563eb);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.85rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .pw-submit-btn:hover {
+      background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+      box-shadow: 0 6px 12px -2px rgba(37, 99, 235, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .pw-shake {
+      animation: pwShakeAnim 0.4s ease;
+    }
+
+    @keyframes pwShakeAnim {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    /* Lock Button in Header */
+    .lock-btn {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: white;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-left: auto;
+    }
+
+    .lock-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================== -->
+  <!-- PASSWORD GATE OVERLAY                                    -->
+  <!-- ======================================================== -->
+  <div id="passwordGate">
+    <div class="pw-card" id="pwCard">
+      <div class="pw-icon-bubble">🔒</div>
+      <h2 class="pw-title">Lesson 2-1 動詞 ①</h2>
+      <p class="pw-subtitle">この教材の解答解説を閲覧するにはパスワードを入力してください。</p>
+
+      <div class="pw-form-group">
+        <label for="passwordInput" class="pw-label">パスワード</label>
+        <div class="pw-input-wrap">
+          <input type="password" id="passwordInput" class="pw-input" placeholder="パスワードを入力" autocomplete="current-password" autofocus>
+          <button type="button" class="pw-toggle-btn" id="pwToggleBtn" onclick="togglePasswordVisibility()" title="パスワードの表示/非表示">👁️</button>
+        </div>
+        <div id="pwErrorMsg" class="pw-error-msg"></div>
+      </div>
+
+      <label class="pw-remember-row">
+        <input type="checkbox" id="rememberMeCheckbox" checked>
+        <span>このブラウザにログイン状態を記憶する</span>
+      </label>
+
+      <button type="button" class="pw-submit-btn" onclick="verifyPassword()">
+        解答解説を閲覧する ➔
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- PROTECTED CONTENT WRAPPER                                -->
+  <!-- ======================================================== -->
+  <div id="protectedContent" style="display: none;">
+
+  <!-- ======================================================== -->
+  <!-- HEADER                                                   -->
+  <!-- ======================================================== -->
+  <header>
+    <div class="header-inner">
+      <div class="top-meta">
+        <span class="badge-chapter">Lesson 2-1</span>
+        <span class="badge-chapter">動詞 ①</span>
+        <span class="header-sub">ワークブック本体 p.12〜15 完全準拠</span>
+        <button class="lock-btn" onclick="lockPage()" title="パスワードを再要求するようにロックします">
+          🔒 ロックする
+        </button>
+      </div>
+      <h1>初学者のための徹底ビジュアル解答解説ナビゲーター</h1>
+      <p class="header-desc">
+        「なぜこの形になるのか？」「自動詞と他動詞の決定的な違い」「不定詞と動名詞の使い分け」「落とし穴」を初学者向けに徹底的に噛み砕いて解説しています。気になる項目をクリックして詳細を開いてみましょう！
+      </p>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- STICKY NAV TABS & GLOBAL CONTROLS                        -->
+  <!-- ======================================================== -->
+  <div class="nav-container">
+    <div class="nav-inner">
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" onclick="switchMainTab('tab-wb12')">
+          📘 本体 p.12 例文 (31〜44)
+        </button>
+        <button class="nav-tab-btn" onclick="switchMainTab('tab-qr')">
+          ⚡ Quick Review (1〜13)
+        </button>
+        <button class="nav-tab-btn" onclick="switchMainTab('tab-quiz')">
+          🎯 Quiz (1〜13)
+        </button>
+        <button class="nav-tab-btn" onclick="switchMainTab('tab-ex')">
+          📝 Exercises (1〜6)
+        </button>
+      </nav>
+
+      <div class="global-controls">
+        <button class="ctrl-btn" onclick="toggleAllCardsInCurrentTab(true)">
+          ➕ すべて開く
+        </button>
+        <button class="ctrl-btn" onclick="toggleAllCardsInCurrentTab(false)">
+          ➖ すべて閉じる
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Filter -->
+  <div class="search-section">
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" id="searchInput" class="search-input" placeholder="キーワードで絞り込み（例: approach, 間接疑問文, 不定詞, leave, 例文31...）" oninput="handleSearch()">
+      <span id="searchCount" class="search-count"></span>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: ワークブック本体 p.12 例文 (31〜44)                  -->
+    <!-- ======================================================== -->
+    <div id="tab-wb12" class="tab-pane active">
+
+      <div class="section-intro-card">
+        <h2>📘 ワークブック本体 p.12 基本例文解説（31〜44）</h2>
+        <p>
+          英語の文型と動詞の最も重要な基本ルールを学びます。動詞の後ろに「何を？」という目的語（名詞）が必要なのが<strong>他動詞</strong>、必要ないのが<strong>自動詞</strong>です。各カードをクリックすると、初心者向けの丁寧な噛み砕き解説が開きます！
+        </p>
+      </div>
+
+      <!-- Ａ 自動詞と他動詞 -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>Ａ 自動詞と他動詞（例文 31 〜 32-b）</span>
+          <span class="category-ref-badge">参 F 013</span>
+        </div>
+
+        <!-- 31 -->
+        <div class="item-card" data-tags="31 customs vary 自動詞 他動詞 習慣 国によって">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 31</span>
+                <span class="item-badge-grammar grammar-vi">自動詞 vary</span>
+              </div>
+              <div class="item-main-en">Customs vary from country to country.</div>
+              <div class="item-main-ja">習慣は国によってさまざまだ。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造と動詞の役割</div>
+              <div class="ans-content">Customs [主語 S] + vary [自動詞 V] + (from country to country) [修飾語 M]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. なぜ vary の後ろに直接名詞が来ないの？</strong></p>
+                <p>動詞には「自動詞」と「他動詞」の2つの顔があります。</p>
+                <ul>
+                  <li><strong>自動詞（じどうし）</strong>：「自分ひとりで完結する動詞」。後ろに「何を？」という対象（目的語）がなくても文が成り立ちます。<br>例：<em>The sun rises.</em>（太陽が昇る）「何を昇る？」とは言わないですね。</li>
+                  <li><strong>他動詞（たどうし）</strong>：「他（目的語）が必要な動詞」。後ろに「何を？」を置かないと意味が通じません。<br>例：<em>I like apples.</em>（私はリンゴが好きだ）「I like.」だけだと「何を好きなの？」となってしまいます。</li>
+                </ul>
+                <p>ここでの <span class="code-term">vary</span> は「さまざまである」「異なる」という<strong>自動詞</strong>です。「習慣は異なる。」だけで意味が完成しているので、後ろに直接名詞を置かず、前置詞のカタマリ <em>from country to country</em>（国から国へと → 国によって）をくっつけています。</p>
+              </div>
+            </div>
+
+            <div class="callout callout-rule">
+              <strong>💡 語彙のツボ：vary の2つの顔</strong><br>
+              ・<strong>自動詞</strong>：S varies.（Sは異なる、さまざまである、変化する）<br>
+              ・<strong>他動詞</strong>：S varies O.（SはOを変える、多様にする）<br>
+              派生語：<span class="code-term">variety</span>（名詞：多様性）、<span class="code-term">various</span>（形容詞：さまざまな）
+            </div>
+          </div>
+        </div>
+
+        <!-- 32-a -->
+        <div class="item-card" data-tags="32-a olivia left for paris 自動詞 leave 出発する">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 32-a</span>
+                <span class="item-badge-grammar grammar-vi">自動詞 leave for ...</span>
+              </div>
+              <div class="item-main-en">Olivia left for Paris yesterday.</div>
+              <div class="item-main-ja">昨日，オリビアはパリへたった。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造</div>
+              <div class="ans-content">Olivia [S] + left [V (過去形)] + (for Paris) [前置詞句] + (yesterday) [副詞]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. leave Paris と leave for Paris はどう違うの？（超頻出！）</strong></p>
+                <p>ここが高校英語の最初の超重要つまずきポイントです！</p>
+                <ul>
+                  <li><span class="code-term">leave Paris</span>（他動詞）：<strong>パリを去る</strong>（パリから別のどこかへ出ていく）</li>
+                  <li><span class="code-term">leave for Paris</span>（自動詞）：<strong>パリへ向けて出発する</strong>（目的地がパリ！）</li>
+                </ul>
+                <p>前置詞 <span class="highlight-word">for</span> のコアイメージは<strong>「〜に向かって（方向・目的地）」</strong>です。したがって、<em>leave for Paris</em> は「パリを目標の行き先として出発した」という意味になります。</p>
+              </div>
+            </div>
+
+            <div class="callout callout-caution">
+              <strong>⚠️ 間違いやすい罠！</strong><br>
+              「パリへ向かう」だからといって <em>leave to Paris</em> とは言いません。<br>
+              ・<em>leave for ...</em>（〜に向けて出発する）※forを使う！<br>
+              ・<em>arrive at / in ...</em>（〜に到着する）※at / inを使う！
+            </div>
+          </div>
+        </div>
+
+        <!-- 32-b -->
+        <div class="item-card" data-tags="32-b my brother has left his umbrella 他動詞 置き忘れる">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 32-b</span>
+                <span class="item-badge-grammar grammar-vt">他動詞 leave O (場所)</span>
+              </div>
+              <div class="item-main-en">My brother has left his umbrella on the train.</div>
+              <div class="item-main-ja">弟は電車に傘を忘れてきた。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造</div>
+              <div class="ans-content">My brother [S] + has left [V (現在完了)] + his umbrella [目的語 O] + (on the train) [M]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. 「忘れる」なら forget じゃないの？ なぜ leave を使うの？</strong></p>
+                <p>日本語ではどちらも「忘れる」と言いますが、英語ではハッキリ使い分けます！</p>
+                <ul>
+                  <li><span class="code-term">forget</span>：<strong>頭の中から記憶が消えること</strong>。「うっかり忘れる」。後ろに「具体的な場所」を置くことはできません！<br>✕ <em>I forgot my umbrella on the train.</em>（文法的に不自然）</li>
+                  <li><span class="code-term">leave + 物 + 場所</span>：<strong>「物をその場所に残したまま、自分だけ立ち去る」</strong>。置き忘れた場所が明らかなときは必ず <span class="highlight-word">leave</span> を使います！</li>
+                </ul>
+                <p>また、<span class="code-term">has left</span> と現在完了形になっているのは、「電車に置いてきてしまって、<strong>今も手元にない</strong>」という現在の結果・状態を表しているからです。</p>
+              </div>
+            </div>
+
+            <div class="callout callout-rule">
+              <strong>💡 leave の基本公式まとめ</strong><br>
+              ① <em>leave + 場所</em> ＝「〜を去る」（他動詞）<br>
+              ② <em>leave for + 場所</em> ＝「〜に向けて出発する」（自動詞）<br>
+              ③ <em>leave + 物 + 場所</em> ＝「物を場所に置き忘れる、残す」（他動詞）
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Ｂ SVO（主語＋動詞＋目的語） -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>Ｂ SVO（主語＋動詞＋目的語）（例文 33 〜 38）</span>
+          <span class="category-ref-badge">参 句と節のまとめ 1-3</span>
+        </div>
+
+        <!-- 33 -->
+        <div class="item-card" data-tags="33 architect built church 受動態 他動詞">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 33</span>
+                <span class="item-badge-grammar grammar-svo">SVO / 他動詞と受動態</span>
+              </div>
+              <div class="item-main-en">A well-known architect built the church.</div>
+              <div class="item-main-ja">有名な建築家がその教会を建てた。（cf. その教会は有名な建築家によって建てられた。）</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">能動態と受動態の対比</div>
+              <div class="ans-content">
+                能動態: A well-known architect [S] + built [V] + the church [O].<br>
+                受動態: The church [新S] + was built [be+過去分詞] + by a well-known architect.
+              </div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. なぜ他動詞しか「受動態」にできないの？</strong></p>
+                <p>受動態（〜される）というのは、<strong>「動詞のターゲット（目的語 O）を主語の位置に引っ張り出す文」</strong>のことです！</p>
+                <p>目的語（O）がない自動詞の文（例：<em>Customs vary.</em> や <em>Olivia left yesterday.</em>）には、主語に引っ張り出すターゲットが存在しません。だから<strong>「他動詞だけが受動態を作ることができる」</strong>のです。</p>
+              </div>
+            </div>
+
+            <div class="callout callout-tip">
+              <strong>💎 語彙メモ</strong><br>
+              ・<span class="code-term">well-known</span> ＝ famous（有名な、よく知られた）<br>
+              ・<span class="code-term">architect</span> ＝ 建築家（発音は「アーキテクト」）<br>
+              ・<span class="code-term">build - built - built</span>（不規則動詞の活用）
+            </div>
+          </div>
+        </div>
+
+        <!-- 34 -->
+        <div class="item-card" data-tags="34 need to pack suitcase 不定詞 未来志向">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 34</span>
+                <span class="item-badge-grammar grammar-svo">SVO / need to do</span>
+              </div>
+              <div class="item-main-en">I need to pack my suitcase by tomorrow morning.</div>
+              <div class="item-main-ja">私は明日の朝までにスーツケースに荷物を詰めなければならない。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造</div>
+              <div class="ans-content">I [S] + need [V] + [to pack my suitcase] [目的語 O (不定詞句)] + (by tomorrow morning) [M]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. なぜ packing ではなく to pack なの？</strong></p>
+                <p>動詞 need は「〜を必要とする」という他動詞です。後ろには目的語（名詞）が必要ですが、「荷物を詰めること」のように動作を目的語にしたい場合、<strong>「不定詞（to do）」</strong>か<strong>「動名詞（doing）」</strong>のどちらかを選びます。</p>
+                <ul>
+                  <li><span class="highlight-word">to 不定詞</span> のコアイメージは<strong>「未来に向かう矢印（これから〜すること）」</strong>。</li>
+                  <li><span class="highlight-word">動名詞 -ing</span> のコアイメージは<strong>「いま現に行われていること、過去のこと」</strong>。</li>
+                </ul>
+                <p>荷物を詰めるのは「これから先」のことですね。だから「これから〜する必要がある」という意味の need は後ろに必ず <span class="code-term">to 不定詞</span> を取ります！</p>
+              </div>
+            </div>
+
+            <div class="callout callout-caution">
+              <strong>⚠️ by と until の違い（高校入試〜大学入試超頻出！）</strong><br>
+              ・<span class="code-term">by tomorrow morning</span> ＝「明日の朝<strong>までに</strong>（完了・期限）」。荷造りは明日の朝までに終わらせればOK。<br>
+              ・<span class="code-term">until tomorrow morning</span> ＝「明日の朝<strong>までずっと</strong>（継続）」。明日の朝まで一睡もせず荷造りをし続けることになってしまいます！
+            </div>
+          </div>
+        </div>
+
+        <!-- 35 -->
+        <div class="item-card" data-tags="35 stop wasting money 動名詞 やめる 中止">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 35</span>
+                <span class="item-badge-grammar grammar-svo">SVO / stop doing</span>
+              </div>
+              <div class="item-main-en">You should stop wasting money on clothes.</div>
+              <div class="item-main-ja">服への無駄遣いをやめるべきです。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造</div>
+              <div class="ans-content">You [S] + should stop [助動詞+V] + [wasting money on clothes] [目的語 O (動名詞句)]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. stop to waste だったらいけないの？</strong></p>
+                <p>意味が正反対になってしまいます！</p>
+                <ul>
+                  <li><span class="code-term">stop doing</span> ＝<strong>「〜することをやめる」</strong>（他動詞：すでにやっていることを中止する）</li>
+                  <li><span class="code-term">stop to do</span> ＝<strong>「〜するために立ち止まる」</strong>（自動詞 stop ＋ 目的を表す不定詞副詞用法：立ち止まってこれから〜する）</li>
+                </ul>
+                <p>ここでは「服にお金を浪費しているのをやめるべきだ」と言いたいので、動名詞 <span class="code-term">wasting</span> を使います。</p>
+              </div>
+            </div>
+
+            <div class="callout callout-rule">
+              <strong>💡 重要熟語：waste A on B</strong><br>
+              「A（お金・時間など）を B に浪費する・無駄遣いする」。前置詞は <span class="highlight-word">on</span> を使います。
+            </div>
+          </div>
+        </div>
+
+        <!-- 36 -->
+        <div class="item-card" data-tags="36 complain that video game that節 名詞節">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 36</span>
+                <span class="item-badge-grammar grammar-svo">SVO / that節をとる動詞</span>
+              </div>
+              <div class="item-main-en">A lot of parents complained that the video game was too violent.</div>
+              <div class="item-main-ja">多くの親がそのテレビゲームはあまりにも暴力的だと苦情を言った。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造</div>
+              <div class="ans-content">A lot of parents [S] + complained [V] + [that the video game was too violent] [目的語 O (that名詞節)]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. that の後ろはどんな形が来るの？</strong></p>
+                <p>接続詞 that は「〜ということ」という<strong>名詞のカタマリ（節）</strong>を作ります。後ろには必ず主語と動詞が揃った「完全な文」が来ます。</p>
+                <p>思考や伝達を表す動詞は、目的語に単語1つではなく「文（that節）」を丸ごと取ることができます：</p>
+                <ul>
+                  <li><span class="code-term">think that ...</span>（〜だと思う）</li>
+                  <li><span class="code-term">know that ...</span>（〜だと知っている）</li>
+                  <li><span class="code-term">say that ...</span>（〜だと言う）</li>
+                  <li><span class="code-term">complain that ...</span>（〜だと不満・苦情を言う）</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout callout-tip">
+              <strong>💎 時制の一致に注目！</strong><br>
+              主節の動詞が過去形 <em>complained</em> なので、that節の中の be動詞も過去形 <em>was</em> になっています。
+            </div>
+          </div>
+        </div>
+
+        <!-- 37 -->
+        <div class="item-card" data-tags="37 wonder why bob is angry 間接疑問文 疑問詞">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 37</span>
+                <span class="item-badge-grammar grammar-svo">SVO / wonder + 間接疑問文</span>
+              </div>
+              <div class="item-main-en">I wonder why Bob is angry.</div>
+              <div class="item-main-ja">なぜボブは怒っているんだろう。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造</div>
+              <div class="ans-content">I [S] + wonder [V] + [why Bob is angry] [目的語 O (間接疑問節)]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. なぜ why is Bob angry ではなく why Bob is angry なの？</strong></p>
+                <p>これが英語の超重要ルール<strong>「間接疑問文（かんせつぎもんぶん）」</strong>です！</p>
+                <ul>
+                  <li>普通の疑問文（単独でたずねる）：<em>Why <strong>is Bob</strong> angry?</em>（疑問詞 ＋ 動詞 ＋ 主語 ？）</li>
+                  <li>間接疑問文（文の一部・目的語になるとき）：<em>I wonder why <strong>Bob is</strong> angry.</em>（疑問詞 ＋ <strong>主語 ＋ 動詞</strong>）</li>
+                </ul>
+                <p>ほかの文の目的語として組み込まれるときは、<span class="highlight-word">普通の肯定文の語順（S + V）に戻る</span>という鉄則を絶対に覚えておきましょう！</p>
+              </div>
+            </div>
+
+            <div class="callout callout-rule">
+              <strong>💡 wonder の意味</strong><br>
+              「〜かなあと思う」「〜だろうかと不思議に思う」。疑問詞節（why, where, what...）や if / whether節（〜かどうか）を目的語にとります。
+            </div>
+          </div>
+        </div>
+
+        <!-- 38 -->
+        <div class="item-card" data-tags="38 you don't know how much i care 間接疑問文 know">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 38</span>
+                <span class="item-badge-grammar grammar-svo">SVO / how much 間接疑問節</span>
+              </div>
+              <div class="item-main-en">You don’t know how much I care about you.</div>
+              <div class="item-main-ja">私が君のことをどんなに心配しているかわかっていない。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造</div>
+              <div class="ans-content">You [S] + don't know [V] + [how much I care about you] [目的語 O (間接疑問節)]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. how much の後ろはどうなってるの？</strong></p>
+                <p>ここでも例文37と同じ「間接疑問文」が使われています。<br>
+                <em>how much</em>（どれほどたくさん）のカタマリの後に、<span class="code-term">I [主語] + care about you [動詞句]</span> と肯定文の語順が続いています。</p>
+                <p>動詞 <span class="code-term">care about ...</span> は「〜を気にかける、大切に思う、心配する」という意味です。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Ｃ SVOO（主語＋動詞＋目的語＋目的語） -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>Ｃ SVOO（主語＋動詞＋目的語＋目的語）（例文 39 〜 41）</span>
+          <span class="category-ref-badge">参 F 017</span>
+        </div>
+
+        <!-- 39 -->
+        <div class="item-card" data-tags="39 showed us model svoo 第4文型 give型">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 39</span>
+                <span class="item-badge-grammar grammar-svoo">SVOO / show A B</span>
+              </div>
+              <div class="item-main-en">He showed us a model of the building.</div>
+              <div class="item-main-ja">彼は私たちに建物の模型を見せてくれた。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造（第4文型 SVOO）</div>
+              <div class="ans-content">He [S] + showed [V] + us [人 O1] + a model of the building [物 O2]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. SVOO（第4文型）の並び順のルールは？</strong></p>
+                <p>動詞の後ろに目的語が2つ並びます。基本順序は必ず<strong>「人に（O1）＋ 物を（O2）」</strong>です！</p>
+                <p>これを「物を（O2）」を先にして書き換えるときは、間に前置詞が必要になります：<br>
+                ＝ <em>He showed <strong>a model of the building to us</strong>.</em>（SVOの第3文型）</p>
+              </div>
+            </div>
+
+            <div class="callout callout-rule">
+              <strong>💡 to を使う動詞 vs for を使う動詞（高校英語の超頻出！）</strong><br>
+              ・<strong>to を使う（相手への移動）</strong>：give, show, teach, tell, lend, send（相手がその場にいないと成立しない動詞）<br>
+              ・<strong>for を使う（相手のための準備）</strong>：make, buy, cook, find, get（相手がいなくても1人で準備できる動詞）
+            </div>
+          </div>
+        </div>
+
+        <!-- 40 -->
+        <div class="item-card" data-tags="40 convinced my parents that svoo that節 納得させる">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 40</span>
+                <span class="item-badge-grammar grammar-svoo">SVOO / convince + 人 + that節</span>
+              </div>
+              <div class="item-main-en">I convinced my parents that I needed a new computer.</div>
+              <div class="item-main-ja">私は両親に新しいコンピューターが必要だということを納得させた。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造</div>
+              <div class="ans-content">I [S] + convinced [V] + my parents [人 O1] + [that I needed a new computer] [that節 O2]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. 第2の目的語に that節 が来ても SVOO なの？</strong></p>
+                <p>その通りです！「人に（O1）」の後に「〜という事実を（O2）」という that節 が来ています。</p>
+                <p><span class="code-term">convince + [人] + that節</span> で「人に〜であることを納得させる・確信させる」という非常によく使われる構文です。</p>
+              </div>
+            </div>
+
+            <div class="callout callout-tip">
+              <strong>💎 同じ仲間の動詞：tell / remind / inform</strong><br>
+              ・<em>tell [人] that ...</em>（人に〜と言う）<br>
+              ・<em>remind [人] that ...</em>（人に〜を気づかせる・思い出させる）<br>
+              ・<em>inform [人] that ...</em>（人に〜を知らせる）
+            </div>
+          </div>
+        </div>
+
+        <!-- 41 -->
+        <div class="item-card" data-tags="41 this book teaches us what love is svoo 間接疑問節">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 41</span>
+                <span class="item-badge-grammar grammar-svoo">SVOO / teach + 人 + 間接疑問節</span>
+              </div>
+              <div class="item-main-en">This book teaches us what love is.</div>
+              <div class="item-main-ja">この本は私たちに愛とは何かを教えてくれる。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">文構造</div>
+              <div class="ans-content">This book [S] + teaches [V] + us [人 O1] + [what love is] [間接疑問節 O2]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. what is love ではなく what love is になる理由は？</strong></p>
+                <p>例文37でも登場した「間接疑問文」ですね！<br>
+                <em>what is love?</em>（愛とは何か？）という単独の疑問文が、teach の第2目的語（O2）として文の中に入り込んでいるため、<strong>〈疑問詞 what ＋ 主語 love ＋ 動詞 is〉</strong>という肯定文の語順になっています。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Expressions -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>Expressions 重要表現（例文 42 〜 44）</span>
+          <span class="category-ref-badge">参 F 184, 動詞の語法-13</span>
+        </div>
+
+        <!-- 42 -->
+        <div class="item-card" data-tags="42 reminds me of hometown 無生物主語">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 42</span>
+                <span class="item-badge-grammar grammar-exp">remind A of B / 無生物主語</span>
+              </div>
+              <div class="item-main-en">This landscape painting reminds me of my hometown.</div>
+              <div class="item-main-ja">この風景画を見ると，私は故郷を思い出す。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">重要公式</div>
+              <div class="ans-content">remind A of B ＝「AにBを思い出させる」</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. 直訳と日本語訳が全然違うのはなぜ？（無生物主語のコツ）</strong></p>
+                <p>直訳すると「この風景画は、私に私の故郷を思い出させる。」となります。<br>
+                英語では「物（風景画）」を主語にして「物が私に〜させる」という言い方を好みます（これを<strong>無生物主語</strong>と呼びます）。</p>
+                <p>自然な日本語に直すときは、以下のステップで考えます：</p>
+                <ul>
+                  <li>主語（風景画）を<strong>「〜を見ると / 〜によって」</strong>と条件やきっかけとして訳す。</li>
+                  <li>目的語の me（私に）を<strong>「私は」</strong>と日本語の主語にして訳す。</li>
+                  <li>→「この風景画を見ると、私は故郷を思い出す。」という美しい日本語になります！</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout callout-caution">
+              <strong>⚠️ 前置詞 of に注意！</strong><br>
+              about ではなく、分離・関連を表す <span class="highlight-word">of</span> を使います。
+            </div>
+          </div>
+        </div>
+
+        <!-- 43 -->
+        <div class="item-card" data-tags="43 provides students with information provide a with b">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 43</span>
+                <span class="item-badge-grammar grammar-exp">provide A with B</span>
+              </div>
+              <div class="item-main-en">This website provides students with useful information about their future careers.</div>
+              <div class="item-main-ja">このサイトは進路についての有益な情報を生徒たちに提供している。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">重要公式</div>
+              <div class="ans-content">provide A with B ＝ provide B for [to] A ＝「A(人)にB(物)を提供する」</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. なぜ with を使うの？</strong></p>
+                <p>前置詞 <span class="highlight-word">with</span> のコアイメージは<strong>「一緒にある・携帯している・備え付ける」</strong>です。<br>
+                <em>provide students with information</em> は、「生徒たちに情報を持たせてあげる」という感覚です。</p>
+                <p>「物」を先に置く場合は、方向・目的を表す <strong>for</strong> または <strong>to</strong> を使います：<br>
+                ＝ <em>provides useful information <strong>for students</strong></em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 44 -->
+        <div class="item-card" data-tags="44 media plays important part in forming play a part in">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">例文 44</span>
+                <span class="item-badge-grammar grammar-exp">play an important part in 〜</span>
+              </div>
+              <div class="item-main-en">The media plays an important part in forming public opinion.</div>
+              <div class="item-main-ja">メディアは世論の形成に重要な役割を果たしている。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">重要公式</div>
+              <div class="ans-content">play a part [role] in -ing / 名詞 ＝「〜において役割を果たす」</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. play がなぜ「役割を果たす」になるの？</strong></p>
+                <p>play には「（劇などで）役を演じる」という意味があります。そこから <em>play a part / role</em> で「一役買う → 役割を果たす」という意味に発展しました。</p>
+                <p>前置詞 <span class="code-term">in</span> の後ろには名詞または動名詞（-ing）が来るので、form（形成する）が <span class="highlight-word">forming</span> になっています。</p>
+                <p>※ <span class="code-term">the media</span> は現代英語では集合名詞として「単数扱い」されることが多く、動詞に三人称単数の <span class="code-term">plays</span> が付いています。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: Quick Review (1〜13)                               -->
+    <!-- ======================================================== -->
+    <div id="tab-qr" class="tab-pane">
+
+      <div class="section-intro-card">
+        <h2>⚡ Quick Review 解説（1a〜13）</h2>
+        <p>
+          自動詞・他動詞の使い分けや、SVO・SVOOの基本パターンの確認問題です。各カードをクリックして、対比のポイントや詳細な解説を確認しましょう！
+        </p>
+      </div>
+
+      <!-- QR 1 -->
+      <div class="item-card" data-tags="qr 1a 1b grew tomatoes 自動詞 他動詞 育つ 育てる">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 1</span>
+              <span class="item-badge-grammar grammar-vi">自動詞 vs 他動詞 (grow)</span>
+            </div>
+            <div class="item-main-en">1a. The tomatoes grew quickly.<br>1b. We grew tomatoes.</div>
+            <div class="item-main-ja">1a. トマトは急速に育った。<br>1b. 私たちはトマトを育てた。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">文型と意味の対比</div>
+            <div class="ans-content">
+              1a (SV): The tomatoes [S] + grew [自V (育つ)] + quickly [M].<br>
+              1b (SVO): We [S] + grew [他V (育てる)] + tomatoes [O].
+            </div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>同じ動詞 <span class="code-term">grow</span>（活用: grow - grew - grown）でも、後ろに目的語があるかないかで意味が変わります：</p>
+              <ul>
+                <li><strong>自動詞の grow</strong>：「（植物・子どもなどが自ら）育つ、成長する」</li>
+                <li><strong>他動詞の grow</strong>：「（人が農作物などを）育てる、栽培する」</li>
+              </ul>
+              <p>※ tomato の複数形は -s ではなく <strong>-es</strong> を付けて <em>tomatoes</em> と書く点も注意しましょう！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 2 -->
+      <div class="item-card" data-tags="qr 2a 2b book sold well sells everything 自動詞 他動詞 売れる 売る">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 2</span>
+              <span class="item-badge-grammar grammar-vi">自動詞 vs 他動詞 (sell)</span>
+            </div>
+            <div class="item-main-en">2a. Her book sold well.<br>2b. They say that store sells everything.</div>
+            <div class="item-main-ja">2a. 彼女の本はよく売れた。<br>2b. あの店は何でも売っていると言われている。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">文型と意味の対比</div>
+            <div class="ans-content">
+              2a (SV): Her book [S] + sold [自V (売れる)] + well [M].<br>
+              2b (SVO): ... that store [S'] + sells [他V (売る)] + everything [O'].
+            </div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>動詞 <span class="code-term">sell</span>（活用: sell - sold - sold）は「売る」という他動詞でおなじみですが、<strong>物を主語にして自動詞として使うと「（物が）売れる」という意味になります！</strong></p>
+              <ul>
+                <li><em>The car sells well.</em> ＝ その車はよく売れる。</li>
+                <li>受動態（was sold）にしなくても、自動詞＋副詞（well など）で「売れ行きが良い」を表せます。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 3 -->
+      <div class="item-card" data-tags="qr 3a 3b grow apples eaten by brothers 能動態 受動態">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 3</span>
+              <span class="item-badge-grammar grammar-svo">能動態 vs 受動態</span>
+            </div>
+            <div class="item-main-en">3a. Farmers grow apples in the north.<br>3b. All the cookies were eaten by my brothers yesterday.</div>
+            <div class="item-main-ja">3a. 農家は北部でリンゴを栽培している。<br>3b. クッキーは昨日すべて弟たちに食べられてしまった。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">能動態と受動態の着眼点</div>
+            <div class="ans-content">
+              3a: 能動態＝動作をする人（Farmers）が主語。<br>
+              3b: 受動態＝動作を受ける物（All the cookies）が主語。be動詞 were + 過去分詞 eaten。
+            </div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>能動態と受動態の視点の切り替えです。他動詞 eat（食べる）のターゲットであったクッキーを主語にすることで、「〜された」という受動態が作られます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 4 -->
+      <div class="item-card" data-tags="qr 4 want hope to see 不定詞 未来志向">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 4</span>
+              <span class="item-badge-grammar grammar-svo">want to do / hope to do</span>
+            </div>
+            <div class="item-main-en">I want [hope] to see you again.</div>
+            <div class="item-main-ja">あなたにまたお会いしたいです。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">文型解説</div>
+            <div class="ans-content">I [S] + want [hope] [V] + [to see you again] [目的語 O (不定詞)]</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>「〜したい」は「これから〜することを欲する」という意味なので、未来志向の<strong>不定詞（to do）</strong>を目的語にとります。seeing と動名詞にしてはいけません。</p>
+              <p>より丁寧な表現として <span class="code-term">I'd like to see you again.</span>（＝ would like to do）も使えます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 5 -->
+      <div class="item-card" data-tags="qr 5 remember going hiking 動名詞 過去のこと">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 5</span>
+              <span class="item-badge-grammar grammar-svo">remember doing</span>
+            </div>
+            <div class="item-main-en">Do you remember going hiking?</div>
+            <div class="item-main-ja">ハイキングに行ったことを覚えていますか。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">重要語法</div>
+            <div class="ans-content">remember doing ＝「（過去に）〜したことを覚えている」</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>動詞 remember の超重要公式：</p>
+              <ul>
+                <li><span class="code-term">remember to do</span> ＝「（忘れずにこれから）〜するのを覚えている」【未来志向】</li>
+                <li><span class="code-term">remember doing</span> ＝「（過去に）〜したことを覚えている」【過去志向】</li>
+              </ul>
+              <p>ここでは「ハイキングに行ったこと（過去）」なので、動名詞 <span class="highlight-word">going</span> を使います。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 6 -->
+      <div class="item-card" data-tags="qr 6 didn't know that had moved that節 過去完了">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 6</span>
+              <span class="item-badge-grammar grammar-svo">know + that名詞節</span>
+            </div>
+            <div class="item-main-en">I didn’t know (that) he had moved.</div>
+            <div class="item-main-ja">彼が引っ越したとは知りませんでした。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">文構造と時制</div>
+            <div class="ans-content">I [S] + didn't know [過去V] + [(that) he had moved] [that節 (過去完了)]</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>know の目的語として that節が来ています。「知らなかった（過去 didn't know）」時点よりも前に「彼が引っ越した」ので、大過去を表す過去完了形 <span class="code-term">had moved</span> が使われています。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 7 -->
+      <div class="item-card" data-tags="qr 7 don't remember when bought 間接疑問文 時制">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 7</span>
+              <span class="item-badge-grammar grammar-svo">remember + when 間接疑問文</span>
+            </div>
+            <div class="item-main-en">I don’t [can’t] remember when I bought the T-shirt.</div>
+            <div class="item-main-ja">いつそのTシャツを買ったか思い出せない。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">文構造</div>
+            <div class="ans-content">I [S] + don't remember [V] + [when I bought the T-shirt] [目的語 O (間接疑問節)]</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>疑問詞 when の後ろは、<em>when did I buy...?</em> ではなく、肯定文の語順 <span class="highlight-word">when I bought ...</span> になります！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 8 -->
+      <div class="item-card" data-tags="qr 8 lend me your notebook svoo 貸す">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 8</span>
+              <span class="item-badge-grammar grammar-svoo">lend A B / SVOO</span>
+            </div>
+            <div class="item-main-en">Can you lend me your notebook for a moment?</div>
+            <div class="item-main-ja">ノートをちょっとの間貸してくれますか。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">文型と語法</div>
+            <div class="ans-content">lend [V] + me [人 O1] + your notebook [物 O2] ＝ lend your notebook to me</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>「人に物を貸す」は無料で貸すときは <span class="code-term">lend</span> を使います。お金を取って貸す（レンタカーなど）は rent を使います。</p>
+              <p>for a moment は「ちょっとの間」という定番表現です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 9 -->
+      <div class="item-card" data-tags="qr 9 father told me that tell that節">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 9</span>
+              <span class="item-badge-grammar grammar-svoo">tell + 人 + that節</span>
+            </div>
+            <div class="item-main-en">My father told me (that) I should eat more vegetables.</div>
+            <div class="item-main-ja">父は私にもっと野菜を食べるべきだと言った。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">tell と say の違い</div>
+            <div class="ans-content">
+              tell: My father told me (that) ... [前置詞不要]<br>
+              say: My father said to me (that) ... [to が必要]
+            </div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>tell は直接「人」を目的語に置けますが、say は直接人を置けず <em>say to me</em> と前置詞 to が必要になります。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 10 -->
+      <div class="item-card" data-tags="qr 10 ask her where she's from 間接疑問文 尋ねる">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 10</span>
+              <span class="item-badge-grammar grammar-svoo">ask + 人 + 間接疑問節</span>
+            </div>
+            <div class="item-main-en">Let’s ask her where she’s from.</div>
+            <div class="item-main-ja">彼女にどこの出身か尋ねてみよう。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">文構造</div>
+            <div class="ans-content">ask [V] + her [人 O1] + [where she is from] [間接疑問節 O2]</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>ask [人] [疑問詞節] の第4文型です。語順は <em>where is she from?</em> ではなく <span class="highlight-word">where she is from</span> です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 11 -->
+      <div class="item-card" data-tags="qr 11 reminds me of summer festival 思い出させる">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 11</span>
+              <span class="item-badge-grammar grammar-exp">remind A of B</span>
+            </div>
+            <div class="item-main-en">This song reminds me of the summer festival.</div>
+            <div class="item-main-ja">この歌を聴くと夏祭りを思い出す。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">公式</div>
+            <div class="ans-content">remind + 人(me) + of + 物(the summer festival)</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>例文42と同じ形です。無生物主語 This song により「この歌が私に夏祭りを思い出させる → この歌を聴くと夏祭りを思い出す」となります。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 12 -->
+      <div class="item-card" data-tags="qr 12 ecosystems provide us with 提供する 生態系">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 12</span>
+              <span class="item-badge-grammar grammar-exp">provide A with B</span>
+            </div>
+            <div class="item-main-en">Ecosystems provide us with air, water and food.</div>
+            <div class="item-main-ja">生態系は私たちに空気、水、食料を提供している。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">公式</div>
+            <div class="ans-content">provide + 人(us) + with + 物(air, water and food)</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>例文43と同じ形です。<span class="code-term">provide A with B</span> の前置詞 <span class="highlight-word">with</span> が最頻出テスト項目です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR 13 -->
+      <div class="item-card" data-tags="qr 13 sports play important part in 役割を果たす">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quick Review 13</span>
+              <span class="item-badge-grammar grammar-exp">play an important part in 〜</span>
+            </div>
+            <div class="item-main-en">Sports play an important part in our daily lives.</div>
+            <div class="item-main-ja">スポーツは私たちの日常生活で重要な役割を果たしている。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">公式</div>
+            <div class="ans-content">play an important part [role] in 〜</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>例文44と同じ重要成句です。Sports は複数扱いなので動詞は原形 <span class="code-term">play</span> になっています。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: Quiz (1〜13)                                      -->
+    <!-- ======================================================== -->
+    <div id="tab-quiz" class="tab-pane">
+
+      <div class="section-intro-card">
+        <h2>🎯 Quiz 解答・日本語訳・詳細解説（1a〜13）</h2>
+        <p>
+          Quick Review で学んだ知識を応用する実戦ドリルです。日本語訳と、各問の文法ポイントをわかりやすく解説しています。
+        </p>
+      </div>
+
+      <!-- Quiz 1 -->
+      <div class="item-card" data-tags="quiz 1a 1b turned red turned corner">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 1</span>
+              <span class="item-badge-grammar grammar-vi">turn の多義性</span>
+            </div>
+            <div class="item-main-en">1a. The tomatoes turned red quickly.<br>1b. We turned (at) the corner.</div>
+            <div class="item-main-ja">1a. そのトマトはすぐに赤くなった。<br>1b. 私たちはその角を曲がった。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">文構造の解説</div>
+            <div class="ans-content">
+              1a (SVC): The tomatoes [S] + turned [不完全自動詞] + red [補語 C] + quickly.<br>
+              1b (SVO / SV): We turned the corner. または We turned at the corner.
+            </div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>1a の <span class="code-term">turn + 形容詞</span> は「〜になる」という状態の変化を表す第2文型（SVC）です（例：turn pale 青ざめる）。<br>
+              1b は「角を曲がる」という移動・方向転換を表しています。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 2 -->
+      <div class="item-card" data-tags="quiz 2a 2b sold one million sells groceries">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 2</span>
+              <span class="item-badge-grammar grammar-vi">sell の自動詞・他動詞</span>
+            </div>
+            <div class="item-main-en">2a. Her book sold one million copies.<br>2b. They say (that) that store sells food [groceries].</div>
+            <div class="item-main-ja">2a. 彼女の本は100万部売れた。<br>2b. あの店では食料品を売っていると言われている。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">
+              2a: sold one million copies ＝「100万部売れた」（部数を表す目的語・副詞的目的格）<br>
+              2b: sells food [groceries] ＝「食料品を売る」（他動詞SVO）
+            </div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p><span class="code-term">They say that ...</span> は「〜だと言われている」「世間では〜という話だ」を表す口語の重要表現です。groceries は「食料雑貨品」の意味。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 3 -->
+      <div class="item-card" data-tags="quiz 3a 3b apples are grown brothers ate">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 3</span>
+              <span class="item-badge-grammar grammar-svo">受動態と能動態の書き換え</span>
+            </div>
+            <div class="item-main-en">3a. Apples are grown (by farmers) in the north.<br>3b. My brothers ate all the cookies yesterday.</div>
+            <div class="item-main-ja">3a. 北部ではリンゴが(農家に)育てられている。<br>3b. 昨日，弟たちはクッキーを全部食べた。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">Quick Review 3 の能動態と受動態を互いに書き換えた文です。</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>3a は Apples が主語になった受動態（are grown）。3b は My brothers を主語にした能動態（ate）です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 4 -->
+      <div class="item-card" data-tags="quiz 4 need to see you 不定詞">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 4</span>
+              <span class="item-badge-grammar grammar-svo">need to do</span>
+            </div>
+            <div class="item-main-en">I need to see you (again).</div>
+            <div class="item-main-ja">あなたに(もう一度)お会いする必要があります。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">need は目的語に不定詞（to do）をとる。</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>例文34と同様、<span class="code-term">need to do</span>（〜する必要がある）の形です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 5 -->
+      <div class="item-card" data-tags="quiz 5 forget about going hiking 動名詞 忘れる">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 5</span>
+              <span class="item-badge-grammar grammar-svo">forget doing</span>
+            </div>
+            <div class="item-main-en">Did you forget (about) going hiking?</div>
+            <div class="item-main-ja">ハイキングに行ったことを忘れましたか。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">forget doing ＝「（過去に）〜したことを忘れる」</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>remember と同じく、<span class="code-term">forget to do</span> だと「（これから）〜するのを忘れる」、<span class="code-term">forget doing</span> だと「（過去に）〜したことを忘れる」になります。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 6 -->
+      <div class="item-card" data-tags="quiz 6 couldn't believe that had moved">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 6</span>
+              <span class="item-badge-grammar grammar-svo">believe + that節</span>
+            </div>
+            <div class="item-main-en">I couldn’t believe (that) he had moved.</div>
+            <div class="item-main-ja">彼が引っ越したとは信じられませんでした。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">believe の目的語に that名詞節。過去完了 had moved。</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>Quick Review 6 の know を believe（信じる）に変えた文です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 7 -->
+      <div class="item-card" data-tags="quiz 7 wonder when bought 間接疑問文">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 7</span>
+              <span class="item-badge-grammar grammar-svo">wonder + when 間接疑問文</span>
+            </div>
+            <div class="item-main-en">I wonder when I bought the T-shirt.</div>
+            <div class="item-main-ja">私はいつそのTシャツを買ったのだろう。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">wonder「〜かしらと思う」＋ 間接疑問文（疑問詞 when ＋ S ＋ V）</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>例文37の応用です。語順は肯定文の <span class="code-term">when I bought</span> になります。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 8 -->
+      <div class="item-card" data-tags="quiz 8 show me notebook svoo 見せる">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 8</span>
+              <span class="item-badge-grammar grammar-svoo">show A B / SVOO</span>
+            </div>
+            <div class="item-main-en">Can [Could] you show me your notebook (for a moment)?</div>
+            <div class="item-main-ja">君のノートを(ちょっと)見せてくれますか。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">show + me (人) + your notebook (物)</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>例文39の show A B の疑問文・依頼表現です。Could you ... ? にするとより丁寧になります。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 9 -->
+      <div class="item-card" data-tags="quiz 9 advised me to eat that should 助言した">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 9</span>
+              <span class="item-badge-grammar grammar-svoo">advise の2つの語法</span>
+            </div>
+            <div class="item-main-en">My father advised me to eat more vegetables.<br>cf. My father advised me that I should eat more vegetables.</div>
+            <div class="item-main-ja">父は私にもっと野菜を食べるように助言した。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">重要語法</div>
+            <div class="ans-content">
+              ① advise + 人 + to do（人に〜するよう助言する [SVOC]）<br>
+              ② advise + 人 + that節（人に〜だと助言する [SVOO]）
+            </div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>advise は不定詞（to do）をとる形と、that節をとる形の両方が可能です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 10 -->
+      <div class="item-card" data-tags="quiz 10 ask her when she came 間接疑問文">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 10</span>
+              <span class="item-badge-grammar grammar-svoo">ask + 人 + when 間接疑問節</span>
+            </div>
+            <div class="item-main-en">Let’s ask her when she came to Japan.</div>
+            <div class="item-main-ja">彼女にいつ日本に来たのか尋ねてみよう。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">when she came to Japan（疑問詞 ＋ S ＋ 過去形V）</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p><em>When did she come?</em> ではなく、肯定文の語順 <span class="code-term">when she came</span> になる点に注意！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 11 -->
+      <div class="item-card" data-tags="quiz 11 reminds me of childhood 子ども時代">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 11</span>
+              <span class="item-badge-grammar grammar-exp">remind A of B</span>
+            </div>
+            <div class="item-main-en">This song reminds me of my childhood.</div>
+            <div class="item-main-ja">この歌を聴くと私は子ども時代を思い出す。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">remind + me + of my childhood</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>childhood は「子ども時代・幼少期」を表す名詞です。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 12 -->
+      <div class="item-card" data-tags="quiz 12 ecosystems provide us with resources 資源">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 12</span>
+              <span class="item-badge-grammar grammar-exp">provide A with B</span>
+            </div>
+            <div class="item-main-en">Ecosystems provide us with a lot of resources.</div>
+            <div class="item-main-ja">生態系は私たちに多くの資源を提供している。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">provide + us + with + a lot of resources</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>resource は「資源」という意味の名詞です。with を忘れずに！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz 13 -->
+      <div class="item-card" data-tags="quiz 13 internet plays important part in インターネット">
+        <div class="item-header" onclick="toggleCard(this)">
+          <div class="item-header-left">
+            <div class="item-number-row">
+              <span class="item-badge-num">Quiz 13</span>
+              <span class="item-badge-grammar grammar-exp">play an important part in 〜</span>
+            </div>
+            <div class="item-main-en">The internet plays an important part in our daily lives.</div>
+            <div class="item-main-ja">インターネットは私たちの日常生活で重要な役割を果たす。</div>
+          </div>
+          <div class="toggle-icon-box">
+            <span>詳細解説</span>
+            <span class="toggle-arrow">▼</span>
+          </div>
+        </div>
+        <div class="item-body">
+          <div class="ans-box">
+            <div class="ans-label">ポイント</div>
+            <div class="ans-content">The internet (単数主語) + plays an important part in 〜</div>
+          </div>
+          <div class="expl-section">
+            <div class="expl-header">🔰 初学者のための超基礎解説</div>
+            <div class="text-flow">
+              <p>The internet は単数なので、動詞に三人称単数の <span class="code-term">plays</span> が付きます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 4: Exercises (1〜6)                                   -->
+    <!-- ======================================================== -->
+    <div id="tab-ex" class="tab-pane">
+
+      <div class="section-intro-card">
+        <h2>📝 Exercises 入試問題・解答詳細解説（1〜6）</h2>
+        <p>
+          実際の入試問題（國學院大、東洋大、立命館大、慶應義塾大など）の完全解答と、初心者がどこで引っかかるのかを丁寧に解き明かした解説です。
+        </p>
+      </div>
+
+      <!-- 大問 1 -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>1 空所補充問題（國學院大、東洋大、大阪学院大、椙山女学園大、金沢医科大）</span>
+        </div>
+
+        <!-- 1-1 -->
+        <div class="item-card" data-tags="ex 1-1 tell show me the way to 國學院大 道案内">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">1-□1</span>
+                <span class="item-badge-univ">國學院大*</span>
+                <span class="item-badge-grammar grammar-svoo">tell me the way</span>
+              </div>
+              <div class="item-main-en">Excuse me. Could you ( &nbsp; ) me ( &nbsp; ) ( &nbsp; ) to the nearest train station?</div>
+              <div class="item-main-ja">すみません，最寄りの鉄道の駅への道を教えていただけませんか。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">( tell [show] ) me ( the ) ( way )</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>Q. なぜ teach ではなく tell / show なの？</strong></p>
+                <p>日本語で「教える」というとすぐに teach を思い浮かべがちですが、英語では明確に分かれます：</p>
+                <ul>
+                  <li><span class="code-term">teach</span>：学問・技術・科目を体系的に教える（学校の先生など）。</li>
+                  <li><span class="code-term">tell</span>：<strong>情報を言葉で伝える・教える</strong>（道、電話番号、時間など）。</li>
+                  <li><span class="code-term">show</span>：地図を見せたり指差したりして<strong>視覚的に示す・教える</strong>。</li>
+                </ul>
+                <p>「〜への道」は定冠詞 the を伴って <span class="highlight-word">the way to ...</span> と言います。空所は <em>( tell ) me ( the ) ( way ) to ...</em> の3語でピッタリはまります。</p>
+              </div>
+            </div>
+
+            <div class="callout callout-tip">
+              <strong>💡 how to get to だとダメ？</strong><br>
+              「行き方を教えて」は <em>show me how to get to ...</em> とも言えますが、これだと空所が4つ必要になってしまいます。空所の数（1語 ＋ me ＋ 2語）から「the way」を導くのが受験テクニックです！
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-2 -->
+        <div class="item-card" data-tags="ex 1-2 enjoy listening to 東洋大 動名詞 前置詞">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">1-□2</span>
+                <span class="item-badge-univ">東洋大*</span>
+                <span class="item-badge-grammar grammar-svo">enjoy -ing / listen to</span>
+              </div>
+              <div class="item-main-en">What kind of music do you ( &nbsp; ) ( &nbsp; ) ( &nbsp; )?</div>
+              <div class="item-main-ja">どんな音楽を聴いて楽しんでいますか。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">( enjoy ) ( listening ) ( to )</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>2つの重要ルールが合体した良問です：</p>
+                <ol>
+                  <li><strong>enjoy は動名詞（-ing）しか目的語にとらない！</strong><br>
+                  enjoy to listen は絶対にダメです（メガフェプス動詞の代表）。</li>
+                  <li><strong>listen は自動詞なので to が絶対に必要！</strong><br>
+                  「音楽を聴く」は <em>listen to music</em> です。この文では <em>What kind of music</em> が文頭に引っ張り出されているため、文末に前置詞 <span class="highlight-word">to</span> が残ります。</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-3 -->
+        <div class="item-card" data-tags="ex 1-3 show me how to use 大阪学院大 使い方">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">1-□3</span>
+                <span class="item-badge-univ">大阪学院大*</span>
+                <span class="item-badge-grammar grammar-svoo">show me how to do</span>
+              </div>
+              <div class="item-main-en">Please show ( &nbsp; ) ( &nbsp; ) ( &nbsp; ) ( &nbsp; ) this computer.</div>
+              <div class="item-main-ja">このコンピューターの使い方を教えてください。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">Please show ( me ) ( how ) ( to ) ( use ) this computer.</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>動詞 <span class="code-term">show</span> は SVOO（人に物を見せる・示す）を取ります。</p>
+                <ul>
+                  <li>第1目的語（O1）：私に ＝ <span class="code-term">me</span></li>
+                  <li>第2目的語（O2）：〜の使い方 ＝ 「どのように〜を使うべきか」＝ <span class="highlight-word">how to use</span></li>
+                </ul>
+                <p>〈疑問詞 ＋ to 不定詞〉は名詞のカタマリになる重要公式です（how to do ＝ やり方、what to do ＝ 何をすべきか、where to go ＝ どこへ行くべきか）。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-4 -->
+        <div class="item-card" data-tags="ex 1-4 decided to study abroad 椙山女学園大 留学">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">1-□4</span>
+                <span class="item-badge-univ">椙山女学園大*</span>
+                <span class="item-badge-grammar grammar-svo">decide to do</span>
+              </div>
+              <div class="item-main-en">I have ( &nbsp; ) ( &nbsp; ) ( &nbsp; ) abroad next year.</div>
+              <div class="item-main-ja">来年留学することに決めました。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">I have ( decided ) ( to ) ( study ) abroad next year.</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>文頭が <em>I have</em> なので、現在完了（have ＋ 過去分詞）を作ります。「決める」は decide なので過去分詞は <span class="code-term">decided</span>。</p>
+                <p>decide は「これから先のこと」を決める動詞なので、未来志向の<strong>不定詞（to do）</strong>をとります（decide to do）。</p>
+                <p>「留学する」は「海外で勉強する」と考えて <span class="code-term">study abroad</span> とします（abroad は副詞なので前置詞 to abroad にしないこと！）。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-5 -->
+        <div class="item-card" data-tags="ex 1-5 remember closing the window 金沢医科大 閉めたこと">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">1-□5</span>
+                <span class="item-badge-univ">金沢医科大*</span>
+                <span class="item-badge-grammar grammar-svo">remember doing</span>
+              </div>
+              <div class="item-main-en">I remember ( &nbsp; ) ( &nbsp; ) ( &nbsp; ) when I left the house.</div>
+              <div class="item-main-ja">家を出る時，その窓を閉めたことを覚えている。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">I remember ( closing ) ( the ) ( window ) when I left the house.</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>Quick Review 5 でも確認した、大学入試超頻出の remember の使い分けです：</p>
+                <ul>
+                  <li><em>remember to close the window</em> ＝（これから忘れずに）窓を閉めると覚えている</li>
+                  <li><em>remember closing the window</em> ＝<strong>（過去に）窓を閉めたことを覚えている</strong></li>
+                </ul>
+                <p>日本語は「閉めたことを覚えている（過去）」なので、動名詞 <span class="highlight-word">closing</span> を選びます。後ろに「その窓（the window）」を続けて3語完成です。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 大問 2 -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>2 下線部補充問題（学習院大、東京理科大、北里大、活水女子大、近畿大）</span>
+        </div>
+
+        <!-- 2-1 -->
+        <div class="item-card" data-tags="ex 2-1 ask you a favor ask a favor of you 学習院大 頼み事">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">2-□1</span>
+                <span class="item-badge-univ">学習院大*</span>
+                <span class="item-badge-grammar grammar-svoo">ask a favor</span>
+              </div>
+              <div class="item-main-en">I hate to do this, but could I <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</u> ?</div>
+              <div class="item-main-ja">心苦しいのですが，１つ頼み事をしてもいいですか。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">ask you a favor または ask a favor of you</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>「頼み事をする」の超重要定型表現です。<br>
+                名詞 favor（親切な行為・お願い）を使い、動詞 ask と結びつけます。</p>
+                <ul>
+                  <li>SVOO型（人に物を頼む）：<span class="code-term">ask you a favor</span></li>
+                  <li>SVO型（物を人に頼む）：<span class="code-term">ask a favor of you</span></li>
+                </ul>
+                <p>※ SVOにするとき、前置詞が to や for ではなく <span class="highlight-word">of</span> になるのが入試頻出ポイントです！（「あなたの中から親切心を引き出す」イメージから of を使います）</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-2 -->
+        <div class="item-card" data-tags="ex 2-2 do you know if whether 東京理科大 間接疑問文">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">2-□2</span>
+                <span class="item-badge-univ">東京理科大*</span>
+                <span class="item-badge-grammar grammar-svo">know if / whether</span>
+              </div>
+              <div class="item-main-en">Do <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</u> he’s coming today?</div>
+              <div class="item-main-ja">今日，彼が来るかどうか知ってる？</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">you know if [whether]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>文頭が <em>Do</em> なので、主語「あなた（you）」＋ 動詞「知っている（know）」が続きます。</p>
+                <p>その後に「彼が今日来る<strong>かどうか</strong>」という名詞節を導く接続詞 <span class="highlight-word">if</span> または <span class="highlight-word">whether</span> を補います。</p>
+                <p>全体として <em>Do you know if he's coming today?</em> となります。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-3 -->
+        <div class="item-card" data-tags="ex 2-3 my mother told me that 北里大 言った">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">2-□3</span>
+                <span class="item-badge-univ">北里大*</span>
+                <span class="item-badge-grammar grammar-svoo">tell me (that)</span>
+              </div>
+              <div class="item-main-en"><u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</u> I should avoid drinking too much coffee.</div>
+              <div class="item-main-ja">母は私にコーヒーを飲み過ぎないようにしなさいと言った。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">My mother told me (that)</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>後ろが <em>I should avoid ...</em> と完全な文（節）になっているので、<span class="code-term">My mother told me (that) S' + V'</span>（母は私に〜と言った）の形を補います。</p>
+                <p>※ 後半の <em>avoid drinking</em>（飲むのを避ける）も「avoid は動名詞をとる」という重要語法です！</p>
+                <p>別表現：<em>My mother told me not to drink too much coffee.</em>（tell 人 not to do）とも同じ意味になります。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-4 -->
+        <div class="item-card" data-tags="ex 2-4 reminds me of 活水女子大 思い出す">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">2-□4</span>
+                <span class="item-badge-univ">活水女子大</span>
+                <span class="item-badge-grammar grammar-exp">remind A of B</span>
+              </div>
+              <div class="item-main-en">This movie <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</u> the scenery in Venice.</div>
+              <div class="item-main-ja">この映画を見るとヴェニスの風景を思い出す。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">reminds me of</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>例文42（This landscape painting reminds me of my hometown.）のズバリ応用問題です！</p>
+                <p>主語が <em>This movie</em>（三人称単数）なので、動詞に <span class="highlight-word">-s</span> を忘れずに付けて <span class="code-term">reminds</span> にします。思い出すのは「私（me）」、前置詞は <span class="code-term">of</span> です。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-5 -->
+        <div class="item-card" data-tags="ex 2-5 is approaching Japan 近畿大 他動詞">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">2-□5</span>
+                <span class="item-badge-univ">近畿大*</span>
+                <span class="item-badge-grammar grammar-vt">他動詞 approach</span>
+              </div>
+              <div class="item-main-en">Have you heard the news that an extremely strong typhoon <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</u> ?</div>
+              <div class="item-main-ja">非常に強い台風が日本に近づいているというニュースを聞きましたか。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">is approaching Japan</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><strong>★全国の受験生が引っかかる超有名トラップ！</strong></p>
+                <p>日本語では「日本<strong>に</strong>近づく」と言うため、ついつい ✕ <em>is approaching <strong>to</strong> Japan</em> と前置詞 to を書きたくなります。</p>
+                <p>しかし、動詞 <span class="code-term">approach</span> は<strong>「他動詞」</strong>です！他動詞の後ろには前置詞を挟まず、直接目的語（Japan）を置かなければなりません。</p>
+              </div>
+            </div>
+
+            <div class="callout callout-caution">
+              <strong>⚠️ 自動詞と勘違いしやすい最頻出他動詞リスト</strong><br>
+              ・✕ approach to 〜 → ◯ <span class="highlight-word">approach 〜</span>（〜に近づく）<br>
+              ・✕ reach to [at] 〜 → ◯ <span class="highlight-word">reach 〜</span>（〜に到着する）<br>
+              ・✕ discuss about 〜 → ◯ <span class="highlight-word">discuss 〜</span>（〜について議論する）<br>
+              ・✕ marry with 〜 → ◯ <span class="highlight-word">marry 〜</span>（〜と結婚する）
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 大問 3 -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>3 共通語補充問題（静岡大、国士舘大、岐阜大）</span>
+        </div>
+
+        <!-- 3-1 -->
+        <div class="item-card" data-tags="ex 3-1 leave leaving 静岡大 共通語">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">3-□1</span>
+                <span class="item-badge-univ">静岡大*</span>
+                <span class="item-badge-grammar grammar-vi">leave の自動詞と他動詞</span>
+              </div>
+              <div class="item-main-en">
+                a. Please ( &nbsp; ) a message after the tone.<br>
+                b. She’s ( &nbsp; ) for London next week.
+              </div>
+              <div class="item-main-ja">
+                a. 発信音の後にメッセージをお残しください。<br>
+                b. 彼女は来週ロンドンに向けて出発する。
+              </div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">a. leave &nbsp; / &nbsp; b. leaving</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>例文32-a と 32-b で学んだ <span class="code-term">leave</span> の多義性がそのまま出題されています！</p>
+                <ul>
+                  <li>a: <span class="code-term">leave a message</span> ＝「メッセージを残す」（他動詞・原形）</li>
+                  <li>b: <span class="code-term">leave for ...</span> ＝「〜に向けて出発する」（自動詞）。be動詞の進行形（She's ＝ She is）になっているため、語形を <span class="highlight-word">leaving</span> に変化させます。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-2 -->
+        <div class="item-card" data-tags="ex 3-2 stand 国士舘大 耐える 立つ">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">3-□2</span>
+                <span class="item-badge-univ">国士舘大*</span>
+                <span class="item-badge-grammar grammar-vt">stand の多義性</span>
+              </div>
+              <div class="item-main-en">
+                a. I can’t ( &nbsp; ) the heat this summer.<br>
+                b. I had to ( &nbsp; ) on the train all the way to Heathrow.
+              </div>
+              <div class="item-main-ja">
+                a. この夏の暑さを我慢できない。<br>
+                b. ヒースローまで電車の中でずっと立っていなければならなかった。
+              </div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">a. stand &nbsp; / &nbsp; b. stand</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>動詞 <span class="code-term">stand</span> は、中学英語では「立つ」という自動詞ですが、高校英語では否定文・疑問文で <em>can't stand ...</em> の形で<strong>「〜に耐える、〜を我慢する（＝ bear / endure）」という他動詞</strong>として頻出します！</p>
+                <ul>
+                  <li>a: <em>can't stand the heat</em> ＝ 暑さに我慢できない（助動詞 can't の後ろなので原形）</li>
+                  <li>b: <em>had to stand</em> ＝ 立っていなければならなかった（had to の後ろなので原形）</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-3 -->
+        <div class="item-card" data-tags="ex 3-3 runs ran 岐阜大 流れる 経営する">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">3-□3</span>
+                <span class="item-badge-univ">岐阜大</span>
+                <span class="item-badge-grammar grammar-vi">run の自動詞と他動詞</span>
+              </div>
+              <div class="item-main-en">
+                a. The Nagara River ( &nbsp; ) through Gifu.<br>
+                b. She ( &nbsp; ) a computer company.
+              </div>
+              <div class="item-main-ja">
+                a. 長良川は岐阜を流れる。<br>
+                b. 彼女はコンピューター会社を経営している。
+              </div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">正解（解答）</div>
+              <div class="ans-content">a. runs &nbsp; / &nbsp; b. runs [ran]</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p><span class="code-term">run</span> のコアイメージは「ひと続きにさーっと動く・流れる」です。</p>
+                <ul>
+                  <li>自動詞：人や動物が走る／川や道路が伸びている・流れている（<em>The river runs...</em>）</li>
+                  <li>他動詞：〜を走らせる／<strong>会社や事業を経営・運営する</strong>（<em>run a company ＝ manage a company</em>）</li>
+                </ul>
+                <p>どちらも主語が三人称単数（The Nagara River / She）なので、現在の事実であれば <span class="highlight-word">runs</span> と三単現の -s を付けます（b は過去形 ran も可）。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 大問 4 -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>4 語句整序問題（東洋大、福島大、常磐大、中部大）</span>
+        </div>
+
+        <!-- 4-1 -->
+        <div class="item-card" data-tags="ex 4-1 apologized to her friends for being 東洋大 並べかえ">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">4-□1</span>
+                <span class="item-badge-univ">東洋大*</span>
+                <span class="item-badge-grammar grammar-vi">apologize to 人 for 理由</span>
+              </div>
+              <div class="item-main-en">Linda ( to / for / her / being / apologized / friends ) late for the party.</div>
+              <div class="item-main-ja">リンダはパーティーに遅れたことを友人にわびた。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">完成文</div>
+              <div class="ans-content">Linda <strong>apologized to her friends for being</strong> late for the party.</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>動詞 <span class="code-term">apologize</span>（謝る）は<strong>「自動詞」</strong>です！<br>
+                ✕ <em>apologized her friends</em> のように直接人を置くことはできません。</p>
+                <div class="callout callout-rule">
+                  <strong>💡 apologize の公式</strong><br>
+                  <span class="highlight-word">apologize to [人] for [理由]</span>（人に〜のことで謝る）
+                </div>
+                <p>理由を表す前置詞 for の後ろには動名詞 <span class="code-term">being</span> が来て、文末の <em>late for the party</em> につながります。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-2 -->
+        <div class="item-card" data-tags="ex 4-2 its students with food as well as 福島大 提供する">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">4-□2</span>
+                <span class="item-badge-univ">福島大</span>
+                <span class="item-badge-grammar grammar-exp">provide A with B / as well as</span>
+              </div>
+              <div class="item-main-en">The boarding school provides ( as / as / well / food / its students / with ) clothes.</div>
+              <div class="item-main-ja">その全寮制の学校では，学生に食事と衣服を提供している。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">完成文</div>
+              <div class="ans-content">The boarding school provides <strong>its students with food as well as</strong> clothes.</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>2つの構文の組み合わせです：</p>
+                <ul>
+                  <li>① <span class="code-term">provide + [人(its students)] + with + [物]</span>（例文43）</li>
+                  <li>② 物が「食事と衣服」の2つあるため、<span class="code-term">B as well as A</span>（AだけでなくBも ＝ not only A but also B）を使って <span class="highlight-word">food as well as clothes</span> を作ります。</li>
+                </ul>
+                <p>前置詞 with の後ろにこのカタマリを置きます。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-3 -->
+        <div class="item-card" data-tags="ex 4-3 managed to reach the top of 常磐大 到達した">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">4-□3</span>
+                <span class="item-badge-univ">常磐大*</span>
+                <span class="item-badge-grammar grammar-vt">manage to do / reach(他)</span>
+              </div>
+              <div class="item-main-en">Richard ( reach / managed / top / of / to / the ) Mt. Fuji after climbing for 8 hours.</div>
+              <div class="item-main-ja">8時間登って，リチャードはなんとか富士山の頂上に到達した。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">完成文</div>
+              <div class="ans-content">Richard <strong>managed to reach the top of</strong> Mt. Fuji after climbing for 8 hours.</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>Hints にもある <span class="code-term">manage to do</span>（なんとか都合をつけて〜する、どうにかやり遂げる）を使います。</p>
+                <p>また、動詞 <span class="code-term">reach</span> は「〜に到達する」という<strong>他動詞</strong>なので、to や at は不要で、直後に目的語 <span class="highlight-word">the top of Mt. Fuji</span>（富士山の頂上）を置きます。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-4 -->
+        <div class="item-card" data-tags="ex 4-4 would you mind if i ask 中部大 車に乗せる">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">4-□4</span>
+                <span class="item-badge-univ">中部大*</span>
+                <span class="item-badge-grammar grammar-svo">Would you mind if S+V?</span>
+              </div>
+              <div class="item-main-en">( ask / I / if / mind / would / you ) you to give me a ride home?</div>
+              <div class="item-main-ja">家まで車に乗せてくださいませんか。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+            <div class="ans-box">
+              <div class="ans-label">完成文</div>
+              <div class="ans-content"><strong>Would you mind if I ask</strong> you to give me a ride home?</div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための超基礎解説</div>
+              <div class="text-flow">
+                <p>「〜してくださいませんか」は、英語では「もし私が〜したら嫌がりますか？」と控えめに尋ねる定型構文 <span class="highlight-word">Would you mind if S' + V'?</span> で表します。</p>
+                <p>if の後ろに <span class="code-term">I ask</span> を置くことで、カッコ外の <em>you to give me a ride home</em> とつながり、<span class="code-term">ask you to do</span>（あなたに〜するよう頼む）が成立します。</p>
+                <p>※ give me a ride home ＝「私を車で家まで送る」</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 大問 5 -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>5 和文英訳問題（慶應義塾大、大阪学院大、千葉大、日本女子大、立命館大）</span>
+        </div>
+
+        <!-- 5-1 -->
+        <div class="item-card" data-tags="ex 5-1 people in those days did not know what caused plagues 慶應義塾大 疫病 原因 複数正答例">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">5-□1</span>
+                <span class="item-badge-univ">慶應義塾大</span>
+                <span class="item-badge-grammar grammar-svo">know の目的語 (名詞節 / 名詞句)</span>
+                <span class="pattern-tag tag-pattern-main">正答例 3パターン掲載</span>
+              </div>
+              <div class="item-main-ja">当時の人々は，疫病の原因を知ることができなかった。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+
+            <div class="pattern-group">
+              <div class="pattern-group-title">🎯 複数の正答例（構文・表現別のバリエーション）</div>
+
+              <!-- Pattern 1 -->
+              <div class="pattern-card pattern-recommended">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-main">パターン①（テキスト模範：名詞節 what caused...）</span>
+                  <span class="pattern-syntax-label">SVO [O＝疑問詞節]</span>
+                </div>
+                <div class="pattern-en">People in those days did not know what caused plagues.</div>
+                <div class="pattern-ja">当時の人々は，何が疫病を引き起こしたのかを知らなかった。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>「疫病の原因」を〈疑問詞what＋動詞caused＋目的語plagues〉という<strong>間接疑問節</strong>で表現したスマートな英語です。動詞 cause（〜を引き起こす）を使うことで、「何が疫病の原因となったのか」を生き生きと表せます。
+                </div>
+              </div>
+
+              <!-- Pattern 2 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-alt">パターン②（名詞句 the cause of... を使う標準形）</span>
+                  <span class="pattern-syntax-label">SVO [O＝名詞句]</span>
+                </div>
+                <div class="pattern-en">People at that time could not know the cause of the plague.</div>
+                <div class="pattern-ja">当時の人々は，その疫病の原因を知ることができなかった。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>「原因」を表す名詞 <span class="highlight-word">the cause of ...</span> を使い、助動詞 <span class="code-term">could not</span>（〜できなかった）を素直に当てはめた初学者にも一番発想しやすい答案です。「当時の」は <em>at that time</em> でも全く問題ありません。
+                </div>
+              </div>
+
+              <!-- Pattern 3 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-simple">パターン③（「解明できなかった」find out を使った発展形）</span>
+                  <span class="pattern-syntax-label">be unable to find out</span>
+                </div>
+                <div class="pattern-en">People in those days were unable to find out what caused the plague.</div>
+                <div class="pattern-ja">当時の人々は，何が疫病を引き起こしたのかを突き止めることができなかった。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>「知ることができなかった」を「解明できなかった、突き止められなかった」と考えて <span class="code-term">find out</span> や <span class="code-term">discover</span> を使うと、学術的・歴史的文脈にぴったりの自然な英文になります。
+                </div>
+              </div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 初学者のための語彙・パーツ分解解説</div>
+              <div class="text-flow">
+                <ul>
+                  <li><strong>「当時の人々」</strong>：<em>People in those days</em> または <em>People at that time</em>。文頭に置いても文末に置いてもOKです。</li>
+                  <li><strong>「知ることができなかった」</strong>：日本語の「できなかった」に引きずられて could を使いたくなりますが、英語では単に「知らなかった」として <em>did not know</em> とする方が自然な場合が多いです。もちろん <em>could not know</em> や <em>were not able to know</em> でも正解です。</li>
+                  <li><strong>「疫病」</strong>：Hintsにある <span class="code-term">plague</span>。総称として複数形 <em>plagues</em> にするか、特定の歴史的流行と捉えて <em>the plague</em> とします。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-2 -->
+        <div class="item-card" data-tags="ex 5-2 if you teach me english i will teach you japanese in return 大阪学院大 複数正答例">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">5-□2</span>
+                <span class="item-badge-univ">大阪学院大</span>
+                <span class="item-badge-grammar grammar-svoo">teach O1 O2 / if節の時制</span>
+                <span class="pattern-tag tag-pattern-main">正答例 3パターン掲載</span>
+              </div>
+              <div class="item-main-ja">英語を教えてくれるなら，お返しに日本語を教えてあげよう。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+
+            <div class="pattern-group">
+              <div class="pattern-group-title">🎯 複数の正答例（構文・表現別のバリエーション）</div>
+
+              <!-- Pattern 1 -->
+              <div class="pattern-card pattern-recommended">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-main">パターン①（テキスト模範：SVOO teach O1 O2）</span>
+                  <span class="pattern-syntax-label">第4文型 SVOO</span>
+                </div>
+                <div class="pattern-en">If you teach me English, I will teach you Japanese in return.</div>
+                <div class="pattern-ja">もしあなたが私に英語を教えてくれるなら，お返しに私はあなたに日本語を教えてあげよう。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>例文41（<em>This book teaches us what love is.</em>）の SVOO構文を前半・後半の両方でストレートに使った最もシンプルで減点されない標準解答です。
+                </div>
+              </div>
+
+              <!-- Pattern 2 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-alt">パターン②（SVO + to を使った第3文型）</span>
+                  <span class="pattern-syntax-label">第3文型 SVO + to 人</span>
+                </div>
+                <div class="pattern-en">If you teach English to me, I will teach Japanese to you in return.</div>
+                <div class="pattern-ja">（同上）</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>teach は相手に届く動詞なので、SVO に書き換えるときは前置詞 <span class="highlight-word">to</span> を使います（✕ for me ではない）。文法的に完全な正解です。
+                </div>
+              </div>
+
+              <!-- Pattern 3 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-simple">パターン③（help with / in exchange を使った日常会話表現）</span>
+                  <span class="pattern-syntax-label">help A with B / in exchange</span>
+                </div>
+                <div class="pattern-en">If you help me with my English, I’ll help you with your Japanese in exchange.</div>
+                <div class="pattern-ja">私の英語を手伝ってくれるなら，引き換えにあなたの日本語を手伝ってあげるよ。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>実際のネイティブの日常会話やランゲージエクスチェンジ（言語交換）で最も自然に使われる表現です。<span class="code-term">in exchange</span>（引き換えに）も in return と同様によく使われます。
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-caution">
+              <strong>⚠️ 初学者が最も間違えやすい「時・条件の副詞節」の超重要鉄則！</strong><br>
+              「教えてくれるなら」は未来のことですが、<strong>if節（もし〜なら）の中では未来のことでも will を使わずに現在形</strong>にします！<br>
+              ✕ <em>If you will teach me...</em>（誤り！） → ◯ <span class="highlight-word">If you teach me...</span>（現在形！）<br>
+              ※一方、後半の主節は話し手のこれからの意志なので、必ず <span class="code-term">I will teach ...</span> と will を入れます。
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-3 -->
+        <div class="item-card" data-tags="ex 5-3 started began to wonder where she really was 千葉大 間接疑問文 複数正答例">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">5-□3</span>
+                <span class="item-badge-univ">千葉大</span>
+                <span class="item-badge-grammar grammar-svo">wonder + 間接疑問文 / 時制の一致</span>
+                <span class="pattern-tag tag-pattern-main">正答例 3パターン掲載</span>
+              </div>
+              <div class="item-main-ja">彼女は，自分が実際にはどこにいるのかしらと思い始めた。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+
+            <div class="pattern-group">
+              <div class="pattern-group-title">🎯 複数の正答例（構文・表現別のバリエーション）</div>
+
+              <!-- Pattern 1 -->
+              <div class="pattern-card pattern-recommended">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-main">パターン①（テキスト模範：began/started to wonder + really）</span>
+                  <span class="pattern-syntax-label">wonder + 疑問詞節 (標準)</span>
+                </div>
+                <div class="pattern-en">She began [started] to wonder where she really was.</div>
+                <div class="pattern-ja">彼女は自分が本当はどこにいるのだろうかと考え始めた。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>例文37（<em>I wonder why Bob is angry.</em>）の直系応用。began / started の後ろに不定詞 to wonder を置き、間接疑問節 <em>where she really was</em> を従えています。
+                </div>
+              </div>
+
+              <!-- Pattern 2 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-alt">パターン②（actually を文末に配置するパターン）</span>
+                  <span class="pattern-syntax-label">actually 文末配置</span>
+                </div>
+                <div class="pattern-en">She began to wonder where she was actually.</div>
+                <div class="pattern-ja">彼女は自分が実際どこにいるのかしらと思い始めた。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>「実際には」に <span class="code-term">actually</span> を使い、文末に配置した形です（<em>where she actually was</em> と be動詞の前に置いてもOKです）。
+                </div>
+              </div>
+
+              <!-- Pattern 3 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-simple">パターン③（動名詞 started wondering + in reality）</span>
+                  <span class="pattern-syntax-label">start doing / in reality</span>
+                </div>
+                <div class="pattern-en">She started wondering where she was in reality.</div>
+                <div class="pattern-ja">彼女は自分が現実にはどこにいるのか疑問に思い始めた。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>start は動名詞（wondering）も目的語にとれます。「実際には」を前置詞句 <span class="code-term">in reality</span>（現実には）で表現した自然なバリエーションです。
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-caution">
+              <strong>⚠️ 合否を分ける超最重要ポイント：時制の一致！</strong><br>
+              主節が「思い始めた」と過去形（<em>began / started</em>）なので、節内の be動詞も is ではなく過去形の <span class="highlight-word">was</span> にしなければなりません！<br>
+              ✕ <em>...where she really is.</em>（時制の一致違反で減点！） → ◯ <span class="highlight-word">...where she really was.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-4 -->
+        <div class="item-card" data-tags="ex 5-4 our teacher told us not to use words don't know 日本女子大 関係詞 複数正答例">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">5-□4</span>
+                <span class="item-badge-univ">日本女子大</span>
+                <span class="item-badge-grammar grammar-svo">tell 人 not to do / 関係代名詞</span>
+                <span class="pattern-tag tag-pattern-main">正答例 4パターン掲載</span>
+              </div>
+              <div class="item-main-ja">自分で意味がわからない言葉を使わないようにと先生に言われました。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+
+            <div class="pattern-group">
+              <div class="pattern-group-title">🎯 複数の正答例（構文・表現別のバリエーション）</div>
+
+              <!-- Pattern 1 -->
+              <div class="pattern-card pattern-recommended">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-main">パターン①（テキスト模範：目的格関係代名詞の省略）</span>
+                  <span class="pattern-syntax-label">tell 人 not to do ＋ 接触節</span>
+                </div>
+                <div class="pattern-en">Our teacher told us not to use words we don’t know the meaning of.</div>
+                <div class="pattern-ja">先生は私たちに意味がわからない言葉を使わないようにと言った。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong><em>words (that) we don't know the meaning of</em> という関係代名詞の目的格省略（接触節）です。末尾に前置詞 <span class="highlight-word">of</span> が残る点（the meaning of words から来ている）に注目してください。
+                </div>
+              </div>
+
+              <!-- Pattern 2 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-alt">パターン②（所有格関係代名詞 whose を使う形）</span>
+                  <span class="pattern-syntax-label">whose + 名詞</span>
+                </div>
+                <div class="pattern-en">My teacher told me not to use words whose meanings I don’t understand.</div>
+                <div class="pattern-ja">先生は私に意味が理解できない言葉を使わないように言った。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>所有格の関係代名詞 <span class="code-term">whose</span>（その語の）を使います。<strong>whose の直後には冠詞なしで名詞（meanings）を置く</strong>のが鉄則です。understand も「意味を理解する」にぴったりです。
+                </div>
+              </div>
+
+              <!-- Pattern 3 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-simple">パターン③（if 条件節を使った書きやすい形）</span>
+                  <span class="pattern-syntax-label">if 節でシンプル化</span>
+                </div>
+                <div class="pattern-en">Our teacher told us not to use a word if we don’t know what it means.</div>
+                <div class="pattern-ja">もしその言葉が何を意味するか知らないなら，それを使ってはいけないと先生は言った。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>関係詞を使わず、<em>if we don't know what it means</em>（もしその語の意味がわからないなら）と条件節に噛み砕いた受験テクニックです。関係詞で詰まった時に確実に点を取れる優秀な解法です。
+                </div>
+              </div>
+
+              <!-- Pattern 4 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-alt">パターン④（受動態 I was told not to... で始める形）</span>
+                  <span class="pattern-syntax-label">受動態 I was told not to do</span>
+                </div>
+                <div class="pattern-en">I was told by my teacher not to use any words that I don’t know by myself.</div>
+                <div class="pattern-ja">私は自分でわからないどんな言葉も使わないようにと先生から言われました。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>日本語の「先生に言われました」をそのまま主語「私」の受動態 <span class="code-term">I was told by my teacher not to do</span> で表現した形です。
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-rule">
+              <strong>💡 不定詞の否定：not to do の位置</strong><br>
+              ✕ <em>told me to not use...</em> → ◯ <span class="highlight-word">told me not to use...</span><br>
+              否定の <span class="code-term">not</span> は必ず不定詞 <span class="code-term">to</span> の直前に置きます！
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-5 -->
+        <div class="item-card" data-tags="ex 5-5 we know well from experience what happens 立命館大 avoid dealing with 複数正答例">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">5-□5</span>
+                <span class="item-badge-univ">立命館大*</span>
+                <span class="item-badge-grammar grammar-svo">know what happens / avoid doing</span>
+                <span class="pattern-tag tag-pattern-main">正答例 3パターン掲載</span>
+              </div>
+              <div class="item-main-ja">問題に対処することを避けるとどうなるか，私たちは経験からよくわかっている。</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+
+            <div class="pattern-group">
+              <div class="pattern-group-title">🎯 複数の正答例（構文・表現別のバリエーション）</div>
+
+              <!-- Pattern 1 -->
+              <div class="pattern-card pattern-recommended">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-main">パターン①（テキスト模範：know well from experience + when）</span>
+                  <span class="pattern-syntax-label">標準模範解答</span>
+                </div>
+                <div class="pattern-en">We know well from experience what happens when we avoid dealing with a problem.</div>
+                <div class="pattern-ja">私たちは，問題に対処することを避けたときに何が起こるかを経験からよく知っている。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>「どうなるか」＝「何が起こるか（what happens）」、「避けると」＝「避けた時に（when we avoid...）」と論理的に変換しています。<span class="code-term">avoid dealing with</span>（動名詞）が完璧に使われています。
+                </div>
+              </div>
+
+              <!-- Pattern 2 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-alt">パターン②（what will happen if... 未来形＋条件節）</span>
+                  <span class="pattern-syntax-label">what will happen if ...</span>
+                </div>
+                <div class="pattern-en">We know very well from experience what will happen if we avoid dealing with problems.</div>
+                <div class="pattern-ja">もし問題に対処するのを避ければ何が起こることになるか，私たちは経験から非常によく知っている。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>「避けると（その結果どうなるか）」という因果関係を強調し、間接疑問節を未来形 <span class="code-term">what will happen</span>、条件を <span class="code-term">if</span> で表した自然で力強い英文です。
+                </div>
+              </div>
+
+              <!-- Pattern 3 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-simple">パターン③（From experience 文頭配置 ＋ address / face）</span>
+                  <span class="pattern-syntax-label">副詞句文頭 ＋ 動詞のバリエーション</span>
+                </div>
+                <div class="pattern-en">From experience, we understand very well what happens if we avoid addressing problems.</div>
+                <div class="pattern-ja">経験から，私たちは問題に対処することを避けると何が起こるかをよく理解している。</div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>修飾語 <span class="code-term">From experience</span> を文頭に出してスッキリさせ、know の代わりに <span class="code-term">understand very well</span>、deal with の代わりに <span class="code-term">address</span>（問題に取り組む・対処する）を用いた大学入試で極めて高得点が付く洗練された英語です。
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-rule">
+              <strong>💡 avoid は動名詞（-ing）しか取らない動詞！</strong><br>
+              ✕ <em>avoid to deal with...</em>（重大な文法ミス！） → ◯ <span class="highlight-word">avoid dealing with...</span>（動名詞！）<br>
+              avoid, enjoy, stop, finish, mind などの動名詞専用動詞は入試で真っ先に狙われます。
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 大問 6 -->
+      <div class="category-block">
+        <div class="category-title">
+          <span>6 会話文完成（自由英作文）（獨協大）― 立場別の複数正答例</span>
+        </div>
+
+        <!-- 6 -->
+        <div class="item-card" data-tags="ex 6 chores children housework praise independent 獨協大 会話 自由英作文 複数正答例">
+          <div class="item-header" onclick="toggleCard(this)">
+            <div class="item-header-left">
+              <div class="item-number-row">
+                <span class="item-badge-num">6</span>
+                <span class="item-badge-univ">獨協大</span>
+                <span class="item-badge-grammar grammar-svo">自由英作文・意見論述</span>
+                <span class="pattern-tag tag-pattern-main">立場別 4パターン掲載</span>
+              </div>
+              <div class="item-main-en">
+                Mike: Many parents require their children to do certain household chores, for example, wash dishes or do laundry. Do you think children should be required to do such work?<br>
+                Ken: (あなたの意見を書く)
+              </div>
+              <div class="item-main-ja">マイク：多くの親は皿洗いや洗濯などの家事を子どもに義務付けているけれど、子どもはそういう仕事を求められるべきだと思う？</div>
+            </div>
+            <div class="toggle-icon-box">
+              <span>詳細解説</span>
+              <span class="toggle-arrow">▼</span>
+            </div>
+          </div>
+          <div class="item-body">
+
+            <div class="pattern-group">
+              <div class="pattern-group-title">🎯 立場別の複数解答例（賛成・反対・シンプル・発展）</div>
+
+              <!-- Pattern 1 -->
+              <div class="pattern-card pattern-recommended">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-main">解答例①【賛成派・自立と働くことの学習（テキスト模範解答）】</span>
+                  <span class="pattern-syntax-label">標準・充実の論述型</span>
+                </div>
+                <div class="pattern-en">
+                  I think chores are good for children. If children do housework, their parents praise them and it makes them happy. Children will also become independent by having responsibility. In this way, they can learn what it is like to work. I believe that doing some household chores is a good way for children to learn.
+                </div>
+                <div class="pattern-ja">
+                  家事は子どもたちにとって良いことだと私は思います。子どもたちが家事をすれば、親は子どもたちを褒め、子どもたちは喜ぶでしょう。子どもたちはまた責任を持つことで自立するでしょう。このようにして、子どもたちは働くことがどのようなものかを学べます。私はいくらかの家事をすることは、子どもたちが学ぶための良い方法だと信じています。
+                </div>
+                <div class="pattern-note">
+                  <strong>論理構成：</strong>立場表明 → 親に褒められる喜び → 責任感と自立 → 働く意義の理解 → 結論。非常に多角的で説得力のある正統派の解答です。
+                </div>
+              </div>
+
+              <!-- Pattern 2 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-alt">解答例②【賛成派・家族の役割＆親への感謝（例文44の応用）】</span>
+                  <span class="pattern-syntax-label">Lesson 2-1 例文44の語法を活用！</span>
+                </div>
+                <div class="pattern-en">
+                  Yes, I think so. Children are important members of the family, so they should <strong>play a part in</strong> doing daily chores. By doing simple housework like washing dishes, they can learn how to cooperate with others and understand how hard their parents work for them.
+                </div>
+                <div class="pattern-ja">
+                  はい，そう思います。子どもたちは家族の重要な一員ですから，日々の家事において役割を果たすべきです。皿洗いのような簡単な家事をすることで，他者と協力する方法を学び，親が自分たちのためにどれほど一生懸命働いているかを理解することができます。
+                </div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>Lesson 2-1 で学習した <span class="highlight-word">play a part in -ing</span>（〜において役割を果たす / 例文44）をそのまま使った実践的な解答です。短くまとまり、減点されにくいおすすめパターンです。
+                </div>
+              </div>
+
+              <!-- Pattern 3 -->
+              <div class="pattern-card pattern-oppose">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-oppose">解答例③【反対・慎重派・学業と休息の優先（例文34の応用）】</span>
+                  <span class="pattern-syntax-label">反対意見（強制すべきではない）</span>
+                </div>
+                <div class="pattern-en">
+                  No, I don’t think so. Children already have many things to do, such as studying for exams and doing club activities. They <strong>need to focus on</strong> their schoolwork and also have enough time to rest. Helping around the house is nice, but it should not be required.
+                </div>
+                <div class="pattern-ja">
+                  いいえ，そうは思いません。子どもたちには試験勉強や部活動など，やるべきことがすでにたくさんあります。子どもたちは学校の勉強に集中する必要があり，また休息のための十分な時間を持つ必要もあります。家のお手伝いをするのは素敵なことですが，義務付けられるべきではありません。
+                </div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>「家事すべきではない」という立場。例文34の <span class="code-term">need to focus on ...</span>（不定詞）を活かし、「自発的なお手伝いは良いが、強制（require）すべきではない」と論理的に主張しています。
+                </div>
+              </div>
+
+              <!-- Pattern 4 -->
+              <div class="pattern-card pattern-alt">
+                <div class="pattern-header-row">
+                  <span class="pattern-tag tag-pattern-simple">解答例④【条件付き賛成派・負担を考慮（短く書きやすい実戦型）】</span>
+                  <span class="pattern-syntax-label">シンプル＆ミスしにくい型</span>
+                </div>
+                <div class="pattern-en">
+                  I agree, but parents should not give them too much work. If chores are light and easy, such as setting the table, children can enjoy helping their family without feeling too much stress. It is important to keep a good balance with their studies.
+                </div>
+                <div class="pattern-ja">
+                  賛成ですが，親は子どもに多すぎる仕事を与えるべきではありません。もし家事が食卓の準備のように軽くて簡単なら，子どもは過度なストレスを感じることなく家族を助けることを楽しめます。勉強との良いバランスを保つことが大切です。
+                </div>
+                <div class="pattern-note">
+                  <strong>解説：</strong>「賛成だが、やりすぎはダメ」という条件付き賛成。<span class="code-term">enjoy helping</span>（enjoy は動名詞 / 1-□2）を使うなど、本章の基本語法を散りばめています。
+                </div>
+              </div>
+            </div>
+
+            <div class="expl-section">
+              <div class="expl-header">🔰 自由英作文で迷わない「3段構成」の黄金ルール</div>
+              <div class="text-flow">
+                <p>入試の自由英作文は、以下の3ステップを守るだけで誰でも論理的な満点答案が書けます：</p>
+                <ol>
+                  <li><strong>Step 1: 立場を明言（1文）</strong><br>
+                  <em>Yes, I think so.</em>（賛成）または <em>No, I don't think so.</em>（反対）でスタート。</li>
+                  <li><strong>Step 2: 理由を具体的に1〜2つ（2〜3文）</strong><br>
+                  理由には「子どもの成長・自立」「親への感謝・協力」または「学業の優先・休息の必要性」を使うと書きやすいです。</li>
+                  <li><strong>Step 3: まとめ・再主張（1文）</strong><br>
+                  <em>Therefore, doing chores is a great experience.</em> や <em>So it should not be forced.</em> などで締めくくります。</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="callout callout-tip">
+              <strong>💎 覚えておくと差がつく重要語彙</strong><br>
+              ・<span class="code-term">household chores / housework</span> ＝ 家事、雑用<br>
+              ・<span class="code-term">require O to do</span> ＝ Oに〜するよう要求する・義務付ける<br>
+              ・<span class="code-term">independent</span> ＝ 自立した（名詞：independence 自立）<br>
+              ・<span class="code-term">responsibility</span> ＝ 責任（形容詞：responsible 責任がある）<br>
+              ・<span class="code-term">cooperate with others</span> ＝ 他者と協力する
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Quick Floating Back to Top Button -->
+  <button class="fab-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="ページ最上部へ">▲</button>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT LOGIC                                         -->
+  <!-- ======================================================== -->
+  <script>
+    // Tab switching
+    function switchMainTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
+
+      const targetPane = document.getElementById(tabId);
+      if (targetPane) targetPane.classList.add('active');
+
+      const tabs = ['tab-wb12', 'tab-qr', 'tab-quiz', 'tab-ex'];
+      const idx = tabs.indexOf(tabId);
+      if (idx !== -1) {
+        const btns = document.querySelectorAll('.nav-tab-btn');
+        if (btns[idx]) btns[idx].classList.add('active');
+      }
+
+      // Re-run search filtering for new tab
+      handleSearch();
+    }
+
+    // Toggle single card
+    function toggleCard(headerEl) {
+      const card = headerEl.closest('.item-card');
+      card.classList.toggle('open');
+    }
+
+    // Open/Close all cards in currently active tab
+    function toggleAllCardsInCurrentTab(isOpen) {
+      const activeTab = document.querySelector('.tab-pane.active');
+      if (!activeTab) return;
+
+      const cards = activeTab.querySelectorAll('.item-card');
+      cards.forEach(card => {
+        if (isOpen) {
+          card.classList.add('open');
+        } else {
+          card.classList.remove('open');
+        }
+      });
+    }
+
+    // Keyword search filter across all cards
+    function handleSearch() {
+      const input = document.getElementById('searchInput');
+      const query = input.value.trim().toLowerCase();
+      const countEl = document.getElementById('searchCount');
+
+      const activeTab = document.querySelector('.tab-pane.active');
+      if (!activeTab) return;
+
+      const cards = activeTab.querySelectorAll('.item-card');
+      let matchedCount = 0;
+
+      if (!query) {
+        cards.forEach(card => card.style.display = '');
+        countEl.textContent = '';
+        return;
+      }
+
+      cards.forEach(card => {
+        const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+        const text = card.textContent.toLowerCase();
+
+        if (tags.includes(query) || text.includes(query)) {
+          card.style.display = '';
+          matchedCount++;
+          // auto-open matched cards when searching
+          card.classList.add('open');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      countEl.textContent = `${matchedCount}件 ヒット`;
+    }
+
+    // ========================================================
+    // PASSWORD AUTHENTICATION LOGIC (Password: "202610")
+    // ========================================================
+    const CORRECT_PASSWORD = "202610";
+    const AUTH_KEY = "lesson2_1_auth_state";
+
+    function unlockContent() {
+      const gate = document.getElementById('passwordGate');
+      const content = document.getElementById('protectedContent');
+      if (gate) gate.style.display = 'none';
+      if (content) content.style.display = 'block';
+    }
+
+    function lockPage() {
+      try {
+        localStorage.removeItem(AUTH_KEY);
+        sessionStorage.removeItem(AUTH_KEY);
+      } catch (e) {}
+
+      const gate = document.getElementById('passwordGate');
+      const content = document.getElementById('protectedContent');
+      const input = document.getElementById('passwordInput');
+      const errorMsg = document.getElementById('pwErrorMsg');
+
+      if (content) content.style.display = 'none';
+      if (gate) gate.style.display = 'flex';
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      if (errorMsg) errorMsg.textContent = '';
+    }
+
+    function verifyPassword() {
+      const input = document.getElementById('passwordInput');
+      const card = document.getElementById('pwCard');
+      const errorMsg = document.getElementById('pwErrorMsg');
+      const rememberCheckbox = document.getElementById('rememberMeCheckbox');
+
+      if (!input) return;
+      const entered = input.value.trim();
+
+      if (entered === CORRECT_PASSWORD) {
+        if (errorMsg) errorMsg.textContent = '';
+        try {
+          if (rememberCheckbox && rememberCheckbox.checked) {
+            localStorage.setItem(AUTH_KEY, 'unlocked');
+          } else {
+            sessionStorage.setItem(AUTH_KEY, 'unlocked');
+          }
+        } catch (e) {}
+        unlockContent();
+      } else {
+        if (errorMsg) {
+          errorMsg.textContent = '❌ パスワードが正しくありません。再度お試しください。';
+        }
+        if (card) {
+          card.classList.remove('pw-shake');
+          void card.offsetWidth; // trigger reflow
+          card.classList.add('pw-shake');
+        }
+        input.select();
+        input.focus();
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('passwordInput');
+      const btn = document.getElementById('pwToggleBtn');
+      if (!input || !btn) return;
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+        btn.title = 'パスワードを隠す';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁️';
+        btn.title = 'パスワードを表示する';
+      }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      let isUnlocked = false;
+      try {
+        if (localStorage.getItem(AUTH_KEY) === 'unlocked' || sessionStorage.getItem(AUTH_KEY) === 'unlocked') {
+          isUnlocked = true;
+        }
+      } catch (e) {}
+
+      if (isUnlocked) {
+        unlockContent();
+      } else {
+        const input = document.getElementById('passwordInput');
+        if (input) {
+          setTimeout(() => input.focus(), 150);
+          input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+              verifyPassword();
+            }
+          });
+        }
+      }
+    });
+  </script>
+  </div> <!-- /#protectedContent -->
+</body>
+</html>
