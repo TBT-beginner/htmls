@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WINSTEP 英語1 Vol.2 UNIT 3 講義＆模範解答スライド</title>
+  <style>
+    /* ==========================================================================
+       RESET & BASE STYLES (Minimal, High-Contrast Black & White for Projection)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --text-main: #111111;
+      --text-muted: #555555;
+      --text-light: #777777;
+      --border-color: #e5e5e5;
+      --border-dark: #111111;
+      --highlight-bg: #f7f7f7;
+      --ans-bg: #f0f0f0;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+      --font-serif: "Georgia", "Times New Roman", "BIZ UDPMincho", "Yu Mincho", serif;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==========================================================================
+       TOP PROGRESS BAR & HEADER STATUS
+       ========================================================================== */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background-color: var(--text-main);
+      width: 0%;
+      transition: width 0.2s ease;
+      z-index: 100;
+    }
+
+    .slide-header {
+      position: fixed;
+      top: 1.8vh;
+      left: 3vw;
+      right: 3vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.8vh;
+      z-index: 90;
+      background: var(--bg);
+    }
+
+    .slide-category {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .slide-category .badge {
+      display: inline-block;
+      border: 1px solid var(--text-main);
+      padding: 0.1em 0.5em;
+      font-size: 0.8rem;
+      margin-right: 0.6em;
+      font-weight: 700;
+    }
+
+    .slide-counter {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       SLIDE CONTAINER (Full Screen Presentation)
+       ========================================================================== */
+    #presentation {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6vh 4vw 6.5vh 4vw;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1360px;
+      height: 100%;
+      max-height: calc(100vh - 13.5vh);
+      flex-direction: column;
+      justify-content: flex-start;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      padding: 0.5vh 0;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       TYPOGRAPHY & CONTENT BLOCKS
+       ========================================================================== */
+    .slide-title-block {
+      margin-bottom: 1.4vh;
+    }
+
+    .slide-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      color: var(--text-main);
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-top: 0.3vh;
+    }
+
+    /* Title Slide (Slide 1) */
+    .cover-slide {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      border: 1.5px solid var(--text-main);
+      padding: 0.4em 1.2em;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5vh;
+    }
+
+    .cover-title {
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 1.5vh;
+    }
+
+    .cover-desc {
+      font-size: 1.35rem;
+      color: var(--text-muted);
+      margin-bottom: 4vh;
+      max-width: 800px;
+    }
+
+    .cover-keys {
+      display: flex;
+      gap: 1.5vw;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      padding-top: 2.5vh;
+    }
+
+    .key-tag {
+      background: var(--highlight-bg);
+      border: 1px solid var(--border-color);
+      padding: 0.2em 0.6em;
+      border-radius: 3px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Question Slide Layout */
+    .question-box {
+      background: #fafafa;
+      border: 1.5px solid var(--border-dark);
+      padding: 1.8vh 2.2vw;
+      margin-bottom: 1.6vh;
+    }
+
+    .q-main-text {
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      line-height: 1.4;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .q-main-text .q-num {
+      font-family: var(--font-sans);
+      font-weight: 800;
+      margin-right: 0.4em;
+    }
+
+    .q-blank {
+      display: inline-block;
+      min-width: 3.5em;
+      border-bottom: 2px solid var(--text-main);
+      padding: 0 0.5em;
+      text-align: center;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .q-blank.unrevealed {
+      color: transparent;
+      user-select: none;
+    }
+
+    .choices-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1vw;
+      margin-top: 1.4vh;
+    }
+
+    .choice-btn {
+      flex: 1;
+      min-width: 170px;
+      padding: 0.8vh 1.2vw;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      font-size: 1.18rem;
+      font-family: var(--font-serif);
+      display: flex;
+      align-items: baseline;
+      gap: 0.6em;
+    }
+
+    .choice-num {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .choice-btn.is-correct {
+      border: 2px solid var(--text-main);
+      background: #ffffff;
+      font-weight: 700;
+    }
+
+    .choice-btn.is-correct.revealed {
+      background: var(--text-main);
+      color: #ffffff;
+    }
+
+    .choice-btn.is-correct.revealed .choice-num {
+      color: #ffffff;
+    }
+
+    /* Explanation Area (Positioned directly below the question block) */
+    .explanation-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2vh;
+      border-top: 1.5px solid var(--border-color);
+      padding-top: 1.4vh;
+      margin-top: 0;
+    }
+
+    .explanation-panel.hidden-ans {
+      opacity: 0.12;
+      pointer-events: none;
+      filter: blur(4px);
+      transition: opacity 0.2s ease, filter 0.2s ease;
+    }
+
+    .explanation-panel.revealed-ans {
+      opacity: 1;
+      pointer-events: auto;
+      filter: none;
+    }
+
+    .translation-bar {
+      font-size: 1.15rem;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .translation-bar span {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-right: 0.5em;
+      font-weight: 700;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.6vw;
+    }
+
+    .detail-card {
+      background: var(--highlight-bg);
+      border: 1px solid var(--border-color);
+      padding: 1.4vh 1.6vw;
+    }
+
+    .detail-card-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5vh;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .detail-card-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 13px;
+      background: var(--text-main);
+    }
+
+    .detail-card-content {
+      font-size: 1.02rem;
+      line-height: 1.52;
+      color: var(--text-main);
+    }
+
+    .detail-card-content strong {
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .detail-card-content ul, .detail-card-content ol {
+      padding-left: 1.3em;
+      margin-top: 0.3em;
+    }
+
+    .detail-card-content li {
+      margin-bottom: 0.25em;
+    }
+
+    /* Lecture Specific Layouts */
+    .lecture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8vw;
+      margin-top: 1vh;
+    }
+
+    .lecture-card {
+      border: 1px solid var(--border-dark);
+      padding: 2vh 1.8vw;
+      background: #ffffff;
+    }
+
+    .lecture-card-head {
+      font-size: 1.2rem;
+      font-weight: 800;
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 0.8vh;
+      margin-bottom: 1.5vh;
+    }
+
+    .lecture-item {
+      margin-bottom: 1.4vh;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .lecture-item strong {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+    }
+
+    .lecture-note {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 0.2vh;
+    }
+
+    .blank-pill {
+      display: inline-block;
+      border-bottom: 2px solid var(--text-main);
+      padding: 0 0.4em;
+      font-weight: 700;
+      background: var(--ans-bg);
+      color: var(--text-main);
+    }
+
+    .blank-pill.unrevealed {
+      color: transparent;
+      user-select: none;
+    }
+
+    /* ==========================================================================
+       BOTTOM CONTROLS BAR
+       ========================================================================== */
+    .controls-bar {
+      position: fixed;
+      bottom: 1.5vh;
+      left: 3vw;
+      right: 3vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 90;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1vh;
+      background: var(--bg);
+    }
+
+    .controls-left {
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+    }
+
+    .control-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-dark);
+      color: var(--text-main);
+      padding: 0.5vh 1.2vw;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .control-btn:hover {
+      background: var(--text-main);
+      color: #ffffff;
+    }
+
+    .control-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .control-btn.active-toggle {
+      background: var(--text-main);
+      color: #ffffff;
+    }
+
+    .key-hints {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* ==========================================================================
+       MODAL: TABLE OF CONTENTS (Jump Menu)
+       ========================================================================== */
+    #toc-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(5px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 5vh 5vw;
+    }
+
+    #toc-modal.open {
+      display: flex;
+    }
+
+    .toc-container {
+      width: 100%;
+      max-width: 1100px;
+      max-height: 85vh;
+      background: #ffffff;
+      border: 2px solid var(--border-dark);
+      padding: 3vh 3vw;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .toc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border-dark);
+      padding-bottom: 1.5vh;
+      margin-bottom: 2vh;
+    }
+
+    .toc-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.2vh 1.2vw;
+    }
+
+    .toc-item {
+      padding: 1vh 1vw;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .toc-item:hover {
+      border-color: var(--border-dark);
+      background: var(--highlight-bg);
+    }
+
+    .toc-item.current {
+      border: 2px solid var(--border-dark);
+      font-weight: 700;
+      background: #f0f0f0;
+    }
+
+    .toc-item-num {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 0.2vh;
+    }
+
+    /* Print settings */
+    @media print {
+      #progress-bar, .slide-header, .controls-bar, #toc-modal {
+        display: none !important;
+      }
+      #presentation {
+        padding: 0;
+        height: auto;
+      }
+      .slide {
+        display: block !important;
+        opacity: 1 !important;
+        page-break-after: always;
+        height: 100vh;
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Progress Line -->
+  <div id="progress-bar"></div>
+
+  <!-- Slide Header -->
+  <header class="slide-header">
+    <div class="slide-category" id="header-category">
+      <span class="badge" id="header-badge">STEP 1</span>
+      <span id="header-title">比較</span>
+    </div>
+    <div class="slide-counter" id="slide-counter">01 / 25</div>
+  </header>
+
+  <!-- Presentation Viewport -->
+  <main id="presentation">
+
+    <!-- ======================================================================
+         SLIDE 1: COVER
+         ====================================================================== -->
+    <div class="slide cover-slide active" data-category="INTRO" data-badge="UNIT 3">
+      <span class="cover-badge">進研 WINSTEP 英語 1 Vol.2</span>
+      <h1 class="cover-title">UNIT 3 講義＆模範解答</h1>
+      <p class="cover-desc">
+        STEP 1 最重要文法項目：比較（pp.12–13）<br>
+        STEP 2 関連重要項目：seem 構文 / not only / 代名詞 that・those
+      </p>
+      <div class="cover-keys">
+        <div><span class="key-tag">→</span> または <span class="key-tag">Space</span> 次のスライド</div>
+        <div><span class="key-tag">A</span> または <span class="key-tag">Enter</span> 解答・解説の表示</div>
+        <div><span class="key-tag">F</span> 全画面切り替え</div>
+        <div><span class="key-tag">M</span> 目次を開く</div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 2: LECTURE 1-1 不規則変化
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 講義" data-badge="POINT 1">
+      <div class="slide-title-block">
+        <h2 class="slide-title">1. 状態やスコアの変化を表す不規則変化</h2>
+        <div class="slide-subtitle">公式の丸暗記ではなく、どんな場面で使うかをイメージして定着させよう</div>
+      </div>
+
+      <div class="lecture-grid">
+        <div class="lecture-card">
+          <div class="lecture-card-head">英語の腕前が上がった！</div>
+          <div class="lecture-item">
+            <strong>good / well</strong><br>
+            ↓ 比較級：<span class="blank-pill">① better</span><br>
+            ↓ 最上級：<span class="blank-pill">② best</span>
+          </div>
+          <div class="lecture-note">※「上手になった」は well の比較級 better。原級と形が大きく変化します。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">宿題が昨日より多い！</div>
+          <div class="lecture-item">
+            <strong>many / much</strong><br>
+            ↓ 比較級：<span class="blank-pill">③ more</span><br>
+            ↓ 最上級：<span class="blank-pill">④ most</span>
+          </div>
+          <div class="lecture-note">※数（可算）にも量（不可算）にも共通。名詞の直前に置いて「より多くの〜」。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">風邪の具合が悪化した…</div>
+          <div class="lecture-item">
+            <strong>bad / ill</strong><br>
+            ↓ 比較級：<span class="blank-pill">⑤ worse</span><br>
+            ↓ 最上級：<span class="blank-pill">⑥ worst</span>
+          </div>
+          <div class="lecture-note">※体調不良やスコアの悪化に使う。worse（比較級）と worst（最上級）の語尾に注意。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">今月はお小遣いが少ない…</div>
+          <div class="lecture-item">
+            <strong>little</strong><br>
+            ↓ 比較級：<span class="blank-pill">⑦ less</span><br>
+            ↓ 最上級：<span class="blank-pill">⑧ least</span>
+          </div>
+          <div class="lecture-note">※不可算名詞（お金、時間、情報など）の量が「より少ない」ときは less を使う。</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel">
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">指導の着眼点</div>
+            <div class="detail-card-content">
+              形容詞・副詞の原級から語形が根本的に変わる4グループです。テストでのスペルミス（worst と worse の混同など）や、可算・不可算の対応（fewer vs less）を場面のイメージと一緒に確認させます。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">入試・共通テストでの出題ポイント</div>
+            <div class="detail-card-content">
+              特に <strong>less + 不可算名詞 + than ...</strong>（演習(6)で出題）は頻出。数えられる名詞には fewer、数えられない名詞には less を用いる原則を徹底しましょう。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 3: LECTURE 1-2 基本の場面
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 講義" data-badge="POINT 2">
+      <div class="slide-title-block">
+        <h2 class="slide-title">2. 人やモノを比べる基本の場面</h2>
+        <div class="slide-subtitle">背比べ・持ち比べ・先輩後輩の表現</div>
+      </div>
+
+      <div class="lecture-grid">
+        <div class="lecture-card">
+          <div class="lecture-card-head">［背比べ］ 同等比較・劣等比較</div>
+          <div class="lecture-item">
+            Ken is <strong>as</strong> tall <strong>as</strong> Mike.<br>
+            →「ケンはマイクと <span class="blank-pill">⑨ 同じくらい背が高い</span>」
+          </div>
+          <div class="lecture-item" style="margin-top: 1vh;">
+            Ken is <strong>not as</strong> tall <strong>as</strong> Mike.<br>
+            →「ケンはマイク <span class="blank-pill">⑩ ほど背が高くない</span>」
+          </div>
+          <div class="lecture-note">※not as 〜 as は「〜ほど…ではない」（＝Mike is taller than Ken.）。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">［スマホを持ち比べて］ 差を表す</div>
+          <div class="lecture-item">
+            This smartphone is <strong>lighter than</strong> that one.<br>
+            →「このスマホはあれより <span class="blank-pill">⑪ 軽い</span>」
+          </div>
+          <div class="lecture-note">※短い語は語尾に -er をつけ、比較対象を than で導く。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">［先輩・後輩］ ラテン比較級</div>
+          <div class="lecture-item">
+            Mr. Tanaka is two years <strong>senior</strong> <span class="blank-pill">⑫ to</span> me.<br>
+            →「田中さんは私の2歳先輩だ」
+          </div>
+          <div class="lecture-note">※senior / junior は than ではなく <strong>to</strong> を使う！ 絶対注意。</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel">
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">指導の着眼点：なぜ to なのか？</div>
+            <div class="detail-card-content">
+              senior, junior, superior, inferior などはラテン語由来の形容詞で、語尾が -or で終わります。英語本来の比較級ではないため、than ではなく到達・対象を表す前置詞 <strong>to</strong> を取ります。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">よくある生徒の誤答</div>
+            <div class="detail-card-content">
+              ・senior than me （×）<br>
+              ・two years more senior to me （×：senior 自体が比較の意味を含むため more は不要）
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 4: LECTURE 1-3 最上級と強調
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 講義" data-badge="POINT 2 続き">
+      <div class="slide-title-block">
+        <h2 class="slide-title">3. 世界一を伝える・ダントツを強調する</h2>
+        <div class="slide-subtitle">最上級の後ろの前置詞 in / of の違い ＆ by far の位置</div>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          Mount Chomolungma is <strong>the highest</strong> mountain <span class="blank-pill">⑬ in</span> the world. / <span class="blank-pill">⑭ of</span> all the mountains.
+        </div>
+      </div>
+
+      <div class="lecture-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="lecture-card">
+          <div class="lecture-card-head">場所・範囲・所属を表す単数名詞 → <strong>in</strong></div>
+          <div class="lecture-item">
+            ・<strong>in the world</strong>（世界の中で）<br>
+            ・<strong>in my class</strong>（クラスの中で）<br>
+            ・<strong>in Japan</strong>（日本の中で）
+          </div>
+          <div class="lecture-note">「〜という範囲・組織の中で」という枠組みを表すときは in。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">同類・仲間・数字を表す複数名詞 → <strong>of</strong></div>
+          <div class="lecture-item">
+            ・<strong>of all the mountains</strong>（すべての山の中で）<br>
+            ・<strong>of the three</strong>（3人［3つ］の中で）<br>
+            ・<strong>of them all</strong>（彼らすべての中で）
+          </div>
+          <div class="lecture-note">同類の集合体から「そのうちの1つを取り出す」ニュアンスで of。</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel">
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">ダントツ・ずば抜けての強調表現</div>
+            <div class="detail-card-content">
+              2位を大きく引き離して1位であることを強調したい場合：<br>
+              ・<span class="blank-pill">⑮ by far</span> the highest<br>
+              ・<strong>much the highest</strong><br>
+              ※語順に注意！ <strong>by far the 最上級</strong> / <strong>much the 最上級</strong> と the の前に置きます。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">注意すべき点</div>
+            <div class="detail-card-content">
+              very は最上級を修飾するとき <strong>the very best</strong> のように the の「後ろ」に入ります（語順の違いが出題されやすい）。by far は the の前にも後にも置けますが、前置が最も自然です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 5: LECTURE 1-4 日常会話・感情表現
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 講義" data-badge="POINT 3">
+      <div class="slide-title-block">
+        <h2 class="slide-title">4. 日常会話や感情を伝える重要構文</h2>
+        <div class="slide-subtitle">定型表現・倍数・比較級の強調・比例・進行</div>
+      </div>
+
+      <div class="lecture-grid">
+        <div class="lecture-card">
+          <div class="lecture-card-head">頼みごと（できるだけ早く！）</div>
+          <div class="lecture-item">
+            Call me <strong>as soon as</strong> <span class="blank-pill">⑯ possible</span> [you can]!
+          </div>
+          <div class="lecture-note">as 〜 as possible ＝ as 〜 as one can「できるだけ〜」。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">荷物の重さに驚く（倍数）</div>
+          <div class="lecture-item">
+            My bag is <span class="blank-pill">⑰ twice</span> as heavy as yours.
+          </div>
+          <div class="lecture-note">〈倍数詞 ＋ as 〜 as〉「…の〜倍…」。2倍は twice, 3倍以上は three times。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">寒さの差を強調（はるかに）</div>
+          <div class="lecture-item">
+            It's <span class="blank-pill">⑱ much / far</span> colder today than yesterday.
+          </div>
+          <div class="lecture-note">比較級の強調には much, far, a lot を使う。very は不可！</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">努力と上達の比例（〜するほど）</div>
+          <div class="lecture-item">
+            <strong>The more</strong> you practice, <strong>the</strong> <span class="blank-pill">⑲ better</span> you play.
+          </div>
+          <div class="lecture-note">〈The ＋比較級 ..., the ＋比較級 〜〉「…すればするほど，ますます〜」。</div>
+        </div>
+
+        <div class="lecture-card" style="grid-column: span 2;">
+          <div class="lecture-card-head">夕暮れ時の変化（だんだん暗く）</div>
+          <div class="lecture-item">
+            It is getting <span class="blank-pill">⑳ darker and darker</span>.
+          </div>
+          <div class="lecture-note">〈比較級 ＋ and ＋ 比較級〉「ますます〜、だんだん〜」。時間の経過に伴う推移を表す。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 6: EXERCISE 1-(1)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 演習" data-badge="問 (1)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 (1) 最上級の範囲を表す前置詞</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(1)</span>Mount Chomolungma is the highest <span class="q-blank unrevealed">( of )</span> all the mountains.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>at</div>
+          <div class="choice-btn"><span class="choice-num">2.</span>in</div>
+          <div class="choice-btn is-correct"><span class="choice-num">3.</span>of</div>
+          <div class="choice-btn"><span class="choice-num">4.</span>on</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>チョモランマ（エベレスト）はすべての山の中で最も高い。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：of ＋ 複数名詞</div>
+            <div class="detail-card-content">
+              空所の後ろに <strong>all the mountains</strong>（同類の複数名詞）が続いています。<br>
+              最上級において「〜の中で」を表す場合：
+              <ul>
+                <li><strong>of</strong> ＋ 同類の複数名詞・代名詞（all, the three など）</li>
+                <li><strong>in</strong> ＋ 場所・組織・範囲を表す単数名詞（the world, Japan など）</li>
+              </ul>
+              したがって <strong>3. of</strong> が正解となります。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">誤答の吟味＆指導のポイント</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>2. in</strong>：生徒が一番間違えやすい選択肢です。「〜の中で」を機械的に in と覚えてしまうと失点します。後ろが「場所（in the world）」ではなく「複数名詞（all the mountains）」であることを見抜かせます。</li>
+                <li><strong>1. at / 4. on</strong>：最上級の比較範囲を導く前置詞としては使用しません。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 7: EXERCISE 1-(2)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 演習" data-badge="問 (2)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 (2) 状態の変化「ますます〜になる」</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(2)</span>The world now is getting <span class="q-blank unrevealed">( smaller and smaller )</span>.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>small and small</div>
+          <div class="choice-btn"><span class="choice-num">2.</span>more and more smaller</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>the smaller and the smaller</div>
+          <div class="choice-btn is-correct"><span class="choice-num">4.</span>smaller and smaller</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>世界は今やますます狭くなっている。（交通・通信の発達などにより）
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：比較級 ＋ and ＋ 比較級</div>
+            <div class="detail-card-content">
+              動詞 <strong>get</strong> は「〜になる」という状態の変化を表します。「だんだん〜になる／ますます〜になる」と程度が徐々に増すことを表現するには、<strong>〈比較級 ＋ and ＋ 比較級〉</strong>の形を用います。<br>
+              small の比較級は smaller なので、<strong>smaller and smaller</strong>（4）が正解です。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">誤答の吟味：二重比較級の罠</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>2. more and more smaller</strong>：生徒の典型的な誤り！ smaller 自体に -er が付いているため、さらに more を重ねる「二重比較級」は文法違反です。more and more を使うのは more and more popular のように原級の前に置く場合です。</li>
+                <li><strong>1. small and small</strong>：原級では漸進的な変化を表せません。</li>
+                <li><strong>3. the smaller and the smaller</strong>：この構文に the は不要です。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 8: EXERCISE 1-(3)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 演習" data-badge="問 (3)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 (3) 最上級の強調（by far）</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(3)</span>This dictionary is by far <span class="q-blank unrevealed">( the most )</span> useful of all.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>the best</div>
+          <div class="choice-btn"><span class="choice-num">2.</span>the more</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>the better</div>
+          <div class="choice-btn is-correct"><span class="choice-num">4.</span>the most</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>この辞書はすべての辞書の中でずば抜けて役に立つ。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：by far the 最上級</div>
+            <div class="detail-card-content">
+              文末に <strong>of all</strong>（すべての中で）があることから最上級の文と判断できます。空所の直後に形容詞 <strong>useful</strong> がある点に着目します。<br>
+              useful の最上級は <strong>the most useful</strong> です。直前の <strong>by far</strong> は最上級を強めて「ずば抜けて、はるかに」を表す副詞句です。したがって <strong>4. the most</strong> が入ります。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">誤答の吟味＆注意点</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>1. the best</strong>：best を入れると the best useful となり形容詞が重複して破綻します。</li>
+                <li><strong>2. the more / 3. the better</strong>：of all（すべての中で）があるため比較級は不可。</li>
+                <li><strong>語順の確認</strong>：<strong>by far the most useful</strong> ＝ <strong>much the most useful</strong>。the の位置に注意させます。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 9: EXERCISE 1-(4)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 演習" data-badge="問 (4)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 (4) 倍数表現＋名詞の挟み込み</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(4)</span>Ted has three times <span class="q-blank unrevealed">( as many CDs as )</span> I have.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>CDs as much as</div>
+          <div class="choice-btn"><span class="choice-num">2.</span>CDs as many as</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>as much CDs as</div>
+          <div class="choice-btn is-correct"><span class="choice-num">4.</span>as many CDs as</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>テッドは私が持っている3倍の枚数のCDを持っている。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：〈倍数 ＋ as many 複数名詞 as〉</div>
+            <div class="detail-card-content">
+              「〜の○倍の…」を表す構文は <strong>〈倍数詞 ＋ as ＋ 原級 ＋ as〉</strong> です。<br>
+              修飾する名詞（CDs）を挟む場合、語順は <strong>〈as many ＋ 複数名詞 ＋ as〉</strong> になります。CDs は数えられる可算名詞なので many を使います。よって <strong>4. as many CDs as</strong> が正解。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">誤答の分析：語順と名詞の性質</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>1 &amp; 2（CDs as ... as）</strong>：名詞 CDs を as の前に置いてしまうのは典型的な日本語引きの誤りです（×）。名詞は as many の直後に挟みます。</li>
+                <li><strong>3. as much CDs as</strong>：CDs に複数形の -s が付いている通り、可算名詞に much は使えません。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 10: EXERCISE 1-(5)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 演習" data-badge="問 (5)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 (5) The ＋ 比較級 ..., the ＋ 比較級 〜</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(5)</span>“This soup is hot !” “The <span class="q-blank unrevealed">( hotter, the )</span> better.”
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>hot, the</div>
+          <div class="choice-btn is-correct"><span class="choice-num">2.</span>hotter, the</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>hottest</div>
+          <div class="choice-btn"><span class="choice-num">4.</span>hotter</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>「このスープ，熱いよ！」「熱ければ熱いほどおいしいよ（ありがたいよ）。」
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：比例関係を表す慣用表現</div>
+            <div class="detail-card-content">
+              「…すればするほど，ますます〜」を表す <strong>〈The ＋ 比較級 ..., the ＋ 比較級 〜〉</strong> の構文です。<br>
+              会話では主語＋動詞（it is など）が省略され、<strong>“The hotter (it is), the better (it is).”</strong> の形で頻出します。前半に比較級 hotter、後半の better の前に the が必要なので <strong>2. hotter, the</strong> が正解です。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">背景知識：なぜ the が付くのか？</div>
+            <div class="detail-card-content">
+              この the は冠詞ではなく、指示副詞（古英語の器格 pe）に由来します。「その分だけいっそう」という意味を持ち、2つの事象の比例関係を示します。<br>
+              <strong>The sooner, the better.</strong>（早ければ早いほどよい）も超頻出の対比表現です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 11: EXERCISE 1-(6)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 演習" data-badge="問 (6)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 (6) 不可算名詞を修飾する比較級（less）</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(6)</span>My brother has <span class="q-blank unrevealed">( less )</span> money than I do.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>little</div>
+          <div class="choice-btn is-correct"><span class="choice-num">2.</span>less</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>few</div>
+          <div class="choice-btn"><span class="choice-num">4.</span>fewer</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>私の兄［弟］は私ほどお金を持っていない。（私より少ないお金しか持っていない）
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：money（不可算名詞）＋ than（比較級）</div>
+            <div class="detail-card-content">
+              2つの条件を同時に満たす語を選びます：
+              <ol>
+                <li>後ろに <strong>than</strong> があるため、比較級であること（原級の little, few は不可）。</li>
+                <li>修飾される <strong>money</strong> は数えられない名詞（不可算名詞）であること。</li>
+              </ol>
+              little（不可算）の比較級は <strong>less</strong> なので <strong>2. less</strong> が正解です。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">誤答の吟味：fewer と less の決定的な違い</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>4. fewer</strong>：few の比較級ですが、fewer books, fewer coins のように<strong>数えられる名詞の複数形</strong>にしか使えません。money には不可。</li>
+                <li><strong>1. little / 3. few</strong>：than と呼応できない原級のため不可。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 12: EXERCISE 1-(7)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 演習" data-badge="問 (7)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 (7) ラテン比較級（junior to）</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(7)</span>Mr. Jones is probably two years <span class="q-blank unrevealed">( junior )</span> to your father.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>young</div>
+          <div class="choice-btn"><span class="choice-num">2.</span>younger</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>youngest</div>
+          <div class="choice-btn is-correct"><span class="choice-num">4.</span>junior</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>ジョーンズさんはおそらくあなたのお父さんより2歳年下だろう。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：前置詞 to に呼応する語</div>
+            <div class="detail-card-content">
+              空所の後ろに注目してください。<strong>than ではなく to</strong> が使われています！<br>
+              通常の比較級 younger であれば younger <strong>than</strong> your father となります。前置詞 to と結びついて「〜より年下の／後輩の」を表すことができるのはラテン比較級の <strong>4. junior</strong> だけです。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">必須の対比語・関連表現</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>junior to 〜</strong>（〜より年下の／後輩の） ⇔ <strong>senior to 〜</strong>（〜より年上の／先輩の）</li>
+                <li><strong>superior to 〜</strong>（〜より優れた） ⇔ <strong>inferior to 〜</strong>（〜より劣った）</li>
+                <li><strong>prefer A to B</strong>（BよりAを好む）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 13: EXERCISE 1-(8)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 1 演習" data-badge="問 (8)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 (8) 比較級の強調副詞（much cheaper）</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(8)</span>I'll buy this tie. It's <span class="q-blank unrevealed">( much )</span> cheaper.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>too</div>
+          <div class="choice-btn"><span class="choice-num">2.</span>more</div>
+          <div class="choice-btn is-correct"><span class="choice-num">3.</span>much</div>
+          <div class="choice-btn"><span class="choice-num">4.</span>very</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>私はこのネクタイを買おう。こっちの方がずっと（はるかに）安いから。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：比較級を強める語</div>
+            <div class="detail-card-content">
+              空所の後ろに比較級 <strong>cheaper</strong> があります。<br>
+              比較級の意味「より〜」の差が大きいことを強めて「はるかに、ずっと」を表す副詞は <strong>much</strong>, <strong>far</strong>, <strong>a lot</strong>, <strong>even</strong> などです。したがって <strong>3. much</strong> が正解です。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">最大の罠：very はなぜダメなのか？</div>
+            <div class="detail-card-content">
+              <strong>very は原級しか修飾できません！</strong>（very cheap は言えるが、very cheaper は絶対に言えない）。<br>
+              ※高校生が最も引っかかる定番の引っ掛け問題です。
+              <ul>
+                <li><strong>2. more</strong>：cheaper にすでに -er があるため二重比較級になり不可。</li>
+                <li><strong>1. too</strong>：「〜すぎる」の意味で原級を修飾（too cheap）。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 14: LECTURE 2-1 seem構文
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 講義" data-badge="POINT 1">
+      <div class="slide-title-block">
+        <h2 class="slide-title">1. 相手の様子を見て推測する（seem 構文）</h2>
+        <div class="slide-subtitle">S seem to 〜 と It seems that 節の書き換え ＆ 完了不定詞による時制のズレ</div>
+      </div>
+
+      <div class="lecture-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="lecture-card">
+          <div class="lecture-card-head">［今の様子を見て］ 時制の一致（現在＝現在）</div>
+          <div class="lecture-item">
+            顔色の悪そうな友達に「疲れているみたいだね」<br><br>
+            ・You <strong>seem to be</strong> tired.<br>
+            ＝ <strong>It seems that</strong> you <span class="blank-pill">① are</span> tired.
+          </div>
+          <div class="lecture-note">「推測している（seem）」のも「疲れている」のも<strong>今（現在）</strong>の同じ時制。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">［過去の出来事を推測］ 時制のズレ！（完了不定詞）</div>
+          <div class="lecture-item">
+            目の下にクマがある友達に「昨夜夜更かししたみたいだね」<br><br>
+            ・You <strong>seem to</strong> <span class="blank-pill">② have stayed</span> up late.<br>
+            ＝ <strong>It seems that</strong> you <span class="blank-pill">③ stayed</span> up late.
+          </div>
+          <div class="lecture-note">「推測している（seem）」のは<strong>今</strong>だが，夜更かししたのは<strong>過去（昨夜）</strong>！</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel">
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">英文法の核心：なぜ to have ＋過去分詞 なのか？</div>
+            <div class="detail-card-content">
+              不定詞（to do）それ自体には過去形（to did など）が存在しません。そのため、<strong>「主節の動詞（seem）の時制よりも過去の出来事」</strong>を表したいときは、完了形を借りて <strong>〈to have ＋過去分詞〉（完了不定詞）</strong> で表現します。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">主語のシフトルール（書き換え）</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>It seems that</strong> ＋ S ＋ V ... （節の中なので動詞に過去形が使える）</li>
+                <li><strong>S seems to</strong> ＋ 不定詞 ... （主語が前に飛び出すと、後ろは to 不定詞になる）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 15: LECTURE 2-2 not only ... 倒置
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 講義" data-badge="POINT 2">
+      <div class="slide-title-block">
+        <h2 class="slide-title">2. 「それだけじゃない！」驚きを伝える表現</h2>
+        <div class="slide-subtitle">not only A but (also) B ＆ 文頭に飛び出したときの倒置（疑問文の語順）</div>
+      </div>
+
+      <div class="lecture-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="lecture-card">
+          <div class="lecture-card-head">二刀流の凄さを称える（通常の語順）</div>
+          <div class="lecture-item">
+            Shohei is <strong>not only</strong> a great pitcher <strong>but (also)</strong> a powerful hitter.
+          </div>
+          <div class="lecture-note">「〜だけでなく…も」。AとBには文法上対等な要素（名詞と名詞、形容詞と形容詞など）が入ります。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">文頭に置いて感情を込める（倒置！）</div>
+          <div class="lecture-item">
+            <strong>Not only</strong> <span class="blank-pill">④ did</span> they not have enough lifeboats, <strong>but</strong> they were not filled properly.
+          </div>
+          <div class="lecture-note">否定語 Not only が文頭に出ると、直後は <span class="blank-pill">⑤ 疑問文の語順（倒置）</span> になる！</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel">
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">倒置のメカニズム：なぜ疑問文の語順になるのか？</div>
+            <div class="detail-card-content">
+              英語では「否定語（Not, Never, Hardly, Seldom など）」が文頭に強調して置かれると、聞き手に対する合図として <strong>〈助動詞 / be動詞 / do(did) ＋ 主語 ＋ 動詞〉</strong> という疑問文と同じ語順倒置が起きます。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">タイタニック号の場面で理解する</div>
+            <div class="detail-card-content">
+              「ボートが足りなかった（過去）」ので一般動詞 have の疑問文語順である <strong>did they have</strong> を作ります。そこに not が残るため、<strong>Not only did they not have ...</strong> というドラマチックな語順になります。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 16: LECTURE 2-3 代名詞 that / those
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 講義" data-badge="POINT 3">
+      <div class="slide-title-block">
+        <h2 class="slide-title">3. 同じ名詞の繰り返しを避ける that / those</h2>
+        <div class="slide-subtitle">英語の美学：重複をスマートに回避する指示代名詞</div>
+      </div>
+
+      <div class="lecture-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="lecture-card">
+          <div class="lecture-card-head">都市の人口を比較［単数名詞］</div>
+          <div class="lecture-item">
+            The population of Tokyo is larger than <span class="blank-pill">⑥ that</span> of London.
+          </div>
+          <div class="lecture-note">※that ＝ the population の反復を避ける代名詞（単数）。</div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">お店の価格を比較［複数名詞］</div>
+          <div class="lecture-item">
+            Prices at this store are lower than <span class="blank-pill">⑦ those</span> at that store.
+          </div>
+          <div class="lecture-note">※those ＝ prices の反復を避ける代名詞（複数）。</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel">
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">なぜ it や they ではダメなのか？</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>it / they</strong>：前に出た「まさにそのもの自体」を指します。東京の人口とロンドンの人口は別の数字なので it は使えません。</li>
+                <li><strong>that / those</strong>：後ろから修飾語句（of London や at that store）を伴って「〜のそれ」と比較の対象を受けることができます。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">指導の着眼点：比較対象の一致</div>
+            <div class="detail-card-content">
+              「東京の人口はロンドンより多い」を直訳して The population of Tokyo is larger than London. とすると、「人口と都市そのものを比べる」という不適切な文になってしまいます。必ず <strong>that of London</strong> と合わせます。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 17: EXERCISE 2-A(1)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 演習" data-badge="A(1)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 A-(1) seem ＋ 完了不定詞</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(1)</span>My uncle knows a lot. He seems <span class="q-blank unrevealed">( to have studied )</span> hard when young.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>to study</div>
+          <div class="choice-btn is-correct"><span class="choice-num">2.</span>to have studied</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>that he studied</div>
+          <div class="choice-btn"><span class="choice-num">4.</span>to be studying</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>私のおじは物知りだ。若い頃，熱心に勉強したようだ。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：時制のズレ（現在 vs 過去）</div>
+            <div class="detail-card-content">
+              文脈を確認：おじが物知りなのは「現在（knows）」であり、そう思えるのも「現在（seems）」。しかし熱心に勉強したのは文末の <strong>when young（若い頃＝過去）</strong> です。<br>
+              主節の現在時制よりも前の過去を表すため、完了不定詞 <strong>〈to have ＋過去分詞〉</strong> を使った <strong>2. to have studied</strong> が正解です。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">選択肢の吟味</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>1. to study</strong>：単純不定詞だと「今勉強しているように思える」となり、when young と矛盾します。</li>
+                <li><strong>3. that he studied</strong>：主語が He なので He seems that ... という形は文法的にあり得ません（It seems that he studied なら正解）。</li>
+                <li><strong>4. to be studying</strong>：進行形は意味上不適。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 18: EXERCISE 2-A(2)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 演習" data-badge="A(2)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 A-(2) 単数名詞を受ける代名詞 that</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(2)</span>Is there any difference between the tea made in England and <span class="q-blank unrevealed">( that )</span> made in India?
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>one</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>that</div>
+          <div class="choice-btn"><span class="choice-num">2.</span>it</div>
+          <div class="choice-btn"><span class="choice-num">4.</span>those</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>イギリスで作られた紅茶とインドで作られた紅茶に違いはありますか。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：the tea（単数名詞）の代名詞</div>
+            <div class="detail-card-content">
+              <strong>between A and B</strong>（AとBの間）の対比構造です。<br>
+              A が <strong>the tea made in England</strong> なので、B は <strong>the tea made in India</strong> となります。特定された単数名詞 the tea の反復を避けるため、修飾語句（made in India）を伴える指示代名詞 <strong>3. that</strong> を用います。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">代名詞の識別チャート</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>that</strong>：特定の単数名詞（修飾語を伴う）。【◎正解】</li>
+                <li><strong>those</strong>：特定の複数名詞（修飾語を伴う）。tea は不可算・単数なので不可。</li>
+                <li><strong>one</strong>：不特定の可算名詞（a + 名詞）を受ける。tea は不可算なので不可。</li>
+                <li><strong>it</strong>：まさにその同一物を指すため、インド産の別のお茶には使えない。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 19: EXERCISE 2-A(3)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 演習" data-badge="A(3)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 A-(3) It seems that 節の識別</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(3)</span><span class="q-blank unrevealed">( It seems that )</span> he lost his key somewhere in the house.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn is-correct"><span class="choice-num">1.</span>It seems that</div>
+          <div class="choice-btn"><span class="choice-num">2.</span>It seems to</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>He seems that</div>
+          <div class="choice-btn"><span class="choice-num">4.</span>He seems to</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>彼は家のどこかで鍵をなくしたようだ。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：後ろに完全な文（S + V）がある</div>
+            <div class="detail-card-content">
+              空所の後ろを見ると、<strong>he (S) lost (V) his key (O) ...</strong> と完全な節（文）が続いています。<br>
+              後ろに節を従えることができるのは接続詞 that を伴う <strong>〈It seems that 節〉</strong> の形です。したがって <strong>1. It seems that</strong> が正解。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">He seems to を使った書き換え（超重要）</div>
+            <div class="detail-card-content">
+              もし主語を He にするならば、lost（過去）は完了不定詞にして：<br>
+              <strong>He seems to have lost his key somewhere in the house.</strong><br>
+              としなければなりません。4. He seems to だと後ろに lost（過去形）が接続できないため誤りです。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 20: EXERCISE 2-A(4)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 演習" data-badge="A(4)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 A-(4) Not only 文頭による倒置</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(4)</span>Not only <span class="q-blank unrevealed">( did )</span> they not have enough lifeboats, but they were not filled properly.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>were</div>
+          <div class="choice-btn is-correct"><span class="choice-num">2.</span>did</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>are</div>
+          <div class="choice-btn"><span class="choice-num">4.</span>do</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>彼らは十分な救命ボートを持っていなかっただけでなく，適切に（人を）乗せられてもいなかった。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：一般動詞の過去の疑問文語順</div>
+            <div class="detail-card-content">
+              文頭に否定語句 <strong>Not only</strong> が置かれているため、直後で倒置（疑問文の語順）が起きています。<br>
+              後半が but they <strong>were</strong> not... と過去時制であり、動詞が原形 <strong>have</strong>（一般動詞）なので、過去形の疑問文を作る助動詞 <strong>2. did</strong> が正解となります。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">誤答の吟味</div>
+            <div class="detail-card-content">
+              <ul>
+                <li><strong>1. were</strong>：後ろに一般動詞原形の have があるため were they not have は文法破綻。</li>
+                <li><strong>3. are / 4. do</strong>：後半が were not filled と過去形なので、タイタニック事故の過去の事実と時制が一致しません。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 21: EXERCISE 2-A(5)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 演習" data-badge="A(5)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 A-(5) 複数名詞を受ける代名詞 those</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="q-main-text">
+          <span class="q-num">(5)</span>Prices at this store are much lower than <span class="q-blank unrevealed">( those )</span> at that store.
+        </div>
+        <div class="choices-row">
+          <div class="choice-btn"><span class="choice-num">1.</span>one</div>
+          <div class="choice-btn"><span class="choice-num">2.</span>that</div>
+          <div class="choice-btn"><span class="choice-num">3.</span>the one</div>
+          <div class="choice-btn is-correct"><span class="choice-num">4.</span>those</div>
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【日本語訳】</span>この店の価格はあの店の価格よりずっと安い。
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">正解の根拠：Prices（複数名詞）の代名詞</div>
+            <div class="detail-card-content">
+              比較されているのは「この店の価格」と「あの店の価格」です。<br>
+              主語が <strong>Prices</strong> と複数形（be動詞も are）なので、この複数名詞の反復を避ける指示代名詞は <strong>4. those</strong>（＝ prices）となります。<br>
+              ※A-(2) の that（単数・不可算）と完全に対をなす重要出題です。
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">入試での頻出セット</div>
+            <div class="detail-card-content">
+              単数なら <strong>that of ...</strong> / 複数なら <strong>those of ...</strong>。<br>
+              ・The ears of an elephant are bigger than <strong>those</strong> of a horse.（象の耳は馬の耳より大きい）<br>
+              模試や本番で最も狙われる頻出パターンです。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 22: EXERCISE 2-B(1)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 演習" data-badge="B(1)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 B-(1) 並べかえ英作文</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="translation-bar" style="margin-bottom: 1.5vh;">
+          <span>【日本文】</span>その会社は手詰まりに陥ったようだった。
+        </div>
+        <div class="q-main-text">
+          <span class="q-blank unrevealed" style="display: block; text-align: left; padding: 0.5vh 0;">
+            The company seemed to have run out
+          </span> of options.
+        </div>
+        <div style="font-size: 1.15rem; color: var(--text-muted); margin-top: 1.5vh;">
+          ［選択肢］ company / have / of / out / run / seemed / the / to
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【完成文】</span><strong>The company seemed to have run out</strong> of options.
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">組み立て手順と文法ポイント</div>
+            <div class="detail-card-content">
+              <ol>
+                <li>主語は「その会社」→ <strong>The company</strong></li>
+                <li>「〜のようだった」は過去形 → <strong>seemed</strong></li>
+                <li>「手詰まりに陥る（選択肢を使い果たす）」は seem より前に起きたことなので完了不定詞 → <strong>to have run out of</strong>（run out of 〜：〜を使い果たす）</li>
+                <li>後ろの options につながるように配置。</li>
+              </ol>
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">重要イディオム・動詞の活用</div>
+            <div class="detail-card-content">
+              ・<strong>run out of 〜</strong>「〜を使い果たす、切らす」<br>
+              ・run の活用は <strong>run - ran - run</strong> なので、have の後ろの run は<strong>過去分詞</strong>です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 23: EXERCISE 2-B(2)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 演習" data-badge="B(2)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 B-(2) 並べかえ英作文</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="translation-bar" style="margin-bottom: 1.5vh;">
+          <span>【日本文】</span>当地の気候は北ヨーロッパときわめて似ている。
+        </div>
+        <div class="q-main-text">
+          The climate here <span class="q-blank unrevealed" style="display: inline-block; text-align: left; padding: 0.5vh 0;">
+            is quite similar to that of
+          </span> Northern Europe.
+        </div>
+        <div style="font-size: 1.15rem; color: var(--text-muted); margin-top: 1.5vh;">
+          ［選択肢］ is / of / quite / similar / that / to
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【完成文】</span>The climate here <strong>is quite similar to that of</strong> Northern Europe.
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">組み立て手順と文法ポイント</div>
+            <div class="detail-card-content">
+              <ol>
+                <li>熟語 <strong>be similar to 〜</strong>「〜と似ている」を想起。</li>
+                <li>程度を強める副詞 quite（きわめて、すっかり）を be 動詞の後ろに置く → <strong>is quite similar to</strong></li>
+                <li>「北ヨーロッパの気候」の the climate の重複を避ける代名詞 that を置く → <strong>that of</strong> Northern Europe</li>
+              </ol>
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">生徒が陥りやすいミス</div>
+            <div class="detail-card-content">
+              that of を忘れて is quite similar to Northern Europe と並べてしまうミス。<br>
+              気候（climate）と土地（Northern Europe）そのものは比べられないため、<strong>that of</strong> が不可欠です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 24: EXERCISE 2-B(3)
+         ====================================================================== -->
+    <div class="slide" data-category="STEP 2 演習" data-badge="B(3)">
+      <div class="slide-title-block">
+        <h2 class="slide-title">演習 B-(3) 並べかえ英作文</h2>
+      </div>
+
+      <div class="question-box">
+        <div class="translation-bar" style="margin-bottom: 1.5vh;">
+          <span>【日本文】</span>彼は演じるだけでなく映画の監督もする。
+        </div>
+        <div class="q-main-text">
+          <span class="q-blank unrevealed" style="display: inline-block; text-align: left; padding: 0.5vh 0;">
+            Not only does he act, but
+          </span> he directs movies.
+        </div>
+        <div style="font-size: 1.15rem; color: var(--text-muted); margin-top: 1.5vh;">
+          ［選択肢］ act / but / does / he / Not / only
+        </div>
+      </div>
+
+      <div class="explanation-panel hidden-ans">
+        <div class="translation-bar">
+          <span>【完成文】</span><strong>Not only does he act, but</strong> he directs movies.
+        </div>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-card-title">組み立て手順と文法ポイント</div>
+            <div class="detail-card-content">
+              <ol>
+                <li>大文字で始まる <strong>Not</strong> と <strong>only</strong> を文頭に置く。</li>
+                <li>否定語 Not only が文頭にあるため、直後は疑問文の語順（倒置）を作る。主語は he、動詞は一般動詞の現在形 act なので → <strong>does he act</strong></li>
+                <li>「だけでなく…も」をつなぐ接続詞 → <strong>but</strong>（後ろの he directs movies へ接続）</li>
+              </ol>
+            </div>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-title">発展：通常の語順での書き換え</div>
+            <div class="detail-card-content">
+              倒置を使わずに書くと：<br>
+              <strong>He not only acts but (also) directs movies.</strong><br>
+              文頭倒置構文は、スピーチや論説文で強調を際立たせるための極めて格調高い表現です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         SLIDE 25: SUMMARY CHECKLIST
+         ====================================================================== -->
+    <div class="slide" data-category="総括まとめ" data-badge="CHECKLIST">
+      <div class="slide-title-block">
+        <h2 class="slide-title">UNIT 3 最重要構文チェックリスト</h2>
+        <div class="slide-subtitle">定期考査・共通テスト・国公立二次で確実に得点するための総まとめ</div>
+      </div>
+
+      <div class="lecture-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="lecture-card">
+          <div class="lecture-card-head">STEP 1 比較の最重要ルール</div>
+          <div class="lecture-item">
+            1. <strong>in vs of</strong>：場所・範囲単数は in ／ 同類複数は of<br>
+            2. <strong>get ＋ 比較級 and 比較級</strong>：だんだん〜になる<br>
+            3. <strong>by far the 最上級</strong>：ずば抜けて（much the 最上級）<br>
+            4. <strong>倍数 ＋ as many 複数名詞 as</strong>：名詞の位置<br>
+            5. <strong>The ＋ 比較級 ..., the ＋ 比較級 〜</strong>：比例<br>
+            6. <strong>less ＋ 不可算名詞 ＋ than</strong>：fewer との識別<br>
+            7. <strong>junior / senior to</strong>：than ではなく to<br>
+            8. <strong>much / far ＋ 比較級</strong>：very は修飾不可
+          </div>
+        </div>
+
+        <div class="lecture-card">
+          <div class="lecture-card-head">STEP 2 発展構文の最重要ルール</div>
+          <div class="lecture-item">
+            1. <strong>seem to have p.p.</strong>：述語動詞より前の過去を表す完了不定詞（It seems that S + 過去形）<br>
+            2. <strong>代名詞 that / those</strong>：先行名詞の単数・複数を厳密に一致させて反復を避ける<br>
+            3. <strong>Not only ＋ 助動詞 ＋ S ＋ V, but ...</strong>：否定語首位による疑問文語順の倒置
+          </div>
+          <div class="lecture-note" style="margin-top: 1.5vh; border-top: 1px dashed var(--border-color); padding-top: 1vh;">
+            ◎ 授業の振り返り：公式を暗記するだけでなく、「どんな場面で、なぜこの形を使うのか」を自分の言葉で説明できるように復習しましょう。
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation & Controls -->
+  <footer class="controls-bar">
+    <div class="controls-left">
+      <button class="control-btn" id="btn-prev" title="前へ (←)">← 前へ</button>
+      <button class="control-btn" id="btn-reveal" title="解答・解説の表示 (A / Enter)">解答・解説を表示</button>
+      <button class="control-btn" id="btn-next" title="次へ (→ / Space)">次へ →</button>
+      <button class="control-btn" id="btn-all-reveal" title="常時開示モード切替 (S)">全開示: OFF</button>
+      <span class="key-hints">操作: [←][→]移動 / [A/Enter]解答表示 / [S]全開示切替 / [F]全画面 / [M]目次</span>
+    </div>
+    <div class="controls-right">
+      <button class="control-btn" id="btn-toc" title="目次 (M)">目次 (M)</button>
+      <button class="control-btn" id="btn-fullscreen" title="全画面表示 (F)">全画面 (F)</button>
+    </div>
+  </footer>
+
+  <!-- Modal: Table of Contents -->
+  <div id="toc-modal">
+    <div class="toc-container">
+      <div class="toc-head">
+        <div class="toc-title">スライド目次一覧</div>
+        <button class="control-btn" id="btn-close-toc">閉じる (Esc)</button>
+      </div>
+      <div class="toc-grid" id="toc-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       JAVASCRIPT LOGIC
+       ======================================================================== -->
+  <script>
+    (function() {
+      'use strict';
+
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      // DOM Elements
+      const progressBar = document.getElementById('progress-bar');
+      const counterEl = document.getElementById('slide-counter');
+      const headerCategory = document.getElementById('header-title');
+      const headerBadge = document.getElementById('header-badge');
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+      const btnReveal = document.getElementById('btn-reveal');
+      const btnAllReveal = document.getElementById('btn-all-reveal');
+      const btnFullscreen = document.getElementById('btn-fullscreen');
+      const btnToc = document.getElementById('btn-toc');
+      const btnCloseToc = document.getElementById('btn-close-toc');
+      const tocModal = document.getElementById('toc-modal');
+      const tocGrid = document.getElementById('toc-grid');
+
+      // State of revealed answers per slide
+      // Index-based map of boolean
+      let isAllRevealed = false;
+      const revealedStates = new Array(totalSlides).fill(false);
+
+      // Initialize Table of Contents
+      slides.forEach((slide, idx) => {
+        const item = document.createElement('div');
+        item.className = 'toc-item' + (idx === 0 ? ' current' : '');
+        const cat = slide.getAttribute('data-category') || 'SLIDE';
+        const badge = slide.getAttribute('data-badge') || '';
+        
+        let titleText = '';
+        const titleEl = slide.querySelector('.slide-title') || slide.querySelector('.cover-title');
+        if (titleEl) {
+          titleText = titleEl.innerText;
+        } else {
+          titleText = `スライド ${idx + 1}`;
+        }
+
+        item.innerHTML = `
+          <span class="toc-item-num">${String(idx + 1).padStart(2, '0')} | ${badge}</span>
+          <strong>${titleText}</strong>
+        `;
+        item.addEventListener('click', () => {
+          goToSlide(idx);
+          closeToc();
+        });
+        tocGrid.appendChild(item);
+      });
+
+      function updateSlide(newIndex, updateHash = true) {
+        if (newIndex < 0 || newIndex >= totalSlides) return;
+
+        slides[currentIndex].classList.remove('active');
+        currentIndex = newIndex;
+        const currentSlide = slides[currentIndex];
+        currentSlide.classList.add('active');
+
+        if (updateHash) {
+          window.location.hash = `#${currentIndex + 1}`;
+        }
+
+        // Update Header
+        const cat = currentSlide.getAttribute('data-category') || 'UNIT 3';
+        const badge = currentSlide.getAttribute('data-badge') || '';
+        headerCategory.innerText = cat;
+        headerBadge.innerText = badge;
+        headerBadge.style.display = badge ? 'inline-block' : 'none';
+
+        // Update Counter & Progress
+        counterEl.innerText = `${String(currentIndex + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+        const progressPct = ((currentIndex + 1) / totalSlides) * 100;
+        progressBar.style.width = `${progressPct}%`;
+
+        // Update Prev/Next buttons
+        btnPrev.disabled = (currentIndex === 0);
+        btnNext.disabled = (currentIndex === totalSlides - 1);
+
+        // Sync Reveal state for current slide
+        applyRevealState();
+
+        // Update TOC active state
+        const tocItems = tocGrid.querySelectorAll('.toc-item');
+        tocItems.forEach((it, idx) => {
+          if (idx === currentIndex) {
+            it.classList.add('current');
+          } else {
+            it.classList.remove('current');
+          }
+        });
+      }
+
+      function applyRevealState() {
+        const currentSlide = slides[currentIndex];
+        const isRevealed = isAllRevealed || revealedStates[currentIndex];
+
+        // Toggle button UI
+        if (isRevealed) {
+          btnReveal.innerText = '解答・解説を隠す';
+          btnReveal.classList.add('active-toggle');
+        } else {
+          btnReveal.innerText = '解答・解説を表示';
+          btnReveal.classList.remove('active-toggle');
+        }
+
+        // Blanks in text
+        const blanks = currentSlide.querySelectorAll('.q-blank, .blank-pill');
+        blanks.forEach(b => {
+          if (isRevealed) {
+            b.classList.remove('unrevealed');
+          } else {
+            b.classList.add('unrevealed');
+          }
+        });
+
+        // Correct choices highlight
+        const correctChoices = currentSlide.querySelectorAll('.choice-btn.is-correct');
+        correctChoices.forEach(c => {
+          if (isRevealed) {
+            c.classList.add('revealed');
+          } else {
+            c.classList.remove('revealed');
+          }
+        });
+
+        // Explanation panel
+        const expPanel = currentSlide.querySelector('.explanation-panel');
+        if (expPanel) {
+          if (isRevealed) {
+            expPanel.classList.remove('hidden-ans');
+            expPanel.classList.add('revealed-ans');
+          } else {
+            expPanel.classList.remove('revealed-ans');
+            expPanel.classList.add('hidden-ans');
+          }
+        }
+      }
+
+      function toggleReveal() {
+        if (isAllRevealed) {
+          // If in all-revealed mode, turn it off and hide this one
+          isAllRevealed = false;
+          btnAllReveal.innerText = '全開示: OFF';
+          btnAllReveal.classList.remove('active-toggle');
+          revealedStates[currentIndex] = false;
+        } else {
+          revealedStates[currentIndex] = !revealedStates[currentIndex];
+        }
+        applyRevealState();
+      }
+
+      function toggleAllReveal() {
+        isAllRevealed = !isAllRevealed;
+        if (isAllRevealed) {
+          btnAllReveal.innerText = '全開示: ON';
+          btnAllReveal.classList.add('active-toggle');
+          for (let i = 0; i < totalSlides; i++) revealedStates[i] = true;
+        } else {
+          btnAllReveal.innerText = '全開示: OFF';
+          btnAllReveal.classList.remove('active-toggle');
+          for (let i = 0; i < totalSlides; i++) revealedStates[i] = false;
+        }
+        applyRevealState();
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          updateSlide(currentIndex + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          updateSlide(currentIndex - 1);
+        }
+      }
+
+      function goToSlide(idx) {
+        updateSlide(idx);
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => {
+            alert(`全画面切り替えエラー: ${err.message}`);
+          });
+          btnFullscreen.innerText = '全画面解除 (F)';
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+          btnFullscreen.innerText = '全画面 (F)';
+        }
+      }
+
+      function openToc() {
+        tocModal.classList.add('open');
+      }
+
+      function closeToc() {
+        tocModal.classList.remove('open');
+      }
+
+      // Event Listeners for Buttons
+      btnPrev.addEventListener('click', prevSlide);
+      btnNext.addEventListener('click', nextSlide);
+      btnReveal.addEventListener('click', toggleReveal);
+      btnAllReveal.addEventListener('click', toggleAllReveal);
+      btnFullscreen.addEventListener('click', toggleFullscreen);
+      btnToc.addEventListener('click', openToc);
+      btnCloseToc.addEventListener('click', closeToc);
+
+      // Close modal on click outside
+      tocModal.addEventListener('click', (e) => {
+        if (e.target === tocModal) {
+          closeToc();
+        }
+      });
+
+      // Keyboard Navigation
+      window.addEventListener('keydown', (e) => {
+        // If modal is open, Esc closes it
+        if (tocModal.classList.contains('open')) {
+          if (e.key === 'Escape') {
+            closeToc();
+          }
+          return;
+        }
+
+        switch (e.key) {
+          case 'ArrowRight':
+          case 'PageDown':
+          case ' ': // Space
+            e.preventDefault();
+            nextSlide();
+            break;
+          case 'ArrowLeft':
+          case 'PageUp':
+            e.preventDefault();
+            prevSlide();
+            break;
+          case 'a':
+          case 'A':
+          case 'Enter':
+          case 'ArrowDown':
+            e.preventDefault();
+            toggleReveal();
+            break;
+          case 's':
+          case 'S':
+            e.preventDefault();
+            toggleAllReveal();
+            break;
+          case 'f':
+          case 'F':
+            e.preventDefault();
+            toggleFullscreen();
+            break;
+          case 'm':
+          case 'M':
+            e.preventDefault();
+            openToc();
+            break;
+          case 'Escape':
+            closeToc();
+            break;
+        }
+      });
+
+      // Initialize from Hash or first slide
+      function getInitialSlide() {
+        const hash = window.location.hash;
+        if (hash) {
+          const num = parseInt(hash.replace('#', ''), 10);
+          if (!isNaN(num) && num >= 1 && num <= totalSlides) {
+            return num - 1;
+          }
+        }
+        return 0;
+      }
+
+      // Check query param for reveal
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('reveal') === '1' || urlParams.get('reveal') === 'true') {
+        toggleAllReveal();
+      }
+
+      window.addEventListener('hashchange', () => {
+        const target = getInitialSlide();
+        if (target !== currentIndex) {
+          updateSlide(target, false);
+        }
+      });
+
+      // Initialize
+      updateSlide(getInitialSlide(), false);
+
+    })();
+  </script>
+</body>
+</html>
