@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WINSTEP 英語1 Vol.2 UNIT 3 講義＆模範解答スライド</title>
+  <script>
+    // FOUC防止 & 初期テーマ設定 (URLパラメータ または localStorage)
+    (function() {
+      try {
+        const p = new URLSearchParams(window.location.search);
+        const chalkParam = p.get('chalk') === '1' || p.get('board') === 'black' || p.get('dark') === '1';
+        const savedChalk = localStorage.getItem('winstep_chalkboard_mode') === '1';
+        if (chalkParam || savedChalk) {
+          document.documentElement.classList.add('chalkboard-mode');
+        }
+      } catch(e) {}
+    })();
+  </script>
   <style>
     /* ==========================================================================
        RESET & BASE STYLES (Minimal, High-Contrast Black & White for Projection)
@@ -16,26 +29,67 @@
 
     :root {
       --bg: #ffffff;
-      --text-main: #111111;
-      --text-muted: #555555;
-      --text-light: #777777;
-      --border-color: #e5e5e5;
-      --border-dark: #111111;
-      --highlight-bg: #f7f7f7;
-      --ans-bg: #f0f0f0;
+      --text-main: #000000;
+      --text-muted: #333333;
+      --text-light: #555555;
+      --border-color: #cccccc;
+      --border-dark: #000000;
+      --highlight-bg: #f5f5f5;
+      --ans-bg: #eeeeee;
+      --box-bg: #fafafa;
+      --card-bg: #ffffff;
+      --choice-bg: #ffffff;
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
       --font-serif: "Georgia", "Times New Roman", "BIZ UDPMincho", "Yu Mincho", serif;
+      --font-scale: 1; /* Default classroom projection scale */
+    }
+
+    /* 黒板モード（深緑背景・白文字ベース） */
+    :root.chalkboard-mode,
+    html.chalkboard-mode,
+    body.chalkboard-mode {
+      --bg: #13241b; /* 黒に近い深緑 */
+      --text-main: #ffffff; /* 純白 */
+      --text-muted: #cadbd0;
+      --text-light: #8fa89b;
+      --border-color: #2e4d3d;
+      --border-dark: #ffffff;
+      --highlight-bg: #1b3528;
+      --ans-bg: #274737;
+      --box-bg: #193125;
+      --card-bg: #182e23;
+      --choice-bg: #162c20;
+    }
+
+    html.chalkboard-mode {
+      background-color: #13241b !important;
+    }
+
+    body.chalkboard-mode {
+      background-color: #13241b !important;
+      color: #ffffff !important;
+    }
+
+    body.font-xl {
+      --font-scale: 1.15;
+    }
+
+    body.font-sm {
+      --font-scale: 0.88;
     }
 
     html, body {
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto; /* Entire page is freely scrollable */
       background-color: var(--bg);
       color: var(--text-main);
       font-family: var(--font-sans);
-      line-height: 1.6;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     /* ==========================================================================
@@ -46,7 +100,7 @@
       top: 0;
       left: 0;
       height: 3px;
-      background-color: var(--text-main);
+      background-color: var(--border-dark);
       width: 0%;
       transition: width 0.2s ease;
       z-index: 100;
@@ -54,21 +108,22 @@
 
     .slide-header {
       position: fixed;
-      top: 1.8vh;
-      left: 3vw;
-      right: 3vw;
+      top: 0;
+      left: 0;
+      right: 0;
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.8vh;
+      align-items: center;
+      border-bottom: 1.5px solid var(--border-dark);
+      padding: 1.2vh 3vw;
       z-index: 90;
       background: var(--bg);
+      transition: background 0.2s ease;
     }
 
     .slide-category {
-      font-size: 0.95rem;
-      font-weight: 700;
+      font-size: calc(1.05rem * var(--font-scale));
+      font-weight: 800;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--text-muted);
@@ -76,47 +131,44 @@
 
     .slide-category .badge {
       display: inline-block;
-      border: 1px solid var(--text-main);
-      padding: 0.1em 0.5em;
-      font-size: 0.8rem;
+      border: 1.5px solid var(--border-dark);
+      padding: 0.15em 0.6em;
+      font-size: calc(0.9rem * var(--font-scale));
       margin-right: 0.6em;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .slide-counter {
       font-family: var(--font-sans);
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-size: calc(1.05rem * var(--font-scale));
+      font-weight: 700;
       color: var(--text-muted);
     }
 
     /* ==========================================================================
-       SLIDE CONTAINER (Full Screen Presentation)
+       SLIDE CONTAINER (Full Screen Presentation with Natural Scrolling)
        ========================================================================== */
     #presentation {
       position: relative;
       width: 100vw;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 6vh 4vw 6.5vh 4vw;
+      padding: 8vh 3vw 15vh 3vw; /* Generous bottom padding so nothing is hidden */
     }
 
     .slide {
       display: none;
       width: 100%;
-      max-width: 1360px;
-      height: 100%;
-      max-height: calc(100vh - 13.5vh);
+      max-width: 1550px;
+      height: auto;
       flex-direction: column;
       justify-content: flex-start;
       opacity: 0;
       transform: translateY(6px);
       transition: opacity 0.15s ease, transform 0.15s ease;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      padding: 0.5vh 0;
+      padding: 1vh 0.5vw 5vh 0.5vw;
     }
 
     .slide.active {
@@ -125,106 +177,121 @@
       transform: translateY(0);
     }
 
+    /* Title Slide (Slide 1) - Restored Perfect Vertical Centering */
+    .slide.cover-slide {
+      min-height: calc(100vh - 23vh);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: auto 0;
+      padding: 4vh 1vw;
+    }
+
+    .slide.cover-slide.active {
+      display: flex;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      border: 2px solid var(--border-dark);
+      padding: 0.4em 1.4em;
+      font-size: calc(1.2rem * var(--font-scale));
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5vh;
+    }
+
+    .cover-title {
+      font-size: calc(3.6rem * var(--font-scale));
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 2vh;
+    }
+
+    .cover-desc {
+      font-size: calc(1.5rem * var(--font-scale));
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 4vh;
+      max-width: 950px;
+      line-height: 1.5;
+    }
+
+    .cover-keys {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.8vw;
+      font-size: calc(1.1rem * var(--font-scale));
+      color: var(--text-muted);
+      border-top: 1.5px solid var(--border-color);
+      padding-top: 2.5vh;
+    }
+
+    .key-tag {
+      background: var(--highlight-bg);
+      border: 1.5px solid var(--border-dark);
+      padding: 0.25em 0.7em;
+      border-radius: 4px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
     /* ==========================================================================
-       TYPOGRAPHY & CONTENT BLOCKS
+       TYPOGRAPHY & CONTENT BLOCKS (High-Visibility for Projection)
        ========================================================================== */
     .slide-title-block {
       margin-bottom: 1.4vh;
     }
 
     .slide-title {
-      font-size: 1.85rem;
-      font-weight: 800;
+      font-size: calc(2.15rem * var(--font-scale));
+      font-weight: 900;
       letter-spacing: -0.01em;
-      line-height: 1.25;
+      line-height: 1.2;
       color: var(--text-main);
     }
 
     .slide-subtitle {
-      font-size: 1.05rem;
+      font-size: calc(1.2rem * var(--font-scale));
       color: var(--text-muted);
+      font-weight: 600;
       margin-top: 0.3vh;
     }
 
-    /* Title Slide (Slide 1) */
-    .cover-slide {
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-
-    .cover-badge {
-      display: inline-block;
-      border: 1.5px solid var(--text-main);
-      padding: 0.4em 1.2em;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      margin-bottom: 2.5vh;
-    }
-
-    .cover-title {
-      font-size: 3.2rem;
-      font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 1.5vh;
-    }
-
-    .cover-desc {
-      font-size: 1.35rem;
-      color: var(--text-muted);
-      margin-bottom: 4vh;
-      max-width: 800px;
-    }
-
-    .cover-keys {
-      display: flex;
-      gap: 1.5vw;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border-color);
-      padding-top: 2.5vh;
-    }
-
-    .key-tag {
-      background: var(--highlight-bg);
-      border: 1px solid var(--border-color);
-      padding: 0.2em 0.6em;
-      border-radius: 3px;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    /* Question Slide Layout */
+    /* Question Slide Layout (Extra Large & Bold for Classroom) */
     .question-box {
-      background: #fafafa;
-      border: 1.5px solid var(--border-dark);
-      padding: 1.8vh 2.2vw;
-      margin-bottom: 1.6vh;
+      background: var(--box-bg);
+      border: 2px solid var(--border-dark);
+      padding: 1.8vh 2.4vw;
+      margin-bottom: 1.5vh;
     }
 
     .q-main-text {
       font-family: var(--font-serif);
-      font-size: 1.85rem;
-      line-height: 1.4;
+      font-size: calc(2.35rem * var(--font-scale));
+      line-height: 1.45;
       color: var(--text-main);
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.01em;
     }
 
     .q-main-text .q-num {
       font-family: var(--font-sans);
-      font-weight: 800;
+      font-weight: 900;
       margin-right: 0.4em;
     }
 
     .q-blank {
       display: inline-block;
       min-width: 3.5em;
-      border-bottom: 2px solid var(--text-main);
+      border-bottom: 3px solid var(--text-main);
       padding: 0 0.5em;
       text-align: center;
       color: var(--text-main);
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .q-blank.unrevealed {
@@ -235,57 +302,59 @@
     .choices-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 1vw;
-      margin-top: 1.4vh;
+      gap: 1.2vw;
+      margin-top: 1.6vh;
     }
 
     .choice-btn {
       flex: 1;
-      min-width: 170px;
-      padding: 0.8vh 1.2vw;
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      font-size: 1.18rem;
+      min-width: 180px;
+      padding: 0.9vh 1.4vw;
+      background: var(--choice-bg);
+      border: 1.5px solid var(--border-color);
+      color: var(--text-main);
+      font-size: calc(1.4rem * var(--font-scale));
       font-family: var(--font-serif);
       display: flex;
       align-items: baseline;
       gap: 0.6em;
+      font-weight: 600;
     }
 
     .choice-num {
       font-family: var(--font-sans);
-      font-weight: 700;
-      font-size: 0.95rem;
+      font-weight: 800;
+      font-size: calc(1.15rem * var(--font-scale));
       color: var(--text-muted);
     }
 
     .choice-btn.is-correct {
-      border: 2px solid var(--text-main);
-      background: #ffffff;
+      border: 2px solid var(--border-dark);
+      background: var(--choice-bg);
       font-weight: 700;
     }
 
     .choice-btn.is-correct.revealed {
       background: var(--text-main);
-      color: #ffffff;
+      color: var(--bg);
     }
 
     .choice-btn.is-correct.revealed .choice-num {
-      color: #ffffff;
+      color: var(--bg);
     }
 
-    /* Explanation Area (Positioned directly below the question block) */
+    /* Explanation Area (Directly Below Question Box) */
     .explanation-panel {
       display: flex;
       flex-direction: column;
       gap: 1.2vh;
-      border-top: 1.5px solid var(--border-color);
+      border-top: 2px solid var(--border-dark);
       padding-top: 1.4vh;
       margin-top: 0;
     }
 
     .explanation-panel.hidden-ans {
-      opacity: 0.12;
+      opacity: 0.08;
       pointer-events: none;
       filter: blur(4px);
       transition: opacity 0.2s ease, filter 0.2s ease;
@@ -298,36 +367,37 @@
     }
 
     .translation-bar {
-      font-size: 1.15rem;
+      font-size: calc(1.3rem * var(--font-scale));
       color: var(--text-main);
-      font-weight: 600;
+      font-weight: 700;
+      line-height: 1.4;
     }
 
     .translation-bar span {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: calc(1.1rem * var(--font-scale));
       margin-right: 0.5em;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .details-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.6vw;
+      gap: 1.8vw;
     }
 
     .detail-card {
       background: var(--highlight-bg);
-      border: 1px solid var(--border-color);
-      padding: 1.4vh 1.6vw;
+      border: 1.5px solid var(--border-dark);
+      padding: 1.5vh 1.8vw;
     }
 
     .detail-card-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
+      font-size: calc(1.15rem * var(--font-scale));
+      font-weight: 900;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      margin-bottom: 0.5vh;
+      margin-bottom: 0.6vh;
       display: flex;
       align-items: center;
       gap: 0.5em;
@@ -336,77 +406,82 @@
     .detail-card-title::before {
       content: "";
       display: inline-block;
-      width: 4px;
-      height: 13px;
+      width: 5px;
+      height: 16px;
       background: var(--text-main);
     }
 
     .detail-card-content {
-      font-size: 1.02rem;
-      line-height: 1.52;
+      font-size: calc(1.18rem * var(--font-scale));
+      line-height: 1.56;
       color: var(--text-main);
+      font-weight: 500;
     }
 
     .detail-card-content strong {
-      font-weight: 700;
+      font-weight: 800;
       text-decoration: underline;
     }
 
     .detail-card-content ul, .detail-card-content ol {
-      padding-left: 1.3em;
-      margin-top: 0.3em;
+      padding-left: 1.4em;
+      margin-top: 0.4em;
     }
 
     .detail-card-content li {
-      margin-bottom: 0.25em;
+      margin-bottom: 0.35em;
     }
 
-    /* Lecture Specific Layouts */
+    /* Lecture Specific Layouts (Larger text & clear hierarchy) */
     .lecture-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.8vw;
       margin-top: 1vh;
     }
 
     .lecture-card {
-      border: 1px solid var(--border-dark);
+      border: 1.5px solid var(--border-dark);
       padding: 2vh 1.8vw;
-      background: #ffffff;
+      background: var(--card-bg);
     }
 
     .lecture-card-head {
-      font-size: 1.2rem;
-      font-weight: 800;
+      font-size: calc(1.35rem * var(--font-scale));
+      font-weight: 900;
       border-bottom: 2px solid var(--text-main);
       padding-bottom: 0.8vh;
-      margin-bottom: 1.5vh;
+      margin-bottom: 1.4vh;
     }
 
     .lecture-item {
-      margin-bottom: 1.4vh;
-      font-size: 1.1rem;
+      margin-bottom: 1.2vh;
+      font-size: calc(1.25rem * var(--font-scale));
       line-height: 1.5;
+      font-weight: 500;
     }
 
     .lecture-item strong {
       font-family: var(--font-serif);
-      font-size: 1.25rem;
+      font-size: calc(1.5rem * var(--font-scale));
+      font-weight: 700;
     }
 
     .lecture-note {
-      font-size: 0.95rem;
+      font-size: calc(1.1rem * var(--font-scale));
       color: var(--text-muted);
-      margin-top: 0.2vh;
+      margin-top: 0.3vh;
+      font-weight: 500;
     }
 
     .blank-pill {
       display: inline-block;
-      border-bottom: 2px solid var(--text-main);
-      padding: 0 0.4em;
-      font-weight: 700;
+      border-bottom: 2.5px solid var(--text-main);
+      padding: 0 0.5em;
+      font-weight: 800;
       background: var(--ans-bg);
       color: var(--text-main);
+      font-size: calc(1.3rem * var(--font-scale));
     }
 
     .blank-pill.unrevealed {
@@ -415,45 +490,50 @@
     }
 
     /* ==========================================================================
-       BOTTOM CONTROLS BAR
+       BOTTOM CONTROLS BAR (Minimal Floating Dock)
        ========================================================================== */
     .controls-bar {
       position: fixed;
-      bottom: 1.5vh;
-      left: 3vw;
-      right: 3vw;
+      bottom: 22px;
+      right: 25px;
+      left: auto;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      z-index: 90;
-      border-top: 1px solid var(--border-color);
-      padding-top: 1vh;
+      gap: 6px;
+      z-index: 100;
       background: var(--bg);
+      border: 1.5px solid var(--border-dark);
+      padding: 6px 10px;
+      border-radius: 4px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
     }
 
-    .controls-left {
-      display: flex;
-      align-items: center;
-      gap: 1vw;
+    .control-sep {
+      display: inline-block;
+      width: 1px;
+      height: 18px;
+      background: var(--border-color);
+      margin: 0 3px;
     }
 
     .control-btn {
-      background: #ffffff;
+      background: var(--card-bg);
       border: 1px solid var(--border-dark);
       color: var(--text-main);
-      padding: 0.5vh 1.2vw;
-      font-size: 0.9rem;
+      padding: 5px 12px;
+      font-size: 0.92rem;
       font-weight: 700;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.4em;
+      gap: 0.35em;
+      white-space: nowrap;
       transition: background 0.15s, color 0.15s;
     }
 
     .control-btn:hover {
       background: var(--text-main);
-      color: #ffffff;
+      color: var(--bg);
     }
 
     .control-btn:disabled {
@@ -464,12 +544,7 @@
 
     .control-btn.active-toggle {
       background: var(--text-main);
-      color: #ffffff;
-    }
-
-    .key-hints {
-      font-size: 0.85rem;
-      color: var(--text-light);
+      color: var(--bg);
     }
 
     /* ==========================================================================
@@ -482,7 +557,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(5px);
       z-index: 200;
       align-items: center;
@@ -498,7 +573,8 @@
       width: 100%;
       max-width: 1100px;
       max-height: 85vh;
-      background: #ffffff;
+      background: var(--bg);
+      color: var(--text-main);
       border: 2px solid var(--border-dark);
       padding: 3vh 3vw;
       display: flex;
@@ -528,7 +604,9 @@
 
     .toc-item {
       padding: 1vh 1vw;
+      background: var(--card-bg);
       border: 1px solid var(--border-color);
+      color: var(--text-main);
       cursor: pointer;
       font-size: 0.95rem;
       transition: border-color 0.15s, background 0.15s;
@@ -542,7 +620,7 @@
     .toc-item.current {
       border: 2px solid var(--border-dark);
       font-weight: 700;
-      background: #f0f0f0;
+      background: var(--highlight-bg);
     }
 
     .toc-item-num {
@@ -599,10 +677,12 @@
         STEP 2 関連重要項目：seem 構文 / not only / 代名詞 that・those
       </p>
       <div class="cover-keys">
-        <div><span class="key-tag">→</span> または <span class="key-tag">Space</span> 次のスライド</div>
-        <div><span class="key-tag">A</span> または <span class="key-tag">Enter</span> 解答・解説の表示</div>
-        <div><span class="key-tag">F</span> 全画面切り替え</div>
-        <div><span class="key-tag">M</span> 目次を開く</div>
+        <div><span class="key-tag">→</span> または <span class="key-tag">Space</span> 次へ</div>
+        <div><span class="key-tag">A</span> または <span class="key-tag">Enter</span> 解答表示</div>
+        <div><span class="key-tag">B</span> 黒板・白板切替</div>
+        <div><span class="key-tag">+/-</span> 文字サイズ</div>
+        <div><span class="key-tag">F</span> 全画面</div>
+        <div><span class="key-tag">M</span> 目次</div>
       </div>
     </div>
 
@@ -1776,19 +1856,18 @@
 
   </main>
 
-  <!-- Bottom Navigation & Controls -->
-  <footer class="controls-bar">
-    <div class="controls-left">
-      <button class="control-btn" id="btn-prev" title="前へ (←)">← 前へ</button>
-      <button class="control-btn" id="btn-reveal" title="解答・解説の表示 (A / Enter)">解答・解説を表示</button>
-      <button class="control-btn" id="btn-next" title="次へ (→ / Space)">次へ →</button>
-      <button class="control-btn" id="btn-all-reveal" title="常時開示モード切替 (S)">全開示: OFF</button>
-      <span class="key-hints">操作: [←][→]移動 / [A/Enter]解答表示 / [S]全開示切替 / [F]全画面 / [M]目次</span>
-    </div>
-    <div class="controls-right">
-      <button class="control-btn" id="btn-toc" title="目次 (M)">目次 (M)</button>
-      <button class="control-btn" id="btn-fullscreen" title="全画面表示 (F)">全画面 (F)</button>
-    </div>
+  <!-- Floating Simple Button Bar (Bottom-Right, Zero-Obstruction) -->
+  <footer class="controls-bar" aria-label="スライド操作">
+    <button class="control-btn" id="btn-prev" title="前のスライド (← / PageUp)">←</button>
+    <button class="control-btn" id="btn-reveal" title="解答・解説を表示/非表示 (A / Enter / ↓)">解答・解説</button>
+    <button class="control-btn" id="btn-next" title="次のスライド (→ / Space / PageDown)">→</button>
+    <span class="control-sep"></span>
+    <button class="control-btn" id="btn-all-reveal" title="全スライド常時開示 (S)">全開示: OFF</button>
+    <button class="control-btn" id="btn-theme-toggle" title="黒板・白板モード切替 (B)">黒板: OFF</button>
+    <button class="control-btn" id="btn-font-toggle" title="文字サイズ切替 (+ / -)">文字: 大</button>
+    <span class="control-sep"></span>
+    <button class="control-btn" id="btn-toc" title="目次を開く (M)">目次</button>
+    <button class="control-btn" id="btn-fullscreen" title="全画面表示 (F)">全画面</button>
   </footer>
 
   <!-- Modal: Table of Contents -->
@@ -1824,11 +1903,54 @@
       const btnNext = document.getElementById('btn-next');
       const btnReveal = document.getElementById('btn-reveal');
       const btnAllReveal = document.getElementById('btn-all-reveal');
+      const btnThemeToggle = document.getElementById('btn-theme-toggle');
+      const btnFontToggle = document.getElementById('btn-font-toggle');
       const btnFullscreen = document.getElementById('btn-fullscreen');
       const btnToc = document.getElementById('btn-toc');
       const btnCloseToc = document.getElementById('btn-close-toc');
       const tocModal = document.getElementById('toc-modal');
       const tocGrid = document.getElementById('toc-grid');
+
+      // Theme management (Chalkboard dark green vs Whiteboard)
+      let isChalkboard = document.documentElement.classList.contains('chalkboard-mode');
+      function toggleChalkboard(forceState) {
+        if (typeof forceState === 'boolean') {
+          isChalkboard = forceState;
+        } else {
+          isChalkboard = !isChalkboard;
+        }
+        if (isChalkboard) {
+          document.documentElement.classList.add('chalkboard-mode');
+          document.body.classList.add('chalkboard-mode');
+          btnThemeToggle.innerText = '黒板: ON';
+          btnThemeToggle.classList.add('active-toggle');
+          try { localStorage.setItem('winstep_chalkboard_mode', '1'); } catch(e) {}
+        } else {
+          document.documentElement.classList.remove('chalkboard-mode');
+          document.body.classList.remove('chalkboard-mode');
+          btnThemeToggle.innerText = '黒板: OFF';
+          btnThemeToggle.classList.remove('active-toggle');
+          try { localStorage.setItem('winstep_chalkboard_mode', '0'); } catch(e) {}
+        }
+      }
+
+      // Font mode management: 0: large (default), 1: xl (super large), 2: sm (compact)
+      const fontModes = ['default', 'xl', 'sm'];
+      const fontLabels = ['文字: 大 (標準)', '文字: 特大 (見やすい)', '文字: コンパクト'];
+      let currentFontModeIndex = 0;
+
+      function setFontMode(index) {
+        currentFontModeIndex = (index + fontModes.length) % fontModes.length;
+        document.body.classList.remove('font-xl', 'font-sm');
+        const mode = fontModes[currentFontModeIndex];
+        if (mode === 'xl') document.body.classList.add('font-xl');
+        if (mode === 'sm') document.body.classList.add('font-sm');
+        btnFontToggle.innerText = fontLabels[currentFontModeIndex];
+      }
+
+      function nextFontMode() {
+        setFontMode(currentFontModeIndex + 1);
+      }
 
       // State of revealed answers per slide
       // Index-based map of boolean
@@ -1868,6 +1990,9 @@
         currentIndex = newIndex;
         const currentSlide = slides[currentIndex];
         currentSlide.classList.add('active');
+
+        // Always scroll to top when slide changes
+        window.scrollTo({ top: 0, behavior: 'instant' });
 
         if (updateHash) {
           window.location.hash = `#${currentIndex + 1}`;
@@ -2019,6 +2144,8 @@
       btnNext.addEventListener('click', nextSlide);
       btnReveal.addEventListener('click', toggleReveal);
       btnAllReveal.addEventListener('click', toggleAllReveal);
+      btnThemeToggle.addEventListener('click', () => toggleChalkboard());
+      btnFontToggle.addEventListener('click', nextFontMode);
       btnFullscreen.addEventListener('click', toggleFullscreen);
       btnToc.addEventListener('click', openToc);
       btnCloseToc.addEventListener('click', closeToc);
@@ -2064,6 +2191,26 @@
             e.preventDefault();
             toggleAllReveal();
             break;
+          case 'b':
+          case 'B':
+            e.preventDefault();
+            toggleChalkboard();
+            break;
+          case '+':
+          case ';':
+          case '=':
+            e.preventDefault();
+            setFontMode(1); // XL
+            break;
+          case '-':
+          case '_':
+            e.preventDefault();
+            setFontMode(2); // SM
+            break;
+          case '0':
+            e.preventDefault();
+            setFontMode(0); // Default
+            break;
           case 'f':
           case 'F':
             e.preventDefault();
@@ -2092,10 +2239,13 @@
         return 0;
       }
 
-      // Check query param for reveal
+      // Check query param for reveal & chalkboard mode
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('reveal') === '1' || urlParams.get('reveal') === 'true') {
         toggleAllReveal();
+      }
+      if (urlParams.get('chalk') === '1' || urlParams.get('board') === 'black' || urlParams.get('dark') === '1' || isChalkboard) {
+        toggleChalkboard(true);
       }
 
       window.addEventListener('hashchange', () => {
