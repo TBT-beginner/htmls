@@ -1,0 +1,2459 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2-2 動詞 ② 【超わかりやすい詳細解答解説ナビゲーター】</title>
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #3b82f6;
+      --primary-bg: #eff6ff;
+      --secondary: #0d9488;
+      --secondary-bg: #f0fdfa;
+      --accent: #e11d48;
+      --accent-bg: #fff1f2;
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --warning-border: #fde68a;
+      --dark: #0f172a;
+      --text: #334155;
+      --text-muted: #64748b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.68;
+      padding-bottom: 100px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #0284c7 100%);
+      color: white;
+      padding: 2.5rem 1.5rem 2rem;
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .top-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .badge-chapter {
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 0.2rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .header-sub {
+      font-size: 0.95rem;
+      opacity: 0.92;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+    }
+
+    .header-desc {
+      font-size: 0.98rem;
+      max-width: 850px;
+      line-height: 1.55;
+      opacity: 0.96;
+    }
+
+    /* Navigation Bar */
+    .nav-bar {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 130px;
+      z-index: 80;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.6rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .nav-tab {
+      background: #f1f5f9;
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav-tab:hover {
+      background: var(--primary-bg);
+      color: var(--primary);
+      border-color: var(--primary-light);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-wrapper {
+      position: relative;
+    }
+
+    .search-box {
+      padding: 0.35rem 0.65rem 0.35rem 1.8rem;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      width: 170px;
+      outline: none;
+    }
+
+    .search-box:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .btn-ctrl {
+      background: #f1f5f9;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--dark);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-ctrl:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-lock {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn-lock:hover {
+      background: #fecaca;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1120px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Section Component */
+    .section-wrap {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+      margin-bottom: 2.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-headline {
+      border-bottom: 2px solid var(--primary-bg);
+      padding-bottom: 0.8rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .section-headline h2 {
+      font-size: 1.4rem;
+      color: var(--primary-dark);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Accordion Card */
+    .item-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1.25rem;
+      background: white;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .item-card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .card-trigger {
+      padding: 1rem 1.25rem;
+      background: #f8fafc;
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .card-trigger:hover {
+      background: #f1f5f9;
+    }
+
+    .item-card.open .card-trigger {
+      background: #eff6ff;
+      border-bottom-color: #dbeafe;
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .badge-qnum {
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .badge-univ {
+      background: #e2e8f0;
+      color: #334155;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .badge-grammar {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    .jp-preview {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .trigger-icon {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .item-card.open .trigger-icon {
+      transform: rotate(180deg);
+    }
+
+    .card-content {
+      display: none;
+      padding: 1.4rem 1.4rem;
+      background: white;
+      border-top: 1px solid var(--border);
+    }
+
+    .item-card.open .card-content {
+      display: block;
+    }
+
+    /* Target Question / Japanese */
+    .orig-question {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: #1e293b;
+    }
+
+    .orig-question strong {
+      color: var(--dark);
+    }
+
+    /* Answer Banner */
+    .answer-banner {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 5px solid #22c55e;
+      border-radius: 6px;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .answer-tag {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #15803d;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+    }
+
+    .answer-text {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #14532d;
+      font-family: Consolas, 'Courier New', monospace;
+      letter-spacing: 0.02em;
+    }
+
+    /* Explanation Breakdown */
+    .exp-box {
+      margin-top: 1rem;
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
+    .point-block {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary-light);
+      padding: 0.85rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 1rem;
+    }
+
+    .point-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .syntax-breakdown {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.6rem 0;
+    }
+
+    .syntax-tag {
+      background: white;
+      border: 1px solid var(--border-dark);
+      border-radius: 4px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.84rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .syntax-tag strong {
+      color: var(--primary);
+    }
+
+    /* Caution / Trap Box */
+    .caution-box {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-left: 4px solid #f59e0b;
+      border-radius: 0 6px 6px 0;
+      padding: 0.75rem 1rem;
+      margin: 0.8rem 0;
+      font-size: 0.88rem;
+      color: #78350f;
+    }
+
+    .caution-title {
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* Multiple Models for Q5 & Q6 */
+    .model-pattern {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 1.1rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pattern-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .pattern-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .badge-rec { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+    .badge-alt { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .badge-easy { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+
+    .model-sentence {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #1e293b;
+      font-family: Consolas, 'Courier New', monospace;
+      margin-bottom: 0.4rem;
+      line-height: 1.5;
+    }
+
+    .model-trans {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .model-comment {
+      font-size: 0.88rem;
+      color: var(--text);
+      background: #f8fafc;
+      padding: 0.6rem 0.8rem;
+      border-radius: 4px;
+      border-left: 3px solid var(--secondary);
+    }
+
+    /* Password Modal Gate */
+    #passwordGate {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    .pw-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2.2rem 2rem;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      text-align: center;
+      position: relative;
+      animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .pw-icon {
+      width: 56px;
+      height: 56px;
+      background: #eff6ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 1.2rem;
+      border: 2px solid #bfdbfe;
+    }
+
+    .pw-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .pw-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+      line-height: 1.5;
+    }
+
+    .pw-input-wrap {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .pw-input {
+      width: 100%;
+      padding: 0.75rem 2.8rem 0.75rem 1rem;
+      border: 2px solid var(--border-dark);
+      border-radius: 8px;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .pw-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .pw-toggle-btn {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .remember-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .pw-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    }
+
+    .pw-submit-btn:hover {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+      transform: translateY(-1px);
+    }
+
+    .pw-error {
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 0.6rem;
+      min-height: 1.2rem;
+    }
+
+    .pw-shake {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    /* Content wrapper */
+    #protectedContent {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header { padding: 1.6rem 1rem 1.2rem; }
+      h1 { font-size: 1.4rem; }
+      .nav-bar { position: relative; top: 0; }
+      .nav-inner { flex-direction: column; align-items: stretch; }
+      .nav-tabs { overflow-x: auto; padding-bottom: 0.3rem; }
+      .search-box { width: 100%; }
+      .section-wrap { padding: 1.2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Password Authentication Gate Modal -->
+  <div id="passwordGate">
+    <div class="pw-card" id="pwCard">
+      <div class="pw-icon">🔒</div>
+      <h2 class="pw-title">パスワード認証</h2>
+      <p class="pw-desc">
+        この教材の解答・詳細解説を閲覧するにはパスワードが必要です。<br>
+        指定されたパスワードを入力してください。
+      </p>
+
+      <div class="pw-input-wrap">
+        <input type="password" id="passwordInput" class="pw-input" placeholder="パスワードを入力" autocomplete="current-password">
+        <button type="button" class="pw-toggle-btn" id="pwToggleBtn" onclick="togglePasswordVisibility()" title="パスワードを表示する">👁️</button>
+      </div>
+
+      <label class="remember-wrap">
+        <input type="checkbox" id="rememberMeCheckbox" checked>
+        このブラウザで次回から自動ログインする
+      </label>
+
+      <button type="button" class="pw-submit-btn" onclick="verifyPassword()">認証して閲覧する</button>
+      <div id="pwErrorMsg" class="pw-error"></div>
+    </div>
+  </div>
+
+  <!-- Protected Content -->
+  <div id="protectedContent">
+
+    <header>
+      <div class="header-inner">
+        <div class="top-meta">
+          <span class="badge-chapter">Vision Quest Ⅱ ワークブック</span>
+          <span class="header-sub">教科書 p.12 ／ αⅡ p.24 ／ 本文 pp.16〜19</span>
+        </div>
+        <h1>Lesson 2-2 動詞 ② 【超わかりやすい詳細解答解説ナビゲーター】</h1>
+        <p class="header-desc">
+          SVC（第2文型）、SVOC（第5文型）、群動詞（句動詞）、重要イディオム構文を初学者にもわかりやすく徹底解説！<br>
+          大問5・6の英作文には別解・平易な表現・減点回避テクニックを複数掲載しています。
+        </p>
+      </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+      <div class="nav-inner">
+        <div class="nav-tabs">
+          <a href="#sec-examples" class="nav-tab">📖 例文 45〜58</a>
+          <a href="#sec-qr" class="nav-tab">⚡ Quick Review (1〜16)</a>
+          <a href="#sec-quiz" class="nav-tab">🎯 Quiz (1〜16)</a>
+          <a href="#sec-ex1" class="nav-tab">大問 1 (空所)</a>
+          <a href="#sec-ex2" class="nav-tab">大問 2 (下線部)</a>
+          <a href="#sec-ex3" class="nav-tab">大問 3 (動詞選択)</a>
+          <a href="#sec-ex4" class="nav-tab">大問 4 (並べかえ)</a>
+          <a href="#sec-ex5" class="nav-tab">大問 5 (和文英訳・複数正答)</a>
+          <a href="#sec-ex6" class="nav-tab">大問 6 (対話英作文・複数モデル)</a>
+        </div>
+        <div class="nav-actions">
+          <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-box" placeholder="キーワード・大問検索...">
+          </div>
+          <button class="btn-ctrl" onclick="expandAll()">すべて開く</button>
+          <button class="btn-ctrl" onclick="collapseAll()">すべて閉じる</button>
+          <button class="btn-lock" onclick="lockPage()" title="ログアウトして再ロック">🔒 ロック</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- ==========================================
+           SECTION 1: 教科書・本体 p.16 例文 45〜58
+      =========================================== -->
+      <div id="sec-examples" class="section-wrap">
+        <div class="section-headline">
+          <h2>📖 ワークブック本体 p.16 例文 45〜58 完全マスター</h2>
+          <span class="section-subtitle">SVC / SVOC / 群動詞 / Expressions の基礎骨格</span>
+        </div>
+
+        <!-- 45 -->
+        <div class="item-card open" id="card-ex-45">
+          <div class="card-trigger" onclick="toggleItem('card-ex-45')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 45</span>
+              <span class="badge-grammar">D: SVC</span>
+              <span class="jp-preview">この問題はかなり簡単に思える。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">This question seems quite easy.</div>
+              <div style="font-size: 0.88rem; color: #166534; margin-top: 0.3rem;">
+                cf. It seems that this question is quite easy.
+              </div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：SVCの基本と動詞 seem</div>
+                SVCの文型では、主語（S）と補語（C）の間に<strong>「S ＝ C」</strong>（This question ＝ quite easy）というイコールの関係が成り立ちます。<br>
+                補語（C）になれる品詞は<strong>形容詞</strong>または<strong>名詞</strong>です。<br>
+                「…は〜に思える」を表す動詞 seem は後ろに形容詞Cをとります。また、形式主語 it を用いた <strong>〈It seems that S' ＋ V'〉</strong> の構文に書き換えることもできます。
+              </div>
+              <div class="caution-box">
+                <div class="caution-title">⚠️ SVCをとる代表的動詞グループ</div>
+                ・<strong>存在・状態の継続：</strong> be, keep, remain, stay, lie（〜のままである）<br>
+                ・<strong>変化：</strong> become, get, turn, grow（〜になる）<br>
+                ・<strong>感覚・印象：</strong> seem, look（〜に見える）, sound（〜に聞こえる）, taste（〜の味がする）, smell（〜の匂いがする）, feel（〜の感じがする）
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 46 -->
+        <div class="item-card" id="card-ex-46">
+          <div class="card-trigger" onclick="toggleItem('card-ex-46')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 46</span>
+              <span class="badge-grammar">D: SVC</span>
+              <span class="jp-preview">かぜを予防するいちばんの方法は手を洗うことだ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">The best way to prevent a cold is to wash your hands.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：不定詞の名詞的用法が補語（C）になる</div>
+                「〜することだ」という動作を補語にする場合、<strong>〈to ＋ 動詞の原形〉（to不定詞の名詞的用法）</strong>を用います。<br>
+                主語「The best way to prevent a cold（かぜを防ぐ最良の方法）」＝ 補語「to wash your hands（手を洗うこと）」の関係です。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 47 -->
+        <div class="item-card" id="card-ex-47">
+          <div class="card-trigger" onclick="toggleItem('card-ex-47')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 47</span>
+              <span class="badge-grammar">D: SVC</span>
+              <span class="jp-preview">彼女の趣味の１つは漫画を描くことだ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">One of her hobbies is drawing cartoons.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：動名詞（-ing）が補語（C）になる</div>
+                趣味や日常的・継続的に行っている行為を「〜することだ」と補語にする場合、<strong>動名詞（-ing句）</strong>が最も自然です。<br>
+                主語「One of her hobbies」＝ 補語「drawing cartoons」。主語は「One」なのでbe動詞は単数の <strong>is</strong> になります（hobbies に引っ張られないよう注意！）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 48 -->
+        <div class="item-card" id="card-ex-48">
+          <div class="card-trigger" onclick="toggleItem('card-ex-48')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 48</span>
+              <span class="badge-grammar">D: SVC</span>
+              <span class="jp-preview">問題は，我々にはあまり時間がないということだ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">The problem is that we do not have much time.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：that節が補語（C）になる構文</div>
+                「問題は〜ということだ」「困ったことは〜ということだ」のように、文（S' + V'）の内容全体を補語にするには接続詞 <strong>that</strong> を使います。<br>
+                The problem is <strong>that S' + V'</strong> の形は入試・英作文の頻出重要テンプレートです。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 49 -->
+        <div class="item-card" id="card-ex-49">
+          <div class="card-trigger" onclick="toggleItem('card-ex-49')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 49</span>
+              <span class="badge-grammar">E: SVOC</span>
+              <span class="jp-preview">多くの人は彼を語学の天才と呼んでいる。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">Many people call him a genius at languages.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：SVOCの基本（O ＝ C のネクサス関係）</div>
+                SVOC（第5文型）では、目的語（O）と補語（C）の間に<strong>「O ＝ C」</strong>（him ＝ a genius at languages）という主語・述語関係が成り立ちます。<br>
+                動詞 call は <strong>〈call ＋ O ＋ C〉</strong> で「OをCと呼ぶ」という意味を表します（Cには名詞が来ます）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 50 -->
+        <div class="item-card" id="card-ex-50">
+          <div class="card-trigger" onclick="toggleItem('card-ex-50')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 50</span>
+              <span class="badge-grammar">E: SVOC</span>
+              <span class="jp-preview">公共の場で誰かがたばこを吸っていると私は腹が立つ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">It makes me angry when I see someone smoking in a public place.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：make O C と、節を受ける it</div>
+                動詞 make は <strong>〈make ＋ O ＋ C〉</strong> で「OをC（の状態）にする」を表します（Cには形容詞、名詞、原形不定詞、過去分詞などが来ます）。<br>
+                ここでは文頭の <strong>It</strong> が、後ろの <strong>when 節の内容</strong>（公共の場で誰かが喫煙しているのを見ること）を指しています。英語では同じ文中の副詞節を it で受ける構文がよく使われます。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 51 -->
+        <div class="item-card" id="card-ex-51">
+          <div class="card-trigger" onclick="toggleItem('card-ex-51')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 51</span>
+              <span class="badge-grammar">E: SVOC</span>
+              <span class="jp-preview">ジェイコブは引き出しの鍵をいつも掛けている。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">Jacob keeps his drawer locked at all times.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：keep O C（Cに分詞が来る場合）</div>
+                <strong>〈keep ＋ O ＋ C〉</strong> で「OをCのままにしておく」という意味です。<br>
+                Cには形容詞や分詞が来ます：<br>
+                ・<strong>受動関係（O is done）：</strong> O（引き出し）は「鍵を掛けられる（施錠される）」側なので<strong>過去分詞 locked</strong> を使います。<br>
+                ・<strong>能動関係（O is doing）：</strong> OとCが能動の場合は<strong>現在分詞 -ing</strong> を使います（例：Did I keep you <u>waiting</u> long?「長く待たせましたか」）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 52 -->
+        <div class="item-card" id="card-ex-52">
+          <div class="card-trigger" onclick="toggleItem('card-ex-52')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 52</span>
+              <span class="badge-grammar">F: 群動詞</span>
+              <span class="jp-preview">イーサンは会議に現れなかった。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">Ethan did not show up for the meeting.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：自動詞として働く群動詞</div>
+                動詞に副詞や前置詞が組み合わさって1語の動詞の役割をするものを<strong>群動詞（句動詞）</strong>と呼びます。<br>
+                <strong>show up</strong> は「現れる」（＝ appear）という意味の<strong>自動詞</strong>として働きます。会議「に」現れるという目的を示すために前置詞 for を伴っています。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 53 -->
+        <div class="item-card" id="card-ex-53">
+          <div class="card-trigger" onclick="toggleItem('card-ex-53')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 53</span>
+              <span class="badge-grammar">F: 群動詞</span>
+              <span class="jp-preview">私たちが留守の間，ソフィアは私たちの犬の世話をしてくれた。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">Sophia took care of our dog while we were away.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：他動詞として働く群動詞</div>
+                <strong>take care of 〜</strong> は3語で「〜の世話をする」（＝ look after 〜）という<strong>他動詞</strong>の働きをします。後ろに直接目的語（our dog）を取ります。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 54 -->
+        <div class="item-card" id="card-ex-54">
+          <div class="card-trigger" onclick="toggleItem('card-ex-54')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 54</span>
+              <span class="badge-grammar">F: 群動詞</span>
+              <span class="jp-preview">おばは沖縄で生まれ育った。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">My aunt was born and brought up in Okinawa.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：群動詞の受動態</div>
+                ・<strong>be born：</strong> bear（生む）の過去分詞 born を使った受動態で「生まれる」。<br>
+                ・<strong>be brought up：</strong> bring up は「〜を育てる」という他動詞の群動詞です。人間が主語の場合「育てられる」という受動態 <strong>〈be brought up〉</strong> で「育つ」を表します（副詞 up を脱落させないこと！）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 55 -->
+        <div class="item-card" id="card-ex-55">
+          <div class="card-trigger" onclick="toggleItem('card-ex-55')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 55</span>
+              <span class="badge-grammar">Expressions</span>
+              <span class="jp-preview">高校生は勉強とクラブ活動で忙しい。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">High school students are busy with their studies and club activities.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：be busy with 名詞 ／ be busy -ing</div>
+                「〜で忙しい」は <strong>〈be busy with ＋ 名詞〉</strong> または <strong>〈be busy ＋ -ing（動名詞）〉</strong> で表します。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 56 -->
+        <div class="item-card" id="card-ex-56">
+          <div class="card-trigger" onclick="toggleItem('card-ex-56')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 56</span>
+              <span class="badge-grammar">Expressions</span>
+              <span class="jp-preview">子どもたちは遊園地に行けなくてがっかりだった。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">The children were disappointed that they could not go to the amusement park.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：感情の原因を表す that 節</div>
+                「…ということにがっかりする」は <strong>〈be disappointed that ＋ 文〉</strong> で表します。<br>
+                なお、be disappointed は後ろに at, by, with, in などの前置詞や to 不定詞を続けることもできます（例：be disappointed at the news / be disappointed to hear the news）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 57 -->
+        <div class="item-card" id="card-ex-57">
+          <div class="card-trigger" onclick="toggleItem('card-ex-57')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 57</span>
+              <span class="badge-grammar">Expressions</span>
+              <span class="jp-preview">彼とうまくやっていくのは難しいとわかった。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">I found it difficult to get along with him.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：形式目的語 it 構文 ＋ 群動詞 get along with</div>
+                <strong>〈find ＋ it ＋ 形容詞C ＋ to do ...〉</strong>：英語では目的語が to不定詞 や that節のように長い場合、その位置に形式的な仮目的語 <strong>it</strong> を置き、本当の目的語（真目的語）を文末に回すルールがあります。<br>
+                また、<strong>get along with 〜</strong> は「〜と仲良くやる、うまくやっていく」という超重要イディオムです。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 58 -->
+        <div class="item-card" id="card-ex-58">
+          <div class="card-trigger" onclick="toggleItem('card-ex-58')">
+            <div class="card-title-group">
+              <span class="badge-qnum">例文 58</span>
+              <span class="badge-grammar">Expressions</span>
+              <span class="jp-preview">君からの便りを楽しみにしている。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">公式基本英文</div>
+              <div class="answer-text">I’m looking forward to hearing from you.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 文法ポイント：入試最頻出！to は前置詞！</div>
+                「〜するのを楽しみに待つ」は <strong>〈look forward to ＋ 動名詞(-ing) / 名詞〉</strong> で表します。通常は進行形（I'm looking forward to...）で使われます。<br>
+                最大の注意点：この <strong>to は不定詞ではなく前置詞</strong>です！後ろに動詞の原形を置くのは重大な文法エラーです。必ず -ing 形（hearing）にしてください。
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /sec-examples -->
+
+
+      <!-- ==========================================
+           SECTION 2: Quick Review (1〜16)
+      =========================================== -->
+      <div id="sec-qr" class="section-wrap">
+        <div class="section-headline">
+          <h2>⚡ Quick Review（全16問 完全解答解説）</h2>
+          <span class="section-subtitle">ワークブック本体 p.17</span>
+        </div>
+
+        <!-- QR 1-16 Grid/Cards -->
+        <div class="item-card open" id="card-qr-all">
+          <div class="card-trigger" onclick="toggleItem('card-qr-all')">
+            <div class="card-title-group">
+              <span class="badge-qnum">Quick Review</span>
+              <span class="badge-grammar">1〜16 全解答一覧</span>
+              <span class="jp-preview">基本文型の即答トレーニング</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <table class="mapping-table" style="width:100%; border-collapse:collapse; margin-bottom:1.5rem;">
+              <thead>
+                <tr style="background:#f1f5f9;">
+                  <th style="padding:0.6rem; border:1px solid #cbd5e1; width:50px;">番号</th>
+                  <th style="padding:0.6rem; border:1px solid #cbd5e1;">日本語</th>
+                  <th style="padding:0.6rem; border:1px solid #cbd5e1;">解答（完成英文）</th>
+                  <th style="padding:0.6rem; border:1px solid #cbd5e1;">重要ポイント</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>その都市は人気になってきた。</td><td>The city has <strong>become popular</strong>.</td><td>SVC。become「〜になる」</td></tr>
+                <tr><td>2</td><td>彼の話は本当のようだ。</td><td>It <strong>seems (that)</strong> his story is true.</td><td>It seems that S' + V'</td></tr>
+                <tr><td>3</td><td>私の夢は先生になることです。</td><td>My dream <strong>is to</strong> be a teacher.</td><td>C = to不定詞（to be）</td></tr>
+                <tr><td>4</td><td>彼の趣味は切手を集めることです。</td><td>His hobby is <strong>collecting stamps</strong>.</td><td>C = 動名詞（collecting）</td></tr>
+                <tr><td>5</td><td>問題は私たちに十分なお金がないことだ。</td><td>The problem <strong>is (that)</strong> we don't have enough money.</td><td>C = that節</td></tr>
+                <tr><td>6</td><td>友人の中には私をスーと呼ぶ人もいる。</td><td>Some of my friends <strong>call me</strong> Sue.</td><td>SVOC。call O C</td></tr>
+                <tr><td>7</td><td>その薬を飲んだら気分が悪くなった。</td><td>The medicine <strong>made me (feel) sick</strong>.</td><td>SVOC。make O C</td></tr>
+                <tr><td>8</td><td>彼女はいつも窓を閉めたままにしている。</td><td>She always <strong>keeps the window(s)</strong> closed.</td><td>SVOC。keep O p.p.</td></tr>
+                <tr><td>9</td><td>彼がステージに現れたので，私たちは喜んだ。</td><td>We were happy because he <strong>showed up [appeared]</strong> on stage.</td><td>群動詞 show up「現れる」</td></tr>
+                <tr><td>10</td><td>父は眼鏡を探している。</td><td>My father is <strong>looking for</strong> his glasses.</td><td>群動詞 look for 〜</td></tr>
+                <tr><td>11</td><td>祖父母は私の世話をよくしてくれた。</td><td>My grandparents <strong>took good care of</strong> me.</td><td>take good care of 〜</td></tr>
+                <tr><td>12</td><td>今日は本当に暑い。帽子をかぶりなさい。</td><td>It's so hot today. <strong>Put on a hat [cap]</strong>.</td><td>put on 〜（名詞は後でも間でも可）</td></tr>
+                <tr><td>13</td><td>私の父は仕事で忙しい。</td><td>My father <strong>is busy with</strong> his work.</td><td>be busy with 〜</td></tr>
+                <tr><td>14</td><td>彼女がここにいなくて残念です。</td><td><strong>I'm disappointed</strong> that she is not here.</td><td>be disappointed that 節</td></tr>
+                <tr><td>15</td><td>職を得ることは難しいとわかった。</td><td>I <strong>found it (was) difficult</strong> to get a job.</td><td>find it C to do</td></tr>
+                <tr><td>16</td><td>私は留学するのを楽しみにしている。</td><td><strong>I'm looking forward to</strong> studying abroad.</td><td>look forward to -ing</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==========================================
+           SECTION 3: Quiz (1〜16)
+      =========================================== -->
+      <div id="sec-quiz" class="section-wrap">
+        <div class="section-headline">
+          <h2>🎯 Quiz（全16問 完全解答解説）</h2>
+          <span class="section-subtitle">Quick Review の発展・応用演習</span>
+        </div>
+
+        <div class="item-card" id="card-quiz-all">
+          <div class="card-trigger" onclick="toggleItem('card-quiz-all')">
+            <div class="card-title-group">
+              <span class="badge-qnum">Quiz</span>
+              <span class="badge-grammar">1〜16 全解答一覧</span>
+              <span class="jp-preview">言い換え・語形変化の確認</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <table class="mapping-table" style="width:100%; border-collapse:collapse; margin-bottom:1.5rem;">
+              <thead>
+                <tr style="background:#f1f5f9;">
+                  <th style="padding:0.6rem; border:1px solid #cbd5e1; width:50px;">番号</th>
+                  <th style="padding:0.6rem; border:1px solid #cbd5e1;">問題（指示）</th>
+                  <th style="padding:0.6rem; border:1px solid #cbd5e1;">解答（完成英文）</th>
+                  <th style="padding:0.6rem; border:1px solid #cbd5e1;">日本語訳・解説</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>「危険になってきた」に。</td><td>The city has <strong>become dangerous</strong>.</td><td>その都市は危険になってきた。</td></tr>
+                <tr><td>2</td><td>his storyを主語に。</td><td>His story <strong>seems (to be) true</strong>.</td><td>彼の話は本当のようだ。（S seem C）</td></tr>
+                <tr><td>3</td><td>「彼の目標は」に。</td><td>His goal <strong>is to be</strong> a teacher.</td><td>彼の目標は先生になることです。</td></tr>
+                <tr><td>4</td><td>「映画鑑賞です」に。</td><td>His hobby is <strong>watching [seeing] movies</strong>.</td><td>彼の趣味は映画鑑賞です。</td></tr>
+                <tr><td>5</td><td>「主な理由は」に。</td><td>The main reason <strong>is (that) we don't have enough money</strong>.</td><td>主な理由は私たちに十分なお金がないことだ。</td></tr>
+                <tr><td>6</td><td>「彼を生き字引と呼ぶ」に。</td><td>Some of my friends <strong>call him a walking dictionary [encyclopedia]</strong>.</td><td>友人の中には彼を生き字引と呼ぶ人もいる。</td></tr>
+                <tr><td>7</td><td>「気分が良くなった」に。</td><td>The medicine <strong>made me (feel) better</strong>.</td><td>その薬を飲んだら気分が良くなった。</td></tr>
+                <tr><td>8</td><td>「机をきれいに」に。</td><td>She always <strong>keeps her desk clean [neat, tidy]</strong>.</td><td>彼女はいつも机をきれいにしている。</td></tr>
+                <tr><td>9</td><td>「亡くなったので悲しかった」に。</td><td>We were sad because he <strong>passed away [died]</strong>.</td><td>彼が亡くなって、私たちは悲しかった。（pass away＝亡くなる）</td></tr>
+                <tr><td>10</td><td>「決定を延期した」に。</td><td>My father <strong>put off his decision</strong>.</td><td>父は決定を延期した。（put off＝延期する）</td></tr>
+                <tr><td>11</td><td>「私を育ててくれた」に。</td><td>My grandparents <strong>brought me up [raised me]</strong>.</td><td>祖父母は私を育ててくれた。（代名詞は間に入る）</td></tr>
+                <tr><td>12</td><td>「それを」に。</td><td>It's so hot today. <strong>Put it on</strong>.</td><td>今日は本当に暑い。それをかぶりなさい。（代名詞itは挟む）</td></tr>
+                <tr><td>13</td><td>「執筆で」に。</td><td>My father is <strong>busy with his writing</strong>.</td><td>私の父は執筆で忙しい。</td></tr>
+                <tr><td>14</td><td>「そのお店が閉まっていて」に。</td><td>I'm disappointed that <strong>the shop [store] is closed</strong>.</td><td>その店が閉まっていてがっかりです。</td></tr>
+                <tr><td>15</td><td>「英語で書くことは簡単だと」に。</td><td>I found it (was) <strong>easy to write in English</strong>.</td><td>英語で書くことは簡単だとわかった。</td></tr>
+                <tr><td>16</td><td>「修学旅行を」に。</td><td>I'm looking forward to <strong>the school trip</strong>.</td><td>私は修学旅行を楽しみにしている。（to + 名詞）</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==========================================
+           SECTION 4: Exercises 1 (1〜5)
+      =========================================== -->
+      <div id="sec-ex1" class="section-wrap">
+        <div class="section-headline">
+          <h2>✏️ 大問 1：( ) に適切な語を入れる（空所補充）</h2>
+          <span class="section-subtitle">ワークブック本体 p.18</span>
+        </div>
+
+        <!-- 1-1 -->
+        <div class="item-card open" id="card-ans-1-1">
+          <div class="card-trigger" onclick="toggleItem('card-ans-1-1')">
+            <div class="card-title-group">
+              <span class="badge-qnum">1-1</span>
+              <span class="badge-univ">亜細亜大*</span>
+              <span class="badge-grammar">SVC・状態継続</span>
+              <span class="jp-preview">彼の死因は不明のままである。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              The reason for his death ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ).
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">( remains ) ( unknown )</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>文型：</strong> The reason for his death [S] ＋ remains [V] ＋ unknown [C].（SVC第2文型）<br>
+                ・<strong>動詞 remain：</strong> 「依然として〜のままである」という状態の継続を表す自動詞で、後ろに形容詞の補語Cをとります。<br>
+                ・<strong>形容詞 unknown：</strong> 「知られていない、不明の」という意味。know の過去分詞 known に否定の接頭辞 un- がついた形容詞です。<br>
+                ・<strong>三単現の s：</strong> 主語は「The reason」（単数名詞）なので、remain に必ず <strong>-s</strong> が必要です。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-2 -->
+        <div class="item-card" id="card-ans-1-2">
+          <div class="card-trigger" onclick="toggleItem('card-ans-1-2')">
+            <div class="card-title-group">
+              <span class="badge-qnum">1-2</span>
+              <span class="badge-univ">跡見学園女子大*</span>
+              <span class="badge-grammar">SVC・補語に不定詞</span>
+              <span class="jp-preview">大切なのは, 笑顔であいさつすることだ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              The important thing is ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) when greeting others.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">( to ) ( smile )</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>文型：</strong> The important thing [S] ＋ is [V] ＋ to smile [C] when greeting others [M].<br>
+                ・<strong>to不定詞の名詞的用法：</strong> 「〜すること」という補語Cを作ります。空所が2語分あるため、動名詞 smiling ではなく <strong>to smile</strong> がピッタリ当てはまります。<br>
+                ・<strong>smile のニュアンス：</strong> 「笑顔であいさつする」の「笑顔になる、微笑む」は smile です（laugh は声を出して笑うことなので不適切）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-3 -->
+        <div class="item-card" id="card-ans-1-3">
+          <div class="card-trigger" onclick="toggleItem('card-ans-1-3')">
+            <div class="card-title-group">
+              <span class="badge-qnum">1-3</span>
+              <span class="badge-univ">国士舘大*</span>
+              <span class="badge-grammar">SVC・look good in</span>
+              <span class="jp-preview">昨夜, スージーはイブニングドレスが似合っていた。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              Susie ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) in her evening dress last night.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">( looked ) ( good [nice] )</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>連語構文：</strong> <strong>〈人 ＋ look good [nice] in 衣服〉</strong> で「（人が）〜を着てよく見える → 〜が似合う」という慣用表現です。<br>
+                ・<strong>時制：</strong> 文末に「last night（昨夜）」があるため、動詞 look は過去形の <strong>looked</strong> にします。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-4 -->
+        <div class="item-card" id="card-ans-1-4">
+          <div class="card-trigger" onclick="toggleItem('card-ans-1-4')">
+            <div class="card-title-group">
+              <span class="badge-qnum">1-4</span>
+              <span class="badge-univ">京都産業大*</span>
+              <span class="badge-grammar">群動詞 put off</span>
+              <span class="jp-preview">彼らは2日間出発を延期した。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              They ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) their departure for two days.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">( put ) ( off )</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>群動詞 put off：</strong> 「〜を延期する」（＝ postpone）。<br>
+                ・<strong>動詞の活用：</strong> put の活用は <strong>put - put - put</strong>（A-A-A型）です。過去形でも put の形のままです。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-5 -->
+        <div class="item-card" id="card-ans-1-5">
+          <div class="card-trigger" onclick="toggleItem('card-ans-1-5')">
+            <div class="card-title-group">
+              <span class="badge-qnum">1-5</span>
+              <span class="badge-univ">駒澤大*</span>
+              <span class="badge-grammar">疑問詞 ＋ come across</span>
+              <span class="jp-preview">そのミケランジェロの絵を彼らはどうやって見つけたんですか。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) did they ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) across that painting by Michelangelo?
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">( How ) did they ( come [run] ) across that painting by Michelangelo?</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>疑問詞 How：</strong> 「どうやって（どのような方法・経緯で）」を尋ねる疑問詞です。文頭なので大文字 <strong>How</strong> です。<br>
+                ・<strong>群動詞 come [run] across 〜：</strong> 「〜に偶然出くわす、ふと見つける」。後ろの前置詞 across から判断します。<br>
+                ・<strong>語形：</strong> 助動詞 did が前にあるため、動詞は原形 <strong>come</strong>（または run）になります。
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /sec-ex1 -->
+
+
+      <!-- ==========================================
+           SECTION 5: Exercises 2 (1〜5)
+      =========================================== -->
+      <div id="sec-ex2" class="section-wrap">
+        <div class="section-headline">
+          <h2>✏️ 大問 2：下線部に適切な語句を補う（部分英作文）</h2>
+          <span class="section-subtitle">ワークブック本体 p.18</span>
+        </div>
+
+        <!-- 2-1 -->
+        <div class="item-card open" id="card-ans-2-1">
+          <div class="card-trigger" onclick="toggleItem('card-ans-2-1')">
+            <div class="card-title-group">
+              <span class="badge-qnum">2-1</span>
+              <span class="badge-univ">神戸学院大*</span>
+              <span class="badge-grammar">that節補語</span>
+              <span class="jp-preview">困ったことに，彼女は機嫌が悪い。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u> she is in a bad mood.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">The trouble is (that)</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>構文：</strong> <strong>The trouble is that S' + V'</strong>（困った問題は…ということだ）。<br>
+                ・<strong>文型：</strong> The trouble [S] ＋ is [V] ＋ that節 [C] のSVC構文です。that は接続詞で、口語では省略されることもあります。<br>
+                ・<strong>語彙：</strong> be in a bad mood で「機嫌が悪い」。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-2 -->
+        <div class="item-card" id="card-ans-2-2">
+          <div class="card-trigger" onclick="toggleItem('card-ans-2-2')">
+            <div class="card-title-group">
+              <span class="badge-qnum">2-2</span>
+              <span class="badge-univ">桃山学院大*</span>
+              <span class="badge-grammar">SVOC・leave O -ing</span>
+              <span class="jp-preview">彼はしゃべっている間，エンジンをかけたままにしておいた。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              He left <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u> while he was talking.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">the engine running</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>構文：</strong> <strong>〈leave ＋ O ＋ C〉</strong> で「OをCのままにしておく」。<br>
+                ・<strong>分詞補語の判別：</strong> O（the engine）が「動いている、かかっている（run）」という能動・進行中の状態なので、Cには<strong>現在分詞 running</strong> を用います（run - running は n を重ねる）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-3 -->
+        <div class="item-card" id="card-ans-2-3">
+          <div class="card-trigger" onclick="toggleItem('card-ans-2-3')">
+            <div class="card-title-group">
+              <span class="badge-qnum">2-3</span>
+              <span class="badge-univ">桜美林大*</span>
+              <span class="badge-grammar">SVC・動名詞補語</span>
+              <span class="jp-preview">僕のお気に入りの気晴らしは，ネットサーフィンをすることだ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              My favorite pastime is <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u>.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">surfing [browsing] the internet [Internet]</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>動名詞補語：</strong> すでに行われている趣味や気晴らし（pastime）を表すため、不定詞よりも動名詞 <strong>surfing [browsing]</strong> を使うのが自然です。<br>
+                ・<strong>定冠詞 the：</strong> インターネットには必ず <strong>the</strong> を付けます（the internet / the Internet）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-4 -->
+        <div class="item-card" id="card-ans-2-4">
+          <div class="card-trigger" onclick="toggleItem('card-ans-2-4')">
+            <div class="card-title-group">
+              <span class="badge-qnum">2-4</span>
+              <span class="badge-univ">愛知学院大*</span>
+              <span class="badge-grammar">get bored ＋ not at all</span>
+              <span class="jp-preview">その小説はとてもおもしろくて，最初から最後まで全然退屈しなかった。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              The novel was so exciting that I <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u> from beginning to end.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">didn't get bored at all</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>動詞 get ＋ bored：</strong> 「退屈する」は受動表現 be bored を動作・状態変化を表す動詞 get に置き換えて <strong>get bored</strong> と表します（SVC文型）。<br>
+                ・<strong>否定文と not at all：</strong> 過去の否定 didn't ＋ 動詞原形 get ＋ 形容詞 bored ＋ 「まったく〜ない」を表す <strong>at all</strong> を組み合わせます。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-5 -->
+        <div class="item-card" id="card-ans-2-5">
+          <div class="card-trigger" onclick="toggleItem('card-ans-2-5')">
+            <div class="card-title-group">
+              <span class="badge-qnum">2-5</span>
+              <span class="badge-univ">立命館大*</span>
+              <span class="badge-grammar">be raised / brought up</span>
+              <span class="jp-preview">彼はいろいろな場所で暮らしたことがあるが，北京で育った。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              He has lived in many places, but he was <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u> in Beijing.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">raised [brought up]</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 構造と文法解説</div>
+                ・<strong>受動態の活用：</strong> 空所の前に <strong>was</strong> があるため、「育てられた」という受動態（be + 過去分詞）にします。<br>
+                ・<strong>語彙：</strong> 他動詞 raise の過去分詞 <strong>raised</strong>、または群動詞 bring up の過去分詞 <strong>brought up</strong> を補います（※ grew up だと自動詞なので was と結びつかず不可）。
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /sec-ex2 -->
+
+
+      <!-- ==========================================
+           SECTION 6: Exercises 3 (1〜5)
+      =========================================== -->
+      <div id="sec-ex3" class="section-wrap">
+        <div class="section-headline">
+          <h2>✏️ 大問 3：適切な動詞の選択と活用</h2>
+          <span class="section-subtitle">[ call / get / make / seem / taste ] から選択</span>
+        </div>
+
+        <!-- 3-1 -->
+        <div class="item-card open" id="card-ans-3-1">
+          <div class="card-trigger" onclick="toggleItem('card-ans-3-1')">
+            <div class="card-title-group">
+              <span class="badge-qnum">3-1</span>
+              <span class="badge-univ">二松學舍大*</span>
+              <span class="badge-grammar">taste + C</span>
+              <span class="jp-preview">This juice ( tastes ) a little sour.</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">tastes</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 解説と和訳</div>
+                【和訳】このジュースは少しすっぱい味がする。<br>
+                ・<strong>taste ＋ C：</strong> 「（飲食物が）Cの味がする」というSVC動詞です。補語に形容詞 sour（すっぱい）をとります。<br>
+                ・<strong>活用：</strong> 主語 This juice は単数扱いなので、現在形三単現の <strong>tastes</strong> にします。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-2 -->
+        <div class="item-card" id="card-ans-3-2">
+          <div class="card-trigger" onclick="toggleItem('card-ans-3-2')">
+            <div class="card-title-group">
+              <span class="badge-qnum">3-2</span>
+              <span class="badge-univ">東北福祉大*</span>
+              <span class="badge-grammar">seem + C</span>
+              <span class="jp-preview">This Japanese restaurant ( seems ) very expensive.</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">seems</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 解説と和訳</div>
+                【和訳】この日本食レストランはとても値段が高そうだ。<br>
+                ・<strong>seem ＋ C：</strong> 「Cのように思われる、〜に見える」という推測を表すSVC動詞です。補語に形容詞 very expensive をとります。<br>
+                ・<strong>活用：</strong> 主語が単数なので三単現の <strong>seems</strong> です。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-3 -->
+        <div class="item-card" id="card-ans-3-3">
+          <div class="card-trigger" onclick="toggleItem('card-ans-3-3')">
+            <div class="card-title-group">
+              <span class="badge-qnum">3-3</span>
+              <span class="badge-univ">オリジナル</span>
+              <span class="badge-grammar">get O C</span>
+              <span class="jp-preview">My husband ( gets ) our children ready for school.</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">gets</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 解説と和訳</div>
+                【和訳】夫は子どもたちが学校へ行く準備をさせてくれる。<br>
+                ・<strong>get ＋ O ＋ C：</strong> 「OをC（の状態）にする」を表すSVOC動詞です。O（our children）＝ C（ready for school）の関係です。<br>
+                ・<strong>活用：</strong> 主語 My husband に合わせて三単現の <strong>gets</strong> にします。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-4 -->
+        <div class="item-card" id="card-ans-3-4">
+          <div class="card-trigger" onclick="toggleItem('card-ans-3-4')">
+            <div class="card-title-group">
+              <span class="badge-qnum">3-4</span>
+              <span class="badge-univ">広島工業大*</span>
+              <span class="badge-grammar">call O C</span>
+              <span class="jp-preview">What do you ( call ) this in English?</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">call</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 解説と和訳</div>
+                【和訳】これを英語で何と呼びますか。<br>
+                ・<strong>call ＋ O ＋ C：</strong> 「OをCと呼ぶ」のCを尋ねる疑問文です（What do you call this?）。<br>
+                ・<strong>注意：</strong> say を用いる場合は疑問詞に How を使い、「How do you say this in English?」とします。What に対応するのは call です！
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-5 -->
+        <div class="item-card" id="card-ans-3-5">
+          <div class="card-trigger" onclick="toggleItem('card-ans-3-5')">
+            <div class="card-title-group">
+              <span class="badge-qnum">3-5</span>
+              <span class="badge-univ">オリジナル</span>
+              <span class="badge-grammar">make O C</span>
+              <span class="jp-preview">Money won’t always ( make ) you happy.</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner">
+              <div class="answer-tag">正答</div>
+              <div class="answer-text">make</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 解説と和訳</div>
+                【和訳】お金がいつもあなたを幸せにしてくれるわけではない。<br>
+                ・<strong>make ＋ O ＋ C：</strong> 「OをC（形容詞）にする」を表します（you ＝ happy）。<br>
+                ・<strong>活用：</strong> 助動詞 won't (will not) の後ろなので原形 <strong>make</strong> です。not always は「いつも〜とは限らない」という部分否定です。
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /sec-ex3 -->
+
+
+      <!-- ==========================================
+           SECTION 7: Exercises 4 (1〜4)
+      =========================================== -->
+      <div id="sec-ex4" class="section-wrap">
+        <div class="section-headline">
+          <h2>✏️ 大問 4：語句整序（並べかえ問題）</h2>
+          <span class="section-subtitle">ワークブック本体 p.19</span>
+        </div>
+
+        <!-- 4-1 -->
+        <div class="item-card open" id="card-ans-4-1">
+          <div class="card-trigger" onclick="toggleItem('card-ans-4-1')">
+            <div class="card-title-group">
+              <span class="badge-qnum">4-1</span>
+              <span class="badge-univ">追手門学院大</span>
+              <span class="badge-grammar">get along with</span>
+              <span class="jp-preview">ジョージのような男とは到底うまくやっていけないよ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              I just ( can’t / a / along / get / man / with ) like George.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">完成英文</div>
+              <div class="answer-text">I just <strong>can’t get along with a man</strong> like George.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 並べかえの思考手順</div>
+                1. 助動詞 can't を主語「I just」の直後に置く。<br>
+                2. 「〜とうまくやっていく」の群動詞 <strong>get along with</strong> をつなげる。<br>
+                3. 前置詞 with の目的語として <strong>a man</strong> を置き、文末の like George（ジョージのような）につなげる。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-2 -->
+        <div class="item-card" id="card-ans-4-2">
+          <div class="card-trigger" onclick="toggleItem('card-ans-4-2')">
+            <div class="card-title-group">
+              <span class="badge-qnum">4-2</span>
+              <span class="badge-univ">駒澤大*</span>
+              <span class="badge-grammar">It seems that 構文</span>
+              <span class="jp-preview">テレビを見ているうちに眠ってしまったようだ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              ( asleep / fell / I / it / that / seems ) while I was watching TV.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">完成英文</div>
+              <div class="answer-text"><strong>It seems that I fell asleep</strong> while I was watching TV.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 並べかえの思考手順</div>
+                1. 「〜のようだ」を表す構文 <strong>It seems that S' + V'</strong> を文頭に作る（It は大文字）。<br>
+                2. that節内の主語は <strong>I</strong>、述語動詞句は「眠りに落ちる」の熟語 fall asleep の過去形 <strong>fell asleep</strong>。<br>
+                3. 後ろの接続詞節 while I was watching TV にスムーズにつながる。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-3 -->
+        <div class="item-card" id="card-ans-4-3">
+          <div class="card-trigger" onclick="toggleItem('card-ans-4-3')">
+            <div class="card-title-group">
+              <span class="badge-qnum">4-3</span>
+              <span class="badge-univ">関西学院大*</span>
+              <span class="badge-grammar">request O to do ＋ keep O p.p.</span>
+              <span class="jp-preview">彼女に健康状態を随時知らせてくれるよう依頼しました。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              I ( her / informed / keep / me / requested / to ) of her health condition.
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">完成英文</div>
+              <div class="answer-text">I <strong>requested her to keep me informed</strong> of her health condition.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 並べかえの思考手順</div>
+                1. 動詞 <strong>requested</strong> を主語 I の後ろに置く。<br>
+                2. <strong>〈request ＋ 人 ＋ to do〉</strong>（人に〜するよう依頼する）の形を作り、相手の her を置いて <strong>requested her to...</strong> とする。<br>
+                3. to の後ろに動詞原形 keep を置き、<strong>〈keep ＋ me ＋ informed of 〜〉</strong>（私に〜を知らせた状態に保つ）というSVOC構文を完成させる。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-4 -->
+        <div class="item-card" id="card-ans-4-4">
+          <div class="card-trigger" onclick="toggleItem('card-ans-4-4')">
+            <div class="card-title-group">
+              <span class="badge-qnum">4-4</span>
+              <span class="badge-univ">活水女子大</span>
+              <span class="badge-grammar">find it C to do</span>
+              <span class="jp-preview">彼らは新しい友達をつくるのは簡単だと思っている。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="orig-question">
+              They ( easy / make / new friends / it / to / find ).
+            </div>
+            <div class="answer-banner">
+              <div class="answer-tag">完成英文</div>
+              <div class="answer-text">They <strong>find it easy to make new friends</strong>.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 並べかえの思考手順</div>
+                1. 主語 They の後に動詞 <strong>find</strong> を置く。<br>
+                2. 形式目的語構文 <strong>〈find ＋ it ＋ 形容詞C（easy）＋ to do〉</strong> を組み立てる。<br>
+                3. to の後ろに動詞句 <strong>make new friends</strong>（新しい友達をつくる）をつなげて真目的語を完成させる。
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /sec-ex4 -->
+
+
+      <!-- ==========================================
+           SECTION 8: Exercises 5 (1〜5) 和文英訳
+      =========================================== -->
+      <div id="sec-ex5" class="section-wrap">
+        <div class="section-headline">
+          <h2>✍️ 大問 5：和文英訳【複数の正答例・徹底網羅】</h2>
+          <span class="section-subtitle">入試で減点されない書き方・語法を完全解説</span>
+        </div>
+
+        <!-- 5-1 -->
+        <div class="item-card open" id="card-ans-5-1">
+          <div class="card-trigger" onclick="toggleItem('card-ans-5-1')">
+            <div class="card-title-group">
+              <span class="badge-qnum">5-1</span>
+              <span class="badge-grammar">make O C</span>
+              <span class="jp-preview">メアリーの態度にはいつもうんざりする[気分が悪くなる]。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <!-- Pattern 1 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-rec">パターン1：公式解答例（無生物主語 make O C）</span>
+                <span style="font-size:0.8rem; color:#15803d; font-weight:700;">★最も自然で推奨</span>
+              </div>
+              <div class="model-sentence">Mary’s attitude always makes me sick.</div>
+              <div class="model-trans">直訳：メアリーの態度はいつも私をうんざりさせる[気分悪くさせる]。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> 英語らしい無生物主語構文です。主語 Mary's attitude が単数なので makes と三単現の s が必要。頻度副詞 always は一般動詞の前に入ります。sick は「病気の」だけでなく「うんざりして、吐き気がして」という意味で日常的によく使われます。
+              </div>
+            </div>
+
+            <!-- Pattern 2 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン2：別解（disgusted を使用）</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★大学入試で高評価</span>
+              </div>
+              <div class="model-sentence">Mary’s attitude always makes me disgusted.</div>
+              <div class="model-trans">直訳：メアリーの態度はいつも私を嫌悪させる。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> disgust は「〜をうんざりさせる、むかつかせる」という他動詞で、過去分詞 disgusted を補語Cにして「うんざりさせられた状態」を表します。
+              </div>
+            </div>
+
+            <!-- Pattern 3 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン3：原形不定詞 feel sick を使用</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★感覚を強調</span>
+              </div>
+              <div class="model-sentence">Mary’s attitude always makes me feel sick.</div>
+              <div class="model-trans">直訳：メアリーの態度はいつも私に気分が悪く感じさせる。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> make ＋ O ＋ 原形動詞（feel）＋ 形容詞（sick）の二重構造。「気分が悪くなる」という心理的・身体的感覚を直接的に表現できます。
+              </div>
+            </div>
+
+            <!-- Pattern 4 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-easy">パターン4：初学者向け（人を主語にした表現）</span>
+                <span style="font-size:0.8rem; color:#b45309; font-weight:700;">★直感的に書きやすい</span>
+              </div>
+              <div class="model-sentence">I am always sick and tired of Mary’s attitude.</div>
+              <div class="model-trans">私はいつもメアリーの態度にうんざりしている。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> be sick and tired of 〜（〜にうんざりしている）という超定番熟語です。無生物主語がパッと思い浮かばない場合でも、この表現なら確実に満点が取れます。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-2 -->
+        <div class="item-card" id="card-ans-5-2">
+          <div class="card-trigger" onclick="toggleItem('card-ans-5-2')">
+            <div class="card-title-group">
+              <span class="badge-qnum">5-2</span>
+              <span class="badge-univ">同志社大</span>
+              <span class="badge-grammar">The first thing ... is (to) do</span>
+              <span class="jp-preview">まず私がしたいことは，通りを歩き回って，この近所に慣れておくことだ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <!-- Pattern 1 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-rec">パターン1：公式解答例</span>
+                <span style="font-size:0.8rem; color:#15803d; font-weight:700;">★模範解答</span>
+              </div>
+              <div class="model-sentence">The first thing (that) I’d like to do is (to) walk around the streets and get used to this neighborhood.</div>
+              <div class="model-trans">私がまずしたいことは、通りを歩き回ってこの近所に慣れることだ。</div>
+              <div class="model-comment">
+                <strong>重要文法ポイント：</strong><br>
+                1. <strong>主語：</strong> The first thing (that) I'd like to do（関係代名詞 that は省略可能）。<br>
+                2. <strong>to不定詞の省略：</strong> the first thing, the only thing, all など強い限定の言葉がついた主語の場合、be動詞の後ろの補語 to不定詞の「to」は省略されて原形動詞（walk...）になることがよくあります（もちろん to を残しても正解）。<br>
+                3. <strong>get used to 〜：</strong> 「〜に慣れる」。to は前置詞なので名詞 this neighborhood が続きます。
+              </div>
+            </div>
+
+            <!-- Pattern 2 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン2：関係代名詞 What を用いた主語</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★明快で力強い構文</span>
+              </div>
+              <div class="model-sentence">What I want to do first is to walk around the streets and get used to this neighborhood.</div>
+              <div class="model-trans">私が最初にしたいことは、通りを歩き回ってこの近所に慣れることだ。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> 関係代名詞 What（〜すること）を用いて What I want to do first を主語にするパターンです。文構造が非常にすっきりしていて書きやすいです。
+              </div>
+            </div>
+
+            <!-- Pattern 3 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン3：get accustomed to を用いた別解</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★硬めの語彙</span>
+              </div>
+              <div class="model-sentence">The first thing I want to do is walk around the neighborhood and get accustomed to it.</div>
+              <div class="model-trans">まず私がしたいことは、近所を歩き回ってそこに慣れることだ。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> get accustomed to 〜 は get used to 〜 の少しフォーマルな同義語です。英作文の語彙力アピールに有効です。
+              </div>
+            </div>
+
+            <!-- Pattern 4 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-easy">パターン4：初学者向け（副詞 First of all を文頭に置く）</span>
+                <span style="font-size:0.8rem; color:#b45309; font-weight:700;">★シンプルで書きやすい</span>
+              </div>
+              <div class="model-sentence">First of all, I want to walk around the area to get used to this neighborhood.</div>
+              <div class="model-trans">まず第一に、この近所に慣れるために周辺を歩き回りたい。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> 長い名詞節主語を作らず、「まず第一に（First of all）」と副詞を文頭に置いて文を分ける発想です。会話などでも瞬時に口から出せる実戦的な形です。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-3 -->
+        <div class="item-card" id="card-ans-5-3">
+          <div class="card-trigger" onclick="toggleItem('card-ans-5-3')">
+            <div class="card-title-group">
+              <span class="badge-qnum">5-3</span>
+              <span class="badge-univ">愛知教育大*</span>
+              <span class="badge-grammar">stay up all night</span>
+              <span class="jp-preview">徹夜で英語の勉強をするつもりだったんだ。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <!-- Pattern 1 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-rec">パターン1：公式解答例</span>
+                <span style="font-size:0.8rem; color:#15803d; font-weight:700;">★模範解答</span>
+              </div>
+              <div class="model-sentence">I planned [was going] to stay up all night to study English.</div>
+              <div class="model-trans">私は英語を勉強するために徹夜するつもりだった。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> 「〜するつもりだった」は過去の予定・意図を表す I planned to do または I was going to do を使います。「徹夜する」は「一晩中起きている」と考えて <strong>stay up all night</strong>（stay up late は夜更かしする）。
+              </div>
+            </div>
+
+            <!-- Pattern 2 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン2：分詞（-ing）で動作をつなぐ</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★ネイティブが好む自然な英語</span>
+              </div>
+              <div class="model-sentence">I was going to stay up all night studying English.</div>
+              <div class="model-trans">英語を勉強しながら徹夜するつもりだった。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> stay up all night の後ろに動詞の -ing 形（studying English）を置く形です。「to が連続して重苦しくなる」のを防ぎ、徹夜の最中に勉強している様子を生き生きと描写できます。
+              </div>
+            </div>
+
+            <!-- Pattern 3 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン3：過去完了形（実現しなかった過去の意図）</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★文法的に高度</span>
+              </div>
+              <div class="model-sentence">I had intended to stay up all night studying English.</div>
+              <div class="model-trans">徹夜で英語の勉強をするつもりだった（が、実際はできなかった）。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> had intended to do は「〜するつもりだったのに実現しなかった」というニュアンスを文法的に鮮明に表す入試頻出の構文です。
+              </div>
+            </div>
+
+            <!-- Pattern 4 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-easy">パターン4：初学者向け平易な表現</span>
+                <span style="font-size:0.8rem; color:#b45309; font-weight:700;">★簡単・確実</span>
+              </div>
+              <div class="model-sentence">I thought I would study English all night.</div>
+              <div class="model-trans">一晩中英語を勉強しようと思っていたんだ。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> stay up を使わずに「study English all night（一晩中勉強する）」とし、I thought I would...（〜しようと思った）で意図を表すシンプルな書き方です。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-4 -->
+        <div class="item-card" id="card-ans-5-4">
+          <div class="card-trigger" onclick="toggleItem('card-ans-5-4')">
+            <div class="card-title-group">
+              <span class="badge-qnum">5-4</span>
+              <span class="badge-univ">成城大*</span>
+              <span class="badge-grammar">find it necessary to do</span>
+              <span class="jp-preview">良い成績を取るためには，授業に出席し，宿題をすることが必要だとわかった。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <!-- Pattern 1 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-rec">パターン1：公式解答例（形式目的語構文）</span>
+                <span style="font-size:0.8rem; color:#15803d; font-weight:700;">★模範解答</span>
+              </div>
+              <div class="model-sentence">I found it (was [is]) necessary to attend classes and do my homework to get a good grade.</div>
+              <div class="model-trans">良い成績を取るためには、授業に出席して宿題をすることが必要だとわかった。</div>
+              <div class="model-comment">
+                <strong>重要文法ポイント：</strong><br>
+                1. <strong>find it necessary to do：</strong> 例文57で学んだ形式目的語構文。真目的語は to attend classes and do my homework です。<br>
+                2. <strong>attend の語法：</strong> attend は他動詞なので attend classes と直接名詞が続きます（attend to は「注意を払う」という意味になるので誤り！）。<br>
+                3. <strong>homework の不可算名詞：</strong> homework は数えられないので、do homeworks と複数形にしてはいけません。<br>
+                4. <strong>成績の表現：</strong> 総合評価なら a good grade [good grades]、試験の点数なら good scores とします。
+              </div>
+            </div>
+
+            <!-- Pattern 2 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン2：目的（In order to）を文頭に出す</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★頭でっかちを防ぐ構成</span>
+              </div>
+              <div class="model-sentence">In order to get a good grade, I found it necessary to attend classes and do my homework.</div>
+              <div class="model-trans">良い成績を取るためには、授業に出て宿題をすることが必要だとわかった。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> 公式解答の解説にも示されている別解です。目的の副詞句「In order to get a good grade」を文頭に持ってくることで、主節の find it necessary to... がスッキリと際立ちます。
+              </div>
+            </div>
+
+            <!-- Pattern 3 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン3：that節 ＋ needed to do</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★SVO第3文型</span>
+              </div>
+              <div class="model-sentence">I found (that) I needed to attend classes and do my homework to get good grades.</div>
+              <div class="model-trans">良い成績を取るためには授業に出席し宿題をする必要があるとわかった。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> 形式目的語構文を使わず、find that 節で書き表すパターンです。「必要だ」を needed to do で表現しています。
+              </div>
+            </div>
+
+            <!-- Pattern 4 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-easy">パターン4：realize を用いた平易な書き方</span>
+                <span style="font-size:0.8rem; color:#b45309; font-weight:700;">★書きやすい</span>
+              </div>
+              <div class="model-sentence">I realized that I had to attend every class and do homework to get good grades.</div>
+              <div class="model-trans">良い成績を取るにはすべての授業に出て宿題をしなければならないと実感した。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> 「わかった」を realize（実感する、悟る）で表し、that 節の中で had to（〜しなければならなかった）を使った明快な英文です。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-5 -->
+        <div class="item-card" id="card-ans-5-5">
+          <div class="card-trigger" onclick="toggleItem('card-ans-5-5')">
+            <div class="card-title-group">
+              <span class="badge-qnum">5-5</span>
+              <span class="badge-univ">札幌大</span>
+              <span class="badge-grammar">look forward to -ing</span>
+              <span class="jp-preview">私はこの大学で新しい友達と英語を学ぶのを楽しみにしています。</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <!-- Pattern 1 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-rec">パターン1：公式解答例（進行形）</span>
+                <span style="font-size:0.8rem; color:#15803d; font-weight:700;">★最も一般的で推奨</span>
+              </div>
+              <div class="model-sentence">I’m looking forward to learning English with new friends at this university.</div>
+              <div class="model-trans">私はこの大学で新しい友達と英語を学ぶのを楽しみにしています。</div>
+              <div class="model-comment">
+                <strong>重要文法ポイント：</strong><br>
+                1. <strong>to は前置詞：</strong> 前置詞の後ろなので必ず動名詞 <strong>learning</strong>（-ing）にします（learn と原形にするミスが全国模試で多発します！）。<br>
+                2. <strong>修飾語の順序：</strong> learning English（目的語）＋ with new friends（同伴）＋ at this university（場所）の順で配置します。
+              </div>
+            </div>
+
+            <!-- Pattern 2 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン2：現在形（公式別解）</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★フォーマル</span>
+              </div>
+              <div class="model-sentence">I look forward to learning English with new friends at this university.</div>
+              <div class="model-trans">私はこの大学で新しい友人と共に英語を学ぶことを楽しみにしております。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> 進行形ではなく現在形 I look forward to... を使った形です。手紙や公式なメール・願書などで好まれるやや改まったトーンになります。
+              </div>
+            </div>
+
+            <!-- Pattern 3 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-alt">パターン3：study動詞 ＆ college</span>
+                <span style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">★同義語の活用</span>
+              </div>
+              <div class="model-sentence">I'm looking forward to studying English with my new friends at this college.</div>
+              <div class="model-trans">私はこの大学で新しい友達と英語を勉強するのをとても楽しみにしています。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> learning を studying に、university を college に置き換えた自然な別解です。
+              </div>
+            </div>
+
+            <!-- Pattern 4 -->
+            <div class="model-pattern">
+              <div class="pattern-header">
+                <span class="pattern-badge badge-easy">パターン4：初学者向け（be excited about を使用）</span>
+                <span style="font-size:0.8rem; color:#b45309; font-weight:700;">★ワクワク感をストレートに伝える</span>
+              </div>
+              <div class="model-sentence">I'm very excited about studying English with new friends at this university.</div>
+              <div class="model-trans">この大学で新しい友達と英語を学ぶことにとてもワクワクしています。</div>
+              <div class="model-comment">
+                <strong>解説：</strong> look forward to の代わりとしてネイティブの日常会話で多用される be excited about -ing です。「楽しみにしている」のワクワクした気持ちを表現できます。
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /sec-ex5 -->
+
+
+      <!-- ==========================================
+           SECTION 9: Exercises 6 対話・自由英作文
+      =========================================== -->
+      <div id="sec-ex6" class="section-wrap">
+        <div class="section-headline">
+          <h2>💬 大問 6：対話・自由英作文【4パターンの正答モデル】</h2>
+          <span class="section-subtitle">専修大* 改題 ／ 日本の高校における部活動の全員参加に関する議論</span>
+        </div>
+
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:1.2rem; margin-bottom:1.5rem;">
+          <div style="font-size:0.95rem; font-weight:700; color:#1e293b; margin-bottom:0.5rem;">【問題文】次の会話文を完成させなさい。</div>
+          <div style="font-family:Consolas, monospace; font-size:1.02rem; background:white; padding:0.9rem; border-radius:6px; border:1px solid #e2e8f0; line-height:1.6;">
+            <strong>Mike:</strong> I’m studying club activities in Japanese high schools. Is it acceptable for schools to require all students to participate in club activities? What do you think about this?<br>
+            <strong>Ken:</strong> <u>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u>
+          </div>
+          <div style="font-size:0.85rem; color:#64748b; margin-top:0.6rem;">
+            <strong>マイクの発言訳：</strong>「日本の高校のクラブ活動について研究しています。学校が生徒全員にクラブ活動に参加するよう求めることは許容できますか。あなたはこのことについてどう思いますか。」
+          </div>
+        </div>
+
+        <!-- Pattern A: Official -->
+        <div class="item-card open" id="card-ans-6-a">
+          <div class="card-trigger" onclick="toggleItem('card-ans-6-a')">
+            <div class="card-title-group">
+              <span class="badge-qnum">モデル A</span>
+              <span class="pattern-badge badge-rec">公式解答例：反対立場（強制参加は不可）</span>
+              <span class="jp-preview">生徒には放課後の時間の使い方を選ぶ権利がある</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner" style="background:#f8fafc; border-color:#94a3b8; border-left-color:#1e40af;">
+              <div class="answer-tag" style="color:#1e40af;">公式英文</div>
+              <div class="answer-text" style="color:#0f172a; font-size:1.05rem; line-height:1.65; white-space:pre-wrap;">I don’t think it’s acceptable to require all students to participate in club activities. Of course, students can learn a lot through club activities. However, some students want to concentrate on studying and some need to work part-time to help their parents. In my opinion, high school students should have a right to choose how to spend their time after school.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 日本語全訳と論理構造の徹底分析</div>
+                <strong>【日本語全訳】</strong><br>
+                すべての生徒がクラブ活動に参加するよう求めることは受け入れられないと思います。もちろん，生徒はクラブ活動を通じて多くを学べます。しかしながら，勉強に集中したい生徒もいれば，親を援助するためにアルバイトをする必要がある生徒もいます。私の意見では，高校生には放課後の時間をどのように過ごすべきかを選ぶ権利があるべきだと思います。<br><br>
+                <strong>【美しいパラグラフ・ライティング構造】</strong><br>
+                1. <strong>主張（Claim）：</strong> I don't think it's acceptable to require all students to participate in club activities.（マイクの質問に対してズバリ回答）<br>
+                2. <strong>譲歩（Concession）：</strong> Of course, students can learn a lot through club activities.（相手側のメリットも一度認めて視野の広さを示す）<br>
+                3. <strong>反論・理由（Reason）：</strong> However, some students want to concentrate on studying and some need to work part-time...（個別の事情を具体的に提示）<br>
+                4. <strong>結論（Conclusion）：</strong> In my opinion, high school students should have a right to choose...（自己決定権を主張して締める）
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pattern B: Agreement -->
+        <div class="item-card" id="card-ans-6-b">
+          <div class="card-trigger" onclick="toggleItem('card-ans-6-b')">
+            <div class="card-title-group">
+              <span class="badge-qnum">モデル B</span>
+              <span class="pattern-badge badge-alt">賛成立場（全員参加を求めるべきだ）</span>
+              <span class="jp-preview">協調性や健康・人間的成長を重視する論点</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner" style="background:#f8fafc; border-color:#94a3b8; border-left-color:#0d9488;">
+              <div class="answer-tag" style="color:#0d9488;">英文モデル</div>
+              <div class="answer-text" style="color:#0f172a; font-size:1.05rem; line-height:1.65; white-space:pre-wrap;">I think it is acceptable to encourage or require all students to participate in club activities. Through club activities, students can learn valuable social skills, such as teamwork and communication, which cannot be learned from textbooks alone. Furthermore, doing sports or cultural activities helps relieve stress and stay healthy. Therefore, experiencing club activities is essential for every student’s personal growth.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 日本語全訳と論理構造</div>
+                <strong>【日本語全訳】</strong><br>
+                すべての生徒にクラブ活動への参加を促したり求めたりすることは受け入れられると思います。クラブ活動を通じて、生徒は教科書だけからは学べない、チームワークやコミュニケーションといった貴重な社会スキルを身につけることができます。さらに、スポーツや文化活動を行うことはストレス解消や健康維持に役立ちます。したがって、クラブ活動を経験することは、すべての生徒の人間的成長にとって不可欠です。<br><br>
+                <strong>【キーフレーズ解説】</strong><br>
+                ・valuable social skills（貴重な社会スキル）<br>
+                ・cannot be learned from textbooks alone（教科書だけからは学べない）<br>
+                ・relieve stress and stay healthy（ストレスを和らげ、健康を保つ）<br>
+                ・essential for personal growth（自己の成長に不可欠）
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pattern C: Compromise / Flexible -->
+        <div class="item-card" id="card-ans-6-c">
+          <div class="card-trigger" onclick="toggleItem('card-ans-6-c')">
+            <div class="card-title-group">
+              <span class="badge-qnum">モデル C</span>
+              <span class="pattern-badge badge-alt">折衷案・柔軟案（原則参加だが活動日数を柔軟に）</span>
+              <span class="jp-preview">勉強と部活の両立を可能にする制度設計</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner" style="background:#f8fafc; border-color:#94a3b8; border-left-color:#6366f1;">
+              <div class="answer-tag" style="color:#6366f1;">英文モデル</div>
+              <div class="answer-text" style="color:#0f172a; font-size:1.05rem; line-height:1.65; white-space:pre-wrap;">I think club activities should not be strictly mandatory, but schools should make them more flexible. While club activities help students build friendships and discover their talents, requiring daily practice can hurt their academic performance. If schools offer clubs that meet only once or twice a week, students can enjoy club activities without sacrificing their studies or personal time.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 日本語全訳と論理構造</div>
+                <strong>【日本語全訳】</strong><br>
+                クラブ活動は厳格に義務化されるべきではないと思いますが、学校は活動をもっと柔軟にすべきです。クラブ活動は生徒が友情を築き才能を発見するのに役立つ一方で、毎日の練習を義務付けることは学業成績を損なう可能性があります。週に1、2回だけ活動するクラブを提供すれば、生徒は学業や個人の時間を犠牲にすることなくクラブ活動を楽しむことができます。<br><br>
+                <strong>【キーフレーズ解説】</strong><br>
+                ・not strictly mandatory（厳格に義務化されているわけではない）<br>
+                ・hurt academic performance（学業成績を損なう）<br>
+                ・without sacrificing their studies（勉強を犠牲にすることなく）
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pattern D: Beginner friendly simple English -->
+        <div class="item-card" id="card-ans-6-d">
+          <div class="card-trigger" onclick="toggleItem('card-ans-6-d')">
+            <div class="card-title-group">
+              <span class="badge-qnum">モデル D</span>
+              <span class="pattern-badge badge-easy">初学者向けシンプル構文（中学〜高1英語で満点）</span>
+              <span class="jp-preview">文法ミスを極限まで減らして合格点を取る実戦型</span>
+            </div>
+            <span class="trigger-icon">▼</span>
+          </div>
+          <div class="card-content">
+            <div class="answer-banner" style="background:#f8fafc; border-color:#94a3b8; border-left-color:#f59e0b;">
+              <div class="answer-tag" style="color:#b45309;">初学者向け英文モデル</div>
+              <div class="answer-text" style="color:#0f172a; font-size:1.05rem; line-height:1.65; white-space:pre-wrap;">I don't think schools should make all students join club activities. Club activities are good for making friends and staying healthy. However, some students need more time to study for exams, and other students have different interests outside school. So, I believe students should choose what they want to do after school.</div>
+            </div>
+            <div class="exp-box">
+              <div class="point-block">
+                <div class="point-title">💡 なぜこの英語で高得点が取れるのか？</div>
+                ・<strong>簡単な単語で明確に伝える：</strong> require all students to participate などの難解な表現を、使役動詞 <strong>make all students join</strong> に置き換えています。<br>
+                ・<strong>ミスしやすい関係詞や倒置を回避：</strong> 接続詞 However や So で文を短く区切っているため、冠詞や時制のミスが起きにくく、採点者に意図が100%伝わります。<br>
+                ・<strong>語数も十分：</strong> 約55語あり、大学入試の40〜60語指定にジャストフィットします。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scoring Checklist -->
+        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:1.2rem; margin-top:1.5rem;">
+          <h4 style="color:#1e40af; font-size:1rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem;">
+            <span>📋</span> 自由英作文の自己採点＆減点回避チェックリスト
+          </h4>
+          <ul style="font-size:0.88rem; line-height:1.7; margin-left:1.2rem; color:#1e293b;">
+            <li><strong>質問に直接答えているか：</strong> 最初の1文で「I think...」「I don't think...」と立場を明快に宣言しているか？</li>
+            <li><strong>三単現の s・名詞の複数形：</strong> students（複数）や a right（単数）、club activities（複数）の形が正確か？</li>
+            <li><strong>接続詞の適切な使用：</strong> However や Therefore の前後の句読点（カンマ）が正しく打たれているか？</li>
+            <li><strong>文型と動詞の語法：</strong> require O to do や participate in 〜, choose how to spend... の形が崩れていないか？</li>
+          </ul>
+        </div>
+
+      </div> <!-- /sec-ex6 -->
+
+    </div> <!-- /container -->
+
+  </div> <!-- /#protectedContent -->
+
+  <script>
+    // Password configuration
+    const CORRECT_PASSWORD = "202610";
+    const AUTH_KEY = "l2_2_auth_state";
+
+    function unlockContent() {
+      const gate = document.getElementById('passwordGate');
+      const content = document.getElementById('protectedContent');
+      if (gate) gate.style.display = 'none';
+      if (content) content.style.display = 'block';
+    }
+
+    function lockPage() {
+      try {
+        localStorage.removeItem(AUTH_KEY);
+        sessionStorage.removeItem(AUTH_KEY);
+      } catch (e) {}
+
+      const gate = document.getElementById('passwordGate');
+      const content = document.getElementById('protectedContent');
+      const input = document.getElementById('passwordInput');
+      const errorMsg = document.getElementById('pwErrorMsg');
+
+      if (content) content.style.display = 'none';
+      if (gate) gate.style.display = 'flex';
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      if (errorMsg) errorMsg.textContent = '';
+    }
+
+    function verifyPassword() {
+      const input = document.getElementById('passwordInput');
+      const card = document.getElementById('pwCard');
+      const errorMsg = document.getElementById('pwErrorMsg');
+      const rememberCheckbox = document.getElementById('rememberMeCheckbox');
+
+      if (!input) return;
+      const entered = input.value.trim();
+
+      if (entered === CORRECT_PASSWORD) {
+        if (errorMsg) errorMsg.textContent = '';
+        try {
+          if (rememberCheckbox && rememberCheckbox.checked) {
+            localStorage.setItem(AUTH_KEY, 'unlocked');
+          } else {
+            sessionStorage.setItem(AUTH_KEY, 'unlocked');
+          }
+        } catch (e) {}
+        unlockContent();
+      } else {
+        if (errorMsg) {
+          errorMsg.textContent = '❌ パスワードが正しくありません。再度お試しください。';
+        }
+        if (card) {
+          card.classList.remove('pw-shake');
+          void card.offsetWidth; // trigger reflow
+          card.classList.add('pw-shake');
+        }
+        input.select();
+        input.focus();
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('passwordInput');
+      const btn = document.getElementById('pwToggleBtn');
+      if (!input || !btn) return;
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+        btn.title = 'パスワードを隠す';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁️';
+        btn.title = 'パスワードを表示する';
+      }
+    }
+
+    // Toggle Single Item Card
+    function toggleItem(cardId) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      card.classList.toggle('open');
+    }
+
+    // Expand All
+    function expandAll() {
+      document.querySelectorAll('.item-card').forEach(c => c.classList.add('open'));
+    }
+
+    // Collapse All
+    function collapseAll() {
+      document.querySelectorAll('.item-card').forEach(c => c.classList.remove('open'));
+    }
+
+    // Real-time Search
+    document.addEventListener('DOMContentLoaded', function() {
+      let isUnlocked = false;
+      try {
+        if (localStorage.getItem(AUTH_KEY) === 'unlocked' || sessionStorage.getItem(AUTH_KEY) === 'unlocked') {
+          isUnlocked = true;
+        }
+      } catch (e) {}
+
+      if (isUnlocked) {
+        unlockContent();
+      } else {
+        const input = document.getElementById('passwordInput');
+        if (input) {
+          setTimeout(() => input.focus(), 150);
+          input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+              verifyPassword();
+            }
+          });
+        }
+      }
+
+      // Search functionality
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+          const query = e.target.value.toLowerCase().trim();
+          document.querySelectorAll('.item-card').forEach(card => {
+            const text = card.innerText.toLowerCase();
+            if (text.includes(query)) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

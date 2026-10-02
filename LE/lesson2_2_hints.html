@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2-2 Exercises 動詞② 思考ヒント＆例文連動ナビゲーター</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --primary-bg: #eff6ff;
+      --secondary: #0d9488;
+      --secondary-bg: #f0fdfa;
+      --accent: #d97706;
+      --accent-bg: #fffbeb;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --dark: #1f2937;
+      --light-gray: #f9fafb;
+      --border: #e5e7eb;
+      --border-dark: #cbd5e1;
+      --text: #334155;
+      --text-muted: #64748b;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+      background-color: #f8fafc;
+      color: var(--text);
+      line-height: 1.65;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #0284c7 100%);
+      color: white;
+      padding: 2.2rem 1.5rem 1.8rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 9999px;
+      padding: 0.25rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+
+    .header-desc {
+      font-size: 0.95rem;
+      opacity: 0.92;
+      max-width: 800px;
+      line-height: 1.5;
+    }
+
+    /* Policy banner */
+    .policy-banner {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 0.9rem 1.2rem;
+      margin: 1.2rem auto 0;
+      max-width: 1100px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.92rem;
+      color: #92400e;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .policy-banner strong {
+      color: #78350f;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 1.8rem auto;
+      padding: 0 1.2rem;
+    }
+
+    /* Navigation toolbar */
+    .nav-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.8rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .nav-btn {
+      background: #f1f5f9;
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary-bg);
+      color: var(--primary);
+      border-color: var(--primary-light);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-input {
+      padding: 0.4rem 0.75rem 0.4rem 1.8rem;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      width: 180px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .btn-action {
+      background: #e2e8f0;
+      border: none;
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text);
+      transition: background 0.15s ease;
+    }
+
+    .btn-action:hover {
+      background: #cbd5e1;
+    }
+
+    /* Section styles */
+    .section-block {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      border-bottom: 2px solid var(--primary-bg);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Core Theory Card */
+    .theory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .theory-card {
+      background: var(--light-gray);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .theory-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .theory-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .badge-svc { background: #dbeafe; color: #1e40af; }
+    .badge-svoc { background: #fef3c7; color: #92400e; }
+    .badge-group { background: #dcfce7; color: #166534; }
+    .badge-expr { background: #f3e8ff; color: #6b21a8; }
+
+    .theory-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--dark);
+    }
+
+    .theory-desc {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .theory-example {
+      background: white;
+      border-left: 3px solid var(--primary-light);
+      padding: 0.5rem 0.75rem;
+      margin-top: 0.6rem;
+      font-size: 0.84rem;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .theory-example .en {
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .theory-example .ja {
+      color: #64748b;
+      font-size: 0.8rem;
+    }
+
+    /* Mapping Table */
+    .mapping-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.88rem;
+    }
+
+    .mapping-table th, .mapping-table td {
+      border: 1px solid var(--border);
+      padding: 0.65rem 0.85rem;
+      text-align: left;
+    }
+
+    .mapping-table th {
+      background: #f1f5f9;
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .mapping-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .mapping-table tr:hover {
+      background: #eff6ff;
+    }
+
+    /* Question Cards */
+    .q-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1.25rem;
+      background: white;
+      overflow: hidden;
+      transition: border-color 0.15s ease;
+    }
+
+    .q-card:focus-within {
+      border-color: var(--primary-light);
+    }
+
+    .q-header {
+      background: #f8fafc;
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .q-header:hover {
+      background: #f1f5f9;
+    }
+
+    .q-num {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 0.95rem;
+    }
+
+    .badge-source {
+      font-size: 0.72rem;
+      background: #e2e8f0;
+      color: #475569;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .badge-pattern {
+      font-size: 0.72rem;
+      background: var(--primary-bg);
+      color: var(--primary);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .q-body {
+      padding: 1.1rem 1.25rem;
+    }
+
+    .q-jp {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .q-en-frame {
+      background: #f8fafc;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 0.94rem;
+      color: #1e293b;
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.02em;
+    }
+
+    .q-hints-container {
+      margin-top: 1rem;
+      border-top: 1px dashed var(--border);
+      padding-top: 0.9rem;
+    }
+
+    .hint-step-ctrls {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-step {
+      background: #f1f5f9;
+      border: 1px solid var(--border-dark);
+      border-radius: 4px;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-step:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-step.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .hint-box {
+      display: none;
+      border-radius: 6px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .hint-box.show {
+      display: block;
+    }
+
+    .hint-step1 {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      color: #1e40af;
+    }
+
+    .hint-step2 {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+      color: #15803d;
+    }
+
+    .hint-step3 {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      color: #92400e;
+    }
+
+    .hint-title {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .ref-link {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--primary);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Student Workspace (Notes) */
+    .workspace-area {
+      margin-top: 1rem;
+      background: #fbfcfe;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 0.9rem;
+    }
+
+    .workspace-header {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .workspace-input {
+      width: 100%;
+      min-height: 52px;
+      padding: 0.5rem;
+      border: 1px solid var(--border-dark);
+      border-radius: 4px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      resize: vertical;
+      background: white;
+    }
+
+    .workspace-input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+    }
+
+    .save-indicator {
+      font-size: 0.75rem;
+      color: #10b981;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .save-indicator.active {
+      opacity: 1;
+    }
+
+    /* Logic Breakdown Box */
+    .logic-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 0.8rem;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .logic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+
+    .logic-item {
+      background: white;
+      padding: 0.5rem 0.7rem;
+      border-radius: 4px;
+      border-left: 3px solid var(--secondary);
+    }
+
+    .logic-item strong {
+      display: block;
+      color: var(--dark);
+      margin-bottom: 0.15rem;
+    }
+
+    /* Key points highlight */
+    .hl-vocab {
+      color: #d97706;
+      font-weight: 600;
+    }
+    .hl-grammar {
+      color: #2563eb;
+      font-weight: 600;
+    }
+    .hl-trap {
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header { padding: 1.5rem 1rem; }
+      h1 { font-size: 1.4rem; }
+      .nav-toolbar { flex-direction: column; align-items: stretch; }
+      .nav-links { overflow-x: auto; padding-bottom: 0.3rem; }
+      .search-input { width: 100%; }
+      .q-en-frame { font-size: 0.86rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="header-badge">Vision Quest Ⅱ ワークブック 学習支援ナビ</span>
+      <h1>Lesson 2-2 Exercises 動詞 ② 思考ヒント＆例文連動ナビゲーター</h1>
+      <p class="header-desc">
+        教科書 p.12 ／ αⅡ p.24 ／ ワークブック pp.16〜19 対応。<br>
+        「答えをすぐ見ずに、文型・文法の構造から自力で導く」ための段階的ヒント集です。
+      </p>
+    </div>
+  </header>
+
+  <div class="policy-banner">
+    <div style="font-size: 1.3rem;">💡</div>
+    <div>
+      <strong>【完全ノーネタバレ設計】</strong> 直接の英単語や完成英文は一切記載していません。<br>
+      「Step 1：文型・語順の骨格」→「Step 2：文法ルール・連語」→「Step 3：語数・トラップ回避」の順にヒントを開いて、自分の力で英文を組み立ててみましょう！
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Sticky Navigation Toolbar -->
+    <div class="nav-toolbar">
+      <div class="nav-links">
+        <a href="#section-core" class="nav-btn">📖 例文45〜58 完全整理</a>
+        <a href="#section-mapping" class="nav-btn">🗺️ 連動マッピング表</a>
+        <a href="#ex1" class="nav-btn">大問 1 (空所補充)</a>
+        <a href="#ex2" class="nav-btn">大問 2 (下線部補完)</a>
+        <a href="#ex3" class="nav-btn">大問 3 (動詞選択)</a>
+        <a href="#ex4" class="nav-btn">大問 4 (語句整序)</a>
+        <a href="#ex5" class="nav-btn">大問 5 (和文英訳)</a>
+        <a href="#ex6" class="nav-btn">大問 6 (対話・自由英作)</a>
+      </div>
+      <div class="nav-controls">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="問題番号・キーワード検索...">
+        </div>
+        <button class="btn-action" onclick="expandAllHints()">すべて開く</button>
+        <button class="btn-action" onclick="collapseAllHints()">すべて閉じる</button>
+      </div>
+    </div>
+
+    <!-- Section: Core Grammar from Textbook Examples (45-58) -->
+    <div id="section-core" class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">📘 ワークブック本体 p.16 例文 45〜58 のエッセンス</h2>
+        <span class="section-meta">文型と表現のコアをマスターしよう</span>
+      </div>
+
+      <div class="theory-grid">
+        <!-- Card D -->
+        <div class="theory-card">
+          <span class="theory-badge badge-svc">D: SVC (第2文型)</span>
+          <h3 class="theory-title">S ＝ C の関係（補語が主語を説明）</h3>
+          <p class="theory-desc">
+            SVCの文型では、動詞の後ろに来る補語（C）が主語（S）の「状態・性質」を説明します。<br>
+            補語になれるものは<strong>【形容詞・名詞・to不定詞・動名詞・that節】</strong>です。
+          </p>
+          <div class="theory-example">
+            <div class="en">45. This question seems quite easy.</div>
+            <div class="ja">この問題はかなり簡単に思える。（seem ＋ 形容詞C）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">46. The best way to prevent a cold is to wash your hands.</div>
+            <div class="ja">かぜを予防する最良の方法は手を洗うことだ。（C ＝ to不定詞）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">47. One of her hobbies is drawing cartoons.</div>
+            <div class="ja">趣味の1つは漫画を描くことだ。（C ＝ 動名詞-ing）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">48. The problem is that we do not have much time.</div>
+            <div class="ja">問題は、あまり時間がないということだ。（C ＝ that節）</div>
+          </div>
+        </div>
+
+        <!-- Card E -->
+        <div class="theory-card">
+          <span class="theory-badge badge-svoc">E: SVOC (第5文型)</span>
+          <h3 class="theory-title">O ＝ C の関係（目的語と補語のネクサス）</h3>
+          <p class="theory-desc">
+            SVOCの文型では、目的語（O）と補語（C）の間に<strong>「主語と述語の関係（O is C / O does C / O is done）」</strong>が成立します。
+          </p>
+          <div class="theory-example">
+            <div class="en">49. Many people call him a genius at languages.</div>
+            <div class="ja">多くの人は彼を語学の天才と呼ぶ。（call O C：O＝名詞C）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">50. It makes me angry when I see someone smoking in a public place.</div>
+            <div class="ja">公共の場で喫煙を見かけると腹が立つ。（make O C：O＝形容詞C）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">51. Jacob keeps his drawer locked at all times.</div>
+            <div class="ja">ジェイコブは引き出しに鍵を掛けている。（keep O p.p.：引き出しが施錠されている受動関係）</div>
+          </div>
+        </div>
+
+        <!-- Card F -->
+        <div class="theory-card">
+          <span class="theory-badge badge-group">F: 群動詞 (句動詞)</span>
+          <h3 class="theory-title">2語以上で1つの自動詞・他動詞</h3>
+          <p class="theory-desc">
+            〈動詞＋副詞〉や〈動詞＋名詞＋前置詞〉などの固まりで、1語の動詞と同じ役割を果たします。会話や英作文で極めて重要です。
+          </p>
+          <div class="theory-example">
+            <div class="en">52. Ethan did not show up for the meeting.</div>
+            <div class="ja">イーサンは会議に現れなかった。（show up ＝ appear【自動詞】）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">53. Sophia took care of our dog while we were away.</div>
+            <div class="ja">ソフィアは犬の世話をしてくれた。（take care of ＝ look after【他動詞】）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">54. My aunt was born and brought up in Okinawa.</div>
+            <div class="ja">おばは沖縄で生まれ育った。（bring up「育てる」の受動態 be brought up）</div>
+          </div>
+        </div>
+
+        <!-- Card Expressions -->
+        <div class="theory-card">
+          <span class="theory-badge badge-expr">Expressions</span>
+          <h3 class="theory-title">重要構文・イディオム</h3>
+          <p class="theory-desc">
+            形式目的語 it 構文や、前置詞 to を含む重要頻出表現。入試や英検で最も差がつく分野です。
+          </p>
+          <div class="theory-example">
+            <div class="en">55. High school students are busy with their studies...</div>
+            <div class="ja">〜で忙しい（be busy with 名詞 / be busy -ing）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">56. The children were disappointed that they could not go...</div>
+            <div class="ja">〜にがっかりした（be disappointed that 節 / at / to do）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">57. I found it difficult to get along with him.</div>
+            <div class="ja">彼とうまくやっていくのは難しいとわかった（find it C to do / get along with ~）</div>
+          </div>
+          <div class="theory-example">
+            <div class="en">58. I’m looking forward to hearing from you.</div>
+            <div class="ja">便りを楽しみにしている（look forward to -ing：toは前置詞！）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Mapping Table -->
+    <div id="section-mapping" class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">🗺️ 問題 ⇔ 教科書例文（45〜58）連動マッピング表</h2>
+        <span class="section-meta">どの問題がどの例文の知識を使っているか一目でわかる！</span>
+      </div>
+
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th>問題番号</th>
+            <th>問われているコア概念</th>
+            <th>連動例文</th>
+            <th>着眼ポイント</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1-1</strong></td>
+            <td>SVC（状態の継続を表す動詞 ＋ 形容詞補語）</td>
+            <td>45 (SVC)</td>
+            <td>remain ＋ 形容詞「〜のままである」</td>
+          </tr>
+          <tr>
+            <td><strong>1-2</strong></td>
+            <td>SVC（名詞的用法の不定詞補語）</td>
+            <td>46 (C = to do)</td>
+            <td>be動詞 ＋ to do「〜することだ」</td>
+          </tr>
+          <tr>
+            <td><strong>1-3</strong></td>
+            <td>SVC（知覚・感覚動詞 look ＋ 形容詞 ＋ in 服）</td>
+            <td>45 (SVC)</td>
+            <td>look good in ~「〜を着て似合う」</td>
+          </tr>
+          <tr>
+            <td><strong>1-4</strong></td>
+            <td>群動詞（〜を延期する）</td>
+            <td>52, 53 (群動詞)</td>
+            <td>put off（活用 put-put-put に注意）</td>
+          </tr>
+          <tr>
+            <td><strong>1-5</strong></td>
+            <td>群動詞（〜に偶然出くわす・見つける）＋ 疑問詞 How</td>
+            <td>52, 53 (群動詞)</td>
+            <td>come across ~ / run across ~</td>
+          </tr>
+          <tr>
+            <td><strong>2-1</strong></td>
+            <td>SVC（that節が補語になる構文）</td>
+            <td>48 (C = that節)</td>
+            <td>The trouble is (that) S' ＋ V' 構文</td>
+          </tr>
+          <tr>
+            <td><strong>2-2</strong></td>
+            <td>SVOC（leave O + 現在分詞：Oを〜しているまま放置する）</td>
+            <td>51 (keep/leave O C)</td>
+            <td>エンジン自体の動作は能動（running）</td>
+          </tr>
+          <tr>
+            <td><strong>2-3</strong></td>
+            <td>SVC（動名詞が補語になる構文）</td>
+            <td>47 (C = -ing)</td>
+            <td>surf [browse] the internet</td>
+          </tr>
+          <tr>
+            <td><strong>2-4</strong></td>
+            <td>SVC（感情・状態の変化を表す get + 過去分詞）</td>
+            <td>45, 50 (SVC/感情)</td>
+            <td>get bored「退屈する」, not ~ at all</td>
+          </tr>
+          <tr>
+            <td><strong>2-5</strong></td>
+            <td>群動詞の受動態（育てられる）</td>
+            <td>54 (be brought up)</td>
+            <td>bring up「育てる」の過去分詞 brought up / raised</td>
+          </tr>
+          <tr>
+            <td><strong>3-1〜5</strong></td>
+            <td>動詞の語法（味覚SVC, 印象SVC, 準備SVOC, 命名SVOC, 使役SVOC）</td>
+            <td>45, 49, 50</td>
+            <td>taste, seem, get, call, make の活用と文型</td>
+          </tr>
+          <tr>
+            <td><strong>4-1</strong></td>
+            <td>群動詞（〜とうまくやっていく）＋ 否定助動詞</td>
+            <td>57 (get along with)</td>
+            <td>助動詞 ＋ get along with ＋ 目的語</td>
+          </tr>
+          <tr>
+            <td><strong>4-2</strong></td>
+            <td>It seems that 構文 ＋ 熟語「眠りに落ちる」</td>
+            <td>45 (It seems that)</td>
+            <td>It seems that ＋ 主語 ＋ 述語動詞句</td>
+          </tr>
+          <tr>
+            <td><strong>4-3</strong></td>
+            <td>request O to do ＋ SVOC（keep O informed：情報を保たせる）</td>
+            <td>51 (keep O p.p.)</td>
+            <td>keep ＋ O ＋ informed of 〜</td>
+          </tr>
+          <tr>
+            <td><strong>4-4</strong></td>
+            <td>形式目的語構文（find it C to do）</td>
+            <td>57 (find it C to do)</td>
+            <td>find it ＋ C ＋ to do 構文</td>
+          </tr>
+          <tr>
+            <td><strong>5-1〜5</strong></td>
+            <td>本格和文英訳（無生物主語, C=to不定詞, 過去の意図, 仮目的語, look forward to）</td>
+            <td>46, 50, 57, 58</td>
+            <td>主語の決め方、to不定詞と動名詞の使い分け</td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td>対話・論理構成（高校での部活動強制に関する議論）</td>
+            <td>49, 50, 55, 57</td>
+            <td>立場表明 → 譲歩・理由 → 具体例 → 結論</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section: Exercises 1 -->
+    <div id="ex1" class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">✏️ 大問 1：( ) に適切な語を入れる（空所補充）</h2>
+        <span class="section-meta">5問 ／ 各空所1語</span>
+      </div>
+
+      <!-- 1-1 -->
+      <div class="q-card" id="card-1-1">
+        <div class="q-header" onclick="toggleCard('card-1-1')">
+          <div class="q-num">
+            <span>□ 1.</span>
+            <span class="badge-source">亜細亜大*</span>
+            <span class="badge-pattern">SVC・状態継続</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">彼の死因は不明のままである。</div>
+          <div class="q-en-frame">The reason for his death ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ).</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-1-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-1-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-1-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-1-1-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 文型・骨格の把握</div>
+              主語（S）は「The reason for his death（彼の死因）」です。<br>
+              「〜のままである」という状態の継続を表す動詞（V）を第2文型（SVC）で使い、後ろの補語（C）に「知られていない・不明の」を意味する形容詞を置く構造です（S ＝ C）。
+            </div>
+
+            <div id="h-1-1-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 動詞と補語の選択</div>
+              「〜のままでいる」を表す代表的なSVC動詞には keep, stay, remain などがあります。「依然として〜のままである」という客観的な事実や謎・状態を表すときによく使われる動詞は何でしょう？<br>
+              また、「知られていない」は、knowの否定形から派生した形容詞（接頭辞 un- ＋ known）に着目します。
+            </div>
+
+            <div id="h-1-1-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 三単現のsと綴り注意</div>
+              主語は「The reason」（単数名詞）です。現在の状態を述べているので、動詞の語尾に<strong>三単現の s</strong>を忘れないようにしましょう！<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文45（SVC：seem + 形容詞）を参照</span>
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-1-1" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-1-1" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-1-1', 'save-1-1')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1-2 -->
+      <div class="q-card" id="card-1-2">
+        <div class="q-header" onclick="toggleCard('card-1-2')">
+          <div class="q-num">
+            <span>□ 2.</span>
+            <span class="badge-source">跡見学園女子大*</span>
+            <span class="badge-pattern">SVC・補語に不定詞</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">大切なのは, 笑顔であいさつすることだ。</div>
+          <div class="q-en-frame">The important thing is ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) when greeting others.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-2-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-2-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-2-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-1-2-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 文型・骨格の把握</div>
+              主語（S）は「The important thing」、動詞（V）は「is」です。<br>
+              日本語の「〜することだ」という動作を補語（C）にする形です。be動詞の後ろに2語の空所があります。
+            </div>
+
+            <div id="h-1-2-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 補語の形</div>
+              「〜すること」を表す名詞の働きをするものには「動名詞（-ing）」と「to不定詞（to do）」があります。<br>
+              空所が2語分あるので、どちらの形を使えば2語で「笑顔を見せる・微笑む」を表現できるか考えましょう。
+            </div>
+
+            <div id="h-1-2-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 単語の形と意味</div>
+              「微笑む、笑顔になる」は動詞1語で表現できます（laugh は声を出して笑う、smile は微笑む・笑顔を見せる）。<br>
+              to の後ろなので動詞は<strong>原形</strong>になります。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文46（C ＝ to wash your hands）を参照</span>
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-1-2" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-1-2" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-1-2', 'save-1-2')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1-3 -->
+      <div class="q-card" id="card-1-3">
+        <div class="q-header" onclick="toggleCard('card-1-3')">
+          <div class="q-num">
+            <span>□ 3.</span>
+            <span class="badge-source">国士舘大*</span>
+            <span class="badge-pattern">SVC・感覚動詞 look</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">昨夜, スージーはイブニングドレスが似合っていた。</div>
+          <div class="q-en-frame">Susie ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) in her evening dress last night.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-3-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-3-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-3-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-1-3-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 発想の転換（英語らしい表現）</div>
+              日本語は「ドレスが似合っていた」となっていますが、英語の主語は「Susie（人）」です！<br>
+              英語では「スージーはドレスを着て【素敵／美しく見えた】」というSVCの構文で「似合っていた」を表します。
+            </div>
+
+            <div id="h-1-3-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 重要イディオムのパターン</div>
+              「〈人〉は〜を着て素敵に見える（似合う）」＝〈人〉＋ <strong>look + [形容詞] + in [衣服]</strong><br>
+              形容詞には「良い、素敵な」を表す代表的な基礎形容詞（g... または n...）が入ります。
+            </div>
+
+            <div id="h-1-3-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 時制のチェック</div>
+              文末に「last night（昨夜）」があります。動詞の時制は<strong>過去形</strong>にしなければなりません！<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文45（感覚・印象のSVC）を参照</span>
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-1-3" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-1-3" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-1-3', 'save-1-3')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1-4 -->
+      <div class="q-card" id="card-1-4">
+        <div class="q-header" onclick="toggleCard('card-1-4')">
+          <div class="q-num">
+            <span>□ 4.</span>
+            <span class="badge-source">京都産業大*</span>
+            <span class="badge-pattern">群動詞・延期する</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">彼らは2日間出発を延期した。</div>
+          <div class="q-en-frame">They ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) their departure for two days.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-4-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-4-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-4-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-1-4-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 文型と語数</div>
+              主語は「They」、目的語は「their departure（彼らの出発）」です。<br>
+              「〜を延期した」を2語の群動詞（句動詞）で表す問題です。
+            </div>
+
+            <div id="h-1-4-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 「延期する」を表す群動詞</div>
+              1語なら postpone ですが、2語の熟語では「p...」で始まる基本動詞 ＋ 「o...」で始まる副詞の組み合わせが定番です。<br>
+              「後回しにする・先に延ばす」というニュアンスを持ちます。
+            </div>
+
+            <div id="h-1-4-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 動詞の活用形</div>
+              日本語は「延期した（過去）」です。この動詞の過去形変化（原形-過去形-過去分詞）はどうだったでしょうか？（不規則変化？それとも同形？）<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文52, 53（群動詞）を参照</span>
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-1-4" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-1-4" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-1-4', 'save-1-4')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1-5 -->
+      <div class="q-card" id="card-1-5">
+        <div class="q-header" onclick="toggleCard('card-1-5')">
+          <div class="q-num">
+            <span>□ 5.</span>
+            <span class="badge-source">駒澤大*</span>
+            <span class="badge-pattern">疑問詞 ＋ 群動詞</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">そのミケランジェロの絵を彼らはどうやって見つけたんですか。</div>
+          <div class="q-en-frame">( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) did they ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) across that painting by Michelangelo?</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-5-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-5-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-1-5-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-1-5-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 疑問詞と文頭</div>
+              文頭の空所は「どうやって（方法・手段）」を尋ねる疑問詞です。<br>
+              文頭なので大文字で始めます。
+            </div>
+
+            <div id="h-1-5-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: across と結びつく動詞</div>
+              後ろに前置詞「across」があります。「〜に偶然出くわす、ふと見つける」を表す群動詞は何でしょう？<br>
+              〈c... ＋ across 〜〉または〈r... ＋ across 〜〉という超重要成句です！
+            </div>
+
+            <div id="h-1-5-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: did の後ろの動詞の形</div>
+              助動詞「did」が前にある疑問文なので、空所に入る動詞は<strong>原形</strong>になります！
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-1-5" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-1-5" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-1-5', 'save-1-5')"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Exercises 2 -->
+    <div id="ex2" class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">✏️ 大問 2：下線部に適切な語句を補う（部分英作文）</h2>
+        <span class="section-meta">5問 ／ 語句・節の補完</span>
+      </div>
+
+      <!-- 2-1 -->
+      <div class="q-card" id="card-2-1">
+        <div class="q-header" onclick="toggleCard('card-2-1')">
+          <div class="q-num">
+            <span>□ 1.</span>
+            <span class="badge-source">神戸学院大*</span>
+            <span class="badge-pattern">that節補語・名詞構文</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">困ったことに，彼女は機嫌が悪い。</div>
+          <div class="q-en-frame"><u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u> she is in a bad mood.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-1-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-1-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-1-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-2-1-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 構造の見抜き方</div>
+              後ろの「she is in a bad mood」は完全な文（節 S' + V'）になっています。<br>
+              日本語の「困ったことに」を「困った問題は、〜ということだ」という主語＋be動詞＋接続詞の構文（SVC）で捉えます。
+            </div>
+
+            <div id="h-2-1-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 例文48の応用</div>
+              例文48は「The problem is that ...（問題は…ということだ）」でした。<br>
+              ここでは「困り事」なので「The trouble is (that) ...（困った問題は…だ）という構文」という定型構文がピッタリ当てはまります。
+            </div>
+
+            <div id="h-2-1-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: that の省略と文頭大文字</div>
+              接続詞 that は口語では省略されることがあります。文頭なので「The」は大文字で書き始めましょう。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文48（C ＝ that S' + V'）を参照</span>
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-2-1" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-2-1" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-2-1', 'save-2-1')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-2 -->
+      <div class="q-card" id="card-2-2">
+        <div class="q-header" onclick="toggleCard('card-2-2')">
+          <div class="q-num">
+            <span>□ 2.</span>
+            <span class="badge-source">桃山学院大*</span>
+            <span class="badge-pattern">SVOC・分詞補語</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">彼はしゃべっている間，エンジンをかけたままにしておいた。</div>
+          <div class="q-en-frame">He left <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u> while he was talking.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-2-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-2-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-2-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-2-2-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 動詞 left の文型</div>
+              動詞 left は leave（〜を…のままにしておく）の過去形です。<br>
+              〈leave ＋ O（目的語）＋ C（補語）〉で「OをCの状態のまま放置する」というSVOCの文型を作ります。
+            </div>
+
+            <div id="h-2-2-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: O と C の関係</div>
+              O は「そのエンジン（the engine）」です。<br>
+              C は「かかっている（動いている）」ですが、エンジンや機械が「動いている、作動している」を表す動詞は「run」です。
+            </div>
+
+            <div id="h-2-2-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 現在分詞か過去分詞か？</div>
+              エンジン自体が動いているという「能動・進行中」の状態を表すため、Cには<strong>現在分詞（-ing形）</strong>を使います！<br>
+              （run の -ing 形は n を重ねて running となる点にも注意）<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文51（keep O C：能動なら-ing、受動ならp.p.）を参照</span>
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-2-2" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-2-2" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-2-2', 'save-2-2')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-3 -->
+      <div class="q-card" id="card-2-3">
+        <div class="q-header" onclick="toggleCard('card-2-3')">
+          <div class="q-num">
+            <span>□ 3.</span>
+            <span class="badge-source">桜美林大*</span>
+            <span class="badge-pattern">SVC・動名詞補語</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">僕のお気に入りの気晴らしは，ネットサーフィンをすることだ。</div>
+          <div class="q-en-frame">My favorite pastime is <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u>.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-3-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-3-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-3-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-2-3-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 補語の役割</div>
+              主語「My favorite pastime（私のお気に入りの気晴らし）」＝「〜すること」。<br>
+              日常の習慣や趣味を表す場合、補語Cには「動名詞（-ing）」が最も自然に使われます。
+            </div>
+
+            <div id="h-2-3-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: ヒント欄の動詞を活用</div>
+              問題末尾のHintsにある通り、「ネットサーフィンをする、インターネットを閲覧する」は surf または browse を使います。<br>
+              動名詞にするので surfing [browsing] とします。
+            </div>
+
+            <div id="h-2-3-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: internet の冠詞</div>
+              インターネットは世界に1つしかない固有のネットワークなので、必ず定冠詞 <strong>the</strong> を伴います。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文47（C ＝ 動名詞-ing）を参照</span>
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-2-3" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-2-3" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-2-3', 'save-2-3')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-4 -->
+      <div class="q-card" id="card-2-4">
+        <div class="q-header" onclick="toggleCard('card-2-4')">
+          <div class="q-num">
+            <span>□ 4.</span>
+            <span class="badge-source">愛知学院大*</span>
+            <span class="badge-pattern">SVC・状態変化 get</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">その小説はとてもおもしろくて，最初から最後まで全然退屈しなかった。</div>
+          <div class="q-en-frame">The novel was so exciting that I <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u> from beginning to end.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-4-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-4-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-4-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-2-4-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: so ~ that 構文と否定</div>
+              「so exciting that I ...」のthat節の中を作ります。<br>
+              日本語は「まったく退屈しなかった」なので、過去の否定文（didn't ...）です。
+            </div>
+
+            <div id="h-2-4-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 「退屈する」と「全然〜ない」</div>
+              Hintsにある「get bored（退屈する）」を使います。<br>
+              また、「全然〜ない（少しも〜ない）」を表す否定強調の成句 <strong>not ~ at all</strong> を組み合わせます。
+            </div>
+
+            <div id="h-2-4-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 語順の整理</div>
+              didn't ＋ 動詞の原形（get）＋ 形容詞補語（bored）＋ 強調（at all）の語順を組み立ててみましょう！<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文45（SVC：状態変化のget）を参照</span>
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-2-4" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-2-4" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-2-4', 'save-2-4')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-5 -->
+      <div class="q-card" id="card-2-5">
+        <div class="q-header" onclick="toggleCard('card-2-5')">
+          <div class="q-num">
+            <span>□ 5.</span>
+            <span class="badge-source">立命館大*</span>
+            <span class="badge-pattern">群動詞の受動態</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">彼はいろいろな場所で暮らしたことがあるが，北京で育った。</div>
+          <div class="q-en-frame">He has lived in many places, but he was <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u> in Beijing.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-5-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-5-2')">Step 2: 文法ルール・連語</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-2-5-3')">Step 3: 語数・トラップ回避</button>
+            </div>
+
+            <div id="h-2-5-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: was の存在に着目！</div>
+              空所の前に「he was」があります！<br>
+              自発的に成長した（grow up）ではなく、「育てられた（受動態 be + 過去分詞）」の形を要求しています。
+            </div>
+
+            <div id="h-2-5-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 「育てる」の他動詞と群動詞</div>
+              他動詞なら raise（過去分詞 raised）、群動詞なら bring up（過去分詞 brought up）です。
+            </div>
+
+            <div id="h-2-5-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 副詞 up の脱落に注意</div>
+              bring up を受動態にする場合、副詞の「up」を忘れて brought だけにしてしまわないよう注意しましょう。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文54（be brought up）を参照</span>
+            </div>
+          </div>
+
+          <div class="workspace-area">
+            <div class="workspace-header">
+              <span>📝 あなたの考え・仮説メモ（自動保存）</span>
+              <span id="save-2-5" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-2-5" class="workspace-input" placeholder="考えた英単語や疑問点をメモ..." oninput="saveNote('note-2-5', 'save-2-5')"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Exercises 3 -->
+    <div id="ex3" class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">✏️ 大問 3：動詞の適切な選択と活用</h2>
+        <span class="section-meta">[ call / get / make / seem / taste ] から選択・活用</span>
+      </div>
+
+      <div style="background: var(--primary-bg); padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1.2rem; font-size: 0.88rem;">
+        <strong>選択肢プール：</strong> [ call / get / make / seem / taste ]<br>
+        それぞれの動詞がとる文型（SVC なのか SVOC なのか）と、主語・時制による活用に注目しましょう。
+      </div>
+
+      <!-- 3-1 -->
+      <div class="q-card" id="card-3-1">
+        <div class="q-header" onclick="toggleCard('card-3-1')">
+          <div class="q-num">
+            <span>□ 1.</span>
+            <span class="badge-source">二松學舍大*</span>
+            <span class="badge-pattern">SVC・味覚動詞</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-en-frame">This juice ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) a little sour.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-1-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-1-2')">Step 2: 意味と動詞選択</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-1-3')">Step 3: 三単現・活用の確認</button>
+            </div>
+
+            <div id="h-3-1-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 文型チェック</div>
+              主語「This juice」＋ 動詞 ＋ 補語「a little sour（少しすっぱい）」の第2文型（SVC）です。
+            </div>
+            <div id="h-3-1-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 選択肢の照合</div>
+              「すっぱい」という味を表す形容詞（sour）と相性が良いのは、味覚を表す動詞ですね。
+            </div>
+            <div id="h-3-1-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 主語と語尾の s</div>
+              主語「This juice」は数えられない名詞（単数扱い）です。現在の性質を述べているので、語尾に何をつける必要がありますか？
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの考え・仮説メモ</span><span id="save-3-1" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-3-1" class="workspace-input" placeholder="考えた動詞・語形をメモ..." oninput="saveNote('note-3-1', 'save-3-1')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-2 -->
+      <div class="q-card" id="card-3-2">
+        <div class="q-header" onclick="toggleCard('card-3-2')">
+          <div class="q-num">
+            <span>□ 2.</span>
+            <span class="badge-source">東北福祉大*</span>
+            <span class="badge-pattern">SVC・判断・印象</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-en-frame">This Japanese restaurant ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) very expensive.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-2-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-2-2')">Step 2: 意味と動詞選択</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-2-3')">Step 3: 三単現・活用の確認</button>
+            </div>
+
+            <div id="h-3-2-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 文型チェック</div>
+              主語「This Japanese restaurant」＋ 動詞 ＋ 補語「very expensive（とても高価だ）」のSVCです。
+            </div>
+            <div id="h-3-2-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 選択肢の照合</div>
+              「〜のように思える／〜そうに見える」という推測・印象を表す動詞はどれでしょう？（例文45で学んだ動詞です）
+            </div>
+            <div id="h-3-2-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 主語の単数形</div>
+              主語は単数形「restaurant」です。現在形の三人称単数の語尾変化を忘れずに。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文45（seem + 形容詞）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの考え・仮説メモ</span><span id="save-3-2" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-3-2" class="workspace-input" placeholder="考えた動詞・語形をメモ..." oninput="saveNote('note-3-2', 'save-3-2')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-3 -->
+      <div class="q-card" id="card-3-3">
+        <div class="q-header" onclick="toggleCard('card-3-3')">
+          <div class="q-num">
+            <span>□ 3.</span>
+            <span class="badge-source">オリジナル</span>
+            <span class="badge-pattern">SVOC・OをCにする</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-en-frame">My husband ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) our children ready for school.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-3-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-3-2')">Step 2: 意味と動詞選択</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-3-3')">Step 3: 三単現・活用の確認</button>
+            </div>
+
+            <div id="h-3-3-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 文型チェック</div>
+              主語「My husband」＋ 動詞 ＋ 目的語「our children」＋ 補語「ready for school（学校へ行く準備ができた状態）」のSVOCです（子どもたち ＝ 準備完了）。
+            </div>
+            <div id="h-3-3-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 選択肢の照合</div>
+              「OをCの状態にさせる、準備させる」という使役的なニュアンスを持つ動詞で、〈... + O + ready〉の形で非常によく使われる基本動詞（g...）があります。
+            </div>
+            <div id="h-3-3-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 主語の単数形</div>
+              主語「My husband」に対する現在形の三単現の s を忘れずに。
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの考え・仮説メモ</span><span id="save-3-3" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-3-3" class="workspace-input" placeholder="考えた動詞・語形をメモ..." oninput="saveNote('note-3-3', 'save-3-3')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-4 -->
+      <div class="q-card" id="card-3-4">
+        <div class="q-header" onclick="toggleCard('card-3-4')">
+          <div class="q-num">
+            <span>□ 4.</span>
+            <span class="badge-source">広島工業大*</span>
+            <span class="badge-pattern">SVOC・命名・呼称</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-en-frame">What do you ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) this in English?</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-4-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-4-2')">Step 2: 疑問詞 What との相性</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-4-3')">Step 3: 助動詞後の語形</button>
+            </div>
+
+            <div id="h-3-4-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 元の肯定文を考える</div>
+              肯定文なら「You ( ... ) this [何らかの名前] in English」というSVOCの文です。<br>
+              Cにあたる名前の部分が疑問詞「What」になって文頭に出ています。
+            </div>
+            <div id="h-3-4-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 選択肢の照合</div>
+              「OをCと呼ぶ」の動詞です。※ sayを使う場合は「How do you say this in English?」とHowを使います。Whatを使うのはどの動詞でしょう？
+            </div>
+            <div id="h-3-4-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: do you の後ろ</div>
+              助動詞 do の後なので動詞は<strong>原形</strong>です。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文49（call O C）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの考え・仮説メモ</span><span id="save-3-4" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-3-4" class="workspace-input" placeholder="考えた動詞・語形をメモ..." oninput="saveNote('note-3-4', 'save-3-4')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-5 -->
+      <div class="q-card" id="card-3-5">
+        <div class="q-header" onclick="toggleCard('card-3-5')">
+          <div class="q-num">
+            <span>□ 5.</span>
+            <span class="badge-source">オリジナル</span>
+            <span class="badge-pattern">SVOC・使役 make</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-en-frame">Money won’t always ( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ) you happy.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-5-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-5-2')">Step 2: 意味と動詞選択</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-3-5-3')">Step 3: 助動詞 won't の後ろ</button>
+            </div>
+
+            <div id="h-3-5-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 文型チェック</div>
+              主語「Money」＋ 述語 ＋ 目的語「you」＋ 補語「happy（形容詞）」のSVOC構文です（あなた ＝ 幸せ）。
+            </div>
+            <div id="h-3-5-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 選択肢の照合</div>
+              「OをC（の状態）にする」を表す最も代表的な使役動詞は何でしょう？
+            </div>
+            <div id="h-3-5-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 語形チェック</div>
+              助動詞 won't (will not) の後にあるので動詞は<strong>原形</strong>のまま入ります。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文50（make O C）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの考え・仮説メモ</span><span id="save-3-5" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-3-5" class="workspace-input" placeholder="考えた動詞・語形をメモ..." oninput="saveNote('note-3-5', 'save-3-5')"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Exercises 4 -->
+    <div id="ex4" class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">✏️ 大問 4：語句整序（並べかえ問題）</h2>
+        <span class="section-meta">4問 ／ カッコ内の語句を論理的に整理</span>
+      </div>
+
+      <!-- 4-1 -->
+      <div class="q-card" id="card-4-1">
+        <div class="q-header" onclick="toggleCard('card-4-1')">
+          <div class="q-num">
+            <span>□ 1.</span>
+            <span class="badge-source">追手門学院大</span>
+            <span class="badge-pattern">群動詞 get along with</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">ジョージのような男とは到底うまくやっていけないよ。</div>
+          <div class="q-en-frame">I just ( can’t / a / along / get / man / with ) like George.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-1-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-1-2')">Step 2: 熟語のブロック化</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-1-3')">Step 3: 目的語の配置</button>
+            </div>
+
+            <div id="h-4-1-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 文頭・文末の接続</div>
+              主語「I just」の後には助動詞が来ます。<br>
+              文末の「like George（ジョージのような）」は直前の名詞を修飾します。
+            </div>
+            <div id="h-4-1-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 「〜とうまくやっていく」</div>
+              例文57にも登場した超重要イディオム<strong>〈get along with 〜〉</strong>を固まりにします。<br>
+              助動詞 can't の後ろに get along with をつなげましょう。
+            </div>
+            <div id="h-4-1-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 前置詞 with の目的語</div>
+              残った「a」と「man」を冠詞＋名詞の順で配置し、「a man like George（ジョージのような男）」を完成させます。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文57（get along with ~）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの考え・仮説メモ</span><span id="save-4-1" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-4-1" class="workspace-input" placeholder="語句の並び替えメモ..." oninput="saveNote('note-4-1', 'save-4-1')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-2 -->
+      <div class="q-card" id="card-4-2">
+        <div class="q-header" onclick="toggleCard('card-4-2')">
+          <div class="q-num">
+            <span>□ 2.</span>
+            <span class="badge-source">駒澤大*</span>
+            <span class="badge-pattern">It seems that 構文</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">テレビを見ているうちに眠ってしまったようだ。</div>
+          <div class="q-en-frame">( asleep / fell / I / it / that / seems ) while I was watching TV.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-2-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-2-2')">Step 2: 熟語のブロック化</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-2-3')">Step 3: that節内の組み立て</button>
+            </div>
+
+            <div id="h-4-2-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 「〜のようだ」の構文</div>
+              文頭の候補に it と seems があります。<br>
+              例文45のcfで示された<strong>〈It seems that S' + V' ...〉</strong>の構文を文頭に置く形です（It は文頭大文字）。
+            </div>
+            <div id="h-4-2-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 「眠りに落ちる」の熟語</div>
+              「眠りに落ちる、寝入ってしまう」は動詞 fall（過去形 fell）と形容詞 asleep を使って〈fall asleep〉と表します。
+            </div>
+            <div id="h-4-2-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: that 節の主語と動詞</div>
+              that の後ろに節（主語 I ＋ 動詞句 fell asleep）を続けます。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文45（It seems that ...）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの考え・仮説メモ</span><span id="save-4-2" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-4-2" class="workspace-input" placeholder="語句の並び替えメモ..." oninput="saveNote('note-4-2', 'save-4-2')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-3 -->
+      <div class="q-card" id="card-4-3">
+        <div class="q-header" onclick="toggleCard('card-4-3')">
+          <div class="q-num">
+            <span>□ 3.</span>
+            <span class="badge-source">関西学院大*</span>
+            <span class="badge-pattern">request O to do ＋ keep O p.p.</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">彼女に健康状態を随時知らせてくれるよう依頼しました。</div>
+          <div class="q-en-frame">I ( her / informed / keep / me / requested / to ) of her health condition.</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-3-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-3-2')">Step 2: 2つの構文の連結</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-3-3')">Step 3: 人称代名詞（her と me）の配置</button>
+            </div>
+
+            <div id="h-4-3-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 全体の文型</div>
+              主語「I」の後に入るメイン動詞は「requested（〜に頼んだ）」です。<br>
+              〈request ＋ 人 ＋ to do〉で「人に〜するよう頼む」という構文を作ります。
+            </div>
+            <div id="h-4-3-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: to の後ろの動詞句</div>
+              to の後ろには原形動詞「keep」が来ます。<br>
+              keep はSVOCの文型をとり、〈keep ＋ O ＋ informed of 〜〉で「Oに〜を常に知らせておく」という意味になります。
+            </div>
+            <div id="h-4-3-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 誰が誰に知らせるのか？</div>
+              「私が彼女（her）に頼んだ」→「私（me）に知らせておくよう」という関係です。<br>
+              I requested [ 頼んだ相手 ] to keep [ 情報を受け取る私 ] informed of ... の順で配置しましょう！<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文51（keep O C：過去分詞補語）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの考え・仮説メモ</span><span id="save-4-3" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-4-3" class="workspace-input" placeholder="語句の並び替えメモ..." oninput="saveNote('note-4-3', 'save-4-3')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4-4 -->
+      <div class="q-card" id="card-4-4">
+        <div class="q-header" onclick="toggleCard('card-4-4')">
+          <div class="q-num">
+            <span>□ 4.</span>
+            <span class="badge-source">活水女子大</span>
+            <span class="badge-pattern">形式目的語構文 find it C to do</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">彼らは新しい友達をつくるのは簡単だと思っている。</div>
+          <div class="q-en-frame">They ( easy / make / new friends / it / to / find ).</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-4-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-4-2')">Step 2: 形式目的語 it の配置</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-4-4-3')">Step 3: 真目的語（to do）の組み立て</button>
+            </div>
+
+            <div id="h-4-4-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 形式目的語構文</div>
+              主語「They」の後に動詞「find」が来ます。<br>
+              例文57で学習した超重要構文<strong>〈find ＋ it ＋ 形容詞C ＋ to do ...〉</strong>（〜するのは…だとわかる／思う）を使います。
+            </div>
+            <div id="h-4-4-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 補語Cに入る形容詞</div>
+              「簡単だと思っている」なので、Cには「easy」が入ります。
+            </div>
+            <div id="h-4-4-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 「友達をつくる」の連語</div>
+              真の目的語である to 不定詞句を作ります。「新しい友達をつくる」＝〈make new friends〉を to の後ろに続けましょう。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文57（find it difficult to ...）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの考え・仮説メモ</span><span id="save-4-4" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-4-4" class="workspace-input" placeholder="語句の並び替えメモ..." oninput="saveNote('note-4-4', 'save-4-4')"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Exercises 5 -->
+    <div id="ex5" class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">✍️ 大問 5：和文英訳の思考プロセス</h2>
+        <span class="section-meta">5問 ／ 日本語の直訳から英語らしい発想へ</span>
+      </div>
+
+      <!-- 5-1 -->
+      <div class="q-card" id="card-5-1">
+        <div class="q-header" onclick="toggleCard('card-5-1')">
+          <div class="q-num">
+            <span>□ 1.</span>
+            <span class="badge-source">オリジナル</span>
+            <span class="badge-pattern">無生物主語 ＋ make O C</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">メアリーの態度にはいつもうんざりする[気分が悪くなる]。</div>
+
+          <div class="logic-box">
+            <strong>💡 日本語発想から英語発想への転換：</strong>
+            <p>「私がうんざりする」と “I am always sick of...” と書いても通じますが、英語では<strong>「メアリーの態度が【いつも】【私を】【気分が悪く／うんざり】させる」</strong>という〈無生物主語 ＋ make ＋ O ＋ C〉の形を好みます！</p>
+          </div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-1-1')">Step 1: 主語と動詞の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-1-2')">Step 2: 語彙と補語の選択</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-1-3')">Step 3: 頻度副詞 always の位置</button>
+            </div>
+
+            <div id="h-5-1-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 骨格の設計</div>
+              主語（S）＝「メアリーの態度（Mary's attitude）」<br>
+              動詞（V）＝「〜にする（make）」<br>
+              目的語（O）＝「私を（me）」<br>
+              補語（C）＝「うんざりして／気分が悪く（形容詞）」
+            </div>
+            <div id="h-5-1-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 補語 C の形容詞</div>
+              「うんざりする、吐き気がする、気分が悪い」は基本単語 <strong>sick</strong>（または disgusted）で表せます。make me sick で「私をうんざりさせる」という定番表現です。
+            </div>
+            <div id="h-5-1-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 三単現のsと副詞 always</div>
+              attitude は単数名詞なので動詞 make には三単現の s が付きます。<br>
+              頻度副詞 always は一般動詞の前（makes の直前）に置きましょう！<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文50（make O C）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの英文ドラフト（自動保存）</span><span id="save-5-1" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-5-1" class="workspace-input" placeholder="自分で組み立てた英文を書いてみよう..." oninput="saveNote('note-5-1', 'save-5-1')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5-2 -->
+      <div class="q-card" id="card-5-2">
+        <div class="q-header" onclick="toggleCard('card-5-2')">
+          <div class="q-num">
+            <span>□ 2.</span>
+            <span class="badge-source">同志社大</span>
+            <span class="badge-pattern">S = to do ＋ 慣れる get used to</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">まず私がしたいことは，通りを歩き回って，この近所に慣れておくことだ。</div>
+
+          <div class="logic-box">
+            <strong>💡 文のパーツを分解して整理する：</strong>
+            <div class="logic-grid">
+              <div class="logic-item"><strong>パーツ① 主語：</strong>「まず私がしたいこと」<br>The first thing (that) I'd like to do / What I want to do first</div>
+              <div class="logic-item"><strong>パーツ② 動詞：</strong>「〜だ」<br>is</div>
+              <div class="logic-item"><strong>パーツ③ 補語（動作A）：</strong>「通りを歩き回ること」<br>(to) walk around the streets</div>
+              <div class="logic-item"><strong>パーツ④ 補語（動作B）：</strong>「この近所に慣れること」<br>and get used to this neighborhood</div>
+            </div>
+          </div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-2-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-2-2')">Step 2: 熟語・語彙の選定</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-2-3')">Step 3: 応用知識（to不定詞の省略）</button>
+            </div>
+
+            <div id="h-5-2-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 文全体の構造</div>
+              主語（S）＋ is（V）＋ [ to do A and (to) do B ]（C）の第2文型（SVC）です。
+            </div>
+            <div id="h-5-2-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 連語の確認</div>
+              ・「歩き回る」＝ walk around ~<br>
+              ・「〜に慣れる」＝ Hintsにある get used to ~（または get accustomed to ~）<br>
+              ・「近所」＝ neighborhood
+            </div>
+            <div id="h-5-2-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 特殊文法（The first thing... の to省略）</div>
+              主語に the first thing, the only thing, all など強い限定語がある場合、補語の to不定詞の「to」が省略されて原形動詞（walk around...）になることがよくあります（to をつけても正解です）。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文46（C ＝ to 不定詞）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの英文ドラフト（自動保存）</span><span id="save-5-2" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-5-2" class="workspace-input" placeholder="自分で組み立てた英文を書いてみよう..." oninput="saveNote('note-5-2', 'save-5-2')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5-3 -->
+      <div class="q-card" id="card-5-3">
+        <div class="q-header" onclick="toggleCard('card-5-3')">
+          <div class="q-num">
+            <span>□ 3.</span>
+            <span class="badge-source">愛知教育大*</span>
+            <span class="badge-pattern">過去の意図 ＋ 徹夜する</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">徹夜で英語の勉強をするつもりだったんだ。</div>
+
+          <div class="logic-box">
+            <strong>💡 日本語発想から英語発想への転換：</strong>
+            <p>「〜するつもりだった（過去の予定・意図）」＋「一晩中起きている（徹夜する）」＋「英語を勉強するために（目的）」という論理の組み立てで考えます。</p>
+          </div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-3-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-3-2')">Step 2: 「徹夜する」「〜するつもり」の表現</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-3-3')">Step 3: 目的を表す不定詞</button>
+            </div>
+
+            <div id="h-5-3-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 骨格の設計</div>
+              主語「I」＋ 過去の意図動詞 ＋ 不定詞（徹夜すること）＋ 不定詞（勉強するため）
+            </div>
+            <div id="h-5-3-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: キーフレーズ</div>
+              ・「〜するつもりだった」＝ I planned to do / I was going to do<br>
+              ・「徹夜する（一晩中起きている）」＝ <strong>stay up all night</strong>（夜更かしするなら stay up late）
+            </div>
+            <div id="h-5-3-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 不定詞の連続を整理</div>
+              I planned to stay up all night [to study English]. または現在分詞を使って ...stay up all night [studying English] と表現することも可能です。
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの英文ドラフト（自動保存）</span><span id="save-5-3" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-5-3" class="workspace-input" placeholder="自分で組み立てた英文を書いてみよう..." oninput="saveNote('note-5-3', 'save-5-3')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5-4 -->
+      <div class="q-card" id="card-5-4">
+        <div class="q-header" onclick="toggleCard('card-5-4')">
+          <div class="q-num">
+            <span>□ 4.</span>
+            <span class="badge-source">成城大*</span>
+            <span class="badge-pattern">find it necessary to do</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">良い成績を取るためには，授業に出席し，宿題をすることが必要だとわかった。</div>
+
+          <div class="logic-box">
+            <strong>💡 文のパーツを分解して整理する：</strong>
+            <div class="logic-grid">
+              <div class="logic-item"><strong>パーツ① 主語・動詞・補語：</strong>「〜することが必要だとわかった」<br>I found it necessary to do...</div>
+              <div class="logic-item"><strong>パーツ② 真の目的語（並列）：</strong>「授業に出て宿題をすること」<br>to attend classes and do my homework</div>
+              <div class="logic-item"><strong>パーツ③ 目的：</strong>「良い成績を取るために」<br>to get a good grade [good grades]</div>
+            </div>
+          </div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-4-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-4-2')">Step 2: 形式目的語構文の適用</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-4-3')">Step 3: 「出席する」「成績」の語彙</button>
+            </div>
+
+            <div id="h-5-4-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 構文の決定</div>
+              例文57の超重要構文<strong>〈find ＋ it ＋ 形容詞 ＋ to do〉</strong>をそのまま使います！「必要だ」は形容詞 necessary です。
+            </div>
+            <div id="h-5-4-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 語彙の確認</div>
+              ・「授業に出席する」＝ attend classes（attend は他動詞なので to 不要！）<br>
+              ・「宿題をする」＝ do my homework（homework は不可算名詞なので -s は付けない）<br>
+              ・「良い成績を取る」＝ get a good grade / get good scores
+            </div>
+            <div id="h-5-4-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 別解のパターン（that節）</div>
+              SVOの文型として「I found (that) I needed to attend classes and do my homework to get a good grade.」と書き換えることも可能です。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文57（find it difficult to ~）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの英文ドラフト（自動保存）</span><span id="save-5-4" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-5-4" class="workspace-input" placeholder="自分で組み立てた英文を書いてみよう..." oninput="saveNote('note-5-4', 'save-5-4')"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5-5 -->
+      <div class="q-card" id="card-5-5">
+        <div class="q-header" onclick="toggleCard('card-5-5')">
+          <div class="q-num">
+            <span>□ 5.</span>
+            <span class="badge-source">札幌大</span>
+            <span class="badge-pattern">look forward to -ing</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp">私はこの大学で新しい友達と英語を学ぶのを楽しみにしています。</div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-5-1')">Step 1: 文型・語順の骨格</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-5-2')">Step 2: 連語と超重要文法ルール</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-5-5-3')">Step 3: 修飾語句の並び順</button>
+            </div>
+
+            <div id="h-5-5-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 骨格の設計</div>
+              主語「I」＋ 述語「楽しみにしている」＋「〜することを」＋「新しい友達と」＋「この大学で」
+            </div>
+            <div id="h-5-5-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 超重要！toの後ろは何か？</div>
+              例文58の重要表現<strong>〈look forward to ~〉</strong>を使います。<br>
+              進行形「I'm looking forward to ~」にするのが一般的です。<br>
+              ここで最も重要なルール：この <strong>to は前置詞</strong>です！後ろは不定詞の原形ではなく<strong>動名詞（-ing）</strong>にしなければなりません！（learn ではなく learning）
+            </div>
+            <div id="h-5-5-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 修飾語の語順</div>
+              learning English（英語を学ぶこと）＋ with new friends（新しい友達と一緒に）＋ at this university（この大学で）と論理的につなげましょう。<br>
+              <span class="ref-link" onclick="scrollToElement('section-core')">🔗 例文58（look forward to -ing）を参照</span>
+            </div>
+          </div>
+          <div class="workspace-area">
+            <div class="workspace-header"><span>📝 あなたの英文ドラフト（自動保存）</span><span id="save-5-5" class="save-indicator">保存完了 ✓</span></div>
+            <textarea id="note-5-5" class="workspace-input" placeholder="自分で組み立てた英文を書いてみよう..." oninput="saveNote('note-5-5', 'save-5-5')"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Exercises 6 -->
+    <div id="ex6" class="section-block">
+      <div class="section-header">
+        <h2 class="section-title">💬 大問 6：対話・論理的意見表現（専修大*）</h2>
+        <span class="section-meta">マイクへの応答文（英語エッセイ・パラグラフ構成）</span>
+      </div>
+
+      <div class="q-card" id="card-6">
+        <div class="q-header" onclick="toggleCard('card-6')">
+          <div class="q-num">
+            <span>Question Prompt</span>
+            <span class="badge-source">専修大*</span>
+            <span class="badge-pattern">対話型自由英作文</span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">ヒントを展開 ▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-jp" style="margin-bottom: 0.8rem;">次の会話文を完成させなさい。</div>
+          <div class="q-en-frame" style="line-height: 1.6;">
+            <strong>Mike:</strong> I’m studying club activities in Japanese high schools. Is it acceptable for schools to require all students to participate in club activities? What do you think about this?<br>
+            <strong>Ken:</strong> <u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </u>
+          </div>
+
+          <div class="logic-box" style="margin-top: 1rem;">
+            <strong>🎯 マイクの質問の核心を分析する：</strong>
+            <ul style="margin: 0.5rem 0 0 1.2rem; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>主題：</strong>日本の高校における部活動（club activities in Japanese high schools）</li>
+              <li><strong>論点：</strong>「学校が生徒全員に部活動参加を義務付けること（require all students to participate...）は受け入れられるか（acceptable）？」</li>
+              <li><strong>あなたのタスク：</strong>マイクの問いに対し、賛成または反対の立場を明確にし、説得力のある理由・具体例を論理的に述べる。</li>
+            </ul>
+          </div>
+
+          <div class="q-hints-container">
+            <div class="hint-step-ctrls">
+              <button class="btn-step" onclick="toggleHint(this, 'h-6-1')">Step 1: 立場表明の型（Claim）</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-6-2')">Step 2: 譲歩と理由の展開（Counter & Reason）</button>
+              <button class="btn-step" onclick="toggleHint(this, 'h-6-3')">Step 3: 結論と権利の主張（Conclusion）</button>
+            </div>
+
+            <div id="h-6-1" class="hint-box hint-step1">
+              <div class="hint-title">🧭 Step 1: 立場表明（冒頭の1文）</div>
+              マイクの「Is it acceptable...?」を直接受けて答えます。<br>
+              <strong>【反対の立場（公式解答例の方向）：】</strong><br>
+              ・I don't think it's acceptable to require all students to participate in club activities.<br>
+              （すべての生徒に部活参加を求めることは受け入れられないと思います）<br>
+              <strong>【賛成の立場：】</strong><br>
+              ・I think it is acceptable [a good idea] for schools to encourage all students to join club activities.<br>
+              （全員に参加を促すことは受け入れられる／良いことだと思います）
+            </div>
+
+            <div id="h-6-2" class="hint-box hint-step2">
+              <div class="hint-title">💡 Step 2: 譲歩（Of course...）と本論（However...）</div>
+              説得力を高める論理展開テクニック：<br>
+              1. <strong>譲歩（相手側の利点を認める）：</strong>「もちろん部活で多くを学べるのは事実だ」<br>
+              → Of course, students can learn a lot through club activities (teamwork, communication).<br>
+              2. <strong>反論・理由（義務化に反対する具体的理由）：</strong>「しかし、生徒には個別の事情がある」<br>
+              ・勉強に専念したい生徒（want to concentrate on studying）<br>
+              ・家庭を助けるためにアルバイトが必要な生徒（need to work part-time to help their family）<br>
+              ・学校外で別の活動（習い事や地域のスポーツ）をしている生徒
+            </div>
+
+            <div id="h-6-3" class="hint-box hint-step3">
+              <div class="hint-title">⚠️ Step 3: 結論（まとめ）の表現</div>
+              自分の意見（In my opinion / Therefore）で締めくくります。<br>
+              ・「高校生には放課後の時間をどう過ごすかを選ぶ権利があるべきだ」<br>
+              → high school students should have a right to choose how to spend their time after school.<br>
+              〈have a right to do（〜する権利を持つ）〉〈choose how to spend...（どう過ごすかを選ぶ）〉などの構文が非常に効果的です！
+            </div>
+          </div>
+
+          <div class="workspace-area" style="margin-top: 1.2rem;">
+            <div class="workspace-header">
+              <span>📝 あなたのエッセイ・思考メモ（自動保存）</span>
+              <span id="save-6" class="save-indicator">保存完了 ✓</span>
+            </div>
+            <textarea id="note-6" class="workspace-input" style="min-height: 120px;" placeholder="立場（I think / I don't think...）、理由（Of course..., However...）、結論（In my opinion...）を英語で書いてみよう..." oninput="saveNote('note-6', 'save-6')"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- /container -->
+
+  <script>
+    // Toggle Card Visibility
+    function toggleCard(cardId) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      const body = card.querySelector('.q-body');
+      if (body) {
+        if (body.style.display === 'none') {
+          body.style.display = 'block';
+        } else {
+          body.style.display = 'none';
+        }
+      }
+    }
+
+    // Toggle Progressive Hint
+    function toggleHint(btn, hintId) {
+      const hint = document.getElementById(hintId);
+      if (!hint) return;
+      if (hint.classList.contains('show')) {
+        hint.classList.remove('show');
+        btn.classList.remove('active');
+      } else {
+        hint.classList.add('show');
+        btn.classList.add('active');
+      }
+    }
+
+    // Expand All Hints
+    function expandAllHints() {
+      document.querySelectorAll('.hint-box').forEach(el => el.classList.add('show'));
+      document.querySelectorAll('.btn-step').forEach(el => el.classList.add('active'));
+      document.querySelectorAll('.q-body').forEach(el => el.style.display = 'block');
+    }
+
+    // Collapse All Hints
+    function collapseAllHints() {
+      document.querySelectorAll('.hint-box').forEach(el => el.classList.remove('show'));
+      document.querySelectorAll('.btn-step').forEach(el => el.classList.remove('active'));
+    }
+
+    // Smooth Scroll
+    function scrollToElement(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // LocalStorage Note Saving
+    function saveNote(inputId, indicatorId) {
+      const val = document.getElementById(inputId).value;
+      localStorage.setItem('l2_2_note_' + inputId, val);
+      const ind = document.getElementById(indicatorId);
+      if (ind) {
+        ind.classList.add('active');
+        clearTimeout(ind.timer);
+        ind.timer = setTimeout(() => ind.classList.remove('active'), 1500);
+      }
+    }
+
+    // Load Notes
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.workspace-input').forEach(input => {
+        const saved = localStorage.getItem('l2_2_note_' + input.id);
+        if (saved !== null) {
+          input.value = saved;
+        }
+      });
+
+      // Search Filter
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const query = e.target.value.toLowerCase().trim();
+          document.querySelectorAll('.q-card').forEach(card => {
+            const text = card.innerText.toLowerCase();
+            if (text.includes(query)) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
