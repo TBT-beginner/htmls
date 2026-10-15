@@ -1,0 +1,411 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>no more than の温度感</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+  /* レイアウト：1本の読み物の列。温度（たった＝冷たい青／なんと＝熱い赤）を色の軸にする */
+  :root {
+    --bg: #f2f5f8;
+    --paper: #ffffff;
+    --ink: #18212b;
+    --muted: #5a6573;
+    --line: #d6dee6;
+    --cool: #2f6fd0;      /* たった・少ない */
+    --cool-soft: #e3edfb;
+    --hot: #d9472f;       /* なんと・多い */
+    --hot-soft: #fbe6e1;
+    --ok: #1f8a5b;
+    --display: 'Dela Gothic One', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    --body: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+    --en: 'Newsreader', 'Georgia', 'Times New Roman', serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #11161c; --paper: #1a2129; --ink: #e7edf3; --muted: #9aa6b4; --line: #2c3743;
+      --cool: #74a9ff; --cool-soft: #1c2b42; --hot: #ff7a63; --hot-soft: #3a211d; --ok: #4cc28d;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #11161c; --paper: #1a2129; --ink: #e7edf3; --muted: #9aa6b4; --line: #2c3743;
+    --cool: #74a9ff; --cool-soft: #1c2b42; --hot: #ff7a63; --hot-soft: #3a211d; --ok: #4cc28d;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.85;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 64px;
+  }
+  main { max-width: 720px; margin: 0 auto; display: grid; gap: 56px; }
+  h1, h2 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: 0.01em; }
+  h1 { font-size: clamp(30px, 7vw, 46px); line-height: 1.25; }
+  h2 { font-size: clamp(22px, 4.6vw, 28px); line-height: 1.35; }
+  h3 { margin: 0; font-size: 17px; }
+  p { margin: 0; }
+  .en { font-family: var(--en); font-size: 1.12em; letter-spacing: 0.005em; }
+  .muted { color: var(--muted); }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; color: var(--muted); }
+  section { display: grid; gap: 18px; }
+  b.cool, .cool { color: var(--cool); }
+  b.hot, .hot { color: var(--hot); }
+  :focus-visible { outline: 3px solid var(--cool); outline-offset: 2px; }
+
+  /* ===== 冒頭：同じ買い物，ちがう反応 ===== */
+  .hero { display: grid; gap: 20px; }
+  .chats { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .chat { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; }
+  .msg { max-width: 92%; padding: 9px 13px; border-radius: 16px; line-height: 1.5; }
+  .msg.them { background: var(--bg); border-bottom-left-radius: 4px; justify-self: start; }
+  .msg.me { justify-self: end; border-bottom-right-radius: 4px; font-weight: 700; }
+  .chat.c .msg.me { background: var(--cool-soft); color: var(--cool); }
+  .chat.h .msg.me { background: var(--hot-soft); color: var(--hot); }
+  .who { font-size: 12px; color: var(--muted); }
+
+  /* ===== しくみ ===== */
+  .rule { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .rule > div { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 6px; min-width: 0; }
+  .rule .num { font-family: var(--display); font-size: 15px; color: var(--muted); }
+  @media (max-width: 560px) { .rule { grid-template-columns: 1fr; } }
+
+  /* 4つの言い方を切り替えて見比べる */
+  .lab { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 16px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tabs button {
+    font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 999px; padding: 6px 14px;
+    border: 1.5px solid var(--line); background: transparent; color: var(--ink);
+  }
+  .tabs button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .sentence { font-family: var(--en); font-size: clamp(20px, 4.6vw, 26px); line-height: 1.4; }
+  .sentence mark { background: none; color: inherit; border-bottom: 3px solid currentColor; padding: 0 1px; }
+  .meter { position: relative; height: 54px; }
+  .meter .track { position: absolute; left: 0; right: 0; top: 24px; height: 6px; border-radius: 3px; background: var(--line); }
+  .meter .fill { position: absolute; top: 24px; height: 6px; border-radius: 3px; transition: left .3s, right .3s, background .3s; }
+  .meter .pin { position: absolute; top: 14px; width: 2px; height: 26px; background: var(--ink); left: 50%; }
+  .meter .pin span { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); font-size: 12px; white-space: nowrap; color: var(--muted); }
+  .meter .flag { position: absolute; top: -2px; font-size: 13px; font-weight: 700; white-space: nowrap; transition: left .3s; transform: translateX(-50%); }
+  .read { display: grid; gap: 4px; }
+  .read .ja { font-size: 18px; font-weight: 700; }
+  @media (prefers-reduced-motion: reduce) { .meter .fill, .meter .flag { transition: none; } }
+
+  /* ===== 場面カード ===== */
+  .scenes { display: grid; gap: 12px; }
+  .scene { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 8px; border-left: 5px solid var(--line); }
+  .scene.c { border-left-color: var(--cool); }
+  .scene.h { border-left-color: var(--hot); }
+  .scene.n { border-left-color: var(--ink); }
+  .where { font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+  .scene .en { font-size: 1.22em; line-height: 1.45; }
+  .scene .ja { font-weight: 700; }
+  .scene .why { font-size: 14.5px; color: var(--muted); }
+
+  .note { background: var(--paper); border: 1px dashed var(--line); border-radius: 12px; padding: 14px 16px; font-size: 14.5px; display: grid; gap: 6px; }
+  .note h3 { font-size: 14.5px; }
+
+  /* 2つを比べる形の図 */
+  .pair { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; font-size: 14.5px; }
+  .pair .box { background: var(--bg); border-radius: 10px; padding: 8px 10px; text-align: center; line-height: 1.5; }
+  .pair .eq { font-family: var(--display); font-size: 18px; }
+
+  /* ===== 確認 ===== */
+  .quiz { display: grid; gap: 12px; counter-reset: q; }
+  .q { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 10px; }
+  .q .ctx { font-size: 13px; color: var(--muted); }
+  .q .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .q .opts button {
+    font: inherit; font-size: 14.5px; cursor: pointer; text-align: left; border-radius: 10px; padding: 7px 12px;
+    border: 1.5px solid var(--line); background: transparent; color: var(--ink);
+  }
+  .q .opts button:hover:not(:disabled) { border-color: var(--ink); }
+  .q .opts button.right { border-color: var(--ok); color: var(--ok); font-weight: 700; }
+  .q .opts button.wrong { border-color: var(--hot); color: var(--hot); text-decoration: line-through; }
+  .q .opts button:disabled { cursor: default; }
+  .q .fb { font-size: 14.5px; }
+  .score { font-weight: 700; }
+  .reset { justify-self: start; font: inherit; font-size: 14px; cursor: pointer; border: 1.5px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 14px; }
+
+  /* ===== まとめ表 ===== */
+  .sum { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--paper); border-radius: 12px; overflow: hidden; font-size: 15px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 13px; color: var(--muted); font-weight: 700; }
+  td.en { white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+</style>
+
+<main>
+  <!-- ===== 冒頭 ===== -->
+  <header class="hero">
+    <p class="kicker">比較の no ／ 高校英語</p>
+    <h1>no more than と no less than、<br>ほんとはどんな気持ち？</h1>
+    <p>友達が新しいヘッドホンを買いました。値段の言い方が少し変わるだけで，返事はこんなに変わります。</p>
+    <div class="chats">
+      <div class="chat c" aria-label="no more than の会話">
+        <span class="who">友達</span>
+        <p class="msg them en">Look! They cost <b class="cool">no more than</b> ¥3,000.</p>
+        <p class="msg me">え，たった3千円!? 安っ！</p>
+      </div>
+      <div class="chat h" aria-label="no less than の会話">
+        <span class="who">友達</span>
+        <p class="msg them en">Look! They cost <b class="hot">no less than</b> ¥50,000.</p>
+        <p class="msg me">えっ，5万円も!? 高っ！</p>
+      </div>
+    </div>
+    <p>どちらも「値段を言っているだけ」ではありません。<b class="cool">no more than は「少ない」</b>，<b class="hot">no less than は「多い」</b>という話し手の気持ちがのっています。</p>
+  </header>
+
+  <!-- ===== しくみ ===== -->
+  <section aria-labelledby="h-how">
+    <h2 id="h-how">しくみは2つだけ</h2>
+    <div class="rule">
+      <div>
+        <span class="num">その1</span>
+        <h3>no は「差がゼロ」</h3>
+        <p>more than 3,000 なら「3千円より上」。そこに no がつくと「3千円より上の部分がゼロ」，つまり<b>ちょうど3千円</b>です。</p>
+      </div>
+      <div>
+        <span class="num">その2</span>
+        <h3>no は向きを逆にする</h3>
+        <p>more（多い）に no がつくと<b class="cool">「多くない＝少ない」</b>，less（少ない）に no がつくと<b class="hot">「少なくない＝多い」</b>。no が気持ちをひっくり返します。</p>
+      </div>
+    </div>
+
+    <div class="lab" aria-label="4つの言い方の見比べ">
+      <p class="muted" style="font-size:14px">ボタンを押して，同じ「30分」がどう聞こえるか比べてみましょう。</p>
+      <div class="tabs" role="group" aria-label="言い方を選ぶ">
+        <button type="button" id="t-more" data-k="more" aria-pressed="false">more than</button>
+        <button type="button" id="t-nomore" data-k="nomore" aria-pressed="true">no more than</button>
+        <button type="button" id="t-less" data-k="less" aria-pressed="false">less than</button>
+        <button type="button" id="t-noless" data-k="noless" aria-pressed="false">no less than</button>
+      </div>
+      <p class="sentence" id="lab-en"></p>
+      <div class="meter" aria-hidden="true">
+        <div class="track"></div>
+        <div class="fill" id="lab-fill"></div>
+        <div class="pin"><span>30分</span></div>
+        <div class="flag" id="lab-flag"></div>
+      </div>
+      <div class="read">
+        <p class="ja" id="lab-ja"></p>
+        <p class="muted" id="lab-why"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 数字といっしょ ===== -->
+  <section aria-labelledby="h-num">
+    <p class="kicker">いちばんよく見る形</p>
+    <h2 id="h-num">数字といっしょに使う</h2>
+    <p>実際の英語で目にするのは，ほとんどがこの形です。数字そのものより，<b>その数字を「少ない」と思っているか「多い」と思っているか</b>を読み取りましょう。</p>
+    <div class="scenes">
+      <article class="scene c">
+        <span class="where">部活のグループLINE</span>
+        <p class="en">Practice ends early today. It'll take <b class="cool">no more than</b> an hour.</p>
+        <p class="ja">今日は早く終わるよ。<span class="cool">たった1時間</span>だから。</p>
+        <p class="why">「1時間も」ではなく「1時間しか」。早く帰れるのがうれしい気持ちです。</p>
+      </article>
+      <article class="scene h">
+        <span class="where">ライブのニュース記事</span>
+        <p class="en"><b class="hot">No less than</b> 30,000 fans lined up for the concert.</p>
+        <p class="ja"><span class="hot">なんと3万人もの</span>ファンがコンサートに並んだ。</p>
+        <p class="why">記者が「すごい数だ」と驚いています。as many as（〜もの）とほぼ同じ気持ちです。</p>
+      </article>
+      <article class="scene h">
+        <span class="where">テーマパークで</span>
+        <p class="en">We waited <b class="hot">no less than</b> two hours for that ride!</p>
+        <p class="ja">あの乗り物，<span class="hot">2時間も</span>待ったんだよ！</p>
+        <p class="why">「長かった！」という不満や驚き。</p>
+      </article>
+      <article class="scene n">
+        <span class="where">英作文の問題文</span>
+        <p class="en">Write your answer in <b>no more than</b> 80 words.</p>
+        <p class="ja">80語<b>以内</b>で答えなさい。</p>
+        <p class="why">指示文では気持ちは入らず，「80語を超えてはいけない」という上限の意味になります。入試の英作文で毎回のように見る形です。</p>
+      </article>
+    </div>
+    <div class="note">
+      <h3>ネイティブの感覚</h3>
+      <p>会話では，no more than より <span class="en">only</span>（たった），no less than より <span class="en">as many as</span> や <span class="en">a whopping</span>（なんと）をよく使います。no less than は少しかたい響きで，ニュースやスピーチ向きです。<b>読んで気持ちがわかれば十分</b>な表現です。</p>
+    </div>
+  </section>
+
+  <!-- ===== 2つを比べる ===== -->
+  <section aria-labelledby="h-pair">
+    <p class="kicker">教科書によく出る形</p>
+    <h2 id="h-pair">2つのものを比べる</h2>
+    <p>A is no more B than C is D の形は，<b>相手も絶対にうなずく例（C）を持ち出して</b>，「A もそれと同じだよ」と言い切るための表現です。差はゼロなので，<b>A と C は同じ側</b>に立ちます。</p>
+    <div class="scenes">
+      <article class="scene c">
+        <span class="where">ネットでおなじみの論争「ホットドッグはサンドイッチか？」</span>
+        <p class="en">A hot dog is <b class="cool">no more</b> a sandwich <b class="cool">than</b> a taco is.</p>
+        <p class="ja">タコスがサンドイッチじゃないのと同じで，ホットドッグも<span class="cool">サンドイッチじゃない</span>。</p>
+        <div class="pair" aria-label="両方とも否定">
+          <div class="box">タコスは<br>サンドイッチ？ <b>✕</b></div>
+          <span class="eq">＝</span>
+          <div class="box">ホットドッグは<br>サンドイッチ？ <b>✕</b></div>
+        </div>
+        <p class="why">「タコスはサンドイッチだ」と思う人はいません。だからホットドッグも違う，という理屈です。<b>両方とも否定</b>。</p>
+      </article>
+      <article class="scene h">
+        <span class="where">保健室のポスター</span>
+        <p class="en">Sleep is <b class="hot">no less</b> important <b class="hot">than</b> studying.</p>
+        <p class="ja">睡眠は勉強と<span class="hot">同じくらい大切</span>だ。</p>
+        <div class="pair" aria-label="両方とも肯定">
+          <div class="box">勉強は<br>大切？ <b>〇</b></div>
+          <span class="eq">＝</span>
+          <div class="box">睡眠は<br>大切？ <b>〇</b></div>
+        </div>
+        <p class="why">「勉強が大切」はみんな認めています。睡眠もそれに負けないくらい大切だ，と言っています。<b>両方とも肯定</b>。</p>
+      </article>
+      <article class="scene h">
+        <span class="where">映画のレビュー</span>
+        <p class="en">The sequel is <b class="hot">no less</b> exciting <b class="hot">than</b> the first movie.</p>
+        <p class="ja">続編も，1作目に<span class="hot">負けないくらいおもしろい</span>。</p>
+        <p class="why">「続編はつまらない」というよくある予想を打ち消して，ほめています。</p>
+      </article>
+    </div>
+    <div class="note">
+      <h3>あの「クジラの構文」は？</h3>
+      <p><span class="en">A whale is no more a fish than a horse is.</span>（クジラが魚でないのは，馬が魚でないのと同じだ）は教科書の定番ですが，実際の会話や文章で見ることはまずありません。しくみはホットドッグの文と同じです。<b>「誰もがうなずく例と並べて，同じだと言い切る」</b>形だと覚えておけば，入試で出ても読めます。</p>
+    </div>
+  </section>
+
+  <!-- ===== 確認 ===== -->
+  <section aria-labelledby="h-quiz">
+    <h2 id="h-quiz">気持ちを読み取れるか確かめよう</h2>
+    <p>場面を読んで，話し手の言いたいことに近いものを選びましょう。</p>
+    <div class="quiz" id="quiz"></div>
+    <p class="score" id="score" aria-live="polite"></p>
+    <button type="button" class="reset" id="reset">もう一度やる</button>
+  </section>
+
+  <!-- ===== まとめ ===== -->
+  <section aria-labelledby="h-sum">
+    <h2 id="h-sum">まとめ</h2>
+    <div class="sum">
+      <table>
+        <thead><tr><th>形</th><th>気持ち</th><th>日本語にすると</th></tr></thead>
+        <tbody>
+          <tr><td class="en">no more than ＋ 数字</td><td class="cool">少ない</td><td>たった〜／（指示文で）〜以内</td></tr>
+          <tr><td class="en">no less than ＋ 数字</td><td class="hot">多い</td><td>なんと〜も</td></tr>
+          <tr><td class="en">A is no more B than C is</td><td class="cool">両方ちがう</td><td>C が B でないのと同じで，A も B ではない</td></tr>
+          <tr><td class="en">A is no less B than C</td><td class="hot">両方そう</td><td>A も C に負けないくらい B だ</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+  /* ---------- 4つの言い方の見比べ ---------- */
+  const LAB = {
+    more: {
+      en: 'The walk to school takes <mark>more than</mark> 30 minutes.',
+      ja: '学校まで歩いて30分より長くかかる。',
+      why: '30分を超える。気持ちは入らない，ただの比較です。',
+      fill: [50, 0], color: 'var(--muted)', flag: '30分より上', flagAt: 75, flagColor: 'var(--muted)'
+    },
+    nomore: {
+      en: 'The walk to school takes <mark class="cool">no more than</mark> 30 minutes.',
+      ja: '学校まで歩いて，たった30分だよ。',
+      why: 'ちょうど30分。しかも「長くない，近い」と思っている。',
+      fill: [48, 48], color: 'var(--cool)', flag: 'たった！', flagAt: 50, flagColor: 'var(--cool)'
+    },
+    less: {
+      en: 'The walk to school takes <mark>less than</mark> 30 minutes.',
+      ja: '学校まで歩いて30分かからない。',
+      why: '30分未満。これも気持ちは入らない比較です。',
+      fill: [0, 50], color: 'var(--muted)', flag: '30分より下', flagAt: 25, flagColor: 'var(--muted)'
+    },
+    noless: {
+      en: 'The walk to school takes <mark class="hot">no less than</mark> 30 minutes.',
+      ja: '学校まで歩いて，なんと30分もかかる。',
+      why: 'ちょうど30分。しかも「長い，遠い」と思っている。',
+      fill: [48, 48], color: 'var(--hot)', flag: 'なんと！', flagAt: 50, flagColor: 'var(--hot)'
+    }
+  };
+  const labEn = document.getElementById('lab-en');
+  const labJa = document.getElementById('lab-ja');
+  const labWhy = document.getElementById('lab-why');
+  const labFill = document.getElementById('lab-fill');
+  const labFlag = document.getElementById('lab-flag');
+  function showLab(k) {
+    const d = LAB[k];
+    labEn.innerHTML = d.en;
+    labJa.textContent = d.ja;
+    labWhy.textContent = d.why;
+    labFill.style.left = d.fill[0] + '%';
+    labFill.style.right = d.fill[1] + '%';
+    labFill.style.background = d.color;
+    labFlag.textContent = d.flag;
+    labFlag.style.left = d.flagAt + '%';
+    labFlag.style.color = d.flagColor;
+    document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === k)));
+  }
+  document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => showLab(b.dataset.k)));
+  showLab('nomore');
+
+  /* ---------- 確認問題 ---------- */
+  const QUIZ = [
+    { ctx: '小テストの前に，先生が一言', en: "Don't worry. The quiz takes no more than five minutes.",
+      opts: ['たった5分だから心配いらない', 'なんと5分もかかる'], a: 0,
+      why: 'no more than＋数字は「少ない」。Don\'t worry とも合います。' },
+    { ctx: '旅行から帰ってきた友達', en: 'The flight was delayed no less than six hours.',
+      opts: ['たった6時間の遅れで済んだ', 'なんと6時間も遅れた'], a: 1,
+      why: 'no less than＋数字は「多い」。うんざりした気持ちです。' },
+    { ctx: '英作文の問題文', en: 'Write your opinion in no more than 50 words.',
+      opts: ['50語以上で書く', '50語以内で書く'], a: 1,
+      why: '指示文の no more than は上限。「50語を超えない」です。' },
+    { ctx: 'ネットの論争で', en: 'A hot dog is no more a sandwich than a taco is.',
+      opts: ['ホットドッグはサンドイッチだ', 'ホットドッグはサンドイッチではない'], a: 1,
+      why: 'no more … than は両方とも否定。タコスと同じく，ホットドッグも違う。' },
+    { ctx: '進路面談で先生が', en: 'Your health is no less important than your grades.',
+      opts: ['健康は成績ほど大切ではない', '健康も成績と同じくらい大切だ'], a: 1,
+      why: 'no less … than は両方とも肯定。成績も健康も大切です。' },
+    { ctx: '音楽サイトのレビュー', en: 'Her second album is no less popular than her first.',
+      opts: ['2枚目も1枚目に負けないくらい人気だ', '2枚目は1枚目ほど人気がない'], a: 0,
+      why: 'no less … than は「負けないくらい〜だ」。ほめています。' }
+  ];
+  const quizEl = document.getElementById('quiz');
+  const scoreEl = document.getElementById('score');
+  let answered = 0, correct = 0;
+  function buildQuiz() {
+    quizEl.innerHTML = '';
+    answered = 0; correct = 0; scoreEl.textContent = '';
+    QUIZ.forEach((q, i) => {
+      const box = document.createElement('div');
+      box.className = 'q';
+      const ctx = document.createElement('p'); ctx.className = 'ctx'; ctx.textContent = `${i + 1}．${q.ctx}`;
+      const en = document.createElement('p'); en.className = 'en'; en.textContent = q.en;
+      const opts = document.createElement('div'); opts.className = 'opts';
+      const fb = document.createElement('p'); fb.className = 'fb'; fb.hidden = true;
+      q.opts.forEach((label, j) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.id = `q${i}-${j}`; b.textContent = label;
+        b.addEventListener('click', () => {
+          const ok = j === q.a;
+          opts.querySelectorAll('button').forEach((x, k) => {
+            x.disabled = true;
+            if (k === q.a) x.classList.add('right');
+            else if (k === j) x.classList.add('wrong');
+          });
+          fb.hidden = false;
+          fb.textContent = (ok ? '正解！ ' : 'おしい。 ') + q.why;
+          answered++; if (ok) correct++;
+          if (answered === QUIZ.length) scoreEl.textContent = `${QUIZ.length}問中 ${correct}問 正解`;
+        });
+        opts.append(b);
+      });
+      box.append(ctx, en, opts, fb);
+      quizEl.append(box);
+    });
+  }
+  document.getElementById('reset').addEventListener('click', buildQuiz);
+  buildQuiz();
+</script>
+
+</body></html>
