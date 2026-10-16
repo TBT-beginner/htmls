@@ -94,7 +94,10 @@
   .meter .flag { position: absolute; top: -2px; font-size: 13px; font-weight: 700; white-space: nowrap; transition: left .3s; transform: translateX(-50%); }
   .read { display: grid; gap: 4px; }
   .read .ja { font-size: 18px; font-weight: 700; }
-  @media (prefers-reduced-motion: reduce) { .meter .fill, .meter .flag { transition: none; } }
+  /* no more / no less：値はちょうど30分（●）。気持ちの向きを矢印で示す */
+  .meter .dot { position: absolute; top: 19px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; border: 3px solid var(--paper); box-shadow: 0 0 0 1.5px currentColor; background: currentColor; }
+  .meter .arrow { position: absolute; top: 16px; font-size: 18px; line-height: 1; transform: translateX(-50%); transition: left .3s; }
+  @media (prefers-reduced-motion: reduce) { .meter .fill, .meter .flag, .meter .arrow { transition: none; } }
 
   /* ===== 場面カード ===== */
   .scenes { display: grid; gap: 12px; }
@@ -201,6 +204,8 @@
         <div class="fill" id="lab-fill"></div>
         <div class="pin"><span>30分</span></div>
         <div class="flag" id="lab-flag"></div>
+        <div class="arrow" id="lab-arrow" hidden></div>
+        <div class="dot" id="lab-dot" hidden></div>
       </div>
       <div class="read">
         <p class="ja" id="lab-ja"></p>
@@ -339,8 +344,8 @@
     nomore: {
       en: 'The walk to school takes <mark class="cool">no more than</mark> 30 minutes.',
       ja: '学校まで歩いて，たった30分だよ。',
-      why: 'ちょうど30分。しかも「長くない，近い」と思っている。',
-      fill: [48, 48], color: 'var(--cool)', flag: 'たった！', flagAt: 50, flagColor: 'var(--cool)'
+      why: '値はちょうど30分（●）。でも気持ちは「短い，近い」の側を向いている（◀）。',
+      fill: [10, 50], color: 'linear-gradient(90deg, transparent, var(--cool))', flag: 'たった！（短い・少ない）', flagAt: 28, flagColor: 'var(--cool)', arrow: ['◀', 10]
     },
     less: {
       en: 'The walk to school takes <mark>less than</mark> 30 minutes.',
@@ -351,8 +356,8 @@
     noless: {
       en: 'The walk to school takes <mark class="hot">no less than</mark> 30 minutes.',
       ja: '学校まで歩いて，なんと30分もかかる。',
-      why: 'ちょうど30分。しかも「長い，遠い」と思っている。',
-      fill: [48, 48], color: 'var(--hot)', flag: 'なんと！', flagAt: 50, flagColor: 'var(--hot)'
+      why: '値はちょうど30分（●）。でも気持ちは「長い，遠い」の側を向いている（▶）。',
+      fill: [50, 10], color: 'linear-gradient(90deg, var(--hot), transparent)', flag: 'なんと！（長い・多い）', flagAt: 72, flagColor: 'var(--hot)', arrow: ['▶', 90]
     }
   };
   const labEn = document.getElementById('lab-en');
@@ -371,6 +376,14 @@
     labFlag.textContent = d.flag;
     labFlag.style.left = d.flagAt + '%';
     labFlag.style.color = d.flagColor;
+    const arrow = document.getElementById('lab-arrow');
+    const dot = document.getElementById('lab-dot');
+    arrow.hidden = dot.hidden = !d.arrow;
+    if (d.arrow) {
+      arrow.textContent = d.arrow[0];
+      arrow.style.left = d.arrow[1] + '%';
+      arrow.style.color = dot.style.color = d.flagColor;
+    }
     document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === k)));
   }
   document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => showLab(b.dataset.k)));
