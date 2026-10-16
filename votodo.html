@@ -143,6 +143,16 @@
   .links a:hover { border-color: var(--ink); }
   .links .t { font-weight: 700; }
   .links .d { font-size: 14px; color: var(--muted); }
+
+  /* ===== 動詞のツールチップ ===== */
+  .vt { text-decoration: underline dotted; text-underline-offset: 4px; text-decoration-thickness: 1.5px; cursor: help; border-radius: 4px; }
+  .vt:hover, .vt[aria-describedby] { background: var(--bg); }
+  #tip {
+    position: fixed; z-index: 50; max-width: min(300px, calc(100vw - 24px)); padding: 10px 12px; border-radius: 10px;
+    background: var(--ink); color: var(--paper); font-family: var(--body); font-size: 14px; line-height: 1.6; font-weight: 400;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.25); pointer-events: none;
+  }
+  #tip b { display: block; font-family: var(--en); font-size: 17px; font-weight: 600; margin-bottom: 2px; }
 </style>
 
 </head>
@@ -194,7 +204,7 @@
   <!-- ===== 力で押す ===== -->
   <section class="group g-force" aria-labelledby="h-force">
     <div class="group-head"><span class="mark">力で押す</span><h2 id="h-force">いやでも，そうするしかない</h2></div>
-    <p class="verbs">force　compel</p>
+    <p class="verbs"><span class="vt" tabindex="0" data-tip="力や状況で，いやがる相手に〜させる。主語は人だけでなく，天気・事情・ルールも多い。受け身の be forced to（〜せざるをえない）でよく使う。">force</span>　<span class="vt" tabindex="0" data-tip="force よりかたい書き言葉。法律・義務・強い理由が「〜せざるをえなくする」。I felt compelled to speak up.（言わずにいられなかった）">compel</span></p>
     <p>本人がいやでも，<b>そうするしかない状況に追いこむ</b>動詞です。主語が人でなく，<b>天気・事情・ルール</b>になることがとても多いのが特徴です。</p>
     <div class="scenes">
       <article class="scene">
@@ -218,8 +228,8 @@
   <!-- ===== 言葉で押す ===== -->
   <section class="group g-word" aria-labelledby="h-word">
     <div class="group-head"><span class="mark">言葉で押す</span><h2 id="h-word">言う・頼む・すすめる・説得する</h2></div>
-    <p class="verbs">tell　ask　advise　encourage　urge　remind　persuade</p>
-    <p>言葉で O をその行動に向かわせる動詞です。押す強さと，<b>実際にやらせたかどうか</b>で選びます。</p>
+    <p class="verbs"><span class="vt" tabindex="0" data-tip="「〜しなさい」と指示する。上の立場から言うことが多い。実際にやったかはわからない。">tell</span>　<span class="vt" tabindex="0" data-tip="「〜してくれる？」と頼む。相手に断る余地がある。">ask</span>　<span class="vt" tabindex="0" data-tip="専門家や経験のある人が「〜したほうがいい」と助言する。決めるのは相手。">advise</span>　<span class="vt" tabindex="0" data-tip="励まして「やってみよう」という気にさせる。背中を押すだけで，実際にやったかはわからない。">encourage</span>　<span class="vt" tabindex="0" data-tip="「ぜひ〜して」と強く，熱心に求める。ニュースや呼びかけでよく見る。">urge</span>　<span class="vt" tabindex="0" data-tip="忘れないように「〜すること」を思い出させる。Remind me to …（〜するの，忘れてたら言って）">remind</span>　<span class="vt" tabindex="0" data-tip="理由を話して説得し，実際にそうさせる。encourage とちがい，相手は行動まで動く。">persuade</span></p>
+    <p>言葉で O をその行動に向かわせる動詞です。<span class="muted" style="font-size:14px">（点線の動詞にマウスを重ねるか，タップすると意味が出ます）</span>押す強さと，<b>実際にやらせたかどうか</b>で選びます。</p>
     <div class="scenes">
       <article class="scene">
         <span class="where">家で</span>
@@ -257,7 +267,7 @@
   <!-- ===== 道をあける ===== -->
   <section class="group g-open" aria-labelledby="h-open">
     <div class="group-head"><span class="mark">道をあける</span><h2 id="h-open">許す・できるようにする</h2></div>
-    <p class="verbs">allow　permit　enable</p>
+    <p class="verbs"><span class="vt" tabindex="0" data-tip="人やルールが「〜してもよい」と許す。会話でも書き言葉でも使う。">allow</span>　<span class="vt" tabindex="0" data-tip="allow よりかたい。規則・掲示・公式な許可でよく使う。">permit</span>　<span class="vt" tabindex="0" data-tip="道具・技術・条件が「〜できる状態」にする。主語は「もの」が多く，「〜のおかげで…できる」と訳すと自然。">enable</span></p>
     <p>O の前にある<b>じゃまをどける</b>動詞です。やるかどうかは O しだいです。</p>
     <div class="vs">
       <div><b class="v" style="color:var(--open)">allow ＋ O ＋ to do</b><p>ルールや人が<b>許可</b>する。</p><p class="en">Our school doesn't allow students to use phones in class.</p><p>うちの学校は授業中のスマホを認めていない。</p></div>
@@ -269,7 +279,7 @@
   <!-- ===== 手を貸す ===== -->
   <section class="group g-hand" aria-labelledby="h-hand">
     <div class="group-head"><span class="mark">手を貸す</span><h2 id="h-hand">いっしょにやる</h2></div>
-    <p class="verbs">help</p>
+    <p class="verbs"><span class="vt" tabindex="0" data-tip="手を貸して，〜するのを助ける。to は省略でき，会話では原形がふつう。">help</span></p>
     <p>help だけは，<b>to があってもなくてもかまいません</b>。会話では原形がふつうです。</p>
     <div class="scenes">
       <article class="scene">
@@ -289,7 +299,7 @@
   <!-- ===== 原因になる・願う ===== -->
   <section class="group g-cause" aria-labelledby="h-cause">
     <div class="group-head"><span class="mark">原因・願い</span><h2 id="h-cause">結果としてそうなる／そうしてほしい</h2></div>
-    <p class="verbs">cause　want　would like</p>
+    <p class="verbs"><span class="vt" tabindex="0" data-tip="原因となって，結果として〜させる。たいてい意図しない，よくない結果に使う。">cause</span>　<span class="vt" tabindex="0" data-tip="「O に〜してほしい」。I want that you … とは言わない。">want</span>　<span class="vt" tabindex="0" data-tip="want のていねいな言い方。I&#x27;d like you to …（〜していただけますか）">would like</span></p>
     <div class="scenes">
       <article class="scene">
         <span class="where">駅の放送・ニュース</span>
@@ -327,17 +337,17 @@
       <table>
         <thead><tr><th>押し方</th><th>動詞</th><th>意味</th><th>実際にやった？</th></tr></thead>
         <tbody>
-          <tr class="g-force"><td>力で押す</td><td class="vb">force</td><td>いやでもそうするしかなくする</td><td>やった</td></tr>
-          <tr class="g-word"><td rowspan="5">言葉で押す</td><td class="vb">tell / ask</td><td>指示する／頼む</td><td>わからない</td></tr>
-          <tr class="g-word"><td class="vb">advise</td><td>助言する</td><td>わからない</td></tr>
-          <tr class="g-word"><td class="vb">encourage</td><td>背中を押す</td><td>わからない</td></tr>
-          <tr class="g-word"><td class="vb">remind</td><td>思い出させる</td><td>わからない</td></tr>
-          <tr class="g-word"><td class="vb">persuade</td><td>説得してそうさせる</td><td>やった</td></tr>
-          <tr class="g-open"><td rowspan="2">道をあける</td><td class="vb">allow</td><td>許可する</td><td>本人しだい</td></tr>
-          <tr class="g-open"><td class="vb">enable</td><td>できる状態にする</td><td>本人しだい</td></tr>
-          <tr class="g-hand"><td>手を貸す</td><td class="vb">help (to)</td><td>手伝う（to は省略可）</td><td>やった</td></tr>
-          <tr class="g-cause"><td rowspan="2">原因・願い</td><td class="vb">cause</td><td>原因となってそうさせる</td><td>そうなった</td></tr>
-          <tr class="g-cause"><td class="vb">want</td><td>〜してほしい</td><td>わからない</td></tr>
+          <tr class="g-force"><td>力で押す</td><td class="vb"><span class="vt" tabindex="0" data-tip="力や状況で，いやがる相手に〜させる。主語は人だけでなく，天気・事情・ルールも多い。受け身の be forced to（〜せざるをえない）でよく使う。">force</span></td><td>いやでもそうするしかなくする</td><td>やった</td></tr>
+          <tr class="g-word"><td rowspan="5">言葉で押す</td><td class="vb"><span class="vt" tabindex="0" data-tip="「〜しなさい」と指示する。上の立場から言うことが多い。実際にやったかはわからない。">tell</span> / <span class="vt" tabindex="0" data-tip="「〜してくれる？」と頼む。相手に断る余地がある。">ask</span></td><td>指示する／頼む</td><td>わからない</td></tr>
+          <tr class="g-word"><td class="vb"><span class="vt" tabindex="0" data-tip="専門家や経験のある人が「〜したほうがいい」と助言する。決めるのは相手。">advise</span></td><td>助言する</td><td>わからない</td></tr>
+          <tr class="g-word"><td class="vb"><span class="vt" tabindex="0" data-tip="励まして「やってみよう」という気にさせる。背中を押すだけで，実際にやったかはわからない。">encourage</span></td><td>背中を押す</td><td>わからない</td></tr>
+          <tr class="g-word"><td class="vb"><span class="vt" tabindex="0" data-tip="忘れないように「〜すること」を思い出させる。Remind me to …（〜するの，忘れてたら言って）">remind</span></td><td>思い出させる</td><td>わからない</td></tr>
+          <tr class="g-word"><td class="vb"><span class="vt" tabindex="0" data-tip="理由を話して説得し，実際にそうさせる。encourage とちがい，相手は行動まで動く。">persuade</span></td><td>説得してそうさせる</td><td>やった</td></tr>
+          <tr class="g-open"><td rowspan="2">道をあける</td><td class="vb"><span class="vt" tabindex="0" data-tip="人やルールが「〜してもよい」と許す。会話でも書き言葉でも使う。">allow</span></td><td>許可する</td><td>本人しだい</td></tr>
+          <tr class="g-open"><td class="vb"><span class="vt" tabindex="0" data-tip="道具・技術・条件が「〜できる状態」にする。主語は「もの」が多く，「〜のおかげで…できる」と訳すと自然。">enable</span></td><td>できる状態にする</td><td>本人しだい</td></tr>
+          <tr class="g-hand"><td>手を貸す</td><td class="vb"><span class="vt" tabindex="0" data-tip="手を貸して，〜するのを助ける。to は省略でき，会話では原形がふつう。">help (to)</span></td><td>手伝う（to は省略可）</td><td>やった</td></tr>
+          <tr class="g-cause"><td rowspan="2">原因・願い</td><td class="vb"><span class="vt" tabindex="0" data-tip="原因となって，結果として〜させる。たいてい意図しない，よくない結果に使う。">cause</span></td><td>原因となってそうさせる</td><td>そうなった</td></tr>
+          <tr class="g-cause"><td class="vb"><span class="vt" tabindex="0" data-tip="「O に〜してほしい」。I want that you … とは言わない。">want</span></td><td>〜してほしい</td><td>わからない</td></tr>
         </tbody>
       </table>
     </div>
@@ -357,6 +367,7 @@
     </div>
   </section>
 </main>
+<div id="tip" role="tooltip" hidden></div>
 
 <script>
   /* ---------- 同じ場面で押し方を比べる ---------- */
@@ -439,6 +450,42 @@
   }
   document.getElementById('reset').addEventListener('click', buildQuiz);
   buildQuiz();
+
+  /* ---------- 動詞のツールチップ（マウスを重ねる・タップ・キーボードで表示） ---------- */
+  const tip = document.getElementById('tip');
+  let tipFor = null;
+  function showTip(el) {
+    if (tipFor && tipFor !== el) tipFor.removeAttribute('aria-describedby');
+    tipFor = el;
+    tip.innerHTML = '';
+    const head = document.createElement('b');
+    head.textContent = el.textContent.replace(/\s*\(to\)/, '');
+    tip.append(head, el.dataset.tip);
+    tip.hidden = false;
+    el.setAttribute('aria-describedby', 'tip');
+    // 画面の端からはみ出さないように置く（下に入らなければ上に出す）
+    const r = el.getBoundingClientRect(), t = tip.getBoundingClientRect();
+    const left = Math.min(Math.max(8, r.left + r.width / 2 - t.width / 2), window.innerWidth - t.width - 8);
+    const below = r.bottom + 8;
+    const top = below + t.height > window.innerHeight - 8 ? r.top - t.height - 8 : below;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hideTip() {
+    if (tipFor) tipFor.removeAttribute('aria-describedby');
+    tipFor = null;
+    tip.hidden = true;
+  }
+  document.querySelectorAll('.vt').forEach((el) => {
+    el.addEventListener('mouseenter', () => showTip(el));
+    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('focus', () => showTip(el));
+    el.addEventListener('blur', hideTip);
+    el.addEventListener('click', (e) => { e.stopPropagation(); tipFor === el ? hideTip() : showTip(el); });
+  });
+  document.addEventListener('click', hideTip);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideTip(); });
+  window.addEventListener('scroll', hideTip, { passive: true });
 </script>
 
 </body>
