@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>V O to do の押し方</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+  /* レイアウト：使役動詞ページと同じ1本の列。押し方のグループごとに1色（力＝赤／言葉＝藍／道をあける＝緑／手を貸す＝琥珀／原因＝紫） */
+  :root {
+    --bg: #f3f4f7;
+    --paper: #ffffff;
+    --ink: #1a202b;
+    --muted: #5b6474;
+    --line: #d8dde6;
+    --force: #d0412f;
+    --word: #3657b8;
+    --open: #1d8a5c;
+    --hand: #b46a00;
+    --cause: #7b4bb3;
+    --ok: #1d8a5c;
+    --ng: #d0412f;
+    --display: 'Dela Gothic One', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    --body: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+    --en: 'Newsreader', 'Georgia', 'Times New Roman', serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12161d; --paper: #1b212b; --ink: #e8edf4; --muted: #9ba6b6; --line: #2d3746;
+      --force: #ff7a66; --word: #8aa6ff; --open: #4fcf95; --hand: #f2b24c; --cause: #c39bff; --ok: #4fcf95; --ng: #ff7a66;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12161d; --paper: #1b212b; --ink: #e8edf4; --muted: #9ba6b6; --line: #2d3746;
+    --force: #ff7a66; --word: #8aa6ff; --open: #4fcf95; --hand: #f2b24c; --cause: #c39bff; --ok: #4fcf95; --ng: #ff7a66;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.85;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 64px;
+  }
+  main { max-width: 720px; margin: 0 auto; display: grid; gap: 56px; }
+  h1, h2 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: 0.01em; }
+  h1 { font-size: clamp(30px, 7vw, 46px); line-height: 1.25; }
+  h2 { font-size: clamp(22px, 4.6vw, 28px); line-height: 1.35; }
+  h3 { margin: 0; font-size: 17px; }
+  p { margin: 0; }
+  section, header { display: grid; gap: 18px; }
+  a { color: var(--word); }
+  .en { font-family: var(--en); font-size: 1.12em; }
+  .muted { color: var(--muted); }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; color: var(--muted); }
+  :focus-visible { outline: 3px solid var(--word); outline-offset: 2px; }
+  .g-force { --c: var(--force); } .g-word { --c: var(--word); } .g-open { --c: var(--open); } .g-hand { --c: var(--hand); } .g-cause { --c: var(--cause); }
+
+  /* ===== 冒頭の図：主語 → O → to do ===== */
+  .flow { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 14px; }
+  .flow .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-family: var(--en); font-size: clamp(18px, 4.4vw, 22px); }
+  .flow .chip { border-radius: 10px; padding: 2px 12px; background: var(--bg); }
+  .flow .v { color: var(--paper); background: var(--ink); }
+  .flow .arrow { color: var(--muted); font-family: var(--body); }
+  .flow .to { border: 2px dashed var(--ink); background: transparent; }
+  .flow .cap { font-size: 14.5px; color: var(--muted); }
+
+  /* ===== 押し方ラボ ===== */
+  .lab { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 16px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tabs button {
+    font: inherit; font-family: var(--en); font-size: 16.5px; font-weight: 600; cursor: pointer; border-radius: 999px; padding: 3px 14px;
+    border: 1.5px solid var(--c, var(--line)); background: transparent; color: var(--c, var(--ink));
+  }
+  .tabs button[aria-pressed="true"] { color: var(--paper); background: var(--c); }
+  .sentence { font-family: var(--en); font-size: clamp(20px, 4.6vw, 25px); line-height: 1.45; }
+  .sentence b { color: var(--c); }
+  .lab .ja { font-size: 18px; font-weight: 700; }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .facts > div { background: var(--bg); border-radius: 10px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; }
+  .facts .k { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.04em; }
+  .facts .v { font-weight: 700; line-height: 1.5; }
+  .facts .done { color: var(--c); }
+  @media (max-width: 560px) { .facts { grid-template-columns: 1fr; } }
+
+  /* ===== グループごとの場面 ===== */
+  .group { display: grid; gap: 12px; }
+  .group-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .group-head .mark { font-family: var(--display); font-size: 15px; color: var(--paper); background: var(--c); border-radius: 8px; padding: 2px 10px; }
+  .verbs { font-family: var(--en); font-size: 18px; color: var(--c); font-weight: 600; }
+  .scenes { display: grid; gap: 10px; }
+  .scene { background: var(--paper); border: 1px solid var(--line); border-left: 5px solid var(--c); border-radius: 14px; padding: 14px 18px; display: grid; gap: 6px; }
+  .where { font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+  .scene .en { font-size: 1.2em; line-height: 1.45; }
+  .scene .en b { color: var(--c); }
+  .scene .ja { font-weight: 700; }
+  .scene .why { font-size: 14.5px; color: var(--muted); }
+
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .vs > div { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 4px; min-width: 0; font-size: 14.5px; }
+  .vs .en { font-size: 1.1em; }
+  .vs b.v { font-family: var(--en); font-size: 17px; }
+  @media (max-width: 560px) { .vs { grid-template-columns: 1fr; } }
+
+  .note { background: var(--paper); border: 1px dashed var(--line); border-radius: 12px; padding: 14px 16px; font-size: 14.5px; display: grid; gap: 6px; }
+  .note h3 { font-size: 14.5px; }
+
+  /* ===== 確認 ===== */
+  .quiz { display: grid; gap: 12px; }
+  .q { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 10px; }
+  .q .ctx { font-size: 13px; color: var(--muted); }
+  .q .en { font-size: 1.18em; }
+  .q .blank { display: inline-block; min-width: 3.4em; border-bottom: 2px solid var(--ink); text-align: center; font-weight: 600; }
+  .q .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .q .opts button {
+    font: inherit; font-family: var(--en); font-size: 17px; cursor: pointer; border-radius: 10px; padding: 3px 14px;
+    border: 1.5px solid var(--line); background: transparent; color: var(--ink);
+  }
+  .q .opts button:hover:not(:disabled) { border-color: var(--ink); }
+  .q .opts button.right { border-color: var(--ok); color: var(--ok); font-weight: 700; }
+  .q .opts button.wrong { border-color: var(--ng); color: var(--ng); text-decoration: line-through; }
+  .q .opts button:disabled { cursor: default; }
+  .q .fb { font-size: 14.5px; }
+  .score { font-weight: 700; }
+  .reset { justify-self: start; font: inherit; font-size: 14px; cursor: pointer; border: 1.5px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 14px; }
+
+  /* ===== まとめ ===== */
+  .sum { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--paper); border-radius: 12px; overflow: hidden; font-size: 15px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 13px; color: var(--muted); font-weight: 700; white-space: nowrap; }
+  td.vb { font-family: var(--en); font-weight: 600; font-size: 16.5px; color: var(--c); }
+  tr:last-child td { border-bottom: none; }
+
+  /* ===== 関連ページ ===== */
+  .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .links a { display: grid; gap: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; color: var(--ink); text-decoration: none; }
+  .links a:hover { border-color: var(--ink); }
+  .links .t { font-weight: 700; }
+  .links .d { font-size: 14px; color: var(--muted); }
+</style>
+
+</head>
+<body>
+<main>
+  <!-- ===== 冒頭 ===== -->
+  <header>
+    <p class="kicker">V O to do ／ 高校英語</p>
+    <h1>相手を「その行動」へ，<br>どう押すか。</h1>
+    <p><span class="en">encourage, enable, force, allow, tell</span> …。V O to do の動詞はたくさんありますが，どれも同じ形をしています。<b>主語が O を，to do（これからする行動）の方へ向かわせる</b>形です。違うのは，<b>押し方</b>だけです。</p>
+    <div class="flow" aria-label="V O to do の形">
+      <div class="row">
+        <span class="chip">My parents</span><span class="chip v">encouraged</span><span class="chip">me</span>
+        <span class="arrow">→</span><span class="chip to">to study abroad</span>
+      </div>
+      <p class="cap">to は「これから向かう先」。O（私）が，留学するという行動の方へ押し出されています。</p>
+    </div>
+    <p class="muted" style="font-size:14.5px">make / have / let / get の使役動詞は，<a href="https://tbt-beginner.github.io/htmls/causatives.html" target="_blank" rel="noopener">使役動詞の力関係</a>のページで説明しています。</p>
+  </header>
+
+  <!-- ===== 押し方ラボ ===== -->
+  <section aria-labelledby="h-lab">
+    <h2 id="h-lab">同じ場面で，押し方を比べる</h2>
+    <p class="muted" style="font-size:14px">動詞を選ぶと，押し方と，私が<b>実際に留学したかどうか</b>が変わります。</p>
+    <div class="lab" id="lab">
+      <div class="tabs" role="group" aria-label="動詞を選ぶ">
+        <button type="button" id="t-told" class="g-word" data-k="told" aria-pressed="false">told</button>
+        <button type="button" id="t-advised" class="g-word" data-k="advised" aria-pressed="false">advised</button>
+        <button type="button" id="t-encouraged" class="g-word" data-k="encouraged" aria-pressed="true">encouraged</button>
+        <button type="button" id="t-persuaded" class="g-word" data-k="persuaded" aria-pressed="false">persuaded</button>
+        <button type="button" id="t-forced" class="g-force" data-k="forced" aria-pressed="false">forced</button>
+        <button type="button" id="t-allowed" class="g-open" data-k="allowed" aria-pressed="false">allowed</button>
+        <button type="button" id="t-helped" class="g-hand" data-k="helped" aria-pressed="false">helped</button>
+      </div>
+      <p class="sentence" id="lab-en"></p>
+      <p class="ja" id="lab-ja"></p>
+      <div class="facts">
+        <div><span class="k">親の押し方</span><span class="v" id="lab-push"></span></div>
+        <div><span class="k">私の気持ち</span><span class="v" id="lab-feel"></span></div>
+        <div><span class="k">実際に留学した？</span><span class="v done" id="lab-done"></span></div>
+      </div>
+    </div>
+    <div class="note">
+      <h3>ここが入試でもねらわれる</h3>
+      <p><span class="en">encourage / advise / tell / ask</span> は「押した」だけで，<b>実際にやったかどうかはわかりません</b>。<span class="en">persuade</span> と <span class="en">force</span> は，<b>実際にやらせた</b>ところまで言います。和訳で「説得した」と「勧めた」を取りちがえると，意味が変わってしまいます。</p>
+    </div>
+  </section>
+
+  <!-- ===== 力で押す ===== -->
+  <section class="group g-force" aria-labelledby="h-force">
+    <div class="group-head"><span class="mark">力で押す</span><h2 id="h-force">いやでも，そうするしかない</h2></div>
+    <p class="verbs">force　compel</p>
+    <p>本人がいやでも，<b>そうするしかない状況に追いこむ</b>動詞です。主語が人でなく，<b>天気・事情・ルール</b>になることがとても多いのが特徴です。</p>
+    <div class="scenes">
+      <article class="scene">
+        <span class="where">部活の連絡</span>
+        <p class="en">The heavy rain <b>forced</b> us <b>to</b> cancel the game.</p>
+        <p class="ja">大雨のせいで，試合を中止せざるをえなかった。</p>
+        <p class="why">雨が「無理やり」何かをしたのではありません。中止するしかない状況をつくった，ということです。「〜のせいで…せざるをえなかった」と訳すと自然です。</p>
+      </article>
+      <article class="scene">
+        <span class="where">ニュースで（受け身がよく使われる）</span>
+        <p class="en">Many stores were <b>forced to</b> close early because of the typhoon.</p>
+        <p class="ja">台風で，多くの店が早く閉店せざるをえなかった。</p>
+      </article>
+    </div>
+    <div class="vs">
+      <div><b class="v" style="color:var(--force)">make ＋ O ＋ 原形</b><p>相手がいやでも，その気がなくても，そうなる場面をつくる。<span class="en">This song makes me cry.</span> のように，うれしいことにも使う。</p></div>
+      <div><b class="v" style="color:var(--force)">force ＋ O ＋ to do</b><p>相手が<b>いやがっていることを</b>，押し切ってやらせる。泣かせる・笑わせるには使わない。</p></div>
+    </div>
+  </section>
+
+  <!-- ===== 言葉で押す ===== -->
+  <section class="group g-word" aria-labelledby="h-word">
+    <div class="group-head"><span class="mark">言葉で押す</span><h2 id="h-word">言う・頼む・すすめる・説得する</h2></div>
+    <p class="verbs">tell　ask　advise　encourage　urge　remind　persuade</p>
+    <p>言葉で O をその行動に向かわせる動詞です。押す強さと，<b>実際にやらせたかどうか</b>で選びます。</p>
+    <div class="scenes">
+      <article class="scene">
+        <span class="where">家で</span>
+        <p class="en">My mom <b>told</b> me <b>to</b> clean my room.</p>
+        <p class="ja">母に部屋を片づけなさいと言われた。</p>
+        <p class="why">tell は「指示する」。実際に片づけたかは，この文からはわかりません。</p>
+      </article>
+      <article class="scene">
+        <span class="where">寝る前のメッセージ</span>
+        <p class="en">Can you <b>remind</b> me <b>to</b> call Grandma tomorrow?</p>
+        <p class="ja">明日おばあちゃんに電話するの，忘れてたら言ってくれる？</p>
+        <p class="why">remind O to do は「O に〜することを思い出させる」。友達どうしでもよく使います。</p>
+      </article>
+      <article class="scene">
+        <span class="where">保健室で</span>
+        <p class="en">The nurse <b>advised</b> me <b>to</b> get more sleep.</p>
+        <p class="ja">保健の先生に，もっと寝たほうがいいと言われた。</p>
+        <p class="why">advise は専門家の立場からの助言。決めるのは本人です。</p>
+      </article>
+      <article class="scene">
+        <span class="where">進路の話</span>
+        <p class="en">My teacher <b>encouraged</b> me <b>to</b> apply for the exchange program.</p>
+        <p class="ja">先生が，交換留学に応募してみたらと背中を押してくれた。</p>
+        <p class="why">encourage は「励まして，やる気が出るように押す」。迷っている人の背中を押すイメージです。</p>
+      </article>
+      <article class="scene">
+        <span class="where">家族会議のあと</span>
+        <p class="en">I finally <b>persuaded</b> my parents <b>to</b> let me study abroad.</p>
+        <p class="ja">ついに親を説得して，留学を許してもらった。</p>
+        <p class="why">persuade は「説得して，実際にそうさせた」。encourage との大きな違いはここです。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== 道をあける ===== -->
+  <section class="group g-open" aria-labelledby="h-open">
+    <div class="group-head"><span class="mark">道をあける</span><h2 id="h-open">許す・できるようにする</h2></div>
+    <p class="verbs">allow　permit　enable</p>
+    <p>O の前にある<b>じゃまをどける</b>動詞です。やるかどうかは O しだいです。</p>
+    <div class="vs">
+      <div><b class="v" style="color:var(--open)">allow ＋ O ＋ to do</b><p>ルールや人が<b>許可</b>する。</p><p class="en">Our school doesn't allow students to use phones in class.</p><p>うちの学校は授業中のスマホを認めていない。</p></div>
+      <div><b class="v" style="color:var(--open)">enable ＋ O ＋ to do</b><p>道具や条件が<b>できる状態にする</b>。主語はたいてい「もの」。</p><p class="en">This app enables you to study anywhere.</p><p>このアプリがあれば，どこでも勉強できる。</p></div>
+    </div>
+    <p class="muted" style="font-size:14.5px">enable は「可能にする」と訳すとかたくなります。無生物主語として「〜のおかげで…できる」「〜があれば…できる」と訳すと自然です。</p>
+  </section>
+
+  <!-- ===== 手を貸す ===== -->
+  <section class="group g-hand" aria-labelledby="h-hand">
+    <div class="group-head"><span class="mark">手を貸す</span><h2 id="h-hand">いっしょにやる</h2></div>
+    <p class="verbs">help</p>
+    <p>help だけは，<b>to があってもなくてもかまいません</b>。会話では原形がふつうです。</p>
+    <div class="scenes">
+      <article class="scene">
+        <span class="where">放課後の教室で</span>
+        <p class="en">Can you <b>help</b> me carry these boxes?</p>
+        <p class="ja">この箱，運ぶの手伝ってくれる？</p>
+      </article>
+      <article class="scene">
+        <span class="where">本のレビュー</span>
+        <p class="en">This book really <b>helped</b> me <b>(to)</b> understand English grammar.</p>
+        <p class="ja">この本のおかげで，英文法がよくわかった。</p>
+        <p class="why">主語が「もの」の help も，enable と同じく「〜のおかげで」と訳すと自然です。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== 原因になる・願う ===== -->
+  <section class="group g-cause" aria-labelledby="h-cause">
+    <div class="group-head"><span class="mark">原因・願い</span><h2 id="h-cause">結果としてそうなる／そうしてほしい</h2></div>
+    <p class="verbs">cause　want　would like</p>
+    <div class="scenes">
+      <article class="scene">
+        <span class="where">駅の放送・ニュース</span>
+        <p class="en">The accident <b>caused</b> the trains <b>to</b> stop for two hours.</p>
+        <p class="ja">事故のせいで，電車が2時間止まった。</p>
+        <p class="why">cause は「原因となって，結果としてそうさせる」。よくないことに使うのがふつうです。</p>
+      </article>
+      <article class="scene">
+        <span class="where">友達との話</span>
+        <p class="en">I <b>want</b> you <b>to</b> be honest with me.</p>
+        <p class="ja">正直に話してほしいの。</p>
+        <p class="why">「あなたに〜してほしい」は want you to do。I want that you … とは言いません。</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="note">
+    <h3>to と原形の使い分け</h3>
+    <p>make・have・let は<b>原形</b>，ここで見た動詞は<b>to do</b> です。目安として，<b>to は「これからそちらへ向かう」</b>という距離を表します。言葉で押す・道をあける・原因になる，のように，主語と O の行動の間にワンクッションあるので to がつく，と考えると覚えやすくなります。受け身では，make も <span class="en">be made <b>to</b> do</span> と to がもどります。</p>
+  </div>
+
+  <!-- ===== 確認 ===== -->
+  <section aria-labelledby="h-quiz">
+    <h2 id="h-quiz">場面に合う動詞を選ぼう</h2>
+    <p>空所に入るものを選びましょう。理由もいっしょに出ます。</p>
+    <div class="quiz" id="quiz"></div>
+    <p class="score" id="score" aria-live="polite"></p>
+    <button type="button" class="reset" id="reset">もう一度やる</button>
+  </section>
+
+  <!-- ===== まとめ ===== -->
+  <section aria-labelledby="h-sum">
+    <h2 id="h-sum">まとめ</h2>
+    <div class="sum">
+      <table>
+        <thead><tr><th>押し方</th><th>動詞</th><th>意味</th><th>実際にやった？</th></tr></thead>
+        <tbody>
+          <tr class="g-force"><td>力で押す</td><td class="vb">force</td><td>いやでもそうするしかなくする</td><td>やった</td></tr>
+          <tr class="g-word"><td rowspan="5">言葉で押す</td><td class="vb">tell / ask</td><td>指示する／頼む</td><td>わからない</td></tr>
+          <tr class="g-word"><td class="vb">advise</td><td>助言する</td><td>わからない</td></tr>
+          <tr class="g-word"><td class="vb">encourage</td><td>背中を押す</td><td>わからない</td></tr>
+          <tr class="g-word"><td class="vb">remind</td><td>思い出させる</td><td>わからない</td></tr>
+          <tr class="g-word"><td class="vb">persuade</td><td>説得してそうさせる</td><td>やった</td></tr>
+          <tr class="g-open"><td rowspan="2">道をあける</td><td class="vb">allow</td><td>許可する</td><td>本人しだい</td></tr>
+          <tr class="g-open"><td class="vb">enable</td><td>できる状態にする</td><td>本人しだい</td></tr>
+          <tr class="g-hand"><td>手を貸す</td><td class="vb">help (to)</td><td>手伝う（to は省略可）</td><td>やった</td></tr>
+          <tr class="g-cause"><td rowspan="2">原因・願い</td><td class="vb">cause</td><td>原因となってそうさせる</td><td>そうなった</td></tr>
+          <tr class="g-cause"><td class="vb">want</td><td>〜してほしい</td><td>わからない</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-links">
+    <h2 id="h-links">関連ページ</h2>
+    <div class="links">
+      <a href="https://tbt-beginner.github.io/htmls/causatives.html" target="_blank" rel="noopener">
+        <span class="t">使役動詞の力関係</span>
+        <span class="d">make・have・get・let を「相手の気持ちと力の使い方」で使い分ける</span>
+      </a>
+      <a href="https://tbt-beginner.github.io/htmls/nomorethan.html" target="_blank" rel="noopener">
+        <span class="t">no more than の温度感</span>
+        <span class="d">「たった」と「なんと」の気持ちを，リアルな場面で読み取る</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<script>
+  /* ---------- 同じ場面で押し方を比べる ---------- */
+  const LAB = {
+    told:       { g: 'word',  v: 'told',       ja: '親に「留学しなさい」と言われた。', push: '指示する', feel: 'いろいろ', done: 'まだわからない' },
+    advised:    { g: 'word',  v: 'advised',    ja: '親に「留学したほうがいい」と助言された。', push: '助言する', feel: '決めるのは自分', done: 'まだわからない' },
+    encouraged: { g: 'word',  v: 'encouraged', ja: '親が留学してみたらと背中を押してくれた。', push: '励ます・背中を押す', feel: '迷っていた', done: 'まだわからない' },
+    persuaded:  { g: 'word',  v: 'persuaded',  ja: '親に説得されて，留学することにした。', push: '説得する', feel: '最初は乗り気でなかった', done: 'した（することになった）' },
+    forced:     { g: 'force', v: 'forced',     ja: '親に無理やり留学させられた。', push: '力で押し切る', feel: 'いやだった', done: 'した（するしかなかった）' },
+    allowed:    { g: 'open',  v: 'allowed',    ja: '親が留学を許してくれた。', push: '許可する', feel: '行きたかった', done: '行ける（行くかは自分しだい）' },
+    helped:     { g: 'hand',  v: 'helped',     ja: '親が留学の準備を手伝ってくれた。', push: '手を貸す', feel: '行きたかった', done: 'した' }
+  };
+  const lab = document.getElementById('lab');
+  function showLab(k) {
+    const d = LAB[k];
+    lab.style.setProperty('--c', `var(--${d.g === 'word' ? 'word' : d.g === 'force' ? 'force' : d.g === 'open' ? 'open' : 'hand'})`);
+    const to = k === 'helped' ? '' : ' <b>to</b>';
+    document.getElementById('lab-en').innerHTML = `My parents <b>${d.v}</b> me${to} study abroad.`;
+    document.getElementById('lab-ja').textContent = d.ja;
+    document.getElementById('lab-push').textContent = d.push;
+    document.getElementById('lab-feel').textContent = d.feel;
+    document.getElementById('lab-done').textContent = d.done;
+    document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === k)));
+  }
+  document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => showLab(b.dataset.k)));
+  showLab('encouraged');
+
+  /* ---------- 確認問題 ---------- */
+  const QUIZ = [
+    { ctx: '台風のニュース', pre: 'The typhoon', post: 'the school to close for the day.', opts: ['forced', 'encouraged', 'allowed'], a: 0,
+      why: '学校は閉めたくなかったのに，閉めるしかなかった。だから force。' },
+    { ctx: '迷っていたら先生が「やってみなよ」と言ってくれた', pre: 'My teacher', post: 'me to join the speech contest.', opts: ['forced', 'encouraged', 'caused'], a: 1,
+      why: '励まして背中を押したので encourage。出場したかどうかはこの文ではわかりません。' },
+    { ctx: '何度も話して，ついに親がOKしてくれた', pre: 'I finally', post: 'my parents to buy me a guitar.', opts: ['advised', 'persuaded', 'reminded'], a: 1,
+      why: '説得して実際に買ってもらったので persuade。' },
+    { ctx: '新しい翻訳アプリの広告', pre: 'This app', post: 'you to talk with people from all over the world.', opts: ['enables', 'forces', 'tells'], a: 0,
+      why: 'アプリが「できる状態」をつくるので enable。「このアプリがあれば〜できる」。' },
+    { ctx: '校則の話', pre: "Our school doesn't", post: 'students to dye their hair.', opts: ['allow', 'cause', 'help'], a: 0,
+      why: 'ルールによる許可なので allow。' },
+    { ctx: '友達に荷物運びを頼む', pre: 'Can you help me', post: 'these boxes?', opts: ['carry', 'carrying', 'carried'], a: 0,
+      why: 'help O のあとは原形（または to 不定詞）。会話では原形がふつうです。' },
+    { ctx: '寝る前に友達へ', pre: 'Please', post: 'me to bring my P.E. clothes tomorrow.', opts: ['remind', 'force', 'enable'], a: 0,
+      why: '忘れないように声をかけてほしいので remind O to do。' }
+  ];
+  const quizEl = document.getElementById('quiz');
+  const scoreEl = document.getElementById('score');
+  let answered = 0, correct = 0;
+  function buildQuiz() {
+    quizEl.innerHTML = '';
+    answered = 0; correct = 0; scoreEl.textContent = '';
+    QUIZ.forEach((q, i) => {
+      const box = document.createElement('div'); box.className = 'q';
+      const ctx = document.createElement('p'); ctx.className = 'ctx'; ctx.textContent = `${i + 1}．${q.ctx}`;
+      const en = document.createElement('p'); en.className = 'en';
+      const blank = document.createElement('span'); blank.className = 'blank'; blank.textContent = ' ';
+      en.append(q.pre ? q.pre + ' ' : '', blank, ' ' + q.post);
+      const opts = document.createElement('div'); opts.className = 'opts';
+      const fb = document.createElement('p'); fb.className = 'fb'; fb.hidden = true;
+      q.opts.forEach((label, j) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.id = `q${i}-${j}`; b.textContent = label;
+        b.addEventListener('click', () => {
+          const ok = j === q.a;
+          opts.querySelectorAll('button').forEach((x, k) => {
+            x.disabled = true;
+            if (k === q.a) x.classList.add('right');
+            else if (k === j) x.classList.add('wrong');
+          });
+          blank.textContent = q.opts[q.a];
+          fb.hidden = false;
+          fb.textContent = (ok ? '正解！ ' : 'おしい。 ') + q.why;
+          answered++; if (ok) correct++;
+          if (answered === QUIZ.length) scoreEl.textContent = `${QUIZ.length}問中 ${correct}問 正解`;
+        });
+        opts.append(b);
+      });
+      box.append(ctx, en, opts, fb);
+      quizEl.append(box);
+    });
+  }
+  document.getElementById('reset').addEventListener('click', buildQuiz);
+  buildQuiz();
+</script>
+
+</body>
+</html>

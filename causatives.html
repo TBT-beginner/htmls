@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>使役動詞の力関係</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+  /* レイアウト：1本の読み物の列。4つの動詞に1色ずつ（make 赤＝力ずく／have 藍＝当然の指示／let 緑＝許す／get 琥珀＝説得） */
+  :root {
+    --bg: #f3f4f7;
+    --paper: #ffffff;
+    --ink: #1a202b;
+    --muted: #5b6474;
+    --line: #d8dde6;
+    --make: #d0412f;
+    --have: #3657b8;
+    --let: #1d8a5c;
+    --get: #b46a00;
+    --ok: #1d8a5c;
+    --ng: #d0412f;
+    --display: 'Dela Gothic One', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    --body: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+    --en: 'Newsreader', 'Georgia', 'Times New Roman', serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12161d; --paper: #1b212b; --ink: #e8edf4; --muted: #9ba6b6; --line: #2d3746;
+      --make: #ff7a66; --have: #8aa6ff; --let: #4fcf95; --get: #f2b24c; --ok: #4fcf95; --ng: #ff7a66;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12161d; --paper: #1b212b; --ink: #e8edf4; --muted: #9ba6b6; --line: #2d3746;
+    --make: #ff7a66; --have: #8aa6ff; --let: #4fcf95; --get: #f2b24c; --ok: #4fcf95; --ng: #ff7a66;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.85;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 64px;
+  }
+  main { max-width: 720px; margin: 0 auto; display: grid; gap: 56px; }
+  h1, h2 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: 0.01em; }
+  h1 { font-size: clamp(30px, 7vw, 46px); line-height: 1.25; }
+  h2 { font-size: clamp(22px, 4.6vw, 28px); line-height: 1.35; }
+  h3 { margin: 0; font-size: 17px; }
+  p { margin: 0; }
+  section, header { display: grid; gap: 18px; }
+  .en { font-family: var(--en); font-size: 1.12em; }
+  .muted { color: var(--muted); }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; color: var(--muted); }
+  .v-make { color: var(--make); } .v-have { color: var(--have); } .v-let { color: var(--let); } .v-get { color: var(--get); }
+  b.v-make, b.v-have, b.v-let, b.v-get { font-weight: 700; }
+  :focus-visible { outline: 3px solid var(--have); outline-offset: 2px; }
+
+  /* ===== 冒頭：日本語はぜんぶ「させる」 ===== */
+  .sasete { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 12px; }
+  .sasete .ja-big { font-size: clamp(18px, 4.4vw, 22px); font-weight: 700; }
+  .sasete ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .sasete li { display: grid; grid-template-columns: 4.2em 1fr; gap: 10px; align-items: baseline; }
+  .tag { font-family: var(--en); font-weight: 600; font-size: 17px; }
+
+  /* ===== 力関係ラボ ===== */
+  .lab { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 16px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tabs button {
+    font: inherit; font-family: var(--en); font-size: 17px; font-weight: 600; cursor: pointer; border-radius: 999px; padding: 4px 16px;
+    border: 1.5px solid var(--line); background: transparent; color: var(--ink);
+  }
+  .tabs button[aria-pressed="true"] { color: var(--paper); border-color: var(--c); background: var(--c); }
+  .sentence { font-family: var(--en); font-size: clamp(20px, 4.6vw, 25px); line-height: 1.45; }
+  .sentence b { color: var(--c); }
+  .scale { display: grid; gap: 6px; }
+  .scale .off { font-size: 13.5px; font-weight: 700; color: var(--make); }
+  .scale.is-off .dot { opacity: 0; }
+  .scale .ends { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+  .scale .bar { position: relative; height: 10px; border-radius: 5px; background: linear-gradient(90deg, var(--make), var(--line) 50%, var(--let)); opacity: 0.55; }
+  .scale .dot { position: absolute; top: 50%; width: 22px; height: 22px; border-radius: 50%; background: var(--c); border: 3px solid var(--paper); box-shadow: 0 0 0 1.5px var(--c); transform: translate(-50%, -50%); transition: left .35s; }
+  @media (prefers-reduced-motion: reduce) { .scale .dot { transition: none; } }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .facts > div { background: var(--bg); border-radius: 10px; padding: 10px 12px; display: grid; gap: 2px; min-width: 0; }
+  .facts .k { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.04em; }
+  .facts .v { font-weight: 700; line-height: 1.5; }
+  @media (max-width: 560px) { .facts { grid-template-columns: 1fr; } }
+  .lab .ja { font-size: 18px; font-weight: 700; }
+
+  /* ===== 動詞ごとの場面 ===== */
+  .verb { display: grid; gap: 12px; }
+  .verb-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .verb-head .big { font-family: var(--en); font-weight: 600; font-size: 34px; line-height: 1; color: var(--c); }
+  .form { font-size: 14px; font-weight: 700; border: 1.5px solid var(--c); color: var(--c); border-radius: 999px; padding: 1px 12px; }
+  .scenes { display: grid; gap: 10px; }
+  .scene { background: var(--paper); border: 1px solid var(--line); border-left: 5px solid var(--c); border-radius: 14px; padding: 14px 18px; display: grid; gap: 6px; }
+  .where { font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
+  .scene .en { font-size: 1.2em; line-height: 1.45; }
+  .scene .en b { color: var(--c); }
+  .scene .ja { font-weight: 700; }
+  .scene .why { font-size: 14.5px; color: var(--muted); }
+  .c-make { --c: var(--make); } .c-have { --c: var(--have); } .c-let { --c: var(--let); } .c-get { --c: var(--get); }
+
+  .note { background: var(--paper); border: 1px dashed var(--line); border-radius: 12px; padding: 14px 16px; font-size: 14.5px; display: grid; gap: 6px; }
+  .note h3 { font-size: 14.5px; }
+
+  /* ===== 確認 ===== */
+  .quiz { display: grid; gap: 12px; }
+  .q { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 10px; }
+  .q .ctx { font-size: 13px; color: var(--muted); }
+  .q .en { font-size: 1.18em; }
+  .q .blank { display: inline-block; min-width: 3.2em; border-bottom: 2px solid var(--ink); text-align: center; font-weight: 600; }
+  .q .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .q .opts button {
+    font: inherit; font-family: var(--en); font-size: 17px; cursor: pointer; border-radius: 10px; padding: 3px 14px;
+    border: 1.5px solid var(--line); background: transparent; color: var(--ink);
+  }
+  .q .opts button:hover:not(:disabled) { border-color: var(--ink); }
+  .q .opts button.right { border-color: var(--ok); color: var(--ok); font-weight: 700; }
+  .q .opts button.wrong { border-color: var(--ng); color: var(--ng); text-decoration: line-through; }
+  .q .opts button:disabled { cursor: default; }
+  .q .fb { font-size: 14.5px; }
+  .score { font-weight: 700; }
+  .reset { justify-self: start; font: inherit; font-size: 14px; cursor: pointer; border: 1.5px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 14px; }
+
+  /* ===== まとめ ===== */
+  .sum { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--paper); border-radius: 12px; overflow: hidden; font-size: 15px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 13px; color: var(--muted); font-weight: 700; white-space: nowrap; }
+  td:first-child { font-family: var(--en); font-weight: 600; font-size: 17px; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+
+  /* ===== 関連ページ ===== */
+  .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .links a { display: grid; gap: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; color: var(--ink); text-decoration: none; }
+  .links a:hover { border-color: var(--ink); }
+  .links .t { font-weight: 700; }
+  .links .d { font-size: 14px; color: var(--muted); }
+</style>
+
+</head>
+<body>
+<main>
+  <!-- ===== 冒頭 ===== -->
+  <header>
+    <p class="kicker">使役動詞 ／ 高校英語</p>
+    <h1>「させる」は1つ，<br>英語では4つ。</h1>
+    <p>日本語ではどれも「〜させる」ですが，英語は<b>相手の気持ちがどうかかわるか</b>と，<b>主語がどんな力を使うか</b>で動詞を選びます。</p>
+    <p class="muted" style="font-size:14.5px">encourage・enable・force など，to をとる動詞は <a href="https://tbt-beginner.github.io/htmls/votodo.html" target="_blank" rel="noopener" style="color:var(--have)">V O to do の押し方</a> のページへ。</p>
+    <div class="sasete">
+      <p class="ja-big">弟に皿洗いをさせた。</p>
+      <ul>
+        <li><span class="tag v-make">made</span><span>弟がいやでも，その気がなくても，<b class="v-make">洗う場面をつくった</b></span></li>
+        <li><span class="tag v-have">had</span><span>当番だから，<b class="v-have">当然のように</b>やってもらった</span></li>
+        <li><span class="tag v-get">got</span><span>おやつで<b class="v-get">説得して</b>やってもらった</span></li>
+        <li><span class="tag v-let">let</span><span>やりたがっていたので，<b class="v-let">やらせてあげた</b></span></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ===== 力関係ラボ ===== -->
+  <section aria-labelledby="h-lab">
+    <h2 id="h-lab">同じ場面で比べてみよう</h2>
+    <p class="muted" style="font-size:14px">動詞を選ぶと，弟の気持ちとお母さんの力の使い方が変わります。</p>
+    <div class="lab" id="lab">
+      <div class="tabs" role="group" aria-label="動詞を選ぶ">
+        <button type="button" id="t-make" data-k="make" aria-pressed="true">make</button>
+        <button type="button" id="t-have" data-k="have" aria-pressed="false">have</button>
+        <button type="button" id="t-get" data-k="get" aria-pressed="false">get</button>
+        <button type="button" id="t-let" data-k="let" aria-pressed="false">let</button>
+      </div>
+      <p class="sentence" id="lab-en"></p>
+      <p class="ja" id="lab-ja"></p>
+      <div class="scale" id="lab-scale">
+        <div class="ends"><span>弟は やりたくない</span><span>弟は やりたい</span></div>
+        <div class="bar"><span class="dot" id="lab-dot"></span></div>
+        <p class="off" id="lab-off" hidden>make は目盛りの外。弟がいやがっていても，その気がまったくなくても，皿を洗う場面をつくってしまいます。</p>
+      </div>
+      <div class="facts">
+        <div><span class="k">お母さんの力</span><span class="v" id="lab-power"></span></div>
+        <div><span class="k">弟の気持ち</span><span class="v" id="lab-feel"></span></div>
+        <div><span class="k">後ろの形</span><span class="v" id="lab-form"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== make ===== -->
+  <section class="verb c-make" aria-labelledby="h-make">
+    <div class="verb-head"><span class="big">make</span><h2 id="h-make">いやでも，その気がなくても，そうなる場面をつくる</h2><span class="form">make ＋ 人 ＋ 原形</span></div>
+    <p>make は，相手が<b>いやがっていても，そうする気持ちがまったくなくても，そうなる場面をつくってしまう</b>動詞です。コーチに走らされるのも，曲を聞いて泣いてしまうのも同じ make です。どちらも，本人が「そうしよう」と決めたわけではありません。主語が人でないときは「〜で…してしまう」と訳すと自然で，実はこちらが日常でいちばんよく使われます。</p>
+    <div class="scenes">
+      <article class="scene">
+        <span class="where">好きな曲の話</span>
+        <p class="en">This song always <b>makes</b> me cry.</p>
+        <p class="ja">この曲を聞くと，いつも泣いちゃう。</p>
+        <p class="why">泣こうと思って聞いたわけではないのに，曲が泣いてしまう場面をつくる。だから make です。</p>
+      </article>
+      <article class="scene">
+        <span class="where">部活のあと</span>
+        <p class="en">Our coach <b>made</b> us run ten laps in the rain.</p>
+        <p class="ja">コーチに，雨の中10周も走らされた。</p>
+        <p class="why">走るかどうかを選ぶ余地がなかった，という状況です。ここではいやな気持ちもにじむので，「〜させられた」と訳すと自然です。</p>
+      </article>
+      <article class="scene">
+        <span class="where">留学から帰ってきた先輩</span>
+        <p class="en">My host family <b>made</b> me feel at home.</p>
+        <p class="ja">ホストファミリーのおかげで，自分の家にいるようにくつろげた。</p>
+        <p class="why">うれしい場面の make です。くつろごうと決めたわけではないのに，ホストファミリーがくつろげる場面をつくってくれた，という感じです。</p>
+      </article>
+      <article class="scene">
+        <span class="where">友達との会話</span>
+        <p class="en">Stop it! Don't <b>make</b> me laugh.</p>
+        <p class="ja">やめてよ，笑わせないで。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== have ===== -->
+  <section class="verb c-have" aria-labelledby="h-have">
+    <div class="verb-head"><span class="big">have</span><h2 id="h-have">当然のこととして・仕事として</h2><span class="form">have ＋ 人 ＋ 原形</span></div>
+    <p>相手にとって<b>やるのが当たり前のこと</b>（仕事・役割）を頼むときの have です。強制でもお願いでもなく，淡々と「やってもらう」感じです。</p>
+    <div class="scenes">
+      <article class="scene">
+        <span class="where">会社の電話で</span>
+        <p class="en">He's out right now. I'll <b>have</b> him call you back.</p>
+        <p class="ja">ただいま席を外しております。折り返しお電話させます。</p>
+        <p class="why">電話の折り返しは担当者の仕事なので have。ビジネス英語の決まり文句です。</p>
+      </article>
+      <article class="scene">
+        <span class="where">美容院のあと（have ＋ もの ＋ 過去分詞）</span>
+        <p class="en">I <b>had</b> my hair cut yesterday.</p>
+        <p class="ja">昨日，髪を切ってもらった。</p>
+        <p class="why">髪が「切られる」ので，後ろは過去分詞の cut。プロにやってもらうことによく使います。</p>
+      </article>
+      <article class="scene">
+        <span class="where">駅前で（被害の have）</span>
+        <p class="en">I <b>had</b> my bike stolen at the station.</p>
+        <p class="ja">駅で自転車を盗まれた。</p>
+        <p class="why">同じ形で「〜される（被害）」の意味にもなります。頼んで盗んでもらったわけではありません。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== get ===== -->
+  <section class="verb c-get" aria-labelledby="h-get">
+    <div class="verb-head"><span class="big">get</span><h2 id="h-get">説得して・なんとか</h2><span class="form">get ＋ 人 ＋ to 不定詞</span></div>
+    <p>最初は乗り気でない相手を，<b>言葉やごほうびで動かして</b>やってもらうのが get です。4つの中でただ1つ，<b>to が必要</b>です。</p>
+    <div class="scenes">
+      <article class="scene">
+        <span class="where">家族のグループLINE</span>
+        <p class="en">I finally <b>got</b> my dad <b>to</b> buy me a new phone!</p>
+        <p class="ja">ついにお父さんを説得して，新しいスマホを買ってもらった！</p>
+        <p class="why">finally（ついに）とよく一緒に使われます。何度も頼んだ苦労が伝わります。</p>
+      </article>
+      <article class="scene">
+        <span class="where">宿題に追われて（get ＋ もの ＋ 過去分詞）</span>
+        <p class="en">I need to <b>get</b> my homework done before dinner.</p>
+        <p class="ja">夕飯までに宿題を終わらせなきゃ。</p>
+        <p class="why">get O done は「（自分で）〜を済ませる」。会話でとてもよく使います。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== let ===== -->
+  <section class="verb c-let" aria-labelledby="h-let">
+    <div class="verb-head"><span class="big">let</span><h2 id="h-let">やりたいなら，どうぞ</h2><span class="form">let ＋ 人 ＋ 原形</span></div>
+    <p>相手が<b>やりたがっていることを止めない・許す</b>のが let です。力の向きが make と正反対です。</p>
+    <div class="scenes">
+      <article class="scene">
+        <span class="where">メッセージの最後に</span>
+        <p class="en"><b>Let</b> me know if you need anything.</p>
+        <p class="ja">何かあったら教えてね。</p>
+        <p class="why">直訳は「私に知らせることを許して」。英語で毎日のように見る，いちばん身近な使役です。</p>
+      </article>
+      <article class="scene">
+        <span class="where">ライブの帰り道</span>
+        <p class="en">My parents <b>let</b> me go to the concert alone!</p>
+        <p class="ja">親が1人でライブに行かせてくれた！</p>
+        <p class="why">「行きたい」という自分の気持ちを親が許してくれた，といううれしさです。</p>
+      </article>
+      <article class="scene">
+        <span class="where">質問されて考えるとき</span>
+        <p class="en">Hmm, <b>let</b> me think.</p>
+        <p class="ja">うーん，ちょっと考えさせて。</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="note">
+    <h3>入試でねらわれるポイント</h3>
+    <p>make を受け身にすると，消えていた to がもどります。<span class="en">We were made <b>to</b> run ten laps.</span>（10周走らされた）。let は受け身にせず，<span class="en">be allowed to</span> を使います。また <span class="en">help</span> は <span class="en">Can you help me (to) move this desk?</span> のように，原形でも to 不定詞でもかまいません。</p>
+  </div>
+
+  <!-- ===== 確認 ===== -->
+  <section aria-labelledby="h-quiz">
+    <h2 id="h-quiz">場面に合う動詞を選ぼう</h2>
+    <p>空所に入るものを選びましょう。理由もいっしょに出ます。</p>
+    <div class="quiz" id="quiz"></div>
+    <p class="score" id="score" aria-live="polite"></p>
+    <button type="button" class="reset" id="reset">もう一度やる</button>
+  </section>
+
+  <!-- ===== まとめ ===== -->
+  <section aria-labelledby="h-sum">
+    <h2 id="h-sum">まとめ</h2>
+    <div class="sum">
+      <table>
+        <thead><tr><th>動詞</th><th>相手の気持ちの扱い</th><th>何によってそうなるか</th><th>形</th><th>身近な例</th></tr></thead>
+        <tbody>
+          <tr><td class="v-make">make</td><td>いやがっていても，その気がまったくなくても</td><td>主語がそうなる場面をつくる（命令でも，曲や言葉でも）</td><td>人＋原形</td><td class="en">This song makes me cry.</td></tr>
+          <tr><td class="v-have">have</td><td>気持ちより，役目だからやる</td><td>役割・仕事として当然だから</td><td>人＋原形／もの＋過去分詞</td><td class="en">I'll have him call you back.</td></tr>
+          <tr><td class="v-get">get</td><td>その気がない相手を，その気にさせる</td><td>説得・ごほうび</td><td>人＋<b>to</b> 不定詞／もの＋過去分詞</td><td class="en">I got my dad to buy me a phone.</td></tr>
+          <tr><td class="v-let">let</td><td>本人がやりたがっている</td><td>相手の気持ちを止めずに通す</td><td>人＋原形</td><td class="en">Let me know.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-links">
+    <h2 id="h-links">関連ページ</h2>
+    <div class="links">
+      <a href="https://tbt-beginner.github.io/htmls/votodo.html" target="_blank" rel="noopener">
+        <span class="t">V O to do の押し方</span>
+        <span class="d">encourage・enable・force・persuade など，相手を行動へ向かわせる動詞</span>
+      </a>
+      <a href="https://tbt-beginner.github.io/htmls/nomorethan.html" target="_blank" rel="noopener">
+        <span class="t">no more than の温度感</span>
+        <span class="d">「たった」と「なんと」の気持ちを，リアルな場面で読み取る</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<script>
+  /* ---------- 同じ場面で比べる ---------- */
+  const LAB = {
+    make: { c: 'var(--make)', en: 'Mom <b>made</b> my brother wash the dishes.', ja: 'お母さんは，弟に（有無を言わせず）皿洗いをさせた。',
+            at: null, power: 'そうなる場面をつくってしまう', feel: 'いやでも，その気がなくても', form: '人 ＋ 原形' },
+    have: { c: 'var(--have)', en: 'Mom <b>had</b> my brother wash the dishes.', ja: 'お母さんは，当番の弟に皿洗いをしてもらった。',
+            at: 50, power: '当然のこととして指示', feel: 'どちらでもない（役目）', form: '人 ＋ 原形' },
+    get:  { c: 'var(--get)', en: 'Mom <b>got</b> my brother <b>to</b> wash the dishes.', ja: 'お母さんは，弟をうまく説得して皿洗いをさせた。',
+            at: 28, power: '説得・ごほうび', feel: '最初は乗り気でない', form: '人 ＋ to 不定詞' },
+    let:  { c: 'var(--let)', en: 'Mom <b>let</b> my brother wash the dishes.', ja: 'お母さんは，やりたがる弟に皿洗いをやらせてあげた。',
+            at: 92, power: '止めずに許す', feel: 'やりたい', form: '人 ＋ 原形' }
+  };
+  const lab = document.getElementById('lab');
+  function showLab(k) {
+    const d = LAB[k];
+    lab.style.setProperty('--c', d.c);
+    document.getElementById('lab-en').innerHTML = d.en;
+    document.getElementById('lab-ja').textContent = d.ja;
+    const off = d.at === null;
+    document.getElementById('lab-scale').classList.toggle('is-off', off);
+    document.getElementById('lab-off').hidden = !off;
+    if (!off) document.getElementById('lab-dot').style.left = d.at + '%';
+    document.getElementById('lab-power').textContent = d.power;
+    document.getElementById('lab-feel').textContent = d.feel;
+    document.getElementById('lab-form').textContent = d.form;
+    document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === k)));
+  }
+  document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => showLab(b.dataset.k)));
+  showLab('make');
+
+  /* ---------- 確認問題 ---------- */
+  const QUIZ = [
+    { ctx: '先輩おすすめの曲を聞いて', pre: 'This song always', post: 'me cry.', opts: ['makes', 'lets', 'gets'], a: 0,
+      why: '泣く気はまったくないのに，曲が泣いてしまう場面をつくる。だから make。' },
+    { ctx: '会社の電話で「折り返しお電話させます」', pre: "I'll", post: 'him call you back.', opts: ['make', 'have', 'let'], a: 1,
+      why: '折り返しは担当者の仕事なので have。make だと「本人がいやでも電話させる」ことになってしまいます。' },
+    { ctx: 'メッセージの最後に「何かあったら教えてね」', pre: '', post: 'me know if you need anything.', opts: ['Make', 'Have', 'Let'], a: 2,
+      why: 'Let me know. は「知らせてね」の決まり文句です。' },
+    { ctx: 'やっとお母さんを説得できた', pre: 'I finally got my mom', post: 'me a new phone.', opts: ['buy', 'to buy', 'bought'], a: 1,
+      why: 'get ＋ 人 のあとは to 不定詞。4つの中で get だけ to が必要です。' },
+    { ctx: '雨の日の部活', pre: 'Our coach', post: 'us run ten laps in the rain.', opts: ['made', 'let', 'had'], a: 0,
+      why: 'いやでも走るしかない場面をつくったので make。let だと「走らせてくれた」と，自分が走りたかったことになります。' },
+    { ctx: '美容院のあとで', pre: 'I', post: 'my hair cut yesterday.', opts: ['had', 'let', 'made'], a: 0,
+      why: 'have ＋ もの ＋ 過去分詞で「（プロに）〜してもらう」。get my hair cut も同じ意味でよく使います。' },
+    { ctx: '親が1人旅を許してくれた', pre: 'My parents', post: 'me travel alone this summer.', opts: ['made', 'let', 'got'], a: 1,
+      why: '自分がやりたかったことを許してくれたので let。' }
+  ];
+  const quizEl = document.getElementById('quiz');
+  const scoreEl = document.getElementById('score');
+  let answered = 0, correct = 0;
+  function buildQuiz() {
+    quizEl.innerHTML = '';
+    answered = 0; correct = 0; scoreEl.textContent = '';
+    QUIZ.forEach((q, i) => {
+      const box = document.createElement('div'); box.className = 'q';
+      const ctx = document.createElement('p'); ctx.className = 'ctx'; ctx.textContent = `${i + 1}．${q.ctx}`;
+      const en = document.createElement('p'); en.className = 'en';
+      const blank = document.createElement('span'); blank.className = 'blank'; blank.textContent = ' ';
+      en.append(q.pre ? q.pre + ' ' : '', blank, ' ' + q.post);
+      const opts = document.createElement('div'); opts.className = 'opts';
+      const fb = document.createElement('p'); fb.className = 'fb'; fb.hidden = true;
+      q.opts.forEach((label, j) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.id = `q${i}-${j}`; b.textContent = label;
+        b.addEventListener('click', () => {
+          const ok = j === q.a;
+          opts.querySelectorAll('button').forEach((x, k) => {
+            x.disabled = true;
+            if (k === q.a) x.classList.add('right');
+            else if (k === j) x.classList.add('wrong');
+          });
+          blank.textContent = q.opts[q.a];
+          fb.hidden = false;
+          fb.textContent = (ok ? '正解！ ' : 'おしい。 ') + q.why;
+          answered++; if (ok) correct++;
+          if (answered === QUIZ.length) scoreEl.textContent = `${QUIZ.length}問中 ${correct}問 正解`;
+        });
+        opts.append(b);
+      });
+      box.append(ctx, en, opts, fb);
+      quizEl.append(box);
+    });
+  }
+  document.getElementById('reset').addEventListener('click', buildQuiz);
+  buildQuiz();
+</script>
+
+</body>
+</html>

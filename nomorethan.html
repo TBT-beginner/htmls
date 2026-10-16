@@ -1,4 +1,8 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>no more than の温度感</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -135,8 +139,17 @@
   th { font-size: 13px; color: var(--muted); font-weight: 700; }
   td.en { white-space: nowrap; }
   tr:last-child td { border-bottom: none; }
+
+  /* ===== 関連ページ ===== */
+  .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .links a { display: grid; gap: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; color: var(--ink); text-decoration: none; }
+  .links a:hover { border-color: var(--ink); }
+  .links .t { font-weight: 700; }
+  .links .d { font-size: 14px; color: var(--muted); }
 </style>
 
+</head>
+<body>
 <main>
   <!-- ===== 冒頭 ===== -->
   <header class="hero">
@@ -298,6 +311,20 @@
       </table>
     </div>
   </section>
+
+  <section aria-labelledby="h-links">
+    <h2 id="h-links">関連ページ</h2>
+    <div class="links">
+      <a href="https://tbt-beginner.github.io/htmls/causatives.html" target="_blank" rel="noopener">
+        <span class="t">使役動詞の力関係</span>
+        <span class="d">make・have・get・let を「相手の気持ちと力の使い方」で使い分ける</span>
+      </a>
+      <a href="https://tbt-beginner.github.io/htmls/votodo.html" target="_blank" rel="noopener">
+        <span class="t">V O to do の押し方</span>
+        <span class="d">encourage・enable・force・persuade など，相手を行動へ向かわせる動詞</span>
+      </a>
+    </div>
+  </section>
 </main>
 
 <script>
@@ -408,4 +435,5 @@
   buildQuiz();
 </script>
 
-</body></html>
+</body>
+</html>
